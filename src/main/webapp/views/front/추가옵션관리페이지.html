@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <!-- ---------------------------------- -->
+    
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{
+            min-height:600px;
+            display: flex;
+        
+        }
+        .footer{height:200px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        .header{display:flex; flex-direction:column;}
+        .header_logo { 
+            height: 70%; 
+            background-color: rgb(235, 231, 227); 
+            display: flex;
+            align-items: center;
+        }
+        .header_logo img {
+            height: 100%;
+            width: auto;
+        }
+        .header_nav {
+            height: 30%; 
+            display: flex; 
+            background-color: rgb(191, 180, 176);
+            
+            justify-content: space-between;
+            align-items: center;
+        }
+        .left_nav{
+            display: flex; 
+            align-items: center;
+        }
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+        }
+        .header_nav a{
+            color: rgb(99, 76, 70);
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .left_nav>a{
+            margin-right: 100px;
+        }
+
+        
+        .footer{
+            display:flex;
+            flex-direction:column;
+            background-color: rgb(235, 231, 227);
+        }
+        .footer_link{height:20%; display:flex; align-items:center;}
+        .footer_link a{text-decoration:none; color:black; font-weight:bold; margin:15px;}
+        .footer_company{height:80%;}
+        .footer_company>ul{list-style:"- "; padding-left:15px;}
+        .footer>div{border-top:1px solid rgb(191, 180, 176)}
+        .footer li {color: rgb(171, 158, 153);}
+
+        /*왼쪽 메뉴바 */
+        .sideMenubar{
+            width: 300px;
+            min-height: 600px;
+            background-color: rgb(235, 231, 227);
+        }
+        .sideMenubar a {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* 페이지 영역 확인용서식*/
+        .page_content {
+                                                                                                                                                                                
+            width: 100%;        
+            padding-top: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+            /*border: 1px solid red;*/
+            
+        }
+
+        .contentName{
+            color: rgb(115, 90, 75);
+        }
+        
+        .addOpion_content{
+            display: inline-block;
+            width: 60%;
+            min-height: 400px;
+            border: 1px solid black;
+            text-align: left;
+            padding: 20px;
+        }
+        .addOpion_content label{
+            margin-right: 10px;
+        }
+
+
+        .addOption_controll *{
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <!-- header start-->
+        <header class="header">
+            <a href="" class="header_logo center">
+                    <img src="resources/mainLogo.PNG"  alt="메인로고이미지">
+            </a>
+            <nav class="header_nav">
+                <div class="left_nav" >
+                    <a href="" style="margin-left: 15px;">호텔 관리</a>
+                    <a href="" style="margin-left: 15px;">사용자 관리</a>
+                    <a href="" style="margin-left: 15px;">고객센터 관리</a>
+                    <a href="" style="margin-left: 15px;">홈페이지 관리</a>
+                </div>
+                 <!--  로그인창 띄워야될경우 
+                 <div class="right_nav">
+                    <a href="">로그인</a>
+                    <a href="">회원가입</a>
+                    </div>
+                  -->
+                 <!-- 관리자 로그인 -->
+                 <div class="right_nav">
+                    <b>관리자님 반갑습니다 </b>
+                    <a href="">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                </div>
+                
+            </nav>
+        </header>
+        <!-- header end-->
+
+
+        <section class="main_content">
+            
+            <div class="sideMenubar">
+                <ul class="nav flex-column">
+                    <li >
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">메뉴명</h3>
+                    </li>
+                    
+                    <li>
+                        <a class="nav-link" href="" >호텔등록 현황</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href=""  >호텔코드 등록</a>
+                    </li>
+                    <li>
+                        <a class="nav-link"  href="" >태그 관리</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;" href="" >추가옵션 관리</a>
+                    </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+
+            <div class="page_content"> 
+                <h2 class="contentName">추가옵션 관리</h2>
+                <div style="margin-top: 10px; margin-bottom: 40px; border: 2px solid lightgray;"></div>
+                <div align="center">
+                    <h4 style="display: inline;"><span class="badge badge-secondary" style="background-color: rgb(235, 231, 227); color: rgb(115, 90, 85);">등록된태그</span></h4>
+                    <div  class="addOpion_content">
+                        <label>
+                            <input type="checkbox" name="addOpion">
+                            옵션명 긴거 확인
+                        </label>
+                        <label>
+                            <input type="checkbox" name="addOpion">
+                            옵션명 긴거 확인
+                        </label>
+                        <label>
+                            <input type="checkbox" name="addOpion">
+                            옵션명 긴거 확인
+                        </label>
+                        <label>
+                            <input type="checkbox" name="addOpion">
+                            옵션명 긴거 확인
+                        </label>
+                        <label>
+                            <input type="checkbox" name="addOpion">
+                            옵션명 긴거 확인
+                        </label>                        
+                        
+                    </div>
+                    <div class="addOption_controll">
+                        <!--<i class="bi bi-search" style="background-color: lightgray;"></i>-->
+                        <input type="text" placeholder="옵션검색">
+                        <button  class="btn btn-secondary" style="margin-top: 10px;" data-toggle="modal" data-target="#optionAdd">추가하기</button>
+                        <button  class="btn btn-secondary" style="margin-top: 10px;" data-toggle="modal" data-target="#optionModify">수정하기</button>
+                        <button  class="btn btn-secondary" style="margin-top: 10px;" data-toggle="modal" data-target="#optionDelete">삭제하기</button>
+                    </div>
+                </div>  
+            </div>
+        <!--추가하기 모달-->
+        <!-- The Modal -->
+        <div class="modal" id="optionAdd">
+            <div class="modal-dialog" style="width: 350px;">
+            <div class="modal-content">
+        
+                <!-- Modal body -->
+                <div class="modal-body ">
+                        <span class="btn btn-sm" style="background-color: lightgray;">추가할 옵션명</span><input type="text">
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer center">
+                <a href="" class="btn btn-secondary" style="width: 80px;">Ok</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+        
+            </div>
+            </div>
+        </div>
+        
+        <!--수정하기 모달-->
+        <!-- The Modal -->
+        <div class="modal" id="optionModify">
+            <div class="modal-dialog" style="width: 350px;">
+            <div class="modal-content">
+        
+                <!-- Modal body -->
+                <div class="modal-body ">
+                    <table>
+                        <tr>
+                            <td class="btn btn-sm" style="background-color: lightgray;">기존 옵션명</td>
+                            <td><input type="text" readonly value="기존태그명"></td>
+                        </tr>
+                        <tr>
+                            <td class="btn btn-sm" style="background-color: lightgray;">수정할 옵션명</td>
+                            <td><input type="text"></td>
+                        </tr>
+                    </table>
+                         <br>
+                        
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer center">
+                <a href="" class="btn btn-secondary" style="width: 80px;">Ok</a>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+        
+            </div>
+            </div>
+        </div>
+
+        <!--삭제하기 모달-->
+        <!-- The Modal -->
+        <div class="modal" id="optionDelete">
+            <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+        
+                <!-- Modal body -->
+                <div class="modal-body center">
+                <p>해당 옵션를 삭제하시겠습니까?</p>
+                </div>
+        
+                <!-- Modal footer -->
+                <div class="modal-footer center">
+                    <a href="" class="btn btn-secondary" style="width: 80px;">Ok</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+        
+            </div>
+            </div>
+        </div>
+
+
+        </section>
+
+         <!-- Footer start -->
+         <footer class="footer">
+            <div class="footer_link">
+                <a href="">GALGODA 소개</a> 
+                <a href="">공지사항</a> 
+                <a href="">개인정보처리방침</a> 
+                <a href="">이용약관</a> 
+                <a href="">고객센터</a>
+            </div>
+            <div class="footer_company">
+                <ul>
+                    <li>상호명 : GALGODA(주)</li>
+                    <li>대표자 : 어디갈때여기조</li>
+                    <li>사업자등록번호 123-45-67890</li>
+                    <li>전화 : 02-1234-5678 / FAX 02-1234-5678</li>
+                    <li>(08505) 서울특별시 금천구 가산디지털2로 95
+                        (가산동, km타워) 2층, 3층</li>
+                    <li>Copyright ⓒ GooDee Academy. All rights reserved.</li>
+                </ul>
+            </div>
+            
+        </footer>
+        <!-- Footer end -->
+    </div>
+</body>
+</html>
