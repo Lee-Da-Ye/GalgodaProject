@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ---------------------------------- -->
+    <!-- 아이콘 사용을 위한 연결-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <!---------------------------------------->
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{min-height:600px;}
+        .footer{height:200px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        .header{display:flex; flex-direction:column;}
+        .header_logo {height: 70%; background-color: rgb(235, 231, 227); }
+        .header_nav {
+            height: 30%; 
+            display: flex; 
+            background-color: rgb(191, 180, 176);
+            justify-content: space-between;
+            align-items: center;
+        }
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+            
+        }
+        
+        .header_nav a{
+            color: rgb(99, 76, 70);
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        .footer{
+            display:flex;
+            flex-direction:column;
+            background-color: rgb(235, 231, 227);
+        }
+        .footer_link{height:20%; display:flex; align-items:center;}
+        .footer_link a{text-decoration:none; color:black; font-weight:bold; margin:15px;}
+        .footer_company{height:80%;}
+        .footer_company>ul{list-style:"- "; padding-left:15px;}
+        .footer>div{border-top:1px solid rgb(191, 180, 176)}
+        .footer li {color: rgb(171, 158, 153);}
+
+        .main_image {height: 30%;}
+
+        /* 검색바 관련 서식*/
+        .main_top{
+            padding: 10px;
+            border: 1px solid rgb(99, 76, 70);
+            border-radius: 20px;
+            margin-top: 5px;
+        }
+        .searchBar {
+            height: 150px;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+        }
+        .searchBar td{
+            padding: 10px;
+        }
+        .searchBar input[type="number"] {
+            width: 100%;
+            text-align: center;
+        }
+        .searchButton{
+            color: rgb(99, 76, 70);
+            background-color: rgb(235, 231, 227);
+            width: 230px;
+        }
+        
+        .iconInput{
+            position: relative;
+        }
+        .iconInput i {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+        }
+        i{
+            color: rgb(115, 90, 85);
+        }
+        
+        /*인기호텔 관련 영역 서식 */
+        h2{
+            color: rgb(115, 90, 85);
+        }
+        .main_bottom>div{
+            border-radius:10px;
+            min-height:500px;
+            padding:50px;
+            
+        }
+        .main_hotelImg{
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .hotelThumbnail {
+            width: 250px;
+            margin: 30px;
+            border: 1px solid lightgray;
+            padding: 5px;
+            cursor: pointer;
+            position: relative;
+            
+        }
+        .hotelImg{
+            width: 240px;
+            height: 230px;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <!-- header start-->
+        <header class="header">
+            <div class="header_logo center"><img src="resources/mainLogo.png"  height="100%"  alt="메인로고이미지"></div>
+            <nav class="header_nav">
+                <div class="left_nav">
+                <a href="" style="margin-left: 15px;"><i class="bi bi-search"></i> 호텔검색</a>
+                </div>
+                <div class="center_nav"></div>
+                 <!-- case1. 로그인 전 -->
+                <div class="right_nav">
+                <a href="">로그인</a>
+                <a href="">회원가입</a>
+                </div>
+                 <!-- case2. 로그인 후 
+                 <div class="right_nav">
+                    <a href="">로그인</a>
+                    <a href="">회원가입</a>
+                </div>
+                -->
+            </nav>
+        </header>
+        <!-- header end-->
+
+
+        <section class="main_content">
+            <div class="main_image"><img src="resources/top_main_20220620225544_lg_pc.jpg" width="100%" alt="메인홈페이지 이미지"></div>
+            <div class="main_top">
+                <form action="">
+                    <table class="searchBar">
+                        <thead>
+                            <td width="300px">호텔 또는 여행지</td>
+                            <td width="150px">체크인</td>
+                            <td width="150px">체크아웃</td>
+                            <td width="100px"></td>
+                            <td width="110px" align="center">인원수</td>
+                            <td width="110px" align="center">객실</td>
+                        </thead>
+                        <tbody>
+                            <tr> 
+                                <td><div class="iconInput"><i class="bi bi-search"></i><input type="text" class="form-control" style="text-align: center;"></div></td>
+                                <td><input type="date" class="form-control"></td>
+                                <td><input type="date" class="form-control"></td>
+                                <td></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="iconInput">
+                                        <i class="bi bi-tags">
+                                        </i><input type="text" class="form-control" style="text-align: center;">
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td colspan="2" align="center"><button type="submit" class="btn btn-secondary searchButton">검색하기</button></td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            
+            <div class="main_bottom">
+                <div class="main">
+                    <h2 style="margin-left: 200px;">인기 호텔</h2>
+                    <div class="main_hotelImg" >
+                        <div class="hotelThumbnail">
+                            <img class="hotelImg" src="" alt="">
+                        </div>
+                        <div class="hotelThumbnail">
+                            <img class="hotelImg" src="" alt="">
+                        </div>
+                        <div class="hotelThumbnail">
+                            <img class="hotelImg" src="" alt="">
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+         <!-- Footer start -->
+         <footer class="footer">
+            <div class="footer_link">
+                <a href="">GALGODA 소개</a> 
+                <a href="">공지사항</a> 
+                <a href="">개인정보처리방침</a> 
+                <a href="">이용약관</a> 
+                <a href="">고객센터</a>
+            </div>
+            <div class="footer_company">
+                <ul>
+                    <li>상호명 : GALGODA(주)</li>
+                    <li>대표자 : 어디갈때여기조</li>
+                    <li>사업자등록번호 123-45-67890</li>
+                    <li>전화 : 02-1234-5678 / FAX 02-1234-5678</li>
+                    <li>(08505) 서울특별시 금천구 가산디지털2로 95
+                        (가산동, km타워) 2층, 3층</li>
+                    <li>Copyright ⓒ GooDee Academy. All rights reserved.</li>
+                </ul>
+            </div>
+            
+        </footer>
+        <!-- Footer end -->
+    </div>
+</body>
+</html>
