@@ -117,6 +117,10 @@
         }
         .page_content table>tbody>tr{cursor: pointer;}
         
+        .buttonColor{
+            background-color: rgb(115, 90, 75); 
+            color: white;
+        }
     </style>
 
 </head>
@@ -214,7 +218,7 @@
                     </tbody>
                 </table>
                 <div align="right">
-                  <a href="" class="btn btn-secondary" style="margin-top: 10px;">등록하기</a>
+                  <a href="" class="btn btn-secondary buttonColor" data-toggle="modal" data-target="#addHotelCode" style="margin-top: 10px;">등록하기</a>
                 </div>
 
                 <ul class="pagination center">
@@ -227,6 +231,29 @@
 
             </div>
 
+            <!--추가하기 모달-->
+            <!-- The Modal -->
+            <div class="modal" id="addHotelCode">
+                <div class="modal-dialog" style="width: 350px;">
+                <div class="modal-content">
+            
+                    <!-- Modal body -->
+                    <div class="modal-body ">
+                            <span class="btn btn-sm" style="background-color: rgb(235, 231, 227);">호텔이름</span>
+                            <input type="text" class="form-control">
+                            <span class="btn btn-sm" style="background-color: rgb(235, 231, 227); margin-top: 5px;">호텔코드</span>
+                            <input type="text" class="form-control">
+                    </div>
+            
+                    <!-- Modal footer -->
+                    <div class="modal-footer center">
+                    <a href="" class="btn btn-secondary" style="width: 80px;">Ok</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+            
+                </div>
+                </div>
+            </div>
 
         </section>
 
