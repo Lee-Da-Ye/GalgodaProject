@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <!-- ---------------------------------- -->
+    <!-- 프로필 아이콘 이미지 관련-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- 로그인 폼 아이콘 이미지 관련-->
+ 
+    <!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+        
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{
+            min-height:600px;
+            display: flex;        
+        }
+
+        .footer{height:200px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        .header{display:flex; flex-direction:column;}
+        .header_logo { 
+            height: 70%; 
+            background-color: rgb(235, 231, 227); 
+            display: flex;
+            align-items: center;
+        }
+        .header_logo img {
+            height: 100%;
+            width: auto;
+        }
+        .header_nav {
+            height: 30%; 
+            display: flex; 
+            background-color: rgb(191, 180, 176);
+            justify-content: space-between;
+            align-items: center;
+        }
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+        }
+        
+        .header_nav a{
+            color: rgb(99, 76, 70);
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        .footer{
+            display:flex;
+            flex-direction:column;
+            background-color: rgb(235, 231, 227);
+        }
+        .footer_link{height:20%; display:flex; align-items:center;}
+        .footer_link a{text-decoration:none; color:black; font-weight:bold; margin:15px;}
+        .footer_company{height:80%;}
+        .footer_company>ul{list-style:"- "; padding-left:15px;}
+        .footer>div{border-top:1px solid rgb(191, 180, 176)}
+        .footer li {color: rgb(171, 158, 153);}
+
+        /*왼쪽 메뉴바 */
+        .sideMenubar{
+            width: 300px;
+            height: 100%;
+            background-color: rgb(235, 231, 227);
+        }
+        .sideMenubar a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .page_content {
+
+            width: 100%; 
+            padding-top: 30px;
+            padding-left: 30px;
+            padding-right: 30px;
+            border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+        }
+      
+        .mypage_header {
+        margin: 0 auto;
+        width: 600px;
+        }
+
+        /* 인증번호 받기 box 스타일 */
+        .identification_box{
+            border: 0.5px solid gray;
+            color: black;
+            background-color: rgb(224, 224, 224);
+        }
+        
+        /* 비밀번호 찾기 넘어가는 버튼 스타일 */
+        .identification_enter{
+            border: none;
+            background-color: rgb(235, 231, 227);
+            color: rgb(64, 64, 64);
+        }
+        .identification_main {
+        text-align: center;
+        width: 50%;
+        margin: 0 auto; /* 좌우 마진을 자동으로 설정하여 가운데 정렬 */
+        width: 50%; /* 원하는 폭으로 설정 */
+        margin-bottom: 30px;
+        }
+    
+        
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <!-- header start-->
+        <header class="header">
+            <a href="" class="header_logo center">
+                    <img src="../../resources/로고.PNG"  alt="메인로고이미지">
+            </a>
+            <nav class="header_nav">
+                <div class="left_nav" >
+                <a href="" style="margin-left: 15px;"><i class="bi bi-search"></i>호텔검색</a>
+                </div>
+                <div class="center_nav"></div>
+                 <!-- case1. 로그인 전 -->
+                <div class="right_nav">
+                <a href="">로그인</a>
+                <a href="">회원가입</a>
+                </div>
+                 <!-- case2. 로그인 후 
+                 <div class="right_nav">
+                    <b>홍길동님 반갑습니다 </b>
+                    <a href=""></a>
+                    
+                </div>
+                -->
+            </nav>
+        </header>
+        <!-- header end-->
+
+
+        <section class="main_content">
+            
+            <div class="sideMenubar" style="display: none;">
+                <ul class="nav flex-column">
+                    <li >
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">메뉴명</h3>
+                    </li>
+                    
+                    <li>
+                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">메뉴1</a>
+                    </li>
+                        <div id="demo" class="collapse" style="margin-left: 30px;">
+                            <a href="">하위메뉴</a>
+                        </div>
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">메뉴2</a>
+                    </li>
+                        <div id="demo2" class="collapse" style="margin-left: 30px;">
+                            <a href="">하위메뉴</a>
+                        </div>
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">메뉴3</a>
+                    </li>
+                        <div id="demo3" class="collapse" style="margin-left: 30px;">
+                            <a href="">하위메뉴</a>
+                        </div>
+                    
+                </ul>
+            </div>
+
+            <div class="page_content"> 
+
+
+                <div class="mypage_header">
+                    <h3>비밀번호 찾기</h3>
+                    <div style="margin-top: 10px; margin-bottom: 20px; border: 2px solid lightgray;"></div>
+                </div>
+        
+                <div class="card-body identification_main">
+                    <!-- 휴대폰 번호로 아이디 찾기 폼 -->
+                    <form action="" method="">
+                                        
+                        <!-- 이름 입력 -->
+                        <div class="form-row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <label for="inputName" class="col-form-label">아이디</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="inputName" placeholder="아이디를 입력하세요">
+                            </div>
+                        </div>
+                    
+                        <!-- 휴대폰 번호 입력 -->
+                        <div class="form-row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <label for="inputPhoneNumber" class="col-form-label">휴대폰 번호</label>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <input type="tel" class="form-control" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-primary identification_box">인증번호 받기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- 인증번호 입력 -->
+                        <div class="form-row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <label for="inputVerificationCode" class="col-form-label">인증번호</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
+                            </div>
+                        </div>
+                    
+                        <!-- 아이디 찾기 버튼 -->
+                        <button type="submit" class="btn btn-primary btn-block identification_enter">휴대폰 번호로 비밀번호 재설정</button>
+                    </form>
+                
+                    <br><br>
+                
+                    <!-- 이메일로 비밀번호 찾기 폼 -->
+                    <form action="" method="">
+                        
+                        <!-- 아이디 입력 -->
+                        <div class="form-row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <label for="inputEmail" class="col-form-label">아이디</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="inputEmail" placeholder="아이디를 입력하세요">
+                            </div>
+                        </div>
+                    
+                        <!-- 이메일 입력 -->
+                        <div class="form-row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <label for="inputEmail" class="col-form-label">이메일</label>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-outline-primary identification_box">인증번호 받기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- 인증번호 입력 -->
+                        <div class="form-row align-items-center mb-3">
+                            <div class="col-md-3">
+                                <label for="inputVerificationCode" class="col-form-label">인증번호</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
+                            </div>
+                        </div>
+                    
+                        <!-- 아이디 찾기 버튼 -->
+                        <button type="submit" class="btn btn-primary btn-block identification_enter">이메일로 비밀번호 재설정</button>
+                    </form>
+                </div>
+                
+            
+            </div>
+
+
+        </section>
+
+         <!-- Footer start -->
+         <footer class="footer">
+            <div class="footer_link">
+                <a href="">GALGODA 소개</a> 
+                <a href="">공지사항</a> 
+                <a href="">개인정보처리방침</a> 
+                <a href="">이용약관</a> 
+                <a href="">고객센터</a>
+            </div>
+            <div class="footer_company">
+                <ul>
+                    <li>상호명 : GALGODA(주)</li>
+                    <li>대표자 : 어디갈때여기조</li>
+                    <li>사업자등록번호 123-45-67890</li>
+                    <li>전화 : 02-1234-5678 / FAX 02-1234-5678</li>
+                    <li>(08505) 서울특별시 금천구 가산디지털2로 95
+                        (가산동, km타워) 2층, 3층</li>
+                    <li>Copyright ⓒ GooDee Academy. All rights reserved.</li>
+                </ul>
+            </div>
+            
+        </footer>
+        <!-- Footer end -->
+    </div>   
+</body>
+</html>
