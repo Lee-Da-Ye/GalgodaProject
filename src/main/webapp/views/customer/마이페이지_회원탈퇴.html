@@ -87,7 +87,7 @@
             background-color: rgb(235, 231, 227);
         }
         .sideMenubar a {
-            color: black;
+            color: inherit;
             text-decoration: none;
         }
 
@@ -97,10 +97,15 @@
             padding-top: 30px;
             padding-left: 30px;
             padding-right: 30px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
 
         }
         
+        /* 사이드메뉴 선택함에 따라 색상 변경 */
+        .modify_btn{
+            background-color: rgb(99, 76, 70);
+            color: white;
+        }
 
     </style>
 
@@ -110,7 +115,7 @@
         <!-- header start-->
         <header class="header">
             <a href="" class="header_logo center">
-                    <img src="../../../resources/로고.PNG"  alt="메인로고이미지">
+                    <img src="../../resources/images/mainLogo.png"  alt="메인로고이미지">
             </a>
             <nav class="header_nav">
                 <div class="left_nav" >
@@ -151,21 +156,23 @@
                             <a href="">상세 조회</a>
                         </div>
                     <li>
+                        <div id="demo" class="collapse" style="margin-left: 30px;">
+                            <a href="">예약 변경/취소</a>
+                        </div>
                     </li>
-                    <div id="demo" class="collapse" style="margin-left: 30px;">
-                        <a href="">예약 변경/취소</a>
-                    </div>
+                    
                     <li>
+                        <div id="demo" class="collapse" style="margin-left: 30px;">
+                            <a href="">리뷰 관리</a>
+                        </div>
                     </li>
-                    <div id="demo" class="collapse" style="margin-left: 30px;">
-                        <a href="">리뷰 관리</a>
-                    </div>
+                    
                     <li>
                         <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">위시리스트</a>
                     </li>
                     
-                    <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">개인정보 수정</a>
+                    <li class="modify_btn">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo3">개인정보 수정</a>
                     </li>
                     
                     
