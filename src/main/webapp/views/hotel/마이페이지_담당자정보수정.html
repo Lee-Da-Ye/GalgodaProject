@@ -87,7 +87,7 @@
             background-color: rgb(235, 231, 227);
         }
         .sideMenubar a {
-            color: black;
+            color: inherit;
             text-decoration: none;
         }
 
@@ -97,7 +97,7 @@
             padding-top: 30px;
             padding-left: 30px;
             padding-right: 30px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
 
         }
         
@@ -135,6 +135,11 @@
             color: white;
         }
 
+        /* 사이드메뉴바 선택시 색상 적용 */
+        .modify_btn{
+            background-color: rgb(99, 76, 70);
+            color: white;
+        }
         
         
     </style>
@@ -145,7 +150,7 @@
         <!-- header start-->
         <header class="header">
             <a href="" class="header_logo center">
-                    <img src="../../../resources/로고.PNG"  alt="메인로고이미지">
+                    <img src="../../resources/images/mainLogo.png"  alt="메인로고이미지">
             </a>
             <nav class="header_nav">
                 <div class="left_nav" >
@@ -184,7 +189,7 @@
                     </li>
                     <li>
                         <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">호텔등록</a>
+                            <a href="">호텔 등록</a>
                         </div>
                     </li>
                     <li>
@@ -194,12 +199,12 @@
                     </li>
                     <li>
                         <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">객실등록</a>
+                            <a href="">객실 등록</a>
                         </div>
                     </li>
                     <li>
                         <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">객실수정</a>
+                            <a href="">객실 수정</a>
                         </div>
                     </li>
                     <li>
@@ -209,11 +214,11 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">예약관리</a>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">예약 관리</a>
                     </li>
                     
-                    <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                    <li class="modify_btn">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
                     </li>
 
                     <li>
