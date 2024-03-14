@@ -119,28 +119,24 @@
         width: 600px;
         }
 
-       /* 인증번호 받기 box 스타일 */
-       .identification_box{
-            border: 0.5px solid gray;
-            color: black;
-            background-color: rgb(224, 224, 224);
-        }
-        
-        /* 아이디 찾기 넘어가는 버튼 스타일 */
-        .identification_enter{
-            border: none;
-            background-color: rgb(235, 231, 227);
-            color: rgb(64, 64, 64);
+        /* 회원가입 구분 원 */
+        .signup_page{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
         }
 
-        .identification_main {
-        text-align: center;
-        width: 50%;
-        margin: 0 auto; /* 좌우 마진을 자동으로 설정하여 가운데 정렬 */
-        width: 50%; /* 원하는 폭으로 설정 */
-        margin-bottom: 30px;
+        .signup_circle{
+            width: 230px;
+            height: 230px;
+            border-radius: 50px;
+            border: none;
+            background-color: rgb(235, 231, 227);
+            margin: 20px;
+            font-size: 30px;
         }
-    
+
+   
         
     </style>
 
@@ -208,98 +204,18 @@
 
 
                 <div class="mypage_header">
-                    <h3>아이디 찾기</h3>
-                    <div style="margin-top: 10px; margin-bottom: 20px; border: 2px solid lightgray;"></div>
+                    <h3>회원가입</h3>
+                    <div style="margin-top: 10px; margin-bottom: 40px; border: 2px solid lightgray;"></div>
                 </div>
         
-                <div class="card-body identification_main">
-                    <!-- 휴대폰 번호로 아이디 찾기 폼 -->
-                    <form action="" method="">
-                                        
-                        <!-- 이름 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputName" class="col-form-label">이름</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputName" placeholder="이름을 입력하세요">
-                            </div>
-                        </div>
+                <br>
+
+                <div class="signup_page">
                     
-                        <!-- 휴대폰 번호 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputPhoneNumber" class="col-form-label">휴대폰 번호</label>
-                            </div>
-                            <div class="col">
-                                <div class="input-group">
-                                    <input type="tel" class="form-control" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-primary identification_box">인증번호 받기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <button class="signup_circle">일반 <br> 회원</button>
+                    <button class="signup_circle">호텔 <br> 회원</button>
                     
-                        <!-- 인증번호 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputVerificationCode" class="col-form-label">인증번호</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
-                            </div>
-                        </div>
-                    
-                        <!-- 아이디 찾기 버튼 -->
-                        <button type="submit" class="btn btn-primary btn-block identification_enter">휴대폰 번호로 아이디 찾기</button>
-                    </form>
-                
-                    <br><br>
-                
-                    <!-- 이메일로 아이디 찾기 폼 -->
-                    <form action="" method="">
-                        
-                        <!-- 이름 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputEmail" class="col-form-label">이름</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputEmail" placeholder="이름을 입력하세요">
-                            </div>
-                        </div>
-                    
-                        <!-- 이메일 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputEmail" class="col-form-label">이메일</label>
-                            </div>
-                            <div class="col">
-                                <div class="input-group">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-primary identification_box">인증번호 받기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <!-- 인증번호 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputVerificationCode" class="col-form-label">인증번호</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
-                            </div>
-                        </div>
-                    
-                        <!-- 아이디 찾기 버튼 -->
-                        <button type="submit" class="btn btn-primary btn-block identification_enter">이메일로 아이디 찾기</button>
-                    </form>
                 </div>
-                
             
             </div>
 

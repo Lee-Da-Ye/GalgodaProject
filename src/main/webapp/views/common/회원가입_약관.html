@@ -112,37 +112,83 @@
             /* border: 1px solid red; */
             display: flex;
             flex-direction: column;
+            align-items: center;
+            
         }
       
         .mypage_header {
-        margin: 0 auto;
-        width: 600px;
+            margin: 0 auto;
+            width: 600px;
         }
 
-       /* 인증번호 받기 box 스타일 */
-       .identification_box{
-            border: 0.5px solid gray;
-            color: black;
-            background-color: rgb(224, 224, 224);
+        /* 회원가입 약관 페이지 관련 스타일 */
+        .tos_form{
+            text-align: left;
+            width: 600px;
+            
         }
         
-        /* 아이디 찾기 넘어가는 버튼 스타일 */
-        .identification_enter{
-            border: none;
-            background-color: rgb(235, 231, 227);
-            color: rgb(64, 64, 64);
+        .view_full {
+            color: gray;
+            cursor: pointer;
+            margin-left: 20px;
         }
 
-        .identification_main {
-        text-align: center;
-        width: 50%;
-        margin: 0 auto; /* 좌우 마진을 자동으로 설정하여 가운데 정렬 */
-        width: 50%; /* 원하는 폭으로 설정 */
-        margin-bottom: 30px;
+        .terms_of_use {
+            overflow-y: auto;
+            max-height: 150px; /* 스크롤을 표시할 최대 높이 */
+            padding: 10px;
+            border: 1px solid #ccc; /* 선택사항: 박스에 테두리를 추가합니다. */
+            margin-top: 10px; /* 선택사항: 이전 요소와의 간격을 조정합니다. */
         }
-    
+
+        .terms_content{
+            font-size: 13px;
+        }
+        .identification_btn{
+            background-color: rgb(191, 180, 176);
+            color: white;
+        }
+  
+
+   
         
     </style>
+
+    <script>
+        function toggleTerms() {
+            var termsContent = document.getElementById('terms_content');
+            termsContent.style.display = termsContent.style.display === 'none' ? 'block' : 'none';
+            var privacyContent = document.getElementById('privacy_content');
+            privacyContent.style.display = privacyContent.style.display === 'none' ? 'block' : 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const checkbox1 = document.getElementById('checkbox1');
+        const checkbox2 = document.getElementById('checkbox2');
+        const button = document.querySelector('.identification_btn');
+
+        function checkValidity() {
+            if (checkbox1.checked && checkbox2.checked) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+            }
+        }
+
+        button.addEventListener('click', function() {
+            if (checkbox1.checked && checkbox2.checked) {
+                // 사용자를 Coolsms 서비스로 리다이렉트
+                window.location.href = 'https://coolsms.example.com/verification';
+            } else {
+                alert('필수 항목에 모두 동의해야 합니다.');
+            }
+        });
+
+        checkbox1.addEventListener('change', checkValidity);
+        checkbox2.addEventListener('change', checkValidity);
+        }); 
+    </script>
 
 </head>
 <body>
@@ -208,99 +254,73 @@
 
 
                 <div class="mypage_header">
-                    <h3>아이디 찾기</h3>
-                    <div style="margin-top: 10px; margin-bottom: 20px; border: 2px solid lightgray;"></div>
+                    <h3>회원가입</h3>
+                    <div style="margin-top: 10px; margin-bottom: 40px; border: 2px solid lightgray;"></div>
                 </div>
-        
-                <div class="card-body identification_main">
-                    <!-- 휴대폰 번호로 아이디 찾기 폼 -->
-                    <form action="" method="">
-                                        
-                        <!-- 이름 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputName" class="col-form-label">이름</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputName" placeholder="이름을 입력하세요">
-                            </div>
-                        </div>
+
+                <div class="tos_form">
+                    <input type="checkbox" id="checkbox1" class="required_checkbox">
+                        <label for="checkbox1">[필수] GALGODA 이용약관</label>
+                        <span class="view_full">전체보기 ></span>
                     
-                        <!-- 휴대폰 번호 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputPhoneNumber" class="col-form-label">휴대폰 번호</label>
-                            </div>
-                            <div class="col">
-                                <div class="input-group">
-                                    <input type="tel" class="form-control" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-primary identification_box">인증번호 받기</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <!-- 인증번호 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputVerificationCode" class="col-form-label">인증번호</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
-                            </div>
-                        </div>
-                    
-                        <!-- 아이디 찾기 버튼 -->
-                        <button type="submit" class="btn btn-primary btn-block identification_enter">휴대폰 번호로 아이디 찾기</button>
-                    </form>
-                
-                    <br><br>
-                
-                    <!-- 이메일로 아이디 찾기 폼 -->
-                    <form action="" method="">
+                    <div class="terms_of_use">
                         
-                        <!-- 이름 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputEmail" class="col-form-label">이름</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputEmail" placeholder="이름을 입력하세요">
-                            </div>
+                        <div class="terms_content">
+                            <p>제1조 멤버십 규정 일반</p>
+                            <p>1. 본 약관은 주식회사 GALGODA(이하 “회사”)의 이용에 관한 기본적인 사항을 정함을 목적으로 합니다.</p>
+                            <p>2. 이용약관의 내용을 추가합니다.</p>
+                            <p>3. 이용약관의 내용을 추가합니다.</p>
+                            <p>4. 이용약관의 내용을 추가합니다.</p>
+                            <p>5. 이용약관의 내용을 추가합니다.</p>
+                            <p>6. 이용약관의 내용을 추가합니다.</p>
+                            <p>7. 이용약관의 내용을 추가합니다.</p>
+                            <p>8. 이용약관의 내용을 추가합니다.</p>
+                            <p>9. 이용약관의 내용을 추가합니다.</p>
+                            <p>10. 이용약관의 내용을 추가합니다.</p>
                         </div>
-                    
-                        <!-- 이메일 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputEmail" class="col-form-label">이메일</label>
-                            </div>
-                            <div class="col">
-                                <div class="input-group">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="이메일을 입력하세요">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-primary identification_box">인증번호 받기</button>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+
+                    <br>
+                    <input type="checkbox" id="checkbox2" class="required_checkbox">
+                        <label for="checkbox2">[필수] 개인정보 수집 및 이용</label>
+                        <span class="view_full">전체보기 ></span>
+
+                    <div class="terms_of_use">
+                        
+                        <div class="terms_content">
+                            <p>제1조 수집 및 이용 항목</p>
+                            <p>성명(국문·영문), 생년월일, 성별, 이메일주소, 휴대폰번호, 구매 및 예약내역, 투숙기간, 아이디, 비밀번호</p>
+                            <p>제2조 수집 및 이용 목적</p>
+                            <p>본인 식별, GALGODA 서비스 제공 및 민원처리</p>
+                            <p>제3조 보유 이용 기간</p>
+                            <p>회원 탈퇴 시까지</p>
+
                         </div>
-                    
-                        <!-- 인증번호 입력 -->
-                        <div class="form-row align-items-center mb-3">
-                            <div class="col-md-3">
-                                <label for="inputVerificationCode" class="col-form-label">인증번호</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
-                            </div>
+                    </div>
+
+                    <br>
+
+                    <input type="checkbox" id="checkbox3">
+                        <label for="checkbox3">[선택] 개인정보 마케팅 활용 동의</label>
+                        <span class="view_full">전체보기 ></span>
+
+                    <div class="terms_of_use">
+                        
+                        <div class="terms_content">
+                            <p>제1조 수집 및 이용 항목</p>
+                            <p>성명(국문·영문), 생년월일, 성별, 이메일주소, 휴대폰번호, 자택전화, 자택주소, 구매 및 예약 내역, 투숙기간, 아이디</p>
+                            <p>제2조 수집 및 이용 목적</p>
+                            <p>GALGODA 상품 및 서비스 소개, 기타 제휴 호텔의 상품 및 서비스 소개, 사은·판촉행사 안내, 만족도 조사, 시장 조사</p>
                         </div>
-                    
-                        <!-- 아이디 찾기 버튼 -->
-                        <button type="submit" class="btn btn-primary btn-block identification_enter">이메일로 아이디 찾기</button>
-                    </form>
+                    </div>
+                    <br>
+
+                    <button type="button" class="btn form-control identification_btn" onclick="checkRequired();">본인인증 하기</button>
                 </div>
-                
-            
+
+        
+                <br>
+
             </div>
 
 
