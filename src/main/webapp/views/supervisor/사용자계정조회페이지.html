@@ -105,15 +105,12 @@
         }
 
 
-        /* 페이지 영역 확인용서식*/
+        /* 페이지 영역 서식*/
         .page_content {
-
             width: 100%; 
             padding-top: 30px;
             padding-left: 30px;
             padding-right: 30px;
-            
-            
         }
 
         .contentName{
@@ -124,6 +121,12 @@
         .buttonColor{
             background-color: rgb(115, 90, 75); 
             color: white;
+        }
+        .formCustume{
+            color: #495057;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            height: calc(1.3em + 0.75rem + 2px);
         }
     </style>
 
@@ -245,8 +248,8 @@
                 </table>
 
                 <div align="center" style="margin-bottom: 20px;">
-                    <input type="text">
-                    <select name="searchOption" style="margin-right: 20px;">
+                    <input type="text" class="formCustume">
+                    <select class="formCustume" name="searchOption" style="margin-right: 20px;">
                         <option value="name">회원번호</option>
                         <option selected>회원이름</option>
                         <option>회원ID</option>

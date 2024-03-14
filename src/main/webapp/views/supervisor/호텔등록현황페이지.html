@@ -112,10 +112,9 @@
             padding-top: 30px;
             padding-left: 30px;
             padding-right: 30px;
-            
-            
         }
 
+        /* 페이지컨텐츠 영역*/
         .contentName{
             color: rgb(115, 90, 75);
         }
@@ -124,6 +123,17 @@
         .buttonColor{
             background-color: rgb(115, 90, 75); 
             color: white;
+        }
+        .btn-secondary:hover{
+            background-color: rgb(115, 90, 75); 
+            color: lightgray;
+        }
+
+        .formCustume{
+            color: #495057;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            height: calc(1.3em + 0.75rem + 2px);
         }
     </style>
 
@@ -262,8 +272,8 @@
                 </table>
 
                 <div align="center" style="margin-bottom: 20px;">
-                    <input type="text">
-                    <select name="searchOption" style="margin-right: 20px;">
+                    <input type="text" class="formCustume">
+                    <select name="searchOption" style="margin-right: 20px;" class="formCustume">
                         <option value="name">호텔번호</option>
                         <option selected>호텔이름</option>
                         <option>담당자</option>
