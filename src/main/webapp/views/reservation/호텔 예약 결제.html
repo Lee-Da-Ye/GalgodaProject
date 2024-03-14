@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <!-- ---------------------------------- -->
+    <!-- 프로필 아이콘 이미지 관련-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- 로그인 폼 아이콘 이미지 관련-->
+ 
+    <!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+        
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{
+            min-height:600px;
+            display: flex;        
+        }
+
+        .footer{height:200px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        .header{display:flex; flex-direction:column;}
+        .header_logo { 
+            height: 70%; 
+            background-color: rgb(235, 231, 227); 
+            display: flex;
+            align-items: center;
+        }
+        .header_logo img {
+            height: 100%;
+            width: auto;
+        }
+        .header_nav {
+            height: 30%; 
+            display: flex; 
+            background-color: rgb(191, 180, 176);
+            justify-content: space-between;
+            align-items: center;
+        }
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+        }
+        
+        .header_nav a{
+            color: rgb(99, 76, 70);
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        .footer{
+            display:flex;
+            flex-direction:column;
+            background-color: rgb(235, 231, 227);
+        }
+        .footer_link{height:20%; display:flex; align-items:center;}
+        .footer_link a{text-decoration:none; color:black; font-weight:bold; margin:15px;}
+        .footer_company{height:80%;}
+        .footer_company>ul{list-style:"- "; padding-left:15px;}
+        .footer>div{border-top:1px solid rgb(191, 180, 176)}
+        .footer li {color: rgb(171, 158, 153);}
+
+        /*왼쪽 메뉴바 */
+        .sideMenubar{
+            width: 300px;
+            height: 100%;
+            background-color: rgb(235, 231, 227);
+        }
+        .sideMenubar a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .page_content {
+
+            width: 100%; 
+            padding-left: 30px;
+            padding-right: 30px;
+            /* border: 1px solid red; */
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+      
+        .mypage_header {
+            margin: 0 auto;
+            width: 600px;
+        }
+        
+        /* 내 예약 정보 칸 스타일 */
+        .rev_info{
+            border: 1px solid lightgray;
+            width : 40%;
+            height: 80%;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rev_info_title{
+            background-color: rgb(235, 231, 227);
+            height: 10%;
+            text-align: center;
+            line-height: 50px;
+            margin-bottom: 10px;
+            
+        }
+        .checkinout_info{
+            display: flex;
+            flex-direction: row;
+        }
+        .payment_info{
+            display: flex;
+            flex-direction: row;
+        }
+        .checkinout_info{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .check_info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .vertical_line {
+            height: 70px; /* 세로선의 길이 조절 */
+            width: 2px; /* 세로선의 너비 조절 */
+            background-color: lightgray;
+            margin: 0 30px; /* 세로선의 좌우 여백 조절 */
+        }
+        .payment_info{
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        /* 결제수단/정보 칸  스타일 */
+        .pay_info{
+            border: 1px solid lightgray;
+            width : 40%;
+            height: 80%;
+            margin-left: 20px;
+        }
+        .pay_info_title{
+            background-color: rgb(235, 231, 227);
+            height: 10%;
+            text-align: center;
+            line-height: 50px;
+            margin-bottom: 10px;
+            
+        }
+        .form-group {
+        display: flex;
+        justify-content: space-between; /* 자식 요소들을 양 끝에 정렬 */
+        flex-wrap: wrap; /* 요소들이 한 줄에 모두 표시되도록 설정 */
+        }
+
+        .input-group {
+            width: 48%; /* 부모 요소의 절반 너비를 가지도록 설정 */
+            box-sizing: border-box; /* 너비가 컨텐츠 박스 기준으로 설정되도록 함 */
+            margin-bottom: 10px; /* 입력 요소 사이의 간격 조절 */
+        }
+
+        .input-group label {
+            display: block; /* 라벨을 블록 요소로 변경하여 위에서 아래로 표시되도록 함 */
+        }
+        .pay_btn{
+            background-color: rgb(99, 76, 70);
+            color: white;
+            margin-top: 30px;
+        }
+
+
+
+            
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <!-- header start-->
+        <header class="header">
+            <a href="" class="header_logo center">
+                    <img src="../../resources/images/mainLogo.png"  alt="메인로고이미지">
+            </a>
+            <nav class="header_nav">
+                <div class="left_nav" >
+                <a href="" style="margin-left: 15px;"><i class="bi bi-search"></i>호텔검색</a>
+                </div>
+                <div class="center_nav"></div>
+                 <!-- case1. 로그인 전
+                <div class="right_nav">
+                <a href="">로그인</a>
+                <a href="">회원가입</a>
+                </div>
+                 -->
+                 <!-- case2. 로그인 후 -->
+                 <div class="right_nav">
+                    <b>홍길동님</b>
+                    <a href="">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                </div>
+                
+            </nav>
+        </header>
+        <!-- header end-->
+
+
+        <section class="main_content">
+            
+            <div class="sideMenubar" style="display: none;">
+                <ul class="nav flex-column">
+                    <li >
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">마이페이지</h3>
+                    </li>
+                    
+                    <li>
+                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">메뉴1</a>
+                    </li>
+                        <div id="demo" class="collapse" style="margin-left: 30px;">
+                            <a href="">하위메뉴</a>
+                        </div>
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">메뉴2</a>
+                    </li>
+                        <div id="demo2" class="collapse" style="margin-left: 30px;">
+                            <a href="">하위메뉴</a>
+                        </div>
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">메뉴3</a>
+                    </li>
+                        <div id="demo3" class="collapse" style="margin-left: 30px;">
+                            <a href="">하위메뉴</a>
+                        </div>
+                    
+                </ul>
+            </div>
+
+            <div class="page_content"> 
+
+                <div class="rev_info">
+                    <div class="rev_info_title"><b>내 예약 정보</b></div>
+                    <div style="padding: 10px; display: flex; flex-direction: column;">
+                        <div>
+                            <h4>GALGODA 제주</h4>
+                            <div><img src="../../resources/images/x-square.png" style="width: 100%; height: 200px; margin-bottom: 10px;"></div>
+
+                        </div>
+                        <div class="checkinout_info">
+                            <div class="check_in">
+                                체크인 <br>
+                                2024년 3월 4일 <br>
+                                15:00
+                            </div>
+                            <div class="vertical_line"></div>
+                            <div class="check_out">
+                                체크아웃 <br>
+                                2024년 3월 8일 <br>
+                                11:00
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <div class="payment_info">
+                            <div class="total_payment1"><b>결제예정금액</b></div>
+                            <div class="total_payment2">268,000원</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="pay_info">
+                    <div class="pay_info_title"><b>결제수단 정보</b></div>
+
+                    <div style="padding: 10px;">
+
+                        <form action="" method="">
+                            <div class="form-group">
+                                <label for="card">카드 종류 선택 *</label>
+                                <select name="card" class="custom-select" id="card">
+                                    <option selected>VISA</option>
+                                    <option value="MasterCard">MasterCard</option>
+                                    <option value="Amex">Amex</option>
+                                    <option value="UnionPay">UnionPay</option>
+                                  </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="card_name">카드 명의자 (영문) *</label>
+                                <input type="text" class="form-control" id="card_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="card_no">신용/직불카드 번호 *</label>
+                                <input type="password" class="form-control" id="card_no">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label for="card_expiry">카드 유효 기간 *</label>
+                                    <input type="text" class="form-control" id="card_expiry" placeholder="MM/YYYY">
+                                </div>
+                                <div class="input-group">
+                                    <label for="cvc">CVC *</label>
+                                    <input type="password" class="form-control" id="cvc">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn pay_btn form-control">결제하기</button>
+                          </form>
+
+
+                    </div>
+
+                </div>
+                
+            
+            </div>
+
+
+        </section>
+
+         <!-- Footer start -->
+         <footer class="footer">
+            <div class="footer_link">
+                <a href="">GALGODA 소개</a> 
+                <a href="">공지사항</a> 
+                <a href="">개인정보처리방침</a> 
+                <a href="">이용약관</a> 
+                <a href="">고객센터</a>
+            </div>
+            <div class="footer_company">
+                <ul>
+                    <li>상호명 : GALGODA(주)</li>
+                    <li>대표자 : 어디갈때여기조</li>
+                    <li>사업자등록번호 123-45-67890</li>
+                    <li>전화 : 02-1234-5678 / FAX 02-1234-5678</li>
+                    <li>(08505) 서울특별시 금천구 가산디지털2로 95
+                        (가산동, km타워) 2층, 3층</li>
+                    <li>Copyright ⓒ GooDee Academy. All rights reserved.</li>
+                </ul>
+            </div>
+            
+        </footer>
+        <!-- Footer end -->
+    </div>   
+</body>
+</html>
