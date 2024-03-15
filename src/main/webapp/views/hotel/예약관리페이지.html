@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <!-- ---------------------------------- -->
+    
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+        
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{
+            min-height:600px;
+            display: flex;        
+        }
+
+        .footer{height:200px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        .header{display:flex; flex-direction:column;}
+        .header_logo { 
+            height: 70%; 
+            background-color: rgb(235, 231, 227); 
+            display: flex;
+            align-items: center;
+        }
+        .header_logo img {
+            height: 100%;
+            width: auto;
+        }
+        .header_nav {
+            height: 30%; 
+            display: flex; 
+            background-color: rgb(191, 180, 176);
+            justify-content: space-between;
+            align-items: center;
+        }
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+        }
+        
+        .header_nav a{
+            color: rgb(99, 76, 70);
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        .footer{
+            display:flex;
+            flex-direction:column;
+            background-color: rgb(235, 231, 227);
+        }
+        .footer_link{height:20%; display:flex; align-items:center;}
+        .footer_link a{text-decoration:none; color:black; font-weight:bold; margin:15px;}
+        .footer_company{height:80%;}
+        .footer_company>ul{list-style:"- "; padding-left:15px;}
+        .footer>div{border-top:1px solid rgb(191, 180, 176)}
+        .footer li {color: rgb(171, 158, 153);}
+
+        /*왼쪽 메뉴바 */
+        .sideMenubar{
+            width: 300px;
+            min-height: 600px;
+            /* height: 100%; */
+            background-color: rgb(235, 231, 227);
+        }
+        .sideMenubar a {
+            color: black;
+            text-decoration: none;
+        }
+        
+
+        .page_content {
+
+        width: 100%; 
+        padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* border: 1px solid red; */
+
+        }
+        
+
+        /* 메인컨텐츠  */
+        #title1 {font-size: 30px; font-weight: bold;  color: rgb(115, 90, 75);}
+        #title2 {font-size: 25px; font-weight: bold;  color: rgb(115, 90, 75);}
+        #title3 {font-size: 20px; font-weight: bold; }
+        .top_status > a{margin: 13px; color:#B2AEAE ; font-weight: bold; font-size: 18px;}
+        .top_menu {display: flex; justify-content: space-between;}
+        
+    
+
+        /* 페이징 바 부분 */
+       
+        .page-link {
+        color: #000; 
+        background-color: #fff;
+        border: 1px solid #ccc; 
+        }
+
+        .page-item.active .page-link {
+        z-index: 1;
+        color: white;
+        font-weight:bold;
+        background-color: rgb(115, 90, 75);;
+        border-color: #ccc;
+        
+        }
+
+        .page-link:focus, .page-link:hover {
+        color: #000;
+        background-color: #fafafa; 
+        border-color: #ccc;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <!-- header start-->
+        <header class="header">
+            <a href="" class="header_logo center">
+                    <img src="../../resources/images/mainLogo.png"  alt="메인로고이미지">
+            </a>
+            <nav class="header_nav">
+                <div class="left_nav" >
+                <a href="" style="margin-left: 15px;"><i class="bi bi-search"></i>호텔검색</a>
+                </div>
+                <div class="center_nav"></div>
+              
+                <!-- case1. 로그인 전 -->
+                <!--
+                <div class="right_nav">
+                <a href="">로그인</a>
+                <a href="">회원가입</a>
+                </div>
+                -->
+                 <!-- case2. 로그인 후--> 
+                 <div class="right_nav">
+                    <b>GALGODA제주님</b>
+                    <a href=""> <i class="bi bi-person-circle"></i></a>
+                    
+                </div>
+                
+            </nav>
+        </header>
+        <!-- header end-->
+
+
+        <section class="main_content">
+            
+            <!-- 사이드 메뉴바 영역 -->
+            <div class="sideMenubar">
+                <ul class="nav flex-column">
+                    <li >
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">마이페이지</h3>
+                    </li>
+                    
+                    <li>
+                        <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
+                    </li>
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
+                    <li> <div id="demo"  class="collapse " style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
+                    
+                    
+                    <li>
+                        <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo2">예약관리</a>
+                    </li>
+                    <li style="background-color: #BFB4B0;"> <div id="demo2" class="collapse show" style="margin-left: 30px;"><a href="">예약현황조회</a></div> </li>   
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                    </li>
+                        
+                    
+                    <li>
+                         <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
+                    </li>
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                </ul>
+            </div>
+
+           
+            <!-- 사이드 메뉴바 영역  끝-->
+
+            <!-- 메인 부분 -->
+            <div class="page_content" style="margin-bottom: 150px;">
+
+                <span id="title1">호텔관리</span> <span id="title2"> - 예약관리</span>
+                <div style="border : 1px solid lightgray; margin-bottom: 16px;"></div>
+                
+                <div class="hotel_content" style="padding-left: 20px;">
+                    <span id="title3">예약 현황 조회</span><br><br>
+                   
+                    <div class="top_menu">
+                        <div class="top_status">
+                            <a href="">대기</a> |  <a href="">확정</a> |  <a href="">취소</a> 
+                        </div>
+                        <div class="float-right top_array">
+                            <select class="form-control" name="report_reason">
+                                <option value="res_no">예약번호순</option>
+                                <option value="date_in">예약날짜순</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover"  style="margin-top: 12px;">
+                        <thead>
+                        <tr class="table-active" align="center">
+                            <th>상태</th>
+                            <th>예약자</th>
+                            <th>예약번호</th>
+                            <th>연락처</th>
+                            <th>이용기간</th>
+                            <th>상세조회</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr align="center">
+                            <td>확정</td>
+                            <td>최우식</td>
+                            <td>25222</td>
+                            <td>010-0000-0000</td>
+                            <td>24.02.01-24.02.02</td>
+                            <td><a href="">상세조회</a></td>
+                        </tr>
+                        <tr align="center">
+                            <td>대기</td>
+                            <td>강보람</td>
+                            <td>20011</td>
+                            <td>010-0000-0000</td>
+                            <td>24.01.20-24.01.21</td>
+                            <td><a href="">상세조회</a></td>
+                        </tr><tr align="center">
+                            <td>취소</td>
+                            <td>전지현</td>
+                            <td>21122</td>
+                            <td>010-0000-0000</td>
+                            <td>24.01.10-24.01.14</td>
+                            <td><a href="">상세조회</a></td>
+                        </tr><tr align="center">
+                            <td>취소</td>
+                            <td>손흥민</td>
+                            <td>10522</td>
+                            <td>010-0000-0000</td>
+                            <td>23.12.31-24.01.01</td>
+                            <td><a href="">상세조회</a></td>
+                        </tr><tr align="center">
+                            <td>대기</td>
+                            <td>김민재</td>
+                            <td>10021</td>
+                            <td>010-0000-0000</td>
+                            <td>23.12.24-23.12.25</td>
+                            <td><a href="">상세조회</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                   
+                   
+                    <table class="float-right" style="margin-top: 100px; margin-right: 20px;">
+                        <tr >
+                            
+                            <td > 
+                            <div style="margin-left: 7px;">
+                                <ul class="pagination" >
+                                    <li class="page-item "><a class="page-link" href="#">&lt;</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+                                </ul>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                  
+
+
+                </div>
+            </div>
+        
+            <!-- 메인 부분  끝 -->
+
+
+        
+
+        </section>
+
+         <!-- Footer start -->
+         <footer class="footer">
+            <div class="footer_link">
+                <a href="">GALGODA 소개</a> 
+                <a href="">공지사항</a> 
+                <a href="">개인정보처리방침</a> 
+                <a href="">이용약관</a> 
+                <a href="">고객센터</a>
+            </div>
+            <div class="footer_company">
+                <ul>
+                    <li>상호명 : GALGODA(주)</li>
+                    <li>대표자 : 어디갈때여기조</li>
+                    <li>사업자등록번호 123-45-67890</li>
+                    <li>전화 : 02-1234-5678 / FAX 02-1234-5678</li>
+                    <li>(08505) 서울특별시 금천구 가산디지털2로 95
+                        (가산동, km타워) 2층, 3층</li>
+                    <li>Copyright ⓒ GooDee Academy. All rights reserved.</li>
+                </ul>
+            </div>
+            
+        </footer>
+        <!-- Footer end -->
+    </div>   
+</body>
+</html>

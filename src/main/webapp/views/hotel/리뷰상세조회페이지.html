@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <!-- ---------------------------------- -->
+    
+    <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+        
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{
+            min-height:600px;
+            display: flex;        
+        }
+
+        .footer{height:200px;}
+
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        .header{display:flex; flex-direction:column;}
+        .header_logo { 
+            height: 70%; 
+            background-color: rgb(235, 231, 227); 
+            display: flex;
+            align-items: center;
+        }
+        .header_logo img {
+            height: 100%;
+            width: auto;
+        }
+        .header_nav {
+            height: 30%; 
+            display: flex; 
+            background-color: rgb(191, 180, 176);
+            justify-content: space-between;
+            align-items: center;
+        }
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+        }
+        
+        .header_nav a{
+            color: rgb(99, 76, 70);
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+        
+        .footer{
+            display:flex;
+            flex-direction:column;
+            background-color: rgb(235, 231, 227);
+        }
+        .footer_link{height:20%; display:flex; align-items:center;}
+        .footer_link a{text-decoration:none; color:black; font-weight:bold; margin:15px;}
+        .footer_company{height:80%;}
+        .footer_company>ul{list-style:"- "; padding-left:15px;}
+        .footer>div{border-top:1px solid rgb(191, 180, 176)}
+        .footer li {color: rgb(171, 158, 153);}
+
+        /*왼쪽 메뉴바 */
+        .sideMenubar{
+            width: 300px;
+            min-height: 600px;
+            /* height: 100%; */
+            background-color: rgb(235, 231, 227);
+        }
+        .sideMenubar a {
+            color: black;
+            text-decoration: none;
+        }
+        
+
+        .page_content {
+
+        width: 100%; 
+        padding-top: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        /* border: 1px solid red; */
+
+        }
+        
+
+        /* 메인컨텐츠  */
+        #title1 {font-size: 30px; font-weight: bold;  color: rgb(115, 90, 75); }
+        #title2 {font-size: 25px; font-weight: bold;  color: rgb(115, 90, 75);}
+        #title3 {font-size: 20px; font-weight: bold; }
+        .btnbrown {background-color: #634C46; color: white; font-size: 15px; border: 1px solid #D4D4D4 ;  height: 40px; padding: 7px; margin-left: 6px;}
+        .btnconfirm {background-color: #EBE7E3; font-size: 15px; border: 1px solid #D4D4D4 ; width: 85px; height: 40px; padding: 7px;  }
+        th{background-color: gainsboro; }
+        th, td {
+             text-align: center;
+                }
+
+    </style>
+
+</head>
+<body>
+    <div class="wrap">
+        <!-- header start-->
+        <header class="header">
+            <a href="" class="header_logo center">
+                    <img src="../../resources/images/mainLogo.png"  alt="메인로고이미지">
+            </a>
+            <nav class="header_nav">
+                <div class="left_nav" >
+                <a href="" style="margin-left: 15px;"><i class="bi bi-search"></i>호텔검색</a>
+                </div>
+                <div class="center_nav"></div>
+              
+                <!-- case1. 로그인 전 -->
+                <!--
+                <div class="right_nav">
+                <a href="">로그인</a>
+                <a href="">회원가입</a>
+                </div>
+                -->
+                 <!-- case2. 로그인 후--> 
+                 <div class="right_nav">
+                    <b>GALGODA제주님</b>
+                    <a href=""> <i class="bi bi-person-circle"></i></a>
+                    
+                </div>
+                
+            </nav>
+        </header>
+        <!-- header end-->
+
+
+        <section class="main_content">
+            
+            <!-- 사이드 메뉴바 영역 -->
+            <div class="sideMenubar">
+                <ul class="nav flex-column">
+                    <li >
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">마이페이지</h3>
+                    </li>
+                    
+                    <li>
+                        <a class="nav-link " style="color: white; background-color: rgb(115, 90, 75);" href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
+                    </li>
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
+                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
+                    <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
+                    
+                    
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">예약관리</a>
+                    </li>
+                    <li> <div id="demo2" class="collapse" style="margin-left: 30px;"><a href="">예약현황조회</a></div> </li>   
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                    </li>
+                        
+                    
+                    <li>
+                         <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
+                    </li>
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                </ul>
+            </div>
+
+           
+            <!-- 사이드 메뉴바 영역  끝-->
+
+            <!-- 메인 부분 -->
+            <div class="page_content" style="margin-bottom: 150px;">
+
+                <span id="title1">호텔관리</span> <span id="title2"> - 리뷰관리</span>
+                <div style="border : 1px solid lightgray; margin-bottom: 16px;"></div>
+                
+                <div class="hotel_content" style="padding-left: 20px; width: 80%;">
+                    <span id="title3">리뷰 상세 조회</span>
+                   
+                    <table class="table " align="center" style="margin-top: 12px; ">
+                        <tr>
+                            <th>No.</th><td>4</td>
+                        </tr>
+                        <tr>
+                            <th>아이디</th><td>user04</td>
+                        </tr>
+                        <tr>
+                            <th>예약번호</th><td>20011</td>
+                        </tr>
+                        <tr>
+                            <th>작성일자</th><td>2024.01.28</td>
+                        </tr>
+                        <tr>
+                            <th>별점</th><td>3.0</td>
+                        </tr>
+                        <tr>
+                            <th>제목</th><td>비추천 합니다</td>
+                        </tr>
+                        <tr >
+                            <th style="vertical-align: middle;">내용</th>
+                            <td style="vertical-align: middle; height: 200px;" >
+                                <p style="white-space: pre;">
+                                    어제 다녀왔는데 룸 컨디션이 별로였습니다.
+                                    비추천합니다.
+                                    다들 가지마세요. 
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="vertical-align: middle;">첨부파일</th>
+                            <td style="vertical-align: middle; height: 200px;">
+                                <div id="demo" class="carousel slide" data-ride="carousel">
+
+                                    <!-- Indicators -->
+                                    <ul class="carousel-indicators">
+                                      <li data-target="#demo" data-slide-to="0" class="active"></li>
+                                      <li data-target="#demo" data-slide-to="1"></li>
+                                      <li data-target="#demo" data-slide-to="2"></li>
+                                    </ul>
+                                  
+                                    <!-- The slideshow -->
+                                    <div class="carousel-inner">
+                                      <div class="carousel-item active">
+                                        <img src="la.jpg" alt="Los Angeles">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="chicago.jpg" alt="Chicago">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="ny.jpg" alt="New York">
+                                      </div>
+                                    </div>
+                                  
+                                    <!-- Left and right controls -->
+                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                      <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                                      <span class="carousel-control-next-icon"></span>
+                                    </a>
+                                  
+                                  </div>
+                            </td>
+                        </tr>
+                       
+                    </table>
+
+                    <div class="float-right" >
+                        <button class="btn btnbrown  " type="button" data-toggle="modal" data-target="#myModal">사용자 신고하기</button>
+                        <button class="btn btnbrown  " type="button" onclick="reportRv();">리뷰 신고하기</button>
+                        <br>
+                        <div class="float-right" style="margin-top: 10px;">
+                            <button class="btn btnconfirm " type="submit" onclick=";">목록으로</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            
+            <script>
+                function reportRv(){
+                    if(confirm("리뷰를 신고하시겠습니까?")){
+                        alert("신고 완료되었습니다.");
+                        }
+                }
+            </script>
+
+           
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="background-color:#F1C40F;">
+                    <h4 class="modal-title" style="color: white;">사용자 신고하기</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <form>
+                        <table class="table " align="center" >
+                            
+                            <tr>
+                                <th>아이디</th><td>user04</td>
+                            </tr>
+                            <tr>
+                                <th>예약번호</th><td>20011</td>
+                            </tr>
+                            <tr>
+                                <th>신고사유</th>
+                                <td>
+                                    <select class="form-control" name="report_reason">
+                                        <option value="abuse">욕설/폭언</option>
+                                        <option value="obscene">음란</option>
+                                        <option value="false_fact">허위사실</option>
+                                        <option value="criminal_damage" selected>기물파손</option>
+                                        <option value="smoking">흡연</option>
+                                        <option value="etc">기타</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="vertical-align: middle;">신고내용</th>
+                                <td style="vertical-align: middle; height: 200px;" >
+                                    <textarea class="form-control" style="height: 100%; text-align: center;"   >고객이 침대를 부셔놨습니다.</textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button class="btn btnbrown  " type="submit" onclick="reportUser();" >사용자 신고하기</button>
+                    </div>
+
+                    <script>
+                        function reportUser(){
+                            
+                            if(confirm("사용자를 신고하시겠습니까?")){
+                                alert("신고 완료되었습니다.");
+                            }
+                        }
+                    </script>
+                </div>
+                </div>
+            </div>
+            <!-- 모달 끝 -->
+
+
+
+        
+            <!-- 메인 부분  끝 -->
+
+
+        
+
+        </section>
+
+         <!-- Footer start -->
+         <footer class="footer">
+            <div class="footer_link">
+                <a href="">GALGODA 소개</a> 
+                <a href="">공지사항</a> 
+                <a href="">개인정보처리방침</a> 
+                <a href="">이용약관</a> 
+                <a href="">고객센터</a>
+            </div>
+            <div class="footer_company">
+                <ul>
+                    <li>상호명 : GALGODA(주)</li>
+                    <li>대표자 : 어디갈때여기조</li>
+                    <li>사업자등록번호 123-45-67890</li>
+                    <li>전화 : 02-1234-5678 / FAX 02-1234-5678</li>
+                    <li>(08505) 서울특별시 금천구 가산디지털2로 95
+                        (가산동, km타워) 2층, 3층</li>
+                    <li>Copyright ⓒ GooDee Academy. All rights reserved.</li>
+                </ul>
+            </div>
+            
+        </footer>
+        <!-- Footer end -->
+    </div>   
+</body>
+</html>
