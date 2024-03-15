@@ -5,10 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Galgoda</title>
-<style>
-
-
-</style>
 </head>
 <body>
 	<div class="wrap">
