@@ -95,7 +95,7 @@
                     	<% for(Notice n : list){ %>
                         <tr>
                             <td><%= n.getNoticeNo() %></td>
-                            <td><a href="#"><%= n.getNoticeTitle() %></a></td>
+                            <td><a href="<%= contextPath %>/detail.no?no=<%= n.getNoticeNo() %>"><%= n.getNoticeTitle() %></a></td>
                             <td><%= n.getRegistDate() %></td>
                         </tr>
                         <% } %>
