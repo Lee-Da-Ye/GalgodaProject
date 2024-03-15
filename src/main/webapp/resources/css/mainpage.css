@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+
+
+/*메인페이지에서만 쓰는 서식*/
+.mainpage_content{min-height:600px;}
+.main_image {height: 30%;}
+
+/* 검색바 관련 서식*/
+.main_top{
+    padding: 10px;
+    border: 1px solid rgb(99, 76, 70);
+    border-radius: 20px;
+    margin-top: 5px;
+}
+.main_searchBar {
+    height: 150px;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+}
+.main_searchBar td{
+    padding: 10px;
+}
+.main_searchBar input[type="number"] {
+    width: 100%;
+    text-align: center;
+}
+.main_searchButton{
+    color: rgb(99, 76, 70);
+    background-color: rgb(235, 231, 227);
+    width: 230px;
+}
+.main_searchButton:hover{
+	color: gray;
+    background-color: rgb(235, 231, 227);
+}
+
+.iconInput{
+    position: relative;
+}
+.iconInput i {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+mainpage_content i{
+    color: rgb(115, 90, 85);
+}
+
+/*인기호텔 관련 영역 서식 */
+.mainpage_h2{
+    color: rgb(115, 90, 85);
+}
+.main_bottom>div{
+    border-radius:10px;
+    min-height:500px;
+    padding:50px;
+    
+}
+.mainpage_imgContent{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+.mainpage_hotelThumbnail {
+    width: 250px;
+    margin: 30px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+    
+}
+.mainpage_hotelImg{
+    width: 240px;
+    height: 230px;
+}
