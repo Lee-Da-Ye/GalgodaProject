@@ -19,4 +19,12 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
+	
+	public Notice selectNotice(int noticeNo) {
+		Connection conn = getConnection();
+		Notice n = nDao.selectNotice(conn, noticeNo);
+		
+		close(conn);
+		return n;
+	}
 }

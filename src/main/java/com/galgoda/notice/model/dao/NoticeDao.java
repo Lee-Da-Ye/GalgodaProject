@@ -51,5 +51,31 @@ public class NoticeDao {
 		
 	}
 	
+	public Notice selectNotice(Connection conn, int noticeNo) {
+		Notice n = new Notice();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noticeNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n.setNoticeNo(rset.getInt("NOTICE_NO"));
+				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
+				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
+				n.setRegistDate(rset.getString("REGIST_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return n;
+	}
+	
 	
 }
