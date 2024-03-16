@@ -49,7 +49,11 @@
     <script>
         alert('<%= alertMsg %>');
     </script>
+    <% 
+        session.removeAttribute("alertMsg"); // 세션 속성 제거
+	    %>
 	<% } %>
+
 
 	
 	<!-- header start-->
