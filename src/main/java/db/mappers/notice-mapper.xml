@@ -66,4 +66,18 @@
 		  , NULL
 		  )
 	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE
+		       TB_NOTICE
+		   SET NOTICE_TITLE = ?
+		     , NOTICE_CONTENT = ?
+		 WHERE NOTICE_NO = ?
+	</entry>
+	
+	<entry key="deleteNotice">
+		DELETE
+		  FROM TB_NOTICE
+		 WHERE NOTICE_NO = ?
+	</entry>
 </properties>
