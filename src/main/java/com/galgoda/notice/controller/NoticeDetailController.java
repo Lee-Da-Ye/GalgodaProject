@@ -36,7 +36,7 @@ public class NoticeDetailController extends HttpServlet {
 		Notice n = new NoticeService().selectNotice(noticeNo);
 		
 		request.setAttribute("n", n);
-		request.getRequestDispatcher("views/customerService/userDetailNotice.jsp").forward(request, response);
+		request.getRequestDispatcher("views/customerService/noticeDetail.jsp").forward(request, response);
 	
 	}
 

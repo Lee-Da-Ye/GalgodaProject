@@ -34,7 +34,7 @@ public class NoticeListController extends HttpServlet {
 		 
 		List<Notice> li = new NoticeService().selectNoticeList();
 		request.setAttribute("li", li);
-		request.getRequestDispatcher("/views/customerService/userNoticeList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/customerService/noticeList.jsp").forward(request, response);
 	}
 
 	/**

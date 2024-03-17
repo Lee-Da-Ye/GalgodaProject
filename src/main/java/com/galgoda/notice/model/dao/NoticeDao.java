@@ -67,6 +67,12 @@ public class NoticeDao {
 				n.setNoticeTitle(rset.getString("NOTICE_TITLE"));
 				n.setNoticeContent(rset.getString("NOTICE_CONTENT"));
 				n.setRegistDate(rset.getString("REGIST_DATE"));
+				if(rset.getInt("MEM_NO") != 0) {
+					n.setMemNo(rset.getInt("MEM_NO"));
+				}
+				if(rset.getInt("ADMIN_NO") != 0) {
+					n.setAdminNo(rset.getInt("ADMIN_NO"));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
