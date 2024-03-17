@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	/* 사용자_공지사항상세페이지 스타일 */
+	/* 공지사항상세페이지 스타일 */
         .space {
             padding: 10px;
         }
@@ -171,7 +171,7 @@
                         <% if(loginHotel.getMemNo() == n.getMemNo()) { %>
                         <tr>
                             <td colspan="3" align="right">
-                                <a class="btn" style="background-color: rgb(115, 90, 75); color: white;">수정</a>
+                                <a href="<%= contextPath %>/updateForm.no?no=<%= n.getNoticeNo() %>" class="btn" style="background-color: rgb(115, 90, 75); color: white;">수정</a>
                                 <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="deleteNotice();">삭제</button>
                             </td>
                         </tr>
@@ -242,7 +242,7 @@
                         <% if(loginAdmin.getAdminNo() == n.getAdminNo()){ %>
                         <tr>
                             <td colspan="3" align="right">
-                                <a class="btn" style="background-color: rgb(115, 90, 75); color: white;">수정</a>
+                                <a href="<%= contextPath %>/updateForm.no?no=<%= n.getNoticeNo() %>" class="btn" style="background-color: rgb(115, 90, 75); color: white;">수정</a>
                                 <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="deleteNotice();">삭제</button>
                             </td>
                         </tr>
@@ -258,6 +258,7 @@
                     if(confirm("해당 공지사항을 삭제하시겠습니까?")){
                         alert("공지사항이 삭제되었습니다.");
                     }
+                    location.href="<%= contextPath %>/delete.no?no=<%= n.getNoticeNo() %>";
                 }
             </script>
             
