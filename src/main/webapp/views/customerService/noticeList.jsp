@@ -169,7 +169,7 @@
                 </table>
                 
                 <div align="right" style="width: 97%; margin-top: 10px;">
-                    <a class="btn" style="background-color: rgb(115, 90, 75); color: white;">글쓰기</a>
+                    <a href="<%= contextPath %>/enrollForm.no" class="btn" style="background-color: rgb(115, 90, 75); color: white;">글쓰기</a>
                 </div>
                 
                 <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
@@ -239,7 +239,7 @@
                 </table>
                 
                 <div align="right" style="width: 97%; margin-top: 10px;">
-                    <a class="btn" style="background-color: rgb(115, 90, 75); color: white;">글쓰기</a>
+                    <a href="<%= contextPath %>/enrollForm.no" class="btn" style="background-color: rgb(115, 90, 75); color: white;">글쓰기</a>
                 </div>
                 
                 <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
