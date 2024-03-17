@@ -20,6 +20,8 @@
 		     , NOTICE_TITLE
 		     , NOTICE_CONTENT
 		     , TO_CHAR(REGIST_DATE, 'YYYY-MM-DD') REGIST_DATE
+		     , MEM_NO
+		     , ADMIN_NO
 		  FROM TB_NOTICE
 		 WHERE NOTICE_NO = ?
 		   AND STATUS = 'Y'
