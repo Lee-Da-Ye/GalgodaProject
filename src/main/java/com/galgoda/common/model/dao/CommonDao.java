@@ -53,8 +53,10 @@ public class CommonDao {
 									  , rset.getString("birth_date")
 									  , rset.getString("email")
 									  , rset.getString("phone")
+									  , rset.getString("zipcode")
 									  , rset.getString("address")
 									  , rset.getString("address_detail")
+									  , rset.getString("etc")
 									  , rset.getDate("regist_date")
 									  , rset.getDate("modify_date")
 									  , rset.getString("status"));
