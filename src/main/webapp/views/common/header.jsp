@@ -79,16 +79,23 @@
 		        <% if(loginCustomer != null) { %>
 		            <!-- 고객으로 로그인한 경우 -->
 		            <b><%= loginCustomer.getUserName() %> 님</b>
+		            <a href="<%=contextPath%>/mypage.cu">
+		            <i class="bi bi-person-circle"></i>
+		       	 	</a>
 		        <% } else if(loginHotel != null) { %>
 		            <!-- 호텔으로 로그인한 경우 -->
 		            <b><%= loginHotel.getHotelName() %> 님</b>
+		            <a href="<%=contextPath%>/mypage.ho">
+		            <i class="bi bi-person-circle"></i>
+		       	 	</a>
 		        <% } else if(loginAdmin != null) { %>
 		            <!-- 관리자로 로그인한 경우 -->
 		            <b><%= loginAdmin.getAdminName() %> 님</b>
-		        <% } %>
-		        <a href="">
+		            <a href="<%=contextPath%>/mypage.su">
 		            <i class="bi bi-person-circle"></i>
-		        </a>
+		       	 	</a>
+		        <% } %>
+		        
 		        <a href="<%= contextPath %>/logout.co">로그아웃</a>
 		    	</div>	
                 <% } %>

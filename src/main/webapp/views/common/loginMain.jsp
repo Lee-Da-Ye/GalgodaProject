@@ -18,6 +18,10 @@
 <style>
 
 		/* 로그인 박스에 적용하는 스타일 */
+		.mypage_header {
+            margin: 0 auto;
+            width: 600px;
+	     }
         .login_btn{
             width: 350px;
             height: 35px;
