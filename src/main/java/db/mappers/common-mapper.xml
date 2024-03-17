@@ -11,8 +11,10 @@
 			  ,	BIRTH_DATE
 			  ,	EMAIL
 			  ,	PHONE
+			  , ZIPCODE
 			  ,	ADDRESS
 			  ,	ADDRESS_DETAIL
+			  , ETC
 			  ,	REGIST_DATE
 			  ,	MODIFY_DATE
 			  ,	STATUS
