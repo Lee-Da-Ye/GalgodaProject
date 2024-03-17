@@ -83,5 +83,43 @@ public class NoticeDao {
 		return n;
 	}
 	
+	public int insertHotelNotice(Connection conn, Notice n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertHotelNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getMemNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int insertAdminNotice(Connection conn, Notice n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdminNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getAdminNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }
