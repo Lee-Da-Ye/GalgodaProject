@@ -1,10 +1,14 @@
 package com.galgoda.notice.model.service;
 
-import static com.galgoda.common.template.JDBCTemplate.*;
+import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.commit;
+import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.notice.model.dao.NoticeDao;
 import com.galgoda.notice.model.vo.Notice;
 
@@ -12,9 +16,9 @@ public class NoticeService {
 	
 	private NoticeDao nDao = new NoticeDao();
 	
-	public List<Notice> selectNoticeList(){
+	public List<Notice> selectNoticeList(PageInfo pi){
 		Connection conn = getConnection();
-		List<Notice> list = nDao.selectNoticeList(conn);
+		List<Notice> list = nDao.selectNoticeList(conn, pi);
 		
 		close(conn);
 		return list;
@@ -82,5 +86,13 @@ public class NoticeService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public int selectListCount() {
+		Connection conn = getConnection();
+		int count = nDao.selectListCount(conn);
+		
+		close(conn);
+		return count;
 	}
 }
