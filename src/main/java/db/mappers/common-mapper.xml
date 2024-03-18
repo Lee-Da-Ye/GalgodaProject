@@ -60,4 +60,54 @@
 			   AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="insertCustomer">
+	
+		INSERT
+		  INTO TB_USER
+		  (
+		  	USER_NO
+		  ,	USER_ID
+		  ,	USER_NAME
+		  ,	USER_ENG_NAME
+		  ,	USER_PWD
+		  ,	BIRTH_DATE
+		  ,	EMAIL
+		  ,	PHONE
+		  ,	ZIPCODE
+		  ,	ADDRESS
+		  ,	ADDRESS_DETAIL
+		  ,	ETC
+		  )
+		  VALUES
+		  (
+		  	SEQ_USERNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	
+	</entry>
+	
+	<entry key="isEmailDuplicate">
+		SELECT 
+				COUNT(*)
+		  FROM TB_USER
+		 WHERE EMAIL = ?
+	</entry>
+	
+	<entry key="isUserIdDuplicate">
+		SELECT 
+				COUNT(*)
+		  FROM TB_USER
+		 WHERE USER_ID = ?
+	</entry>
+	
 </properties>
