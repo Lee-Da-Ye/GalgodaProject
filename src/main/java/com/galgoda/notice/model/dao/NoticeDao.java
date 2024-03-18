@@ -1,5 +1,7 @@
 package com.galgoda.notice.model.dao;
 
+import static com.galgoda.common.template.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,8 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import static com.galgoda.common.template.JDBCTemplate.close;
 
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.notice.model.vo.Notice;
 
 public class NoticeDao {
@@ -25,7 +27,7 @@ public class NoticeDao {
 		}
 	}
 	
-	public List<Notice> selectNoticeList(Connection conn){
+	public List<Notice> selectNoticeList(Connection conn, PageInfo pi){
 		List<Notice> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -33,6 +35,12 @@ public class NoticeDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -157,5 +165,26 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int selectListCount(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 }
