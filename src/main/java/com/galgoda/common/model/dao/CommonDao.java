@@ -144,5 +144,91 @@ public class CommonDao {
 		return admin;
 		
 	}
+	
+	public int insertCustomer(Connection conn, Customer ct) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCustomer");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ct.getUserId());
+			pstmt.setString(2, ct.getUserName());
+			pstmt.setString(3, ct.getUserEngName());
+			pstmt.setString(4, ct.getUserPwd());
+			pstmt.setString(5, ct.getBirthDate());
+			pstmt.setString(6, ct.getEmail());
+			pstmt.setString(7, ct.getPhone());
+			pstmt.setString(8, ct.getZipcode());
+			pstmt.setString(9, ct.getAddress());
+			pstmt.setString(10, ct.getAddressDetail());
+			pstmt.setString(11, ct.getEtc());
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+	}
+	
+	public int isEmailDuplicate(Connection conn, String email) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("isEmailDuplicate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int isUserIdDuplicate(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("isUserIdDuplicate");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+		
+	}
 
 }

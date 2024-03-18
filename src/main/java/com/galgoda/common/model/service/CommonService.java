@@ -3,6 +3,7 @@ package com.galgoda.common.model.service;
 import java.sql.Connection;
 
 import com.galgoda.common.model.dao.CommonDao;
+
 import static com.galgoda.common.template.JDBCTemplate.*;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
@@ -39,5 +40,60 @@ public class CommonService {
 		return admin;
     }
 	
-
+    public int insertCustomer(Customer ct) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.insertCustomer(conn, ct);
+    	
+    	if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+    }
+    
+    public boolean isEmailDuplicate(String email) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.isEmailDuplicate(conn, email);
+    	
+    	if (result > 0) {
+            // 이메일이 이미 존재하는 경우
+    		rollback(conn);
+    		close(conn);
+            return true;
+        } else {
+            // 이메일이 존재하지 않는 경우
+        	commit(conn);
+        	close(conn);
+            return false;
+        }
+    	
+    	
+    }
+    
+    public boolean isUserIdDuplicate(String userId) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.isUserIdDuplicate(conn, userId);
+    	
+    	if (result > 0) {
+            // 아이디가 이미 존재하는 경우
+    		rollback(conn);
+    		close(conn);
+            return true;
+        } else {
+            // 아이디가 존재하지 않는 경우
+        	commit(conn);
+        	close(conn);
+            return false;
+        }
+    	
+    	
+    }
+    
 }
