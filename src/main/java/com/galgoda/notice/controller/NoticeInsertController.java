@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.galgoda.member.model.vo.Admin;
-import com.galgoda.member.model.vo.Hotel;
+import com.galgoda.member.model.vo.HotelUser;
 import com.galgoda.notice.model.service.NoticeService;
 import com.galgoda.notice.model.vo.Notice;
 
@@ -45,9 +45,9 @@ public class NoticeInsertController extends HttpServlet {
 		
 		int writerNo = 0;
 		if(session.getAttribute("loginHotel") != null) {
-			noticeTitle = "[" + ((Hotel)session.getAttribute("loginHotel")).getMemName() + "]" + request.getParameter("title");
+			noticeTitle = "[" + ((HotelUser)session.getAttribute("loginHotel")).getMemName() + "]" + request.getParameter("title");
 			noticeContent = request.getParameter("content");
-			writerNo = ((Hotel)session.getAttribute("loginHotel")).getMemNo();
+			writerNo = ((HotelUser)session.getAttribute("loginHotel")).getMemNo();
 			n.setNoticeTitle(noticeTitle);
 			n.setNoticeContent(noticeContent);
 			n.setMemNo(writerNo);
