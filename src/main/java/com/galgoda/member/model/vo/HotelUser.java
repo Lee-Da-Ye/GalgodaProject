@@ -2,7 +2,7 @@ package com.galgoda.member.model.vo;
 
 import java.sql.Date;
 
-public class Hotel {
+public class HotelUser{
 	
 	private int memNo;
 	private String memId;
@@ -17,9 +17,9 @@ public class Hotel {
 	private int authentiCode;
 	private String hotelName;
 	
-	public Hotel() {}
+	public HotelUser() {}
 
-	public Hotel(int memNo, String memId, String memPwd, String memName, String memPhone, String memEmail,
+	public HotelUser(int memNo, String memId, String memPwd, String memName, String memPhone, String memEmail,
 			Date registDate, Date modifyDate, String status, String role, int authentiCode, String hotelName) {
 		super();
 		this.memNo = memNo;
@@ -134,12 +134,12 @@ public class Hotel {
 
 	@Override
 	public String toString() {
-		return "Hotel [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName
+		return "HotelUser [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", memName=" + memName
 				+ ", memPhone=" + memPhone + ", memEmail=" + memEmail + ", registDate=" + registDate + ", modifyDate="
 				+ modifyDate + ", status=" + status + ", role=" + role + ", authentiCode=" + authentiCode
 				+ ", hotelName=" + hotelName + "]";
 	}
-	
+
 	
 
 	

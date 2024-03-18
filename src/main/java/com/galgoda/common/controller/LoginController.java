@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.galgoda.common.model.service.CommonService;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
-import com.galgoda.member.model.vo.Hotel;
+import com.galgoda.member.model.vo.HotelUser;
 
 /**
  * Servlet implementation class LoginController
@@ -61,7 +61,7 @@ public class LoginController extends HttpServlet {
 	        }
         } else if ("hotel".equals(userType)) {
         	
-        	Hotel hotel = new CommonService().loginHotel(userId, userPwd);
+        	HotelUser hotel = new CommonService().loginHotel(userId, userPwd);
         	
         	// 로그인 결과에 따른 처리
             if (hotel != null) {

@@ -6,7 +6,7 @@ import com.galgoda.common.model.dao.CommonDao;
 import static com.galgoda.common.template.JDBCTemplate.*;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
-import com.galgoda.member.model.vo.Hotel;
+import com.galgoda.member.model.vo.HotelUser;
 
 public class CommonService {
 	
@@ -21,10 +21,10 @@ public class CommonService {
 		return customer;
     }
 
-    public Hotel loginHotel(String userId, String userPwd) {
+    public HotelUser loginHotel(String userId, String userPwd) {
         // Hotel 객체 생성 및 반환하는 로직
     	Connection conn = getConnection();
-		Hotel hotel = cDao.loginHotel(conn, userId, userPwd);
+    	HotelUser hotel = cDao.loginHotel(conn, userId, userPwd);
 		
 		close(conn);
 		return hotel;

@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.galgoda.member.model.vo.Customer" %>
-<%@ page import="com.galgoda.member.model.vo.Hotel" %>
+<%@ page import="com.galgoda.member.model.vo.HotelUser" %>
 <%@ page import="com.galgoda.member.model.vo.Admin" %>
 
 <% 
 	String contextPath = request.getContextPath(); 
 
 	Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-	Hotel loginHotel = (Hotel)session.getAttribute("loginHotel");
+	HotelUser loginHotel = (HotelUser)session.getAttribute("loginHotel");
 	Admin loginAdmin = (Admin)session.getAttribute("loginAdmin");
 	// 로그인 전 : null
 	// 로그인 성공 후 : 로그인한 고객/호텔/관리자 데이터가 담겨있음

@@ -12,7 +12,7 @@ import java.util.Properties;
 
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
-import com.galgoda.member.model.vo.Hotel;
+import com.galgoda.member.model.vo.HotelUser;
 
 
 public class CommonDao {
@@ -72,9 +72,9 @@ public class CommonDao {
 	}
 	
 	
-	public Hotel loginHotel(Connection conn, String userId, String userPwd) {
+	public HotelUser loginHotel(Connection conn, String userId, String userPwd) {
 		
-		Hotel hotel = null;
+		HotelUser hotel = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -88,7 +88,7 @@ public class CommonDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				hotel = new Hotel(rset.getInt("mem_no")
+				hotel = new HotelUser(rset.getInt("mem_no")
 									  , rset.getString("mem_id")
 									  , rset.getString("mem_pwd")
 									  , rset.getString("mem_name")
