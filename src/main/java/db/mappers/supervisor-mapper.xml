@@ -19,9 +19,43 @@
 			  ,	MODIFY_DATE
 			  ,	STATUS
 		   FROM TB_USER
+		  ORDER
+		  	 BY USER_NO DESC
 		 
 	</entry>
-
-
+	
+	<!-- 유저한명 조회 -->
+	<entry key="selectUser">
+		SELECT
+				USER_NO
+			  ,	USER_ID
+			  ,	USER_NAME
+			  ,	USER_ENG_NAME
+			  ,	USER_PWD
+			  ,	BIRTH_DATE
+			  ,	NVL(EMAIL,'미입력') EMAIL
+			  ,	PHONE
+			  , ZIPCODE
+			  ,	NVL(ADDRESS,'미입력') ADDRESS
+			  ,	NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
+			  , ETC
+			  ,	REGIST_DATE
+			  ,	MODIFY_DATE
+			  ,	STATUS
+		   FROM TB_USER
+		  WHERE USER_NO = ?
+	</entry>
+	
+	<entry key ="updateUser">
+		UPDATE 
+		  		TB_USER
+		   SET	USER_NAME = ?
+		   	 ,	PHONE = ?
+		   	 ,	EMAIL = ? 
+		   	 , 	ADDRESS	= ?
+		   	 ,	ADDRESS_DETAIL= ?
+		 WHERE	USER_ID = ?
+		   
+	</entry>
 
 </properties>
