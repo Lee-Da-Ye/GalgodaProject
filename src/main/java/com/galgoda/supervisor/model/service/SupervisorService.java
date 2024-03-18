@@ -19,5 +19,28 @@ public class SupervisorService {
 		
 		return list;
 	}
+
+	public Customer selectUser(int userNo) {
+		Connection conn = getConnection();
+		Customer user = sDao.selectUser(conn,userNo);
+		close(conn);
+		
+		return user;
+	}
+
+	public Customer updateUser(Customer user) {
+		Connection conn = getConnection();
+		int result = sDao.updateUser(conn,user);
+		Customer updateUser = null;
+		if(result>0) {
+			commit(conn);
+			
+			updateUser = sDao.selectUser(conn,user.getUserNo() );
+		}else {
+			rollback(conn);
+		}
+		
+		return updateUser;
+	}
 	
 }

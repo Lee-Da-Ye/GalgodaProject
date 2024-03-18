@@ -61,6 +61,69 @@ public class SupervisorDao {
 				
 		return list;
 	}
+	public Customer selectUser(Connection conn, int userNo) {
+		Customer user = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user = new Customer(rset.getInt("user_no")
+						  , rset.getString("user_id")
+						  , rset.getString("user_name")
+						  , rset.getString("user_eng_name")
+						  , rset.getString("user_pwd")
+						  , rset.getString("birth_date")
+						  , rset.getString("email")
+						  , rset.getString("phone")
+						  , rset.getString("zipcode")
+						  , rset.getString("address")
+						  , rset.getString("address_detail")
+						  , rset.getString("etc")
+						  , rset.getDate("regist_date")
+						  , rset.getDate("modify_date")
+						  , rset.getString("status"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return user;
+	}
+	public int updateUser(Connection conn, Customer user) {
+		int result=0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, user.getUserName());
+			pstmt.setString(2, user.getPhone());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setString(4, user.getAddress());
+			pstmt.setString(5, user.getAddressDetail());
+			pstmt.setString(6, user.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 	
 	
 	
