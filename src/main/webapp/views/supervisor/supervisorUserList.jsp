@@ -84,7 +84,7 @@
 	                        <td><input type="radio" name="target"></td>
 	                        <td><%=c.getUserNo() %></td>
 	                        <td><%=c.getUserName() %></td>
-	                        <td><%=c.getUserEngName() %></td>
+	                        <td><%=c.getUserId() %></td>
 	                        <td><%=c.getPhone() %></td>
 	                        <td><%=c.getEmail() %></td>
 	                        <td><%=c.getBirthDate() %></td>
