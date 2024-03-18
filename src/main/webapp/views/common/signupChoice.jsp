@@ -12,21 +12,27 @@
         }
 
         /* 회원가입 구분 원 */
-        .signup_page{
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
-
-        .signup_circle{
-            width: 230px;
-            height: 230px;
-            border-radius: 50px;
-            border: none;
-            background-color: rgb(235, 231, 227);
-            margin: 20px;
-            font-size: 30px;
-        }
+        
+        #signup_page {
+		  display: flex;
+		  justify-content: center;
+		}
+		
+		#signup_circle1, #signup_circle2 {
+		  width: 230px;
+		  height: 230px;
+		  border-radius: 50px;
+		  border: none;
+		  background-color: rgb(235, 231, 227);
+		  margin: 20px;
+		  font-size: 30px;
+		  text-decoration: none;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  color: black;
+		}
+        
 </style>
 </head>
 <body>
@@ -75,10 +81,10 @@
         
                 <br>
 
-                <div class="signup_page">
+                <div id="signup_page">
                     
-                    <button class="signup_circle">일반 <br> 회원</button>
-                    <button class="signup_circle">호텔 <br> 회원</button>
+                    <a href="<%=contextPath%>/signupCustomer.co" id="signup_circle1">일반 <br> 회원</a>
+                    <a href="<%=contextPath%>/signupHotel.co" id="signup_circle2">호텔 <br> 회원</a>
                     
                 </div>
             
