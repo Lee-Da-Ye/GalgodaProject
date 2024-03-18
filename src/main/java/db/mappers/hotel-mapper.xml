@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key="hotelinsertForm">
+
+	SELECT 
+			TAG_NO
+		  , TAG_NAME
+	  FROM tb_tag
+	 WHERE STATUS = 'Y'
+
+</entry>
+
+<entry key="insertHotel">
+	INSERT
+		INTO TB_HOTEL
+		VALUES
+		(
+			SEQ_HOTELNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , 'Y'
+		  , ?
+		  , ?
+		  , ?
+		)
+		
+
+</entry>
+
+</properties>

@@ -154,7 +154,7 @@
                             <a href="" class="mypage_rec_menu">예약 관리</a>
                         </div>
                         <div class="mypage_rectangle">
-                            <a href="" class="mypage_rec_menu">호텔 관리</a>
+                            <a href="<%= contextPath %>/hotelinsertForm.ho" class="mypage_rec_menu">호텔 관리</a>
                         </div>
                         <div class="mypage_rectangle">
                             <a href="" class="mypage_rec_menu">담당자 정보 수정</a>
