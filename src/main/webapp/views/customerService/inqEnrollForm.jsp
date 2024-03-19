@@ -3,13 +3,22 @@
 <%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
 <%@ page import="java.util.List" %>
 <%
-	List<Hotel> list = (List<Hotel>)request.getAttribute("list");
+	List<Hotel> hotelList = (List<Hotel>)request.getAttribute("hotelList");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.sideMenubar_head {
+            width: 80%;
+            margin-left: 10px;
+            margin-right: 30px;
+            margin-top: 10px;
+            border-bottom: 1px solid gray;
+    }
+</style>
 </head>
 <body>
 	<div class="wrap">
@@ -43,7 +52,7 @@
                     </li>
                     <li>
                         <div class="collapse show" id="aaa" style="margin-left: 30px;">
-                            <a href="">문의내역</a>
+                            <a href="list.inq">문의내역</a>
                         </div>
                     </li>
 
@@ -55,21 +64,21 @@
                 <div style="margin-top: 10px; border: 2px solid lightgray;"></div>
 
                 <div style="margin: 30px;">
-                    <form action="<%= contextPath %>/insert.inq" method="post">
+                    <form action="<%= contextPath %>/insert.inq" method="post" enctype="multipart/form-data">
                         <div>
                         <h5>* 기본정보</h5>
                             <table class="table" style="width: 80%;">
                                 <tr>
                                     <td>이름</td>
-                                    <td><input type="text" name="userName" style="width: 300px;"></td>
+                                    <td><input type="text" name="userName" style="width: 300px;" value="<%= loginCustomer.getUserName() %>" readonly></td>
                                 </tr>
                                 <tr>
                                     <td>연락처</td>
-                                    <td><input type="text" name="phone" style="width: 300px;"></td>
+                                    <td><input type="text" name="phone" style="width: 300px;" value="<%= loginCustomer.getPhone() %>"></td>
                                 </tr>
                                 <tr>
                                     <td>이메일</td>
-                                    <td><input type="email" name="email" style="width: 300px;"></td>
+                                    <td><input type="email" name="email" style="width: 300px;" value="<%= loginCustomer.getEmail() %>"></td>
                                 </tr>
                             </table>
                         </div>
@@ -77,7 +86,7 @@
                         <br>
                         <h5>* 구분</h5>
                         <select name="category" style="width: 300px;">
-                        	<% for(Hotel h : list){ %>
+                        	<% for(Hotel h : hotelList){ %>
                             <option value="<%= h.getHotelName() %>"><%= h.getHotelName() %></option>
                            	<% } %>
                         </select>

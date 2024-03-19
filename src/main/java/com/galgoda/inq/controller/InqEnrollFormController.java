@@ -32,9 +32,9 @@ public class InqEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<Hotel> list = new InqService().selectHotelName();
+		List<Hotel> hotelList = new InqService().selectHotelName();
 		
-		request.setAttribute("list", list);
+		request.setAttribute("hotelList", hotelList);
 		request.getRequestDispatcher("/views/customerService/inqEnrollForm.jsp").forward(request, response);
 	}
 

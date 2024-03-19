@@ -5,6 +5,8 @@ public class Inq {
 	private String inqTitle;
 	private String inqContent;
 	private String inqWriter;
+	private String writerPhone;
+	private String writerEmail;
 	private String category;
 	private String inqType;
 	private String registDate;
@@ -17,13 +19,16 @@ public class Inq {
 	public Inq() {
 	}
 
-	public Inq(int inqNo, String inqTitle, String inqContent, String inqWriter, String category, String inqType,
-			String registDate, String modifyDate, String ansContent, int ansWriter, String stauts, String ansDate) {
+	public Inq(int inqNo, String inqTitle, String inqContent, String inqWriter, String writerPhone, String writerEmail,
+			String category, String inqType, String registDate, String modifyDate, String ansContent, int ansWriter,
+			String stauts, String ansDate) {
 		super();
 		this.inqNo = inqNo;
 		this.inqTitle = inqTitle;
 		this.inqContent = inqContent;
 		this.inqWriter = inqWriter;
+		this.writerPhone = writerPhone;
+		this.writerEmail = writerEmail;
 		this.category = category;
 		this.inqType = inqType;
 		this.registDate = registDate;
@@ -66,12 +71,28 @@ public class Inq {
 		this.inqWriter = inqWriter;
 	}
 
+	public String getWriterPhone() {
+		return writerPhone;
+	}
+
+	public void setWriterPhone(String writerPhone) {
+		this.writerPhone = writerPhone;
+	}
+
+	public String getWriterEmail() {
+		return writerEmail;
+	}
+
+	public void setWriterEmail(String writerEmail) {
+		this.writerEmail = writerEmail;
+	}
+
 	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(String hotelType) {
-		this.category = hotelType;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getInqType() {
@@ -133,10 +154,14 @@ public class Inq {
 	@Override
 	public String toString() {
 		return "Inq [inqNo=" + inqNo + ", inqTitle=" + inqTitle + ", inqContent=" + inqContent + ", inqWriter="
-				+ inqWriter + ", hotelType=" + category + ", inqType=" + inqType + ", registDate=" + registDate
-				+ ", modifyDate=" + modifyDate + ", ansContent=" + ansContent + ", ansWriter=" + ansWriter + ", stauts="
-				+ stauts + ", ansDate=" + ansDate + "]";
+				+ inqWriter + ", writerPhone=" + writerPhone + ", writerEmail=" + writerEmail + ", category=" + category
+				+ ", inqType=" + inqType + ", registDate=" + registDate + ", modifyDate=" + modifyDate + ", ansContent="
+				+ ansContent + ", ansWriter=" + ansWriter + ", stauts=" + stauts + ", ansDate=" + ansDate + "]";
 	}
+	
+	
+
+	
 	
 	
 }
