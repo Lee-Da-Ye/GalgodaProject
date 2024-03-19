@@ -271,7 +271,7 @@ public class CommonDao {
 			pstmt.setString(3, hu.getMemName());
 			pstmt.setString(4, hu.getMemPhone());
 			pstmt.setString(5, hu.getMemEmail());
-			pstmt.setString(6, hu.getMemName());
+			pstmt.setString(6, hu.getHotelName());
 			pstmt.setString(7, hu.getAuthentiCode());
 			
 			result = pstmt.executeUpdate();

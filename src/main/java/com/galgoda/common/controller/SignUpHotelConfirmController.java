@@ -36,9 +36,10 @@ public class SignUpHotelConfirmController extends HttpServlet {
 		
 		String memId = request.getParameter("userId");
 		String memPwd = request.getParameter("userPwd");
-		String memName = request.getParameter("hotelName");
+		String memName = request.getParameter("userName");
 		String memPhone = request.getParameter("phone");
 		String memEmail = request.getParameter("email");
+		String hotelName = request.getParameter("hotelName");
 		String authentiCode = request.getParameter("verificationCode");
 		
 		HotelUser hu = new HotelUser();
@@ -48,6 +49,7 @@ public class SignUpHotelConfirmController extends HttpServlet {
 		hu.setMemName(memName);
 		hu.setMemPhone(memPhone);
 		hu.setMemEmail(memEmail);
+		hu.setHotelName(hotelName);
 		hu.setAuthentiCode(authentiCode);
 		
 		int result = new CommonService().updateHotelUser(hu);

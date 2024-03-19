@@ -265,6 +265,10 @@
                                         
                                     </tr>
                                     <tr>
+                                        <th>담당자명 *</th>
+                                        <td><input type="text" name="userName" class="form-control" required></td>
+                                    </tr>
+                                    <tr>
                                         <th>이메일 *</th>
                                         <td>
                                             <div style="display: flex;">
