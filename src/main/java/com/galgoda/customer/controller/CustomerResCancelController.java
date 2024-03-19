@@ -15,16 +15,16 @@ import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.member.model.vo.Customer;
 
 /**
- * Servlet implementation class CustomerResDetailController
+ * Servlet implementation class CustomerResCancelController
  */
-@WebServlet("/resDetail.cu")
-public class CustomerResDetailController extends HttpServlet {
+@WebServlet("/resCancel.cu")
+public class CustomerResCancelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerResDetailController() {
+    public CustomerResCancelController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,33 +33,27 @@ public class CustomerResDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 선택한 개별 예약번호
+		HttpSession session = request.getSession();
 		int resNo = Integer.parseInt(request.getParameter("id"));
 		
-		//전달할 데이터 - 예약정보 조회해오기
-		// 세션에서 로그인된 사용자 정보 가져오기
-	    HttpSession session = request.getSession();
-	    Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 	    
 	    // 로그인된 사용자의 userNo 가져오기
 	    int userNo = loginCustomer.getUserNo();
-	   
+		
+		int result = new CustomerService().cancelReservation(resNo);
 		List<Reservation> reservations = new CustomerService().selectReservation(userNo);
 		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "예약이 성공적으로 취소되었습니다.");
+			session.setAttribute("reservations", reservations); // 동일한 키값으로 다시 담게 되면 덮어씌워짐
+			response.sendRedirect(request.getContextPath() + "/resManagement.cu");
+		}else {
+			session.setAttribute("alertMsg", "예약취소에 실패하였습니다.");
+			response.sendRedirect(request.getContextPath() + "/resManagement.cu");
+		}
 		
-		// 선택한 개별 룸 번호에 대해서만 예약정보를 조회
-		Reservation selectedReservation = null;
-	    for (Reservation r : reservations) {
-	        if (r.getResNo() == resNo) {
-	            selectedReservation = r;
-	            break;
-	        }
-	    }
 		
-	    request.setAttribute("selectedReservation", selectedReservation);
-		
-		request.getRequestDispatcher("/views/customer/resDetail.jsp").forward(request, response);
 	}
 
 	/**

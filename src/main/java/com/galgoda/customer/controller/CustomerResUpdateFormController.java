@@ -15,16 +15,16 @@ import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.member.model.vo.Customer;
 
 /**
- * Servlet implementation class CustomerResDetailController
+ * Servlet implementation class CustomerResUpdateFormController
  */
-@WebServlet("/resDetail.cu")
-public class CustomerResDetailController extends HttpServlet {
+@WebServlet("/resUpdateForm.cu")
+public class CustomerResUpdateFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerResDetailController() {
+    public CustomerResUpdateFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,18 +37,16 @@ public class CustomerResDetailController extends HttpServlet {
 		// 선택한 개별 예약번호
 		int resNo = Integer.parseInt(request.getParameter("id"));
 		
-		//전달할 데이터 - 예약정보 조회해오기
 		// 세션에서 로그인된 사용자 정보 가져오기
 	    HttpSession session = request.getSession();
 	    Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 	    
 	    // 로그인된 사용자의 userNo 가져오기
 	    int userNo = loginCustomer.getUserNo();
-	   
 		List<Reservation> reservations = new CustomerService().selectReservation(userNo);
 		
 		
-		// 선택한 개별 룸 번호에 대해서만 예약정보를 조회
+		// 선택한 개별 예약 번호에 대해서만 예약정보를 조회
 		Reservation selectedReservation = null;
 	    for (Reservation r : reservations) {
 	        if (r.getResNo() == resNo) {
@@ -57,9 +55,9 @@ public class CustomerResDetailController extends HttpServlet {
 	        }
 	    }
 		
-	    request.setAttribute("selectedReservation", selectedReservation);
+	    request.setAttribute("selectedReservation", selectedReservation); //
 		
-		request.getRequestDispatcher("/views/customer/resDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/customer/resUpdateForm.jsp").forward(request, response);
 	}
 
 	/**
