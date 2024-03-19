@@ -53,6 +53,19 @@ public class HotelUser{
 		this.authentiCode = authentiCode;
 		this.hotelName = hotelName;
 	}
+	
+	
+	public HotelUser(int memNo, String memId, String memPwd, String memName, String memPhone, String memEmail,
+			String hotelName) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.memName = memName;
+		this.memPhone = memPhone;
+		this.memEmail = memEmail;
+		this.hotelName = hotelName;
+	}
 
 	public int getMemNo() {
 		return memNo;

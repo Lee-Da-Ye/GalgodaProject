@@ -19,6 +19,7 @@ import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.hotel.model.vo.Tag;
+import com.galgoda.member.model.vo.HotelUser;
 
 
 
@@ -270,6 +271,7 @@ public class HotelDao {
 
 	}
 	
+
 	public Reservation selectReservation(Connection conn, int resNo) {
 		Reservation r = null;
 		PreparedStatement pstmt = null;
@@ -314,4 +316,66 @@ public class HotelDao {
 		
 		
 	}
+
+	public HotelUser selectHotelUser(Connection conn, String userId) {
+		
+		HotelUser hu = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hu = new HotelUser(rset.getInt("mem_no")
+				         , rset.getString("mem_id")
+				         , rset.getString("mem_pwd")
+				         , rset.getString("mem_name")
+				         , rset.getString("mem_phone")
+				         , rset.getString("mem_email")
+				         , rset.getString("hotel_name"));
+		
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hu;
+		
+	}
+	
+	public int updatePersonalInfo(Connection conn, HotelUser hu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePersonalInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hu.getMemName());
+			pstmt.setString(2, hu.getMemPwd());
+			pstmt.setString(3, hu.getMemPhone());
+			pstmt.setString(4, hu.getMemEmail());
+			pstmt.setString(5, hu.getMemId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

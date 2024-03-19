@@ -15,6 +15,8 @@ import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.dao.HotelDao;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.hotel.model.vo.Tag;
+import com.galgoda.member.model.vo.Customer;
+import com.galgoda.member.model.vo.HotelUser;
 
 public class HotelService {
 
@@ -91,6 +93,7 @@ public class HotelService {
 		return list;
 	}
 	
+
 	public Reservation selectReservation(int resNo) {
 		Connection conn = getConnection();
 		
@@ -99,6 +102,33 @@ public class HotelService {
 		
 		return r;
 		
+
+	public HotelUser selectHotelUser(String userId) {
+		Connection conn = getConnection();
+		HotelUser hu = hDao.selectHotelUser(conn, userId);
+		close(conn);
+		
+		return hu;
+	}
+	
+	public HotelUser updatePersonalInfo(HotelUser hu) {
+		Connection conn = getConnection();
+		int result = hDao.updatePersonalInfo(conn, hu);
+		
+		HotelUser updatehu = null;
+		
+		if(result > 0) { // 업데이트 성공
+			commit(conn);
+			// 성공적으로 업데이트 시 최신 데이터를 다시 조회해서 session 에 변경(반영)
+			updatehu = hDao.selectHotelUser(conn, hu.getMemId());
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updatehu;
+
 	}
 	
 }
