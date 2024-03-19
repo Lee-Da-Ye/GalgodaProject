@@ -25,12 +25,40 @@
 			  , H.IMG_PATH
               , RO_NAME
               , OP_NAME
-			  FROM TB_RES_INFO
+			  FROM TB_RES_INFO RI
 			  JOIN TB_HOTEL H USING (HOTEL_NO)
               JOIN TB_ROOM R USING (HOTEL_NO)
-              JOIN TB_OPTION USING (RES_NO)
             WHERE USER_NO = ?
             ORDER BY DATE_IN ASC
+	</entry>
+	
+	<entry key="selectReservationCase">
+		SELECT
+				RES_NO
+			  ,	HOTEL_NO
+			  , HOTEL_NAME
+			  ,	USER_NO
+			  ,	R.RO_NO
+			  ,	DATE_IN
+			  ,	DATE_OUT
+			  ,	RES_DATE
+			  ,	RES_STATUS
+			  ,	REQ
+			  ,	REASON_CANCEL
+			  ,	PAY_METHOD
+			  ,	PAY
+			  ,	PAY_DATE
+			  ,	RES_PEOPLE
+			  ,	RES_NAME
+			  ,	RES_PHONE
+			  ,	RES_EMAIL
+			  , H.IMG_PATH
+              , RO_NAME
+              , OP_NAME
+			  FROM TB_RES_INFO RI
+			  JOIN TB_HOTEL H USING (HOTEL_NO)
+              JOIN TB_ROOM R USING (HOTEL_NO)
+            WHERE RES_NO = ?
 	</entry>
 	
 	<entry key="selectWishlist">
@@ -80,7 +108,7 @@
 		      , ZIPCODE = ?
 		      , ADDRESS = ?
 		      , ADDRESS_DETAIL = ?
-		      , ETC =?
+		      , ETC = ?
 		  WHERE USER_ID = ?
 	</entry>
 	
@@ -90,6 +118,31 @@
 		   SET  STATUS = 'N'
 		  	  , MODIFY_DATE = SYSDATE
 		 WHERE  USER_ID = ?
+	</entry>
+	
+	<entry key="updateReservation">
+		UPDATE
+				TB_RES_INFO
+		    SET 
+		        DATE_IN = ?
+		      , DATE_OUT = ?
+		      , RES_PEOPLE = ?
+		      , RO_NO = ?
+		      , OP_NAME = ?
+		      , RES_NAME = ?
+		      , RES_PHONE = ?
+		      , RES_EMAIL = ?
+		      , PAY = ?
+		      , PAY_METHOD = ?
+		  WHERE RES_NO = ? 
+	</entry>
+	
+	<entry key="cancelReservation">
+		UPDATE
+				TB_RES_INFO
+		   SET
+		   		RES_STATUS = '예약취소'
+		 WHERE  RES_NO = ?
 	</entry>
 	
 	
