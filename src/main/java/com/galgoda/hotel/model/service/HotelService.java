@@ -1,8 +1,6 @@
 package com.galgoda.hotel.model.service;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
-import static com.galgoda.common.template.JDBCTemplate.getConnection;
-import static com.galgoda.common.template.JDBCTemplate.close;
 import static com.galgoda.common.template.JDBCTemplate.commit;
 import static com.galgoda.common.template.JDBCTemplate.getConnection;
 import static com.galgoda.common.template.JDBCTemplate.rollback;
@@ -10,10 +8,10 @@ import static com.galgoda.common.template.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-
 import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.vo.Reservation;
+import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.dao.HotelDao;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.hotel.model.vo.Tag;
@@ -62,14 +60,35 @@ public class HotelService {
 		return listCount;
 	}
 	
-	public List<Reservation> selectList(PageInfo pi) {
+	public int selectRevListCount() {
 		Connection conn = getConnection();
 		
-		List<Reservation> list = hDao.selectList(conn, pi);
+		int listCount = hDao.selectRevListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+
+	
+	public List<Reservation> selectList(PageInfo pi ,String hotelName) {
+		Connection conn = getConnection();
+		
+		List<Reservation> list = hDao.selectList(conn, pi, hotelName);
 		close(conn);
 		
 		return list;
 	}
 	
+	
+	public List<Review> selectRevList(PageInfo pi, String hotelName) {
+		Connection conn = getConnection();
+		
+		List<Review> list = hDao.selectRevList(conn, pi, hotelName);
+		close(conn);
+		
+		return list;
+	}
 	
 }

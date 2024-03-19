@@ -59,6 +59,13 @@
  			
 		</entry>
 		
+		<entry key="selectRevListCount">
+		
+			SELECT COUNT(*) COUNT 
+  			FROM TB_REVIEW
+ 			
+		</entry>
+		
 		<entry key="selectList">
 			SELECT *
 				FROM (
@@ -83,8 +90,40 @@
 		                              , RES_PHONE
 		                              , RES_EMAIL
 		                          FROM TB_RES_INFO B
+		                         WHERE HOTEL_NO = ( SELECT H.HOTEL_NO
+                                                    FROM TB_HOTEL H, TB_MEM M
+                                                    WHERE H.HOTEL_NAME = M.HOTEL_NAME
+                                                    AND H.HOTEL_NAME = ?
+                                                        )
 		                         ORDER
 		                            BY DATE_IN DESC 
+		                ) A
+				 )
+		 		WHERE RNUM BETWEEN ? AND ?
+		</entry>
+		
+		
+		<entry key="selectRevList">
+			 SELECT *
+				FROM (
+		            SELECT ROWNUM RNUM, A.*
+		              FROM(
+		                        SELECT
+		                                REV_NO
+		                              , USER_ID
+		                              , RES_NO
+		                              , R.REGIST_DATE REGIST_DATE
+		                              , REV_RATING
+		                              , REV_TITLE
+		                          FROM  TB_REVIEW R
+                                  JOIN TB_USER USING(USER_NO)
+		                         WHERE HOTEL_NO = ( SELECT H.HOTEL_NO
+                                                    FROM TB_HOTEL H, TB_MEM M
+                                                    WHERE H.HOTEL_NAME = M.HOTEL_NAME
+                                                    AND H.HOTEL_NAME = ?
+                                                        )
+		                         ORDER
+		                            BY REV_NO DESC 
 		                ) A
 				 )
 		 		WHERE RNUM BETWEEN ? AND ?

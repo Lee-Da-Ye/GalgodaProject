@@ -140,7 +140,7 @@
                         </div>
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">26</a>
+                                <a href="<%= contextPath %>/revList.ho?page=1" class="mypage_cir_menu">26</a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">등록리뷰</button>
