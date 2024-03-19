@@ -77,6 +77,55 @@ public class CustomerDao {
 		return reservations;
 	}
 	
+public Reservation selectReservationCase(Connection conn, int resNo) {
+		
+		Reservation reservation = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReservationCase");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, resNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				reservation = new Reservation(rset.getInt("res_no")
+									       , rset.getInt("hotel_no")
+									       , rset.getString("hotel_name")
+									       , rset.getInt("user_no")
+									       , rset.getInt("ro_no")
+									       , rset.getString("date_in")
+									       , rset.getString("date_out")
+									       , rset.getDate("res_date")
+									       , rset.getString("res_status")
+									       , rset.getString("req")
+									       , rset.getString("reason_cancel")
+									       , rset.getString("pay_method")
+									       , rset.getInt("pay")
+									       , rset.getDate("pay_date")
+									       , rset.getInt("res_people")
+									       , rset.getString("res_name")
+									       , rset.getString("res_phone")
+									       , rset.getString("res_email")
+									       , rset.getString("img_path")
+									       , rset.getString("ro_name")
+									       , rset.getString("op_name"));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reservation;
+	}
+	
 	public List<Wishlist> selectWishlist(Connection conn, int userNo) {
 		
 		List<Wishlist> wishlist = new ArrayList<>();
@@ -197,6 +246,58 @@ public class CustomerDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int updateReservation(Connection conn, Reservation r) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getDateIn());
+			pstmt.setString(2, r.getDateOut());
+			pstmt.setInt(3, r.getResPeople());
+			pstmt.setInt(4, r.getRoNo());
+			pstmt.setString(5, r.getOpName());
+			pstmt.setString(6, r.getResName());
+			pstmt.setString(7, r.getResPhone());
+			pstmt.setString(8, r.getResEmail());
+			pstmt.setInt(9, r.getPay());
+			pstmt.setString(10, r.getPayMethod());
+			pstmt.setInt(11, r.getResNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int cancelReservation(Connection conn, int resNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("cancelReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, resNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
 	}
 	
 }

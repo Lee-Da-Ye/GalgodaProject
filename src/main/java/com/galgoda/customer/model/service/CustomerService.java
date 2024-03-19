@@ -71,4 +71,38 @@ public class CustomerService {
 		return result;
 		
 	}
+	
+	public Reservation updateReservation(Reservation r) {
+		Connection conn = getConnection();
+		int result = cDao.updateReservation(conn, r);
+		
+		Reservation updateRes = null;
+		
+		if(result > 0) {
+			commit(conn);
+			updateRes = cDao.selectReservationCase(conn, r.getResNo());
+			
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return updateRes;
+	}
+	
+	public int cancelReservation(int resNo) {
+		Connection conn = getConnection();
+		int result = cDao.cancelReservation(conn, resNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	
 }
