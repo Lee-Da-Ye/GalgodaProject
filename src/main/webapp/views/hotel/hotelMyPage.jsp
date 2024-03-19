@@ -67,6 +67,7 @@
             color:  rgb(99, 76, 70);
             text-decoration: none;
         }
+        button {pointer-events : none;}
 </style>
 </head>
 
@@ -131,7 +132,7 @@
                         
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">15</a>
+                                <a href="<%= contextPath %>/resList.ho?page=1" class="mypage_cir_menu">15</a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">예약현황</button>
@@ -151,7 +152,7 @@
 
                     <div class="mypage_menu">
                         <div class="mypage_rectangle">
-                            <a href="" class="mypage_rec_menu">예약 관리</a>
+                            <a href="<%= contextPath %>/resList.ho?page=1" class="mypage_rec_menu">예약 관리</a>
                         </div>
                         <div class="mypage_rectangle">
                             <a href="<%= contextPath %>/hotelinsertForm.ho" class="mypage_rec_menu">호텔 관리</a>
