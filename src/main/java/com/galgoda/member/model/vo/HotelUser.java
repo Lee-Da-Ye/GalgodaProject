@@ -14,13 +14,13 @@ public class HotelUser{
 	private Date modifyDate;
 	private String status;
 	private String role;
-	private int authentiCode;
+	private String authentiCode;
 	private String hotelName;
 	
 	public HotelUser() {}
 
 	public HotelUser(int memNo, String memId, String memPwd, String memName, String memPhone, String memEmail,
-			Date registDate, Date modifyDate, String status, String role, int authentiCode, String hotelName) {
+			Date registDate, Date modifyDate, String status, String role, String authentiCode, String hotelName) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -116,11 +116,11 @@ public class HotelUser{
 		this.role = role;
 	}
 
-	public int getAuthentiCode() {
+	public String getAuthentiCode() {
 		return authentiCode;
 	}
 
-	public void setAuthentiCode(int authentiCode) {
+	public void setAuthentiCode(String authentiCode) {
 		this.authentiCode = authentiCode;
 	}
 
@@ -141,7 +141,6 @@ public class HotelUser{
 	}
 
 	
-
 	
 
 }
