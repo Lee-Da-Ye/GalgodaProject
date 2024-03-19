@@ -59,11 +59,11 @@
             padding-left: 5px;
             line-height: 30px;
         }
-        .mypage_rec_menu{
+        #mypage_rec_menu{
             color: white;
             text-decoration: none;
         }
-        .mypage_cir_menu{
+        #mypage_cir_menu{
             color:  rgb(99, 76, 70);
             text-decoration: none;
         }
@@ -123,7 +123,7 @@
                     <div class="mypage_shortcut">  
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">40</a>
+                                <a href="" id="mypage_cir_menu">40</a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">객실현황</button>
@@ -132,7 +132,7 @@
                         
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%= contextPath %>/resList.ho?page=1" class="mypage_cir_menu">15</a>
+                                <a href="<%= contextPath %>/resList.ho?page=1" id="mypage_cir_menu">15</a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">예약현황</button>
@@ -140,7 +140,7 @@
                         </div>
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%= contextPath %>/revList.ho?page=1" class="mypage_cir_menu">26</a>
+                                <a href="<%= contextPath %>/revList.ho?page=1" id="mypage_cir_menu">26</a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">등록리뷰</button>
@@ -152,13 +152,13 @@
 
                     <div class="mypage_menu">
                         <div class="mypage_rectangle">
-                            <a href="<%= contextPath %>/resList.ho?page=1" class="mypage_rec_menu">예약 관리</a>
+                            <a href="<%= contextPath %>/resList.ho?page=1" id="mypage_rec_menu">예약 관리</a>
                         </div>
                         <div class="mypage_rectangle">
-                            <a href="<%= contextPath %>/hotelinsertForm.ho" class="mypage_rec_menu">호텔 관리</a>
+                            <a href="<%= contextPath %>/hotelinsertForm.ho" id="mypage_rec_menu">호텔 관리</a>
                         </div>
                         <div class="mypage_rectangle">
-                            <a href="" class="mypage_rec_menu">담당자 정보 수정</a>
+                            <a href="<%= contextPath %>/personalInfo.ho" id="mypage_rec_menu">담당자 정보 수정</a>
                         </div>
                     </div>
 
