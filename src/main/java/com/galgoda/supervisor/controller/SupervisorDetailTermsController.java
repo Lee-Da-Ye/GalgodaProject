@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SupervisorEnrollTermForm
+ * Servlet implementation class SupervisorDetailTerms
  */
-@WebServlet("/enrollTermForm.su")
-public class SupervisorEnrollTermForm extends HttpServlet {
+@WebServlet("/detailTerms.su")
+public class SupervisorDetailTermsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SupervisorEnrollTermForm() {
+    public SupervisorDetailTermsController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class SupervisorEnrollTermForm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/supervisor/supervisorEnrollTerm.jsp").forward(request, response);
+		
 	}
 
 	/**
