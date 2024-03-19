@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.hotel.model.service.HotelService;
+import com.galgoda.member.model.vo.HotelUser;
 
 /**
  * Servlet implementation class HotelResListController
@@ -52,10 +53,12 @@ public class HotelResListController extends HttpServlet {
 			endPage = maxPage;
 		}
 		
+		String hotelName = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getHotelName();
+		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		
-		List<Reservation> list = new HotelService().selectList(pi);
+		List<Reservation> list = new HotelService().selectList(pi, hotelName);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
