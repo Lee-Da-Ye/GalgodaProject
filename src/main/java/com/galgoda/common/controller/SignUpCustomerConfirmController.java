@@ -72,7 +72,7 @@ public class SignUpCustomerConfirmController extends HttpServlet {
 			
 		}else { // 실패했을 경우
 			
-			request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
+			request.setAttribute("alertMsg", "회원가입에 실패했습니다.");
 			
 			response.sendRedirect(request.getContextPath() + "/signupCustomer.co");
 			
