@@ -129,6 +129,7 @@
 		 		WHERE RNUM BETWEEN ? AND ?
 		</entry>
 		
+
 		<entry key="selectReservation">
 			 					SELECT
 										RES_NO
@@ -155,7 +156,31 @@
 						              JOIN TB_ROOM R USING (HOTEL_NO)
 						            WHERE RES_NO = ?
 						           
+		</entry>
+
+		<entry key="selectHotelUser">
+			SELECT 
+			        MEM_NO
+			      , MEM_ID
+			      , MEM_PWD
+			      , MEM_NAME
+			      , MEM_PHONE
+			      , MEM_EMAIL
+			      , HOTEL_NAME
+			  FROM TB_MEM
+ 			 WHERE MEM_ID = ?
+		</entry>
 		
+		<entry key="updatePersonalInfo">
+		UPDATE
+				TB_MEM
+		   SET  
+		   		MEM_NAME = ?
+		      , MEM_PWD = ?
+		      , MEM_PHONE = ?
+		      , MEM_EMAIL = ?
+		  WHERE MEM_ID = ?
+
 		</entry>
 
 </properties>
