@@ -1,6 +1,7 @@
 package com.galgoda.hotel.model.dao;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -267,5 +268,50 @@ public class HotelDao {
 
 		return list;
 
+	}
+	
+	public Reservation selectReservation(Connection conn, int resNo) {
+		Reservation r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, resNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r = new Reservation();
+				r.setResNo(rset.getInt("res_no"));
+				r.setHotelNo(rset.getInt("hotel_no"));
+				r.setHotelName(rset.getString("hotel_name"));
+				r.setUserNo(rset.getInt("user_no"));
+				r.setRoNo(rset.getInt("ro_no"));
+				r.setDateIn(rset.getString("date_in"));
+				r.setDateOut(rset.getString("date_out"));
+				r.setResStatus(rset.getString("res_status"));
+				r.setReq(rset.getString("req"));
+				r.setReasonCancel(rset.getString("reason_cancel"));
+				r.setPayMethod(rset.getString("pay_method"));
+				r.setPay(rset.getInt("pay"));
+				r.setPayDate(rset.getDate("pay_date"));
+				r.setResPeople(rset.getInt("res_people"));
+				r.setResName(rset.getString("res_name"));
+				r.setResPhone(rset.getString("res_phone"));
+				r.setResEmail(rset.getString("res_email"));
+				r.setRoName(rset.getString("ro_name"));
+				r.setOpName(rset.getString("op_name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+		
+		
 	}
 }

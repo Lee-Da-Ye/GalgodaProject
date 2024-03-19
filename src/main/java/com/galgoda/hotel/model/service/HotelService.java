@@ -91,4 +91,14 @@ public class HotelService {
 		return list;
 	}
 	
+	public Reservation selectReservation(int resNo) {
+		Connection conn = getConnection();
+		
+		Reservation r = hDao.selectReservation(conn, resNo);
+		close(conn);
+		
+		return r;
+		
+	}
+	
 }

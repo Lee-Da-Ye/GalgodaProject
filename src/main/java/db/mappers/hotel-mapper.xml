@@ -128,5 +128,34 @@
 				 )
 		 		WHERE RNUM BETWEEN ? AND ?
 		</entry>
+		
+		<entry key="selectReservation">
+			 					SELECT
+										RES_NO
+									  ,	HOTEL_NO
+									  , HOTEL_NAME
+									  ,	USER_NO
+									  ,	R.RO_NO RO_NO
+									  ,	DATE_IN
+									  ,	DATE_OUT
+									  ,	RES_STATUS
+									  ,	REQ
+									  ,	REASON_CANCEL
+									  ,	PAY_METHOD
+									  ,	PAY
+									  ,	PAY_DATE
+									  ,	RES_PEOPLE
+									  ,	RES_NAME
+									  ,	RES_PHONE
+									  ,	RES_EMAIL
+						              , RO_NAME
+						              , NVL(OP_NAME,'없음') OP_NAME
+									  FROM TB_RES_INFO RI
+									  JOIN TB_HOTEL H USING (HOTEL_NO)
+						              JOIN TB_ROOM R USING (HOTEL_NO)
+						            WHERE RES_NO = ?
+						           
+		
+		</entry>
 
 </properties>

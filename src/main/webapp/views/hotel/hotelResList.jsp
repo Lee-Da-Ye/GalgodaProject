@@ -102,7 +102,7 @@
 	                    </div>
                     </form>
 
-                    <table class="table table-hover"  style="margin-top: 12px;">
+                    <table class="table table-hover" id="res_list" style="margin-top: 12px;">
                         <thead>
                         <tr class="table-active" align="center">
                             <th>상태</th>
@@ -122,13 +122,16 @@
                             <td><%= r.getResNo() %></td>
                             <td><%= r.getResPhone() %></td>
                             <td><%= r.getDateIn() %> - <%= r.getDateOut() %></td>
-                            <td><a href="">상세조회</a></td>
+                            <td><a href="<%= contextPath%>/resDetail.ho?no=<%= r.getResNo()%>">상세조회</a></td>
                         </tr>
                          <% } %>
                          
                         </tbody>
                     </table>
 
+
+	 
+                
                    
                    
                     <table class="float-right" style="margin-top: 100px; margin-right: 20px;">
