@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.galgoda.common.model.dao.CommonDao;
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.member.model.vo.Customer;
+import com.galgoda.member.model.vo.HotelUser;
 import com.galgoda.supervisor.model.vo.Terms;
+
 
 import static com.galgoda.common.template.JDBCTemplate.*;
 public class SupervisorDao {
@@ -157,6 +159,67 @@ public class SupervisorDao {
 		}
 		
 		return list;
+	}
+	public List<HotelUser> selectHotelList(Connection conn, PageInfo pi) {
+		List<HotelUser> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				HotelUser hotelUser = new HotelUser();
+				hotelUser.setMemNo(rset.getInt("mem_no"));
+				hotelUser.setMemName(rset.getString("mem_name"));
+				hotelUser.setMemId(rset.getString("mem_id"));
+				hotelUser.setHotelName(rset.getString("hotel_name"));
+				hotelUser.setMemEmail(rset.getString("mem_email"));
+				hotelUser.setMemPhone(rset.getString("mem_phone"));
+				hotelUser.setHotelNo(rset.getInt("hotel_no"));
+				hotelUser.setHotelAddress(rset.getString("hotel_address"));
+				list.add(hotelUser);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public int selectHotelListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+		
 	}
 	
 	

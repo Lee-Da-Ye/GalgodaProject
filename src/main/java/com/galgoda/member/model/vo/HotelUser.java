@@ -16,7 +16,25 @@ public class HotelUser{
 	private String role;
 	private String authentiCode;
 	private String hotelName;
+	private int hotelNo;
+	private String hotelAddress;
 	
+	public String getHotelAddress() {
+		return hotelAddress;
+	}
+
+	public void setHotelAddress(String hotelAddress) {
+		this.hotelAddress = hotelAddress;
+	}
+
+	public int getHotelNo() {
+		return hotelNo;
+	}
+
+	public void setHotelNo(int hotelNo) {
+		this.hotelNo = hotelNo;
+	}
+
 	public HotelUser() {}
 
 	public HotelUser(int memNo, String memId, String memPwd, String memName, String memPhone, String memEmail,

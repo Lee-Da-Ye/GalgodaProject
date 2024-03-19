@@ -74,5 +74,37 @@
 		 	BY	TERMS_NO DESC
 	
 	</entry>
-
+	
+	<entry key="selectHotelList">
+		SELECT *
+		  FROM (
+				SELECT ROWNUM RNUM, A.*
+        		  FROM (
+		                SELECT TM.MEM_NO
+		                     , MEM_NAME
+		                     , MEM_ID
+		                     , HOTEL_NAME
+		                     , MEM_EMAIL
+		                     , MEM_PHONE
+		                     , HOTEL_NO
+		                     , HOTEL_ADDRESS
+		                  FROM TB_MEM TM
+		                  JOIN TB_HOTEL USING(HOTEL_NAME)
+		                 WHERE TM.STATUS = 'Y'
+		   				   AND HOTEL_NAME IS NOT NULL
+		                 order 
+		                    by TM.MEM_NO DESC
+             			) A
+             	)
+    	WHERE   RNUM BETWEEN ? AND ?
+		
+	
+	</entry>
+	
+	<entry key="selectHotelListCount">
+		SELECT COUNT(*) COUNT
+		  FROM TB_MEM
+		 WHERE STATUS = 'Y'
+		   AND HOTEL_NAME IS NOT NULL
+	</entry>
 </properties>

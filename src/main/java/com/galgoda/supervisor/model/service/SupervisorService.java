@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.member.model.vo.Customer;
+import com.galgoda.member.model.vo.HotelUser;
 import com.galgoda.supervisor.model.dao.SupervisorDao;
 import com.galgoda.supervisor.model.vo.Terms;
 
@@ -51,6 +53,22 @@ public class SupervisorService {
 		close(conn);
 		
 		return list;
+	}
+
+	public List<HotelUser> selectHotelList(PageInfo pi) {
+		Connection conn = getConnection();
+		List<HotelUser> list = sDao.selectHotelList(conn,pi);
+		close(conn);
+		
+		return list;
+	}
+
+	public int selectHotelListCount() {
+		Connection conn = getConnection();
+		int listCount = sDao.selectHotelListCount(conn);
+		close(conn);
+		
+		return listCount;
 	}
 	
 }
