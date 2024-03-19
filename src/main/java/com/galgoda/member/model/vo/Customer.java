@@ -45,6 +45,25 @@ public class Customer {
 		this.status = status;
 	}
 
+	
+	
+
+	public Customer(String userId, String userName, String userEngName, String userPwd, String birthDate, String email,
+			String phone, String zipcode, String address, String addressDetail, String etc) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.userEngName = userEngName;
+		this.userPwd = userPwd;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.phone = phone;
+		this.zipcode = zipcode;
+		this.address = address;
+		this.addressDetail = addressDetail;
+		this.etc = etc;
+	}
+
 
 	public int getUserNo() {
 		return userNo;
