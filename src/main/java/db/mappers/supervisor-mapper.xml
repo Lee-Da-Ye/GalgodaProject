@@ -57,5 +57,22 @@
 		 WHERE	USER_ID = ?
 		   
 	</entry>
+	
+	<entry key="selectTermsList">
+		SELECT 
+				TERMS_NO
+			  ,	TERMS_TITLE
+			  ,	TERMS_CONTENT
+			  ,	ADMIN_ID
+			  , NVL(NOTES,' ') NOTES
+			  ,	REGIST_DATE
+			  ,	MODIFY_DATE
+			  ,	T.STATUS STATUS
+		  FROM 	TB_TERMS T
+		  JOIN  TB_ADMIN USING(ADMIN_NO)
+		 ORDER
+		 	BY	TERMS_NO DESC
+	
+	</entry>
 
 </properties>

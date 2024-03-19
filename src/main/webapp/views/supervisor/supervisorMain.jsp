@@ -149,8 +149,8 @@ width: 600px;
                         <div class="mypage_rectangle">
                             <a href="" class="mypage_rec_menu">고객센터 관리</a>
                         </div>
-                        <div class="mypage_rectangle">
-                            <a href="" class="mypage_rec_menu">홈페이지 관리</a>
+                        <div class="mypage_rectangle" onclick="LinkTo(this);">
+                            <a href="<%=contextPath %>/termsList.su" class="mypage_rec_menu">홈페이지 관리</a>
                         </div>
                     </div>
 

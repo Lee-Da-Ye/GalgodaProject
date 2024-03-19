@@ -12,6 +12,8 @@ import java.util.Properties;
 
 import com.galgoda.common.model.dao.CommonDao;
 import com.galgoda.member.model.vo.Customer;
+import com.galgoda.supervisor.model.vo.Terms;
+
 import static com.galgoda.common.template.JDBCTemplate.*;
 public class SupervisorDao {
 	private Properties prop = new Properties();
@@ -123,6 +125,38 @@ public class SupervisorDao {
 		
 		
 		return result;
+	}
+	public List<Terms> selectTermsList(Connection conn) {
+		List<Terms> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTermsList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Terms(
+							rset.getInt("terms_no")
+						  ,	rset.getString("terms_title")
+						  , rset.getString("terms_content")
+						  , rset.getString("admin_id")
+						  , rset.getString("notes")
+						  , rset.getString("regist_date")
+						  , rset.getString("modify_date")
+						  , rset.getString("status")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	

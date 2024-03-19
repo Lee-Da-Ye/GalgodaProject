@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.supervisor.model.dao.SupervisorDao;
+import com.galgoda.supervisor.model.vo.Terms;
+
 import static com.galgoda.common.template.JDBCTemplate.*;
 
 public class SupervisorService {
@@ -39,8 +41,16 @@ public class SupervisorService {
 		}else {
 			rollback(conn);
 		}
-		
+		close(conn);
 		return updateUser;
+	}
+
+	public List<Terms> selectTermsList() {
+		Connection conn = getConnection();
+		List<Terms> list = sDao.selectTermsList(conn);
+		close(conn);
+		
+		return list;
 	}
 	
 }
