@@ -14,6 +14,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.template.MyFileRenamePolicy;
+import com.galgoda.hotel.model.service.HotelService;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.member.model.vo.HotelUser;
 import com.oreilly.servlet.MultipartRequest;
@@ -119,7 +120,7 @@ public class HotelInsertController extends HttpServlet {
 					// Attachment생성 + 원본명,수정명,경로,파일레벨 담아서 => list에 추가
 					Attachment at = new Attachment();
 					at.setFilePath("resources/upfiles/" + multiRequest.getFilesystemName("upload_file" + i));
-				
+					at.setFileName(multiRequest.getFilesystemName(key));
 					
 					list.add(at);
 					
@@ -129,7 +130,18 @@ public class HotelInsertController extends HttpServlet {
 			
 			int result =  new HotelService().insertHotel(h, list);
 			
-		
+			if(result > 0) {
+				// 성공 => 
+				request.getSession().setAttribute("alertMsg", "호텔이 등록되었습니다.");
+				response.sendRedirect(request.getContextPath() + "/hotelinsertForm.ho");
+				
+				
+			} else { // 실패 => 에러페이지
+				
+				request.getSession().setAttribute("alertMsg", "호텔 등록을 실패했습니다.");
+				response.sendRedirect(request.getContextPath() + "/hotelinsertForm.ho");
+			
+			}
 		
 		
 		

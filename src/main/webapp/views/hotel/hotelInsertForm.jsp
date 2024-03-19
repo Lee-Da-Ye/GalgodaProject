@@ -70,7 +70,7 @@
                     
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" >예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%= contextPath %>/resList.ho?page=1"  >예약관리</a>
                     </li>
                      
                     <li>
@@ -97,7 +97,7 @@
                 
                 <div class="hotel_content" style="padding-left: 20px;">
                 <span id="title3">호텔정보</span>
-                    <form action="<%= contextPath %>/hotelinsert.ho" method="post"  onsubmit="return insertHotel();">
+                    <form action="<%= contextPath %>/hotelinsert.ho" method="post"  onsubmit=" insertHotel();" enctype="multipart/form-data">
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
@@ -107,7 +107,7 @@
                             <table>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >주소</button></td>
-                                <td style="width: 480px ;"><input type="text" name="addr2" style="z-index: -1; position: absolute;" required><input type="text" class="form-control"  name="addr2" id="addr2" readonly ></td>
+                                <td style="width: 480px ;"><input type="text" name="addr2" style="z-index: -1; position: absolute;" required><input type="text" class="form-control"  name="addr2" id="addr2" disabled></td>
                                 <td><button class="btn " id="btnbrown" type="button" onclick="execPostCode();">우편번호 찾기</button> </td>
                             </tr>
                             </table>
@@ -174,11 +174,11 @@
                                 <td id="td4"><button class="btn " id="btnname" type="button" >취소정책</button></td>
                                 <td id="td2">
                                     <div class="form-control add_content">   
-                                        <label><input type="radio" name="refundpolicy" value="" checked> &nbsp; 체크인 1일 전 예약 취소 시 전액 환불됩니다. 체크인 1일 이내 취소
+                                        <label><input type="radio" name="refundpolicy" value="1" checked> &nbsp; 체크인 1일 전 예약 취소 시 전액 환불됩니다. 체크인 1일 이내 취소
                                                                     또는 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
-                                        <label><input type="radio" name="refundpolicy"> &nbsp; 체크인 5일 전 예약 취소 시 전액 환불됩니다. 체크인 5일 이내 취소
+                                        <label><input type="radio" name="refundpolicy" value="2" > &nbsp; 체크인 5일 전 예약 취소 시 전액 환불됩니다. 체크인 5일 이내 취소
                                             또는 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
-                                        <label><input type="radio" name="refundpolicy"> &nbsp; 체크인 7일 전 예약 취소 시 전액 환불됩니다. 체크인 7일 이내 취소
+                                        <label><input type="radio" name="refundpolicy" value="3" > &nbsp; 체크인 7일 전 예약 취소 시 전액 환불됩니다. 체크인 7일 이내 취소
                                             시 50% 환불되며, 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
                                        
                                     </div>
@@ -212,18 +212,10 @@
                      <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                      <script>
                         function insertHotel(){
-                           if(!confirm("호텔을 등록하시겠습니까?")){
-                        	   return false;
+                           if(confirm("호텔을 등록하시겠습니까?")){
+                        	  
                            }
-                           else{
-                        	   return true;
-                        	   alert("호텔이 등록되었습니다.");
-                           }
-                        	   
                           
-                            
-                            
-                            
                         }
                         
                         
