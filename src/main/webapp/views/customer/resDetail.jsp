@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
 <%@ page import="com.galgoda.customer.model.vo.Reservation" %>
 <%
     Reservation selectedReservation = (Reservation)request.getAttribute("selectedReservation");
@@ -34,7 +33,7 @@
             border-radius: 5px;
             padding-left: 5px;
         }
-        .rev_button{
+        #rev_button{
             background-color: rgb(235, 231, 227) !important;
             color: black;
             border: none;
@@ -110,7 +109,7 @@
                     <div>
                         <h4>호텔 정보</h4>
                     </div>
-    
+   					<input type="hidden" name="resNo" value="<%=selectedReservation.getResNo()%>">	
                     <div style="width: 80%;">
                         <table style="border-spacing: 10px; border-collapse: separate;">
                             <tr>
@@ -141,7 +140,7 @@
                     <br>
     
                     <div>
-                        <h4>예약자 정보</h4>
+                        <h4>예약자 정보</h4> 
                     </div>
     
                     <div style="width: 80%;">
@@ -160,7 +159,7 @@
                             </tr>
                             <tr>
                                 <th>결제금액</th>
-                                <td><%=selectedReservation.getPay()%></td>
+                                <td><%=selectedReservation.getPay()%>원</td>
                             </tr>
                             <tr>
                                 <th>결제수단</th>
@@ -175,10 +174,10 @@
                     
                     <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
                         <div>
-                            <a href="" class="btn rev_button" data-toggle="modal" data-target="#myModal1" style="margin-right: 10px;">예약변경</a>
+                            <a href="" class="btn" id="rev_button" data-toggle="modal" data-target="#myModal1" style="margin-right: 10px;">예약변경</a>
                         </div>
                         <div>
-                            <a href="" class="btn rev_button" data-toggle="modal" data-target="#myModal2" style="margin-right: 210px;">예약취소</a>
+                            <a href="" class="btn" id="rev_button" data-toggle="modal" data-target="#myModal2" style="margin-right: 210px;">예약취소</a>
                         </div>
                     </div>
 
@@ -195,14 +194,15 @@
                     
                             <!-- Modal body -->
                             <div class="modal-body">
-                            예약을 변경하시겠습니까?
+                            예약 변경 페이지로 이동하시겠습니까?
                             </div>
                     
                             <!-- Modal footer -->
                             <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                            <button type="button" class="btn btn-danger">확인</button>
+                            <a href="<%=contextPath%>/resUpdateForm.cu?id=<%=selectedReservation.getResNo()%>" class="btn btn-danger">확인</a>
                             </div>
+                           
                     
                         </div>
                         </div>
@@ -227,7 +227,7 @@
                             <!-- Modal footer -->
                             <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                            <button type="button" class="btn btn-danger">확인</button>
+                            <a href="<%=contextPath%>/resCancel.cu" class="btn btn-danger">확인</a>
                             </div>
                     
                         </div>

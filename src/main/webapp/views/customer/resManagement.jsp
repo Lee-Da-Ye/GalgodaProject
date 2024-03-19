@@ -103,6 +103,7 @@
 
 					<% for(Reservation r : reservations) { %>
                     <div class="res_content1" style="display: flex;">
+                    
                         <div>
                             <h5><%=r.getHotelName() %></h5>
                             <h6><%=r.getDateIn() %> - <%=r.getDateOut()%></h6>
@@ -112,17 +113,29 @@
                                     <br>
                                     <h6><%=r.getDateIn() %> - <%=r.getDateOut()%></h6>
                                     <h6>총 <%=r.getResPeople()%>명</h6>
-                                    <h6><%=r.getRoName()%></h6>
+                                    <h6>추가 옵션 : <%=r.getOpName()%></h6>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="res_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px; justify-content: space-between; word-break: break-all;">
-                            <span class="btn btn-secondary"><%=r.getResStatus()%></span>
-                            <a href="<%=contextPath%>/resDetail.cu?id=<%=r.getRoNo()%>" class="btn rev_button">상세 조회</a>
-                            <a href="" class="btn rev_button">예약 변경/취소</a>
-                            <a href="" class="btn rev_button">리뷰 등록/삭제</a>
-                        </div>
+                        <!-- 예약 상태가 "예약취소"일 때 버튼 비활성화 -->
+			            <% if (r.getResStatus().equals("예약취소")) { %>
+			                <div class="res_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px; justify-content: space-between; word-break: break-all;">
+			                    <span class="btn btn-secondary"><%=r.getResStatus()%></span>
+			                    <!-- 예약 상태가 "예약취소"일 때 버튼 비활성화 -->
+			                    <a href="<%=contextPath%>/resDetail.cu?id=<%=r.getResNo()%>" class="btn rev_button">상세 조회</a>
+			                    <button class="btn rev_button" disabled>예약 변경/취소</button>
+			                    <button class="btn rev_button" disabled>리뷰 등록/삭제</button>
+			                </div>
+			            <% } else { %>
+			                <!-- 예약 상태가 "예약취소"가 아닐 때 버튼 활성화 -->
+			                <div class="res_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px; justify-content: space-between; word-break: break-all;">
+			                    <span class="btn btn-secondary"><%=r.getResStatus()%></span>
+			                    <a href="<%=contextPath%>/resDetail.cu?id=<%=r.getResNo()%>" class="btn rev_button">상세 조회</a>
+			                    <a href="<%=contextPath%>/resUpdateForm.cu?id=<%=r.getResNo()%>" class="btn rev_button">예약 변경/취소</a>
+			                    <a href="" class="btn rev_button">리뷰 등록/삭제</a>
+			                </div>
+			            <% } %>
                     </div>
                     <br>
                     <% } %>
