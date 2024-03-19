@@ -96,4 +96,41 @@ public class CommonService {
     	
     }
     
+    public boolean isCodeAccord(String hotelName, String verificationCode) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.isCodeAccord(conn, hotelName, verificationCode);
+    	
+    	if(result > 0) {
+    		// 일치하는 계정이 존재하는 경우
+    		commit(conn);
+    		close(conn);
+    		return true;
+    	} else {
+    		rollback(conn);
+    		close(conn);
+    		return false;
+    	}
+    	
+    	
+    }
+    
+    public int updateHotelUser(HotelUser hu) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.updateHotelUser(conn, hu);
+    	
+    	if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+    	
+    }
+    
+    
 }

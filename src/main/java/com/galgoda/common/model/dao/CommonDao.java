@@ -98,7 +98,7 @@ public class CommonDao {
 									  , rset.getDate("modify_date")
 									  , rset.getString("status")
 									  , rset.getString("role")
-									  , rset.getInt("authenticode")
+									  , rset.getString("authenticode")
 									  , rset.getString("hotel_name"));
 			}
 		} catch (SQLException e) {
@@ -230,5 +230,59 @@ public class CommonDao {
 		return result;
 		
 	}
+	
+	public int isCodeAccord(Connection conn, String hotelName, String verificationCode) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("isCodeAccord");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
+			pstmt.setString(2, verificationCode);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 
+	
+	public int updateHotelUser(Connection conn, HotelUser hu) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateHotelUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hu.getMemId());
+			pstmt.setString(2, hu.getMemPwd());
+			pstmt.setString(3, hu.getMemName());
+			pstmt.setString(4, hu.getMemPhone());
+			pstmt.setString(5, hu.getMemEmail());
+			pstmt.setString(6, hu.getMemName());
+			pstmt.setString(7, hu.getAuthentiCode());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
 }
