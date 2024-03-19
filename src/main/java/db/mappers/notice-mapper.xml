@@ -90,8 +90,9 @@
 	</entry>
 	
 	<entry key="deleteNotice">
-		DELETE
-		  FROM TB_NOTICE
+		UPDATE
+		       TB_NOTICE
+		   SET STATUS = 'N'
 		 WHERE NOTICE_NO = ?
 	</entry>
 </properties>

@@ -120,11 +120,11 @@
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="list.no" data-toggle="collapse" data-target="#demo">공지사항</a>
+                        <a class="nav-link" style="color: white;" href="list.no">공지사항</a>
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo2">자주 묻는 질문</a>
+                        <a class="nav-link" href="<%= contextPath %>/hotel.faq">자주 묻는 질문</a>
                     </li>
 
                     <li>
@@ -221,7 +221,7 @@
                          <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
                     <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
-                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="list.inq">문의사항</a></div> </li>   
                 </ul>
             </div>
             
