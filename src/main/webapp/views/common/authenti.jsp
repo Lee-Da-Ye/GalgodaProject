@@ -87,7 +87,7 @@
 	                            <div class="input-group">
 	                                <input type="text" class="form-control" id="inputPhoneNumber" name="phone" placeholder="휴대폰 번호를 입력하세요 (하이픈 없이)">
 	                                <div class="input-group-append">
-	                                    <button type="button" onclick="sendVerificationCode()" class="btn btn-outline-primary identification_box">인증번호 받기</button>
+	                                    <button type="button" onclick="sendVerificationCode();" class="btn btn-outline-primary identification_box">인증번호 받기</button>
 	                                </div>
 	                            </div>
 	                        </div>
