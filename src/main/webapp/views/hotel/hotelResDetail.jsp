@@ -194,48 +194,53 @@
                                 </div>
                                 
                                 <!-- Modal body -->
-                                <form>
+                                <form action="<%= contextPath %>/reportUser.ho" method="post" onsubmit="reportUser();">
                                     <table class="table " align="center" >
+                                     
+                                        <input type="hidden" name="userNo" value="<%= r.getUserNo() %>">
+                                        <input type="hidden" name="resNo" value="<%= r.getResNo() %>">
                                         
                                         <tr>
-                                            <th>아이디</th><td>user04</td>
+                                            <th>아이디</th><td><%= r.getUserId() %></td>
                                         </tr>
                                         <tr>
-                                            <th>예약번호</th><td>20011</td>
+                                            <th>예약번호</th><td><%= r.getResNo() %></td>
                                         </tr>
                                         <tr>
                                             <th>신고사유</th>
                                             <td>
-                                                <select class="form-control" name="report_reason">
-                                                    <option value="abuse">욕설/폭언</option>
-                                                    <option value="obscene">음란</option>
-                                                    <option value="false_fact">허위사실</option>
-                                                    <option value="criminal_damage" selected>기물파손</option>
-                                                    <option value="smoking">흡연</option>
-                                                    <option value="etc">기타</option>
+                                                <select class="form-control" name="reportReason">
+                                                    <option value="욕설/폭언">욕설/폭언</option>
+                                                    <option value="음란">음란</option>
+                                                    <option value="허위사실">허위사실</option>
+                                                    <option value="기물파손" >기물파손</option>
+                                                    <option value="흡연">흡연</option>
+                                                    <option value="기타" selected>기타</option>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th style="vertical-align: middle;">신고내용</th>
                                             <td style="vertical-align: middle; height: 200px;" >
-                                                <textarea class="form-control" style="height: 100%; text-align: center;"   >고객이 침대를 부셔놨습니다.</textarea>
+                                                <textarea class="form-control" style="height: 100%; text-align: center;"  placeholder="사유를 입력하세요." name="repContent" ></textarea>
                                             </td>
                                         </tr>
                                     </table>
-                                </form>
                                 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button class="btn btnbrown  " type="submit" onclick="reportUser();" >사용자 신고하기</button>
+                                    <button class="btn" id="btnbrown" type="submit"  >사용자 신고하기</button>
                                 </div>
+                                </form>
 
                                 <script>
                                     function reportUser(){
                                         
                                         if(confirm("사용자를 신고하시겠습니까?")){
-                                            alert("신고 완료되었습니다.");
+                                        	
                                         }
+                                           
+                                        
                                     }
                                 </script>
                             </div>

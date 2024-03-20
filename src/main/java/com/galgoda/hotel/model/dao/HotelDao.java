@@ -1,7 +1,6 @@
 package com.galgoda.hotel.model.dao;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
-import static com.galgoda.common.template.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,6 +17,7 @@ import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Report;
 import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.HotelUser;
 
@@ -305,6 +305,7 @@ public class HotelDao {
 				r.setResEmail(rset.getString("res_email"));
 				r.setRoName(rset.getString("ro_name"));
 				r.setOpName(rset.getString("op_name"));
+				r.setUserId(rset.getString("user_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -378,4 +379,30 @@ public class HotelDao {
 		return result;
 	}
 
+	public int reportUser(Connection conn, Report r) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reportUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getResNo());
+			pstmt.setString(2, r.getRepReason());
+			pstmt.setString(3, r.getRepContent());
+			pstmt.setInt(4, r.getRepRefNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	
 }

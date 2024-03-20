@@ -151,9 +151,11 @@
 									  ,	RES_EMAIL
 						              , RO_NAME
 						              , NVL(OP_NAME,'없음') OP_NAME
+						              , USER_ID
 									  FROM TB_RES_INFO RI
 									  JOIN TB_HOTEL H USING (HOTEL_NO)
 						              JOIN TB_ROOM R USING (HOTEL_NO)
+						              JOIN TB_USER U USING (USER_NO)
 						            WHERE RES_NO = ?
 						           
 		</entry>
@@ -181,6 +183,26 @@
 		      , MEM_EMAIL = ?
 		  WHERE MEM_ID = ?
 
+		</entry>
+		
+		
+		<entry key="reportUser">
+		INSERT
+				INTO TB_REPORT
+				VALUES
+				(
+					SEQ_REPNO.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , SYSDATE
+				  , DEFAULT
+				  , DEFAULT
+				  , 'U'
+				  , ?
+				  
+				)
+		
 		</entry>
 
 </properties>

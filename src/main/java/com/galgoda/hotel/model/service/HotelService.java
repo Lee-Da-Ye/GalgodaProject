@@ -14,8 +14,8 @@ import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.dao.HotelDao;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Report;
 import com.galgoda.hotel.model.vo.Tag;
-import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
 
 public class HotelService {
@@ -101,6 +101,7 @@ public class HotelService {
 		close(conn);
 		
 		return r;
+	}
 		
 
 	public HotelUser selectHotelUser(String userId) {
@@ -129,6 +130,21 @@ public class HotelService {
 		
 		return updatehu;
 
+	}
+	
+	
+	public int reportUser(Report r) {
+		Connection conn = getConnection();
+		int result = hDao.reportUser(conn, r);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 	
 }
