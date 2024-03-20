@@ -54,7 +54,7 @@ public class CustomerResignController extends HttpServlet {
 			// 응답페이지 : 마이페이지
 			// 응답데이터 : 알람문구 ("회원탈퇴 실패")
 			session.setAttribute("alertMsg", "회원탈퇴에 실패하였습니다.");
-			response.sendRedirect(request.getContextPath() + "/resgin.cu");
+			response.sendRedirect(request.getContextPath() + "/resign.cu");
 		
 		}
 		
