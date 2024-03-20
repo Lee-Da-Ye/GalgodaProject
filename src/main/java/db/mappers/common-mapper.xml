@@ -140,6 +140,53 @@
 		   AND  PHONE = ?
 	</entry>
 	
+	<entry key="resetCustomerPwd">
+		UPDATE
+				TB_USER
+		   SET
+		   		USER_PWD = ?
+		 WHERE  USER_ID = ?
+	</entry>
+	
+	<entry key="resetHotelUserPwd">
+		UPDATE
+				TB_MEM
+		   SET
+		   		MEM_PWD = ?
+		 WHERE  MEM_ID = ?
+	</entry>
+	
+	<entry key="resetAdminPwd">
+		UPDATE
+				TB_ADMIN
+		   SET
+		   		ADMIN_PWD = ?
+		 WHERE  ADMIN_ID = ?
+	</entry>
+	
+	<entry key="confirmCustomer">
+		SELECT
+		        COUNT(*)
+		  FROM  TB_USER
+		 WHERE  USER_ID = ?
+		   AND  PHONE = ?
+	</entry>
+	
+	<entry key="confirmHotel">
+		SELECT
+		        COUNT(*)
+		  FROM  TB_MEM
+		 WHERE  MEM_ID = ?
+		   AND  MEM_PHONE = ?
+	</entry>
+	
+	<entry key="confirmAdmin">
+		SELECT
+		        COUNT(*)
+		  FROM  TB_ADMIN
+		 WHERE  ADMIN_ID = ?
+		   AND  PHONE = ?
+	</entry>
 	
 	
 </properties>
