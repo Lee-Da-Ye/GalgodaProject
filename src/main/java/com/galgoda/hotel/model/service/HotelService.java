@@ -102,7 +102,8 @@ public class HotelService {
 		
 		return r;
 	}
-		
+
+
 
 	public HotelUser selectHotelUser(String userId) {
 		Connection conn = getConnection();

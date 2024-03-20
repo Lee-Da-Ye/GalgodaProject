@@ -32,6 +32,8 @@ public class HotelPersonalInfoUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		String userId = request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String updatedPwd = request.getParameter("updatedPwd");
@@ -49,7 +51,7 @@ public class HotelPersonalInfoUpdateController extends HttpServlet {
 		
 		if(updatehu == null) { // 실패일 경우
 			
-			// 에러페이지 / 에러문구
+			// 에러문구
 			request.setAttribute("alertMsg", "담당자 정보 수정에 실패했습니다");
 			request.getRequestDispatcher("/views/hotel/hotelPersonalInfoForm.jsp").forward(request, response);
 			

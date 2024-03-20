@@ -356,12 +356,15 @@ public class HotelDao {
 	
 	public int updatePersonalInfo(Connection conn, HotelUser hu) {
 		
+		
+		
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updatePersonalInfo");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, hu.getMemName());
 			pstmt.setString(2, hu.getMemPwd());
 			pstmt.setString(3, hu.getMemPhone());
