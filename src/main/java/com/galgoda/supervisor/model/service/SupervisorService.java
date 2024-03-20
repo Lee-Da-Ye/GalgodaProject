@@ -153,5 +153,18 @@ public class SupervisorService {
 		
 		return listCount;
 	}
+
+	public int deleteUser(int userNo) {
+		Connection conn = getConnection();
+		int result = sDao.deleteUser(conn,userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 }
