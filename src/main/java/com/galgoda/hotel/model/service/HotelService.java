@@ -179,4 +179,18 @@ public class HotelService {
 		
 	}
 	
+	public int deleteHotelUser(String userId) {
+		Connection conn = getConnection();
+		int result = hDao.deleteHotelUser(conn, userId);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 }

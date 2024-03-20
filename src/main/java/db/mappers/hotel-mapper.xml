@@ -223,5 +223,13 @@
 		
 		</entry>
 		
+		<entry key="deleteHotelUser">
+			UPDATE
+					TB_MEM
+			   SET  STATUS = 'N'
+			  	  , MODIFY_DATE = SYSDATE
+			 WHERE  MEM_ID = ?
+		</entry>
+		
 
 </properties>
