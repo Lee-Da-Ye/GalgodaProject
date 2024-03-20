@@ -21,7 +21,7 @@ public class NoticeDao {
 	
 	public NoticeDao() {
 		try {
-			prop.loadFromXML(new FileInputStream(Notice.class.getResource("/db/mappers/notice-mapper.xml").getPath()));
+			prop.loadFromXML(new FileInputStream(Notice.class.getResource("/db/mappers/customerService-mapper.xml").getPath()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

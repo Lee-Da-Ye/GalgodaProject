@@ -20,7 +20,7 @@ public class InqDao {
 	Properties prop = new Properties();
 	public InqDao() {
 		try {
-			prop.loadFromXML(new FileInputStream(Inq.class.getResource("/db/mappers/inq-mapper.xml").getPath()));
+			prop.loadFromXML(new FileInputStream(Inq.class.getResource("/db/mappers/customerService-mapper.xml").getPath()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
