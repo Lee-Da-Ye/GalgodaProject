@@ -95,4 +95,95 @@
 		   SET STATUS = 'N'
 		 WHERE NOTICE_NO = ?
 	</entry>
+	
+	<entry key="selectHotelName">
+		SELECT
+		       HOTEL_NAME
+		  FROM TB_HOTEL
+	</entry>
+	
+	<entry key="insertInq">
+		INSERT
+		  INTO TB_INQ
+		  (
+		  	INQ_NO
+		  , INQ_TITLE
+		  , INQ_CONTENT
+		  , INQ_WRITER
+		  , WRITER_PHONE
+		  , WRITER_EMAIL
+		  , HOTEL_NAME
+		  , INQ_TYPE
+		  , STATUS
+		  )
+		  VALUES
+		  (
+		  	SEQ_INQNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , 'W'
+		  )
+	</entry>
+	
+	<entry key="insertAttachment">
+		INSERT
+		  INTO TB_FILE
+		  (
+		  	FILE_NO
+		  , FILE_PATH
+		  , STATUS
+		  , REF_NO
+		  , REF_TYPE
+		  , FILE_NAME
+		  )
+		  VALUES
+		  (
+		  	SEQ_FILENO.NEXTVAL
+		  , ?
+		  , 'Y'
+		  , SEQ_INQNO.CURRVAL
+		  , 'I'
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="selectInqList">
+		SELECT
+		       INQ_NO
+		     , HOTEL_NAME
+		     , INQ_TYPE
+		     , INQ_TITLE
+		     , TO_CHAR(REGIST_DATE, 'YYYY-MM-DD') REGIST_DATE
+		     , STATUS
+		  FROM TB_INQ
+		 WHERE STATUS != 'N'
+		 ORDER
+		    BY 1 DESC
+	</entry>
+	
+	<entry key="selectInq">
+		SELECT
+		       INQ_NO
+		     , HOTEL_NAME
+		     , INQ_TYPE
+		     , INQ_WRITER
+		     , INQ_TITLE
+		     , INQ_CONTENT
+		     , ANS_CONTENT
+		  FROM TB_INQ
+		 WHERE STATUS != 'N'
+		   AND INQ_NO = ?
+	</entry>
+	
+	<entry key="updateInq">
+		UPDATE TB_INQ
+		   SET ANS_CONTENT = ?
+		     , STATUS = 'Y'
+		 WHERE INQ_NO = ?
+	</entry>
 </properties>
