@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.galgoda.customer.model.service.CustomerService;
+import com.galgoda.member.model.vo.Customer;
 
 /**
  * Servlet implementation class CustomerMyPageMainController
@@ -26,6 +30,30 @@ public class CustomerMyPageMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+	    
+	    // 로그인된 사용자의 userNo 가져오기
+	    int userNo = loginCustomer.getUserNo();
+		
+	    int resCount = new CustomerService().countRes(userNo);
+	    int wishCount = new CustomerService().countWish(userNo);
+	    int reviewCount = new CustomerService().countReview(userNo);
+	    
+	    if(resCount > 0) {
+	    	request.setAttribute("resCount", resCount);
+	    }
+	    
+	    if(resCount > 0) {
+	    	request.setAttribute("wishCount", wishCount);
+	    }
+	    
+	    if(resCount > 0) {
+	    	request.setAttribute("reviewCount", reviewCount);
+	    }
+	    
+		
 		request.getRequestDispatcher("/views/customer/mypageMain.jsp").forward(request, response);
 	}
 

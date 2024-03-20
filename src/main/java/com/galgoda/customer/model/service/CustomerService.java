@@ -104,5 +104,47 @@ public class CustomerService {
 		return result;
 	}
 	
+	public int deleteWishlist(int wishNo) {
+		
+		Connection conn = getConnection();
+		int result = cDao.deleteWishlist(conn, wishNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+		
+	}
+	
+	public int countRes(int userNo) {
+		Connection conn = getConnection();
+		int resCount = cDao.countRes(conn, userNo);
+		
+		close(conn);
+		return resCount;
+		
+	}
+	
+	public int countWish(int userNo) {
+		Connection conn = getConnection();
+		int wishCount = cDao.countWish(conn, userNo);
+
+		close(conn);
+		return wishCount;
+		
+	}
+	
+	public int countReview(int userNo) {
+		Connection conn = getConnection();
+		int reviewCount = cDao.countReview(conn, userNo);
+	
+		close(conn);
+		return reviewCount;
+		
+	}
 	
 }
