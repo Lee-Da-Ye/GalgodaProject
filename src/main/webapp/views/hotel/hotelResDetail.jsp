@@ -154,7 +154,7 @@
                            
                            
                                 <a class="btn" id="btnbrown" type="button" onclick="confirmRes();" href="<%= contextPath %>/confirmRes.ho?no=<%=r.getResNo() %>">예약 승인</a>
-                                <button class="btn" id="btnconfirm" type="button" onclick="cancleRes();">예약 취소</button>
+                                <a class="btn" id="btnconfirm" type="button" onclick="cancelRes();" href="<%= contextPath %>/cancelRes.ho?no=<%=r.getResNo() %>">예약 취소</a>
                        	
                        
                         <% } else if (r.getResStatus().equals("예약확정")) { %>
@@ -180,9 +180,9 @@
                                     
                                     }
                             }
-                            function cancleRes(){
+                            function cancelRes(){
                                 if(confirm("해당 예약을 취소 하겠습니까?")){
-                                    alert("취소 완료되었습니다.");
+                                   
                                     }
                             }
                         </script>

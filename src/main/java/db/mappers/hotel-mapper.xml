@@ -213,5 +213,15 @@
 		 WHERE  RES_NO = ?
 		
 		</entry>
+		
+		
+		
+		<entry key="cancelReservation">
+		UPDATE TB_RES_INFO
+		  SET  RES_STATUS = '예약취소'
+		 WHERE  RES_NO = ?
+		
+		</entry>
+		
 
 </properties>

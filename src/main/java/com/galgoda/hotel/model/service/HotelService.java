@@ -164,4 +164,19 @@ public class HotelService {
 		
 	}
 	
+	public int cancelReservation(int resNo) {
+		Connection conn = getConnection();
+		int result = hDao.cancelReservation(conn, resNo);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
 }
