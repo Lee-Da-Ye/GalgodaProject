@@ -202,12 +202,7 @@
                                     $('#' + checkboxId).prop('checked', isChecked);
                                 });
                         
-                                // 회원 탈퇴 확인 모달에서 확인 버튼을 클릭했을 때 처리
-                                $('#confirmWithdrawButton').click(function() {
-                                    // 여기에 회원 탈퇴 처리 코드를 추가하세요
-                                    alert("회원 탈퇴가 완료되었습니다. 그동안 이용해주셔서 감사합니다.");
-                                    // 예를 들어, 여기에 회원 탈퇴를 위한 Ajax 호출이나 페이지 이동 등의 처리를 추가할 수 있습니다.
-                                });
+                                
                             });
                         </script>
                         
