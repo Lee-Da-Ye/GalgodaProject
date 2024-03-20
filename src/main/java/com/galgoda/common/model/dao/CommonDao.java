@@ -285,4 +285,31 @@ public class CommonDao {
 		
 	}
 	
+	public String findUserId(Connection conn, String userName, String phone) {
+		
+		String userId = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findUserId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, phone);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userId = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userId;
+	}
+	
 }

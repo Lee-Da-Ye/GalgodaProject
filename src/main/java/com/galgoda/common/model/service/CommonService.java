@@ -132,5 +132,16 @@ public class CommonService {
     	
     }
     
+    public String findUserId(String userName, String phone) {
+    	
+    	Connection conn = getConnection();
+    	String userId = cDao.findUserId(conn, userName, phone);
+    	
+		close(conn);
+		
+		return userId;
+    	
+    }
+    
     
 }
