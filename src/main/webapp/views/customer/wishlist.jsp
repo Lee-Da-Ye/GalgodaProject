@@ -12,23 +12,57 @@
 <title>Wishlist</title>
 <!--  wishlist 스타일 연결  -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/wishlist.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
-        $(document).ready(function(){
-            $('.checkbox').change(function(){
-                var id = $(this).attr('id');
-                var heartSvg = $('#heart-svg' + id.substring(id.length - 1));
-                if($(this).is(':checked')){
-                    heartSvg.find('#heart').css('fill', '#E2264D');
-                    // 다른 하트 관련 동작 추가
+$(document).ready(function(){
+    // 페이지가 로드될 때 모든 하트를 선택된 상태로 변경
+    $('svg[id^="heart-svg"]').each(function(){
+        $(this).find('#heart').css('fill', '#E2264D');
+    });
+
+    
+    $('svg[id^="heart-svg"]').click(function(){
+        var index = $(this).attr('id').slice($(this).attr('id').lastIndexOf('_') + 1); 
+        console.log(index)
+        var checkbox = $('#checkbox' + index); // 해당 하트와 연결된 체크박스를 선택
+		
+        // 체크박스의 상태를 항상 해제하고, 하트 아이콘의 색상도 함께 변경
+        checkbox.prop('checked', false);
+        $(this).find('#heart').attr('fill', '#AAB8C2'); // 하트 아이콘의 색상을 변경
+
+        // 해당 하트와 연결된 체크박스의 data-wishlist-id 속성 값을 가져와서 콘솔에 출력
+        var wishlistId = checkbox.val();// 해당 체크박스의 data-wishlist-id 속성 값을 가져옴
+        console.log("wishlistId:", wishlistId);
+
+        // 위의 wishlistId가 null 또는 undefined인지 확인하는 코드 추가
+        if (wishlistId == null || wishlistId === undefined) {
+            console.error("Error: WishlistId is null or undefined");
+            return; // wishlistId가 null 또는 undefined이면 더 이상 진행하지 않음
+        }
+
+        // 하트 해제 시 위시리스트에서 삭제 요청 보내기
+        $.ajax({
+            type: "POST",
+            url: "<%=request.getContextPath()%>/deleteWishlist.cu",
+            data: { wishlistId: wishlistId },
+            success: function(response) {
+                if (response.result > 0) {
+                    alert("위시리스트에서 삭제되었습니다.");
+                    window.location.href = "<%=request.getContextPath()%>/wishlist.cu";
                 } else {
-                    heartSvg.find('#heart').css('fill', '#AAB8C2');
-                    // 다른 하트 관련 동작 추가
+                    alert("위시리스트 삭제에 실패했습니다.");
+                    window.location.href = "<%=request.getContextPath()%>/wishlist.cu";
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
         });
-    </script>
+    });
+
+});
+</script>
 
 </head>
 <body>
@@ -64,7 +98,7 @@
                         </div>
                     </li>
                     <li class="sideMenubar_wishlist">
-                        <a class="nav-link" style="background-color: rgb(99, 76, 70); color: white;" href="#" data-toggle="collapse" data-target="#demo2">위시리스트</a>
+                        <a href="<%=contextPath%>/wishlist.cu" class="nav-link" style="background-color: rgb(99, 76, 70); color: white;" data-target="#demo2">위시리스트</a>
                     </li>
                     
                     <li>
@@ -87,16 +121,24 @@
                     <br>
 
                     <div class="board_list">
+                    
+                    <% if(wishlist.isEmpty()) {%>
+                    
+                    	<div>
+                    		<h4>위시리스트에 담긴 내역이 없습니다.</h4>
+                    	</div>
+                    	
+                    <% } else { %>
 							
-						<% for(Wishlist w : wishlist) {%>
+						<% for(int index = 0; index < wishlist.size(); index++) { %>
                         <!-- 한 게시글 -->
                         <div class="thumbnail">
-                            <img class="thumbnail_img" src="<%=request.getContextPath()%>/<%=w.getImgPath()%>">
-                            <div class="thumbnail_title"><%=w.getHotelName()%></div>
+                            <img class="thumbnail_img" src="<%=request.getContextPath()%>/<%=wishlist.get(index).getImgPath()%>">
+                            <div class="thumbnail_title"><%=wishlist.get(index).getHotelName()%></div>
                             <div class="heartbox"> 
-                                <input type="checkbox" class="checkbox" id="checkbox1" />
-                                <label for="checkbox1"> 
-                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                                <input type="checkbox" class="checkbox" id="checkbox<%= index %>" value="<%=wishlist.get(index).getWishNo()%>">
+                                <label for="checkbox<%= index %>"> 
+                                    <svg id="heart-svg_<%= index %>" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                                         <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
                                             <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
                                             <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
@@ -142,6 +184,7 @@
 
                         <% } %>
                         
+                     <% } %>
                 </div>
 
             </div>

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int resCount = (int)request.getAttribute("resCount");
+	int wishCount = (int)request.getAttribute("wishCount");
+	int reviewCount = (int)request.getAttribute("reviewCount");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +70,7 @@
             color: white;
             text-decoration: none;
         }
-        .mypage_cir_menu{
+        #mypage_cir_menu{
             color:  rgb(99, 76, 70);
             text-decoration: none;
         }
@@ -131,27 +137,27 @@
                     <div class="mypage_shortcut">  
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">2</a>
+                                <a href="<%=contextPath%>/resManagement.cu" id="mypage_cir_menu"><%=resCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
-                                <a href="<%=contextPath%>/resManagement.cu" class="btn">예약관리</a>
+                                <a class="btn">예약현황</a>
                             </div>
                         </div>
                         
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">3</a>
+                                <a href="<%=contextPath%>/wishlist.cu" id="mypage_cir_menu"><%=wishCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
-                                <button class="btn">위시리스트</button>
+                                <a class="btn">위시리스트</a>
                             </div>
                         </div>
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">2</a>
+                                <a href="" id="mypage_cir_menu"><%=reviewCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
-                                <button class="btn">작성 리뷰</button>
+                                <a class="btn">작성 리뷰</a>
                             </div>
                         </div>
                     </div>
