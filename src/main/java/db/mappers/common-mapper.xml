@@ -132,5 +132,14 @@
 			 
 	</entry>
 	
+	<entry key="findUserId">
+		SELECT 
+		        USER_ID
+		  FROM  TB_USER
+		 WHERE  USER_NAME = ?
+		   AND  PHONE = ?
+	</entry>
+	
+	
 	
 </properties>

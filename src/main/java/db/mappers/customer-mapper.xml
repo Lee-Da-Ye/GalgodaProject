@@ -145,5 +145,31 @@
 		 WHERE  RES_NO = ?
 	</entry>
 	
+	<entry key="deleteWishlist">
+		DELETE 
+				FROM TB_WISH
+		  WHERE WISH_NO = ?
+	</entry>
+	
+	<entry key="countRes">
+		SELECT
+        		COUNT(*)
+          FROM TB_RES_INFO
+    	 WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="countWish">
+		SELECT
+        		COUNT(*)
+          FROM TB_WISH
+    	 WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="countReview">
+		SELECT
+        		COUNT(*)
+          FROM TB_REVIEW
+    	 WHERE USER_NO = ?
+	</entry>
 	
 </properties>

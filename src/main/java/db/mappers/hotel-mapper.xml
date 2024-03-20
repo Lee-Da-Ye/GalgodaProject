@@ -171,6 +171,7 @@
 			      , HOTEL_NAME
 			  FROM TB_MEM
  			 WHERE MEM_ID = ?
+ 			   AND STATUS = 'Y'
 		</entry>
 		
 		<entry key="updatePersonalInfo">
