@@ -28,7 +28,7 @@ public class SupervisorDao {
 			e.printStackTrace();
 		}
 	}
-	public List<Customer> selectUserList(Connection conn) {
+	public List<Customer> selectUserList(Connection conn, PageInfo pi) {
 		List<Customer> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -36,6 +36,12 @@ public class SupervisorDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -406,6 +412,28 @@ public class SupervisorDao {
 		}
 		
 		return result;
+	}
+	public int selectUserListCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectUserListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 	
 	

@@ -144,7 +144,7 @@ width: 600px;
                             <a href="<%=contextPath%>/no1" class="mypage_rec_menu">호텔 관리</a>
                         </div>
                         <div class="mypage_rectangle" onclick="LinkTo(this);">
-                            <a href="<%=contextPath%>/userList.su" class="mypage_rec_menu">사용자 관리</a>
+                            <a href="<%=contextPath%>/userList.su?page=1" class="mypage_rec_menu">사용자 관리</a>
                         </div>
                         <div class="mypage_rectangle">
                             <a href="" class="mypage_rec_menu">고객센터 관리</a>

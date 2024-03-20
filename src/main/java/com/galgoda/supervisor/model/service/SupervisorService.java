@@ -17,9 +17,9 @@ public class SupervisorService {
 	
 	public SupervisorDao sDao = new SupervisorDao();
 
-	public List<Customer> selectUserList() {
+	public List<Customer> selectUserList(PageInfo pi) {
 		Connection conn = getConnection();
-		List<Customer> list = sDao.selectUserList(conn);
+		List<Customer> list = sDao.selectUserList(conn,pi);
 		close(conn);
 		
 		return list;
@@ -144,6 +144,14 @@ public class SupervisorService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int selectUserListCount() {
+		Connection conn =getConnection();
+		int listCount = sDao.selectUserListCount(conn);
+		close(conn);
+		
+		return listCount;
 	}
 	
 }

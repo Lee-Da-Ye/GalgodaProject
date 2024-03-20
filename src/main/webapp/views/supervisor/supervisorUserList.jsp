@@ -1,8 +1,10 @@
+<%@page import="com.galgoda.common.model.vo.PageInfo"%>
 <%@page import="com.galgoda.member.model.vo.Customer"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% List<Customer> list = (List<Customer>)request.getAttribute("list"); %>    
+<% PageInfo pi = (PageInfo)request.getAttribute("pi"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,13 +111,25 @@
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete">삭제하기</button>
                 </div>
 
-                <ul class="pagination center">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                  </ul>
+                <ul class="pagination justify-content-center" >
+                	<%if(pi.getCurrentPage()==1){ %>
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <%}else{ %>
+                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/userList.su?page=<%=pi.getCurrentPage()-1%>">Previous</a></li>
+                    <%} %>
+                    <%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+                    	<%if(p==pi.getCurrentPage()){ %>
+	                    <li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
+	                    <%}else{ %>
+	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/userList.su?page=<%=p%>"><%=p %></a></li>
+	                    <%} %>
+                    <%} %>
+					<%if(pi.getCurrentPage()==pi.getMaxPage()){ %>                    
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    <%}else{ %>
+                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/userList.su?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
+                    <%} %>
+                 </ul>
 
             </div>
 

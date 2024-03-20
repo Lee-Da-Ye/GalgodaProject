@@ -68,7 +68,7 @@
             <nav class="header_nav">
                 <div class="left_nav" >
                     <a href="<%=contextPath %>/hotelList.su?page=1" style="margin-left: 15px;">호텔 관리</a>
-                    <a href="<%=contextPath %>/userList.su" style="margin-left: 15px;">사용자 관리</a>
+                    <a href="<%=contextPath %>/userList.su?page=1" style="margin-left: 15px;">사용자 관리</a>
                     <a href="" style="margin-left: 15px;">고객센터 관리</a>
                     <a href="<%=contextPath %>/termsList.su" style="margin-left: 15px;">홈페이지 관리</a>
                 </div>
