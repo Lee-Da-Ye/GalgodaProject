@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.galgoda.inq.model.vo.Inq" %>
+<%@ page import="com.galgoda.customerService.model.vo.Inq" %>
 <%
 	Inq inq = (Inq)request.getAttribute("inq");
 %>

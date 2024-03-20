@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.galgoda.notice.model.vo.Notice" %>
+<%@ page import="com.galgoda.customerService.model.vo.Notice" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.galgoda.common.model.vo.PageInfo" %>
 <%
