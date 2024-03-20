@@ -6,7 +6,15 @@
 <meta charset="UTF-8">
 <title>Authentication Form</title>
 <style>
-	/* 인증번호 받기 box 스타일 */
+
+		
+        .mypage_header {
+        margin: 0 auto;
+        width: 600px;
+        }
+
+	
+		/* 인증번호 받기 box 스타일 */
        .identification_box{
             border: 0.5px solid gray;
             color: black;
@@ -85,7 +93,7 @@
 	                        </div>
 	                        <div class="col">
 	                            <div class="input-group">
-	                                <input type="text" class="form-control" id="inputPhoneNumber" name="phone" placeholder="휴대폰 번호를 입력하세요 (하이픈 없이)">
+	                                <input type="text" class="form-control" id="inputPhoneNumber" name="phone" placeholder="휴대폰 번호를 입력하세요">
 	                                <div class="input-group-append">
 	                                    <button type="button" onclick="sendVerificationCode();" class="btn btn-outline-primary identification_box">인증번호 받기</button>
 	                                </div>
@@ -99,12 +107,17 @@
 	                            <label for="inputVerificationCode" class="col-form-label">인증번호</label>
 	                        </div>
 	                        <div class="col">
-	                            <input type="text" class="form-control" id="inputVerificationCode" name="verificationCode" placeholder="인증번호를 입력하세요">
+	                        	<div class="input-group">
+		                            <input type="text" class="form-control" id="inputVerificationCode" name="verificationCode" placeholder="인증번호를 입력하세요">
+		                        	<div class="input-group-append">
+		                                    <button type="button" class="btn btn-outline-primary identification_box" onclick="confirmVerificationCode();">인증번호 확인</button>
+		                            </div>
+		                        </div>
 	                        </div>
 	                    </div>
 	                    
 	                    <!-- 인증완료 버튼 -->
-	                    <button type="button" class="btn btn-primary btn-block identification_enter" onclick="confirmVerificationCode();">인증 완료</button>
+	                    <button type="button" class="btn btn-primary btn-block identification_enter" id="moveToSignupButton" onclick="moveToSignupChoice();" disabled>회원가입 화면으로 이동</button>
 	                </form>
 	            </div>
 	        </div>
@@ -113,27 +126,33 @@
 		<script>
 		
 		var verificationCode = ""; // 전역 변수 선언
-
+		
 		function sendVerificationCode() {
 		    var phoneNumber = document.getElementById("inputPhoneNumber").value;
 		    var xhr = new XMLHttpRequest();
-		    xhr.open("GET", "<%=contextPath%>/authentiSms.co?phone=" + phoneNumber, true); // 서블릿 URL에 따라 수정
-		    xhr.onreadystatechange = function () {
-		        if (xhr.readyState === XMLHttpRequest.DONE) {
-		            if (xhr.status === 200) {
-		                var response = JSON.parse(xhr.responseText); // 서버 응답을 JSON으로 파싱
-		                if (response.message === "인증번호가 전송되었습니다.") {
-		                    verificationCode = response.verificationCode; // 전역 변수에 저장
-		                    alert("인증번호 전송에 성공했습니다.");
-		                } else {
-		                    alert("인증번호 전송에 실패했습니다.");
-		                }
-		            } else {
-		                alert("서버 오류로 인증번호를 발송할 수 없습니다.");
-		            }
-		        }
-		    };
-		    xhr.send();
+		    
+		    if(phoneNumber != "") {
+		    	xhr.open("GET", "<%=contextPath%>/authentiSms.co?phone=" + phoneNumber, true); // 서블릿 URL에 따라 수정
+			    xhr.onreadystatechange = function () {
+			        if (xhr.readyState === XMLHttpRequest.DONE) {
+			            if (xhr.status === 200) {
+			                var response = JSON.parse(xhr.responseText); // 서버 응답을 JSON으로 파싱
+			                if (response.message === "인증번호가 전송되었습니다.") {
+			                    verificationCode = response.verificationCode; // 전역 변수에 저장
+			                    alert("인증번호 전송에 성공했습니다.");
+			                } else {
+			                    alert("인증번호 전송에 실패했습니다.");
+			                }
+			            } else {
+			                alert("서버 오류로 인증번호를 발송할 수 없습니다.");
+			            }
+			        }
+			    };
+			    xhr.send();
+		    } else {
+		    	alert("휴대폰 번호를 입력해주세요.")
+		    }
+		    
 		}
 
 
@@ -142,20 +161,32 @@
 		    var inputCode = document.getElementById("inputVerificationCode").value;
 
 		    // 사용자가 입력한 코드와 전역 변수의 코드를 비교
-		    if (inputCode === verificationCode) {
-		        // 코드가 일치하는 경우
-		        alert("인증이 완료되었습니다.");
-		        window.location.href = "<%=contextPath%>/signupChoice.co"; // 이동할 페이지로 리디렉션
+		    if(inputCode != "") {
+		    	 if (inputCode === verificationCode) {
+				        // 코드가 일치하는 경우
+				        alert("인증이 완료되었습니다.");
+				     	// 버튼 활성화
+			            document.getElementById("moveToSignupButton").disabled = false;
+				    } else {
+				        // 코드가 일치하지 않는 경우
+				        alert("인증번호가 올바르지 않습니다.");
+				    }
 		    } else {
-		        // 코드가 일치하지 않는 경우
-		        alert("인증번호가 올바르지 않습니다.");
+		    	alert("인증번호를 입력하세요.")
 		    }
+		   
 		}
-
+		
+		function moveToSignupChoice() {
+			
+		    	window.location.href = "<%=contextPath%>/signupChoice.co";
+		    
+		}
+			
 		</script>
 
-
         <%@ include file="/views/common/footer.jsp" %>
+
     </div>
 
 </body>
