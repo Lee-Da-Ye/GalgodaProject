@@ -131,6 +131,8 @@
 	    // 폼 제출
 	    document.getElementById("myForm").submit();
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -213,12 +215,12 @@
                             <table style="border-spacing: 10px; border-collapse: separate;">
                                 <tr>
                                     <th>담당자명</th>
-                                    <td><input type="text" name="userName" class="form-control" required value="<%=hu.getMemName() %>"></td>
+                                    <td><input type="text" name="userName" class="form-control" required value="<%=hu.getMemName()%>"></td>
                                 </tr>
                                 <tr>
                                     <th>아이디</th>
                                     <td>
-                                        <input type="text" name="userId" class="form-control" required value="<%=hu.getMemId() %>" disabled>
+                                        <input type="text" name="userId" class="form-control" required value="<%=hu.getMemId()%>" readonly>
                                     </td>
                                     
                                 </tr>
@@ -226,7 +228,7 @@
                                     <th>비밀번호</th>
                                     <td>
                                         <!-- 기존 비밀번호 필드 -->
-									    <input type="password" name="originPassword" class="form-control" value="<%=hu.getMemPwd() %>" readonly>
+									    <input type="password" name="originPassword" class="form-control" value="<%=hu.getMemPwd()%>" readonly>
 									    
 									    <!-- 변경된 비밀번호 필드 -->
 									    <input type="password" id="updatedPwd" name="updatedPwd" hidden>
