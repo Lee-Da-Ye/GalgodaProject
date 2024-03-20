@@ -29,7 +29,7 @@ public class Reservation {
 	private String imgPath; // table join 으로 새로 추가된 변수
 	private String roName; // table join 으로 새로 추가된 변수
 	private String opName; // table join 으로 새로 추가된 변수
-	
+	private String userId; // table join 으로 새로 추가된 변수
 	
 	
 	public Reservation() {}
@@ -312,6 +312,16 @@ public class Reservation {
 
 	public void setOpName(String opName) {
 		this.opName = opName;
+	}
+
+	
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override
