@@ -51,8 +51,8 @@
                     
                     <li>
                         <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
-                    </li>
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
+                    </li> 																				
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a></div> </li> 
                     <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
                     <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
                     <li> <div id="demo"  class="collapse " style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
@@ -60,7 +60,7 @@
                     
                     
                     <li>
-                        <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" >예약관리</a>
+                        <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="<%= contextPath %>/resList.ho?page=1" >예약관리</a>
                     </li>
                  
                     <li>
@@ -151,18 +151,23 @@
                         
                         <% if(r.getResStatus().equals("예약대기")){ %>
                             <!-- case1 : 대기예약일때 --> 
-                                <button class="btn" id="btnbrown" type="button" onclick="confirmRes();">예약 승인</button>
+                           
+                           
+                                <a class="btn" id="btnbrown" type="button" onclick="confirmRes();" href="<%= contextPath %>/confirmRes.ho?no=<%=r.getResNo() %>">예약 승인</a>
                                 <button class="btn" id="btnconfirm" type="button" onclick="cancleRes();">예약 취소</button>
+                       	
+                       
                         <% } else if (r.getResStatus().equals("예약확정")) { %>
                             
                             <!-- case2 : 확정예약일때 -->
                             
+                               
                                 <button class="btn " id="btnbrown" type="button" data-toggle="modal" data-target="#myModal" >사용자 신고하기</button>
-                                <button class="btn   " id="btnconfirm" type="button"  >목록으로</button>
+                                <a class="btn " id="btnconfirm" type="button" href="<%= contextPath %>/resList.ho?page=1" >목록으로</a>
                        <% } else if (r.getResStatus().equals("예약취소")){ %>
                             <!-- case3 : 취소예약일때 -->
                              
-                                <button class="btn " id="btnconfirm" type="button" onclick="location.href='<%= contextPath %>/resList.ho?page=1'" >목록으로</button>
+                                <a class="btn " id="btnconfirm" type="button" href="<%= contextPath %>/resList.ho?page=1" >목록으로</button>
                             
                        <% } %>
                         </div>
@@ -172,7 +177,7 @@
                         <script>
                             function confirmRes(){
                                 if(confirm("해당 예약을 승인 하겠습니까?")){
-                                    alert("승인 완료되었습니다.");
+                                    
                                     }
                             }
                             function cancleRes(){

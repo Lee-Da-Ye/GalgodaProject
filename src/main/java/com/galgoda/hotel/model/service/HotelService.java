@@ -148,4 +148,20 @@ public class HotelService {
 		return result;
 	}
 	
+	
+	public int confirmReservation(int resNo) {
+		Connection conn = getConnection();
+		int result = hDao.confirmReservation(conn, resNo);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
 }

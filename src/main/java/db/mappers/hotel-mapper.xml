@@ -205,5 +205,13 @@
 				)
 		
 		</entry>
+		
+		
+		<entry key="confirmReservation">
+		UPDATE TB_RES_INFO
+		  SET  RES_STATUS = '예약확정'
+		 WHERE  RES_NO = ?
+		
+		</entry>
 
 </properties>
