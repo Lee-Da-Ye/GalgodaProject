@@ -143,5 +143,87 @@ public class CommonService {
     	
     }
     
+    public Customer resetCustomerPwd(String userId, String newPassword) {
+    	Connection conn = getConnection();
+    	int result = cDao.resetCustomerPwd(conn, userId, newPassword);
+    	
+    	Customer customer = null;
+    	
+    	if(result>0) {
+			commit(conn);
+			customer = new CommonService().loginCustomer(userId, newPassword);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return customer;
+    }
     
+    public HotelUser resetHotelUserPwd(String userId, String newPassword) {
+    	Connection conn = getConnection();
+    	int result = cDao.resetHotelUserPwd(conn, userId, newPassword);
+    	
+    	HotelUser hoteluser = null;
+    
+    	if(result>0) {
+			commit(conn);
+			hoteluser = new CommonService().loginHotel(userId, newPassword);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return hoteluser;
+    }
+    
+    public Admin resetAdminPwd(String userId, String newPassword) {
+    	Connection conn = getConnection();
+    	int result = cDao.resetAdminPwd(conn, userId, newPassword);
+    	
+    	Admin admin = null;
+    
+    	if(result>0) {
+			commit(conn);
+			admin = new CommonService().loginAdmin(userId, newPassword);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return admin;
+    }
+    
+    public int confirmCustomer(String userId, String phone) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.confirmCustomer(conn, userId, phone);
+    	
+    	close(conn);
+    	
+    	return result;
+    }
+    
+    public int confirmHotel(String userId, String phone) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.confirmHotel(conn, userId, phone);
+    	
+    	close(conn);
+    	
+    	return result;
+    }
+    
+    public int confirmAdmin(String userId, String phone) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.confirmAdmin(conn, userId, phone);
+    	
+    	close(conn);
+    	
+    	return result;
+    }
 }
