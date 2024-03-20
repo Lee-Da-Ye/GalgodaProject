@@ -55,4 +55,17 @@ public class InqService {
 		close(conn);
 		return inq;
 	}
+	
+	public int updateInq(int inqNo, String inqAnswer) {
+		Connection conn = getConnection();
+		int result = iDao.updateInq(conn, inqNo, inqAnswer);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }

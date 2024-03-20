@@ -157,4 +157,22 @@ public class InqDao {
 		}
 		return inq;
 	}
+	
+	public int updateInq(Connection conn, int inqNo, String inqAnswer) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inqAnswer);
+			pstmt.setInt(2, inqNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

@@ -84,4 +84,11 @@
 		 WHERE STATUS != 'N'
 		   AND INQ_NO = ?
 	</entry>
+	
+	<entry key="updateInq">
+		UPDATE TB_INQ
+		   SET ANS_CONTENT = ?
+		     , STATUS = 'Y'
+		 WHERE INQ_NO = ?
+	</entry>
 </properties>

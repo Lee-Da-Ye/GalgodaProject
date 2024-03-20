@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.inq.model.service.InqService;
 import com.galgoda.inq.model.vo.Inq;
 
@@ -32,9 +33,11 @@ public class InqListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Inq> list = new InqService().selectInqList();
+		List<Inq> list1 = new InqService().selectInqList();
+		List<Hotel> list2 = new InqService().selectHotelName();
 		
-		request.setAttribute("list", list);
+		request.setAttribute("list1", list1);
+		request.setAttribute("list2", list2);
 		request.getRequestDispatcher("/views/customerService/inqList.jsp").forward(request, response);
 	
 	}

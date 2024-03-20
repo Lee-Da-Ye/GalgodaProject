@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.galgoda.inq.model.vo.Inq" %>
+<%
+	Inq inq = (Inq)request.getAttribute("inq");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,24 +55,23 @@
                 <h2 class="contentName">1:1 문의내역</h2>
                 <div style="margin-top: 10px; border: 2px solid lightgray;"></div>
                 <div style="margin-top: 20px;">
-                    <form action="">
+                    <form action="<%= contextPath %>/update.inq">
+                    	<input type="hidden" name="no" value="<%= inq.getInqNo() %>">
                         <table class="table">
                             <tr>
                                 <th style="width: 100px;">작성자</th>
-                                <td>홍길동</td>
+                                <td><%= inq.getInqWriter() %></td>
                                 <th style="width: 100px;">문의유형</th>
-                                <td>예약문의</td>
+                                <td><%= inq.getInqType() %></td>
                             </tr>
                             
                             <tr>
                                 <th>제목</th>
-                                <td colspan="3">
-                                    문의문의문의?
-                                </td>
+                                <td colspan="3"><%= inq.getInqTitle() %></td>
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <textarea style="width: 100%; height: 300px; resize: none;" readonly>문의내용문의내용문의내용문의내용문의내용문의내용</textarea>
+                                    <textarea style="width: 100%; height: 300px; resize: none;" readonly><%= inq.getInqContent() %></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -78,12 +81,12 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <textarea style="width: 100%; height: 500px; resize: none;"></textarea>
+                                    <textarea name="answer" style="width: 100%; height: 500px; resize: none;"><%= inq.getAnsContent() %></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="4" align="center">
-                                    <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;">답변등록</button>
+                                    <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;" onclick="updateInq();">수정</button>
                                     <button type="button" class="btn" style="background-color: rgb(235, 231, 227);">취소</button>
                                 </td>
                             </tr>
@@ -91,7 +94,12 @@
                     </form>
                 </div>
             </div>
-
+			<script>
+                // 수정 confirm창 띄우는 메소드
+                function updateInq(){
+                    confirm("해당 답변내용을 수정하시겠습니까?");
+                }
+            </script>
 
         </section>
         <!-- section end -->

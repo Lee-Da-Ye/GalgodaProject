@@ -287,7 +287,7 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#">문의사항 관리</a>
+                        <a class="nav-link" href="<%= contextPath %>/list.inq">문의사항 관리</a>
                     </li>
 
                     <li>

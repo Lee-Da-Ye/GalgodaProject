@@ -12,16 +12,16 @@ import com.galgoda.inq.model.service.InqService;
 import com.galgoda.inq.model.vo.Inq;
 
 /**
- * Servlet implementation class InqUpdateFormController
+ * Servlet implementation class InqAnswerController
  */
-@WebServlet("/updateForm.inq")
-public class InqUpdateFormController extends HttpServlet {
+@WebServlet("/answer.inq")
+public class InqAnswerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InqUpdateFormController() {
+    public InqAnswerController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +30,10 @@ public class InqUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int inqNo = Integer.parseInt(request.getParameter("no"));
-		
 		Inq inq = new InqService().selectInq(inqNo);
 		request.setAttribute("inq", inq);
-		request.getRequestDispatcher("/views/customerService/inqUpdateForm.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("views/customerService/inqAnswer.jsp").forward(request, response);
 	}
 
 	/**
