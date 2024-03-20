@@ -71,38 +71,50 @@
                 <div style="margin-top: 10px; margin-bottom: 40px; border: 2px solid lightgray;"></div>
 
                 <div style="margin-bottom: 50px;">
-                    <table align="center">
-                        <tr>
-                            <th>제목</th>
-                            <td colspan="2">
-                                <input type="text" class="formCustume" name="title" style="width: 100%; text-align: center;" placeholder="제목을 입력하세요" >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="space" colspan="3"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="margin-top: 20px;">
-                                <textarea name="" class="textareaCustume" rows="20"  style="resize: none; width: 100%;" ></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>첨부파일</th> 
-                            <td colspan="2">
-                                <input type="file" class="form-control-file border">
-                            </td>
-                            
-                        </tr>
-                        <tr>
-                            <td class="space" colspan="3"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" align="right">
-                                <a class="btn" style="background-color: rgb(115, 90, 75); color: white;">등록하기</a>
-                                <button class="btn" style="background-color: rgb(235, 231, 227);" onclick="history.back()">뒤로가기</button>
-                            </td>
-                        </tr>
-                    </table>
+                	<form action="<%=contextPath %>/insertTerm.su" method="post" enctype="multipart/form-data">
+                		<input type="hidden" name="adminNo" value="<%=loginAdmin.getAdminNo() %>">
+	                    <table align="center">
+	                        <tr>
+	                            <th>제목</th>
+	                            <td colspan="2">
+	                                <input type="text" class="formCustume" name="title" style="width: 100%; text-align: center;" placeholder="제목을 입력하세요" >
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <td class="space" colspan="3"></td>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="3" style="margin-top: 20px;">
+	                                <textarea name="content" class="textareaCustume" rows="20"  style="resize: none; width: 100%;" ></textarea>
+	                            </td>
+	                        </tr>
+	                        <tr>
+	                            <th>첨부파일</th> 
+	                            <td colspan="2">
+	                                <input type="file" name="upfile" class="form-control-file border">
+	                            </td>
+	                            
+	                        </tr>
+	                        <tr>
+	                            <td class="space" colspan="3"></td>
+	                        </tr>
+	                        <tr>
+	                        	<th>비고</th>
+	                        	<td colspan="2">
+	                        		<input type="text" name="notes" class="form-control">
+	                        	</td>
+	                        </tr>
+	                        <tr>
+	                            <td class="space" colspan="3"></td>
+	                        </tr>
+	                        <tr >
+	                            <td colspan="3" align="right">
+	                                <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;">등록하기</button>
+	                                <button class="btn" style="background-color: rgb(235, 231, 227);" onclick="history.back()">뒤로가기</button>
+	                            </td>
+	                        </tr>
+	                    </table>
+                    </form>
                 </div>
                 
 

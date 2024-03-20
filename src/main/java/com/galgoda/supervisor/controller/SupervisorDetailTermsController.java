@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.common.model.vo.Attachment;
+import com.galgoda.supervisor.model.service.SupervisorService;
+import com.galgoda.supervisor.model.vo.Terms;
+
 /**
  * Servlet implementation class SupervisorDetailTerms
  */
@@ -26,6 +30,16 @@ public class SupervisorDetailTermsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int termNo = Integer.parseInt(request.getParameter("no"));
+		
+		SupervisorService ss = new SupervisorService();
+		
+		Terms t = ss.detailTerms(termNo);
+		Attachment at = ss.selectFile(termNo); 
+		
+		request.setAttribute("term", t);
+		request.setAttribute("at", at);
+		request.getRequestDispatcher("/views/supervisor/supervisorTermDetail.jsp").forward(request, response);
 		
 	}
 

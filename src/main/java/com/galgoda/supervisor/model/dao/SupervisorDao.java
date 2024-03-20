@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
@@ -220,6 +221,191 @@ public class SupervisorDao {
 		
 		return listCount;
 		
+	}
+	public int insertTerm(Connection conn, Terms t) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTerm");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, t.getTermsTitle());
+			pstmt.setString(2, t.getTermsContent());
+			pstmt.setString(3, t.getAdminNo());
+			pstmt.setString(4, t.getNotes());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int insertTermAt(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTermAt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getFileName());
+			pstmt.setString(2, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public Terms detailTerms(Connection conn, int termNo) {
+		Terms t = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("detailTerms");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, termNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				t = new Terms();
+				t.setTermsNo(rset.getInt("terms_no"));
+				t.setTermsTitle(rset.getString("terms_title"));
+				t.setTermsContent(rset.getString("terms_content"));
+				t.setAdminNo(rset.getString("admin_id"));
+				t.setNotes(rset.getString("notes"));
+				t.setModifyDate(rset.getString("modify_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return t;
+	}
+	public Attachment selectFile(Connection conn, int termNo) {
+		Attachment at = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectFile");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, termNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				at = new Attachment();
+				at.setFileName(rset.getString("file_name"));
+				at.setFileNo(rset.getInt("file_no"));
+				at.setFilePath(rset.getString("file_path"));
+				at.setRefNo(rset.getInt("ref_no"));
+				at.setRefType(rset.getString("ref_type"));
+				at.setStatus(rset.getString("status"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return at;
+	}
+	public int updateTerm(Connection conn, Terms t) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateTerm");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getTermsTitle());
+			pstmt.setString(2, t.getTermsContent());
+			pstmt.setString(3, t.getNotes());
+			pstmt.setInt(4, t.getTermsNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int updateTermAt(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateTermAt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, at.getFileName());
+			pstmt.setString(2, at.getFilePath());
+			pstmt.setInt(3, at.getFileNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int insertNewTermAt(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewTermAt");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, at.getRefNo());
+			pstmt.setString(2, at.getFileName());
+			pstmt.setString(3, at.getFilePath());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int deleteTerm(Connection conn, int termNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTerm");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, termNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

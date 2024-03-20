@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
@@ -69,6 +70,80 @@ public class SupervisorService {
 		close(conn);
 		
 		return listCount;
+	}
+
+	public int insertTerm(Terms t, Attachment at) {
+		Connection conn = getConnection();
+		int result1 = sDao.insertTerm(conn,t);
+		int result2 = 1;
+		if( at!= null) {
+			result2 = sDao.insertTermAt(conn,at);
+		}
+		
+		if(result1 >0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+
+	public Terms detailTerms(int termNo) {
+		Connection conn =getConnection();
+		Terms t = sDao.detailTerms(conn,termNo);
+		close(conn);
+		
+		return t;
+	}
+
+	public Attachment selectFile(int termNo) {
+		Connection conn = getConnection();
+		Attachment at = sDao.selectFile(conn,termNo);
+		close(conn);
+		
+		return at;
+	}
+
+	public int updateTerm(Terms t, Attachment at) {
+		Connection conn =getConnection();
+		int result1 = sDao.updateTerm(conn,t);
+		int result2 = 1;
+		if( at!= null) {
+			if(at.getFileNo() != 0) {
+				result2 = sDao.updateTermAt(conn,at);
+			}else {
+				result2 = sDao.insertNewTermAt(conn,at);
+			}
+		}
+		
+		if(result1 >0 && result2>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1 * result2;
+		
+	}
+
+	public int deleteTerm(int termNo) {
+		Connection conn = getConnection();
+		int result = sDao.deleteTerm(conn,termNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 	
 }

@@ -70,6 +70,7 @@
 			  ,	T.STATUS STATUS
 		  FROM 	TB_TERMS T
 		  JOIN  TB_ADMIN USING(ADMIN_NO)
+		 WHERE 	T.STATUS = 'Y'
 		 ORDER
 		 	BY	TERMS_NO DESC
 	
@@ -106,5 +107,122 @@
 		  FROM TB_MEM
 		 WHERE STATUS = 'Y'
 		   AND HOTEL_NAME IS NOT NULL
+	</entry>
+	
+	<entry key="insertTerm">
+		INSERT 
+		  INTO TB_TERMS
+		  (
+		  	TERMS_NO
+		  ,	TERMS_TITLE
+		  ,	TERMS_CONTENT
+		  ,	ADMIN_NO
+		  ,	NOTES
+		  )
+		  VALUES
+		  (
+		  	SEQ_TERMNO.NEXTVAL
+		  ,	?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key = "insertTermAt">
+    	INSERT 
+    	  INTO TB_FILE
+    	(
+    		FILE_NO
+		  ,	REF_NO
+		  ,	FILE_NAME
+		  ,	FILE_PATH  
+		  , REF_TYPE 
+		  , STATUS 	
+    	)
+    	VALUES
+    	(
+    		SEQ_FILENO.NEXTVAL
+    	  , SEQ_TERMNO.CURRVAL
+    	  , ?
+    	  , ?
+    	  , 'T'
+    	  ,	'Y'
+    	)	
+	</entry>
+	<entry key="detailTerms">
+	 SELECT	
+	 		TERMS_NO
+		 ,	TERMS_TITLE
+		 ,	TERMS_CONTENT
+		 ,	ADMIN_ID
+		 ,	NVL(NOTES,' ') NOTES
+		 ,	MODIFY_DATE
+	   FROM TB_TERMS
+	   JOIN TB_ADMIN USING (ADMIN_NO)
+	  WHERE TERMS_NO = ?
+	</entry>
+	
+	<entry key="selectFile">
+		SELECT 
+				FILE_NO
+			  ,	FILE_PATH
+			  ,	STATUS
+			  ,	REF_NO
+			  ,	REF_TYPE
+			  ,	FILE_NAME
+		  FROM	TB_FILE
+		 WHERE 	REF_NO = ?
+		   AND	REF_TYPE = 'T'	
+	</entry>
+	
+	<entry key="updateTerm">
+		UPDATE
+				TB_TERMS
+		   SET		
+		   		TERMS_TITLE = ?
+		   	  ,	TERMS_CONTENT = ?
+		   	  , NOTES = ?
+		  WHERE	TERMS_NO =?		   	  
+		
+	</entry>
+	
+	<entry key="updateTermAt">
+		UPDATE 
+				TB_FILE
+		   SET	
+		   		FILE_NAME = ?
+		   	  ,	FILE_PATH = ? 
+		  WHERE FILE_NO = ?		   	  
+	</entry>
+	
+	<entry key="insertNewTermAt">
+		INSERT 
+    	  INTO TB_FILE
+    	(
+    		FILE_NO
+		  ,	REF_NO
+		  ,	FILE_NAME
+		  ,	FILE_PATH  
+		  , REF_TYPE 
+		  , STATUS 	
+    	)
+    	VALUES
+    	(
+    		SEQ_FILENO.NEXTVAL
+    	  , ?
+    	  , ?
+    	  , ?
+    	  , 'T'
+    	  ,	'Y'
+    	)		
+	</entry>
+	
+	<entry key="deleteTerm">
+		UPDATE
+				TB_TERMS
+		   SET	STATUS = 'N'
+		 WHERE	TERMS_NO = ?
+	
 	</entry>
 </properties>

@@ -84,10 +84,10 @@
                       </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="list">
                      <%for(HotelUser u : list){ %>
 	                      <tr>
-	                        <td><input type="checkbox"></td>
+	                        <td><input type="radio" name="target"></td>
 	                        <td><%=u.getHotelNo() %></td>
 	                        <td><%=u.getHotelName() %></td>
 	                        <td><%=u.getMemName() %></td>
@@ -113,7 +113,7 @@
                         <option>이메일</option>
                         <option>주소</option>
                     </select>
-                    <a href="" class="btn btn-secondary" id="buttonColor"  >수정하기</a>
+                    <a href="" class="btn btn-secondary" id="buttonColor" onclick="modifyButton();" >수정하기</a>
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete" >삭제하기</button>
                 </div>
 
@@ -159,6 +159,28 @@
                 </div>
                 </div>
             </div>
+            
+            <script>
+				
+			    $(function(){
+            		$("#list>tr").click(function(){
+            			 var checkbox = $(this).find('input[type="radio"]');
+            			    if (checkbox.prop("checked")) {
+            			        checkbox.prop("checked", false);
+            			    } else {
+            			        checkbox.prop("checked", true);
+            			    }
+            		})
+            	})
+            	function modifyButton(){
+			    	var hotelNo = $('input[type="radio"]:checked').closest('tr').find('td:eq(1)').text();
+			        location.href = "<%=contextPath%>/detailHotel.su?no=" + hotelNo;
+
+            	}	
+			</script>
+            
+            
+            
         </section>
 
         <%@ include file = "/views/common/footer.jsp" %>
