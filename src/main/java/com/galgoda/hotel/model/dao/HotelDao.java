@@ -2,6 +2,7 @@ package com.galgoda.hotel.model.dao;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -113,6 +114,7 @@ public class HotelDao {
 
 				pstmt.setString(1, at.getFilePath());
 				pstmt.setString(2, at.getFileName());
+				pstmt.setString(3, at.getOriginName());
 
 				result = pstmt.executeUpdate();
 			}
@@ -516,4 +518,95 @@ public class HotelDao {
 		}
 		return result;
 	}
+	
+	
+	public int updateHotel(Connection conn, Hotel h ) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateHotel");
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, h.getHotelAddress());
+			pstmt.setString(2, h.getHotelDetailAdd());
+			pstmt.setString(3, h.getHotelTel());
+			pstmt.setString(4, h.getHotelSite());
+			pstmt.setInt(5, h.getHotelCheckin());
+			pstmt.setInt(6, h.getHotelCheckout());
+			pstmt.setString(7, h.getHotelDetail());
+			pstmt.setString(8, h.getHotelIntro());
+			pstmt.setString(9, h.getRefundpolicy());
+			pstmt.setString(10, h.getTagNo());
+			pstmt.setString(11, h.getImgPath());
+			pstmt.setString(12, h.getHotelName());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateHoAttachment(Connection conn, List<Attachment> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateHoAttachment");
+
+		try {
+			for(Attachment at : list) {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, at.getFilePath());
+				pstmt.setString(2, at.getFileName());
+
+				result = pstmt.executeUpdate();
+			}
+
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	public List<Attachment> selectFileList(Connection conn, int hotelNo, String htype){
+		List<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, hotelNo);
+			pstmt.setString(2, htype);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFileNo(rset.getInt("file_no"));
+				at.setFilePath(rset.getString("file_path"));
+				at.setFileName(rset.getString("file_name"));
+				list.add(at);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
 }

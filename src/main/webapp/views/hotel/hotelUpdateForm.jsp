@@ -109,7 +109,7 @@
                 
                 <div class="hotel_content" style="padding-left: 20px;">
                 <span id="title3">호텔정보</span>
-                    <form>
+                    <form action="<%= contextPath %>/hotelUpdate.ho" method="post"  onsubmit=" updateHotel();" enctype="multipart/form-data">
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
@@ -120,7 +120,7 @@
                             <tr>
                                 <td id="td1"><button class="btn " id="btnname" type="button" >주소</button></td>
                                 <td style="width: 480px ;">
-                                	<input type="text" name="addr2" style="z-index: -1; position: absolute;" required>
+                                	<input type="text" name="addr2" style="z-index: -1; position: absolute;" required value="<%= h.getHotelAddress() %>">
                                 	<input type="text" class="form-control" name="addr2" id="addr2" disabled value="<%= h.getHotelAddress() %>"></td>
                                 <td><button class="btn" id="btnbrown" type="button" onclick="execPostCode();">우편번호 찾기</button></td>
                             </tr>
@@ -210,7 +210,7 @@
                                 <td id="td4"><button class="btn" id="btnname" type="button" >사진추가</button></td>
                                 <td id="td2">
                                    
-                                    <input type="file" name="upload_file1" class="form-control">
+                                    <input type="file" name="upload_file1" class="form-control" >
                                     <input type="file" name="upload_file2" class="form-control">
                                     <input type="file" name="upload_file3" class="form-control">
                                
@@ -220,7 +220,7 @@
                                 <td colspan="2">&nbsp;</td>
                             </tr>
                             <tr>
-                                <td  colspan="2" align="right"  id="td1"><button class="btn" id="btnconfirm" type="submit" onclick="updateHotel();">수정하기</button></td>
+                                <td  colspan="2" align="right"  id="td1"><button class="btn" id="btnconfirm" type="submit" >수정하기</button></td>
                             </tr>
                         </table>
                     </form>
@@ -262,7 +262,7 @@
                     
                         function updateHotel(){
                             if(confirm("호텔을 수정하시겠습니까?")){
-                                alert("호텔이 수정되었습니다.");
+                               
                             }
                         }
                         

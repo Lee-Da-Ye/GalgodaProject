@@ -1,6 +1,8 @@
 package com.galgoda.hotel.model.service;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.close;
 import static com.galgoda.common.template.JDBCTemplate.commit;
 import static com.galgoda.common.template.JDBCTemplate.getConnection;
 import static com.galgoda.common.template.JDBCTemplate.rollback;
@@ -206,6 +208,36 @@ public class HotelService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public int updateHotel(Hotel h, List<Attachment> list) {
+		Connection conn = getConnection();
+		int result1 =  hDao.updateHotel(conn, h );
+				
+		int result2 = 1;		
+
+		if(!list.isEmpty()) {
+			 result2 = hDao.updateHoAttachment(conn, list);
+			}		
+				
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+		
+	
+	}
+	public List<Attachment> selectFileList(int hotelNo, String htype){
+		Connection conn = getConnection();
+		List<Attachment> list = hDao.selectFileList(conn, hotelNo, htype);
+		
+		close(conn);
+		return list;
+		
 	}
 	
 }

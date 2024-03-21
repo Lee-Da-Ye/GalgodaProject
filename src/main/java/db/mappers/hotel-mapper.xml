@@ -47,6 +47,7 @@
 				  , SEQ_HOTELNO.CURRVAL
 				  , 'H'
 				  , ?
+				  , ?
 				)
 
 
@@ -249,5 +250,47 @@
 			 WHERE  MEM_ID = ?
 		</entry>
 		
+		
+		<entry key="updateHotel">
+		UPDATE TB_HOTEL
+		  SET  HOTEL_ADDRESS = ?
+		  	 , HOTEL_DETAILADD = ?
+		  	 , HOTEL_TEL = ?
+		  	 , HOTEL_SITE = ?
+		  	 , HOTEL_CHECKIN = ?
+		  	 , HOTEL_CHECKOUT = ?
+		  	 , HOTEL_DETAIL = ?
+		  	 , HOTEL_INTRO = ?
+		  	 , REFUNDPOLICY = ?
+		  	 , TAG_NO = ?
+		  	 , IMG_PATH = ?
+		 WHERE HOTEL_NAME = ?
+		</entry>
+		
+		<entry key="updateHoAttachment">
+			INSERT
+				INTO TB_FILE
+				VALUES
+				(
+					SEQ_FILENO.NEXTVAL
+				  , ?
+				  , 'Y'
+				  , SEQ_HOTELNO.CURRVAL
+				  , 'H'
+				  , ?
+				)
+		</entry>
+		
+		<entry key="selectAttachment">
+		SELECT 
+				FILE_NO
+			  , FILE_PATH
+			  , FILE_NAME
+		   FROM TB_FILE
+		  WHERE REF_NO = ? 
+		    AND REF_TYPE = ?
+			AND STATUS = 'Y'
+		</entry>
+
 
 </properties>
