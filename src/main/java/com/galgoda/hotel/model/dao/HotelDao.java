@@ -596,6 +596,7 @@ public class HotelDao {
 				at.setFileNo(rset.getInt("file_no"));
 				at.setFilePath(rset.getString("file_path"));
 				at.setFileName(rset.getString("file_name"));
+				at.setOriginName(rset.getString("file_origin_name"));
 				list.add(at);
 			}
 			

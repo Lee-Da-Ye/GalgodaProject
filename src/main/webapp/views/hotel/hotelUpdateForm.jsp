@@ -5,12 +5,13 @@
 <%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
 <%@ page import="com.galgoda.hotel.model.vo.Tag" %>
 <%@ page import="java.util.List" %> 
+<%@ page import="com.galgoda.common.model.vo.Attachment" %>
 
 <%
 
 	Hotel h  = (Hotel)request.getAttribute("h");
 	List<Tag> list = (List<Tag>)request.getAttribute("list");
-
+	List<Attachment> alist = (List<Attachment>)request.getAttribute("alist");
 
 
 %>
@@ -204,15 +205,25 @@
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >대표사진</button></td>
-                                <td id="td2"><input type="file" name="hotelImgPath"  class="form-control" required></td>
+                                <td id="td2">
+                                <input type="text" value="<%= h.getImgPath() %>" readonly class="form-control">
+                                <input type="file" name="hotelImgPath"  class="form-control" required>
+                                </td>
                             </tr>
                             <tr>
                                 <td id="td4"><button class="btn" id="btnname" type="button" >사진추가</button></td>
                                 <td id="td2">
-                                   
-                                    <input type="file" name="upload_file1" class="form-control" >
+                                   <div class="form-control add_content" style="height: 250px">   
+                                    
+                                   <% for(Attachment a : alist){ %>
+                                   		<input type="text" value="<%= a.getOriginName() %>" readonly class="form-control">
+                                   <% } %>
+                                   <input type="file" name="upload_file1" class="form-control" >
                                     <input type="file" name="upload_file2" class="form-control">
                                     <input type="file" name="upload_file3" class="form-control">
+                                   
+                                   </div>
+                                   
                                
                                 </td>
                             </tr>

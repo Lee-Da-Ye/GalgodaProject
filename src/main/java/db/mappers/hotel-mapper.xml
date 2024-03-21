@@ -286,6 +286,7 @@
 				FILE_NO
 			  , FILE_PATH
 			  , FILE_NAME
+			  , FILE_ORIGIN_NAME
 		   FROM TB_FILE
 		  WHERE REF_NO = ? 
 		    AND REF_TYPE = ?
