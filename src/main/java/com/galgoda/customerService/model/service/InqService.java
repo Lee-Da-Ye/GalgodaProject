@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.galgoda.common.model.vo.Attachment;
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customerService.model.dao.InqDao;
 import com.galgoda.customerService.model.vo.Inq;
 import com.galgoda.hotel.model.vo.Hotel;
@@ -43,13 +44,23 @@ public class InqService {
 		return result1 * result2;
 	}
 	
-	public List<Inq> selectInqList(){
+	public List<Inq> selectInqUserList(PageInfo pi){
 		Connection conn = getConnection();
-		List<Inq> list = iDao.selectInqList(conn);
+		List<Inq> list = iDao.selectInqUserList(conn, pi);
 		
 		close(conn);
 		return list;
 	}
+	
+	public List<Inq> selectInqHotelList(PageInfo pi, String hotelName){
+		Connection conn = getConnection();
+		List<Inq> list = iDao.selectInqHotelList(conn, pi, hotelName);
+		
+		close(conn);
+		return list;
+	}
+	
+	
 	
 	public Inq selectInq(int inqNo) {
 		Connection conn = getConnection();
@@ -57,6 +68,14 @@ public class InqService {
 		
 		close(conn);
 		return inq;
+	}
+	
+	public List<Attachment> selectInqAttachment(int inqNo){
+		Connection conn = getConnection();
+		List<Attachment> list = iDao.selectInqAttachment(conn, inqNo);
+		
+		close(conn);
+		return list;
 	}
 	
 	public int updateInq(int inqNo, String inqAnswer) {
@@ -70,5 +89,21 @@ public class InqService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public int selectInqListCount() {
+		Connection conn = getConnection();
+		int count = iDao.selectInqListCount(conn);
+		
+		close(conn);
+		return count;
+	}
+	
+	public int selectInqHotelListCount(String hotelName) {
+		Connection conn = getConnection();
+		int count = iDao.selectInqHotelListCount(conn, hotelName);
+		
+		close(conn);
+		return count;
 	}
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.galgoda.common.model.vo.Attachment;
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customerService.model.vo.Inq;
 import com.galgoda.hotel.model.vo.Hotel;
 
@@ -98,14 +99,57 @@ public class InqDao {
 		
 	}
 	
-	public List<Inq> selectInqList(Connection conn){
+	public List<Inq> selectInqUserList(Connection conn, PageInfo pi){
 		List<Inq> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectInqList");
+		String sql = prop.getProperty("selectInqUserList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Inq inq = new Inq();
+				inq.setInqNo(rset.getInt("INQ_NO"));
+				inq.setCategory(rset.getString("HOTEL_NAME"));
+				inq.setInqType(rset.getString("INQ_TYPE"));
+				inq.setInqTitle(rset.getString("INQ_TITLE"));
+				inq.setRegistDate(rset.getString("REGIST_DATE"));
+				inq.setStauts(rset.getString("STATUS"));
+				
+				list.add(inq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public List<Inq> selectInqHotelList(Connection conn, PageInfo pi, String hotelName){
+		List<Inq> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqHotelList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setString(1, hotelName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Inq inq = new Inq();
@@ -158,6 +202,32 @@ public class InqDao {
 		return inq;
 	}
 	
+	public List<Attachment> selectInqAttachment(Connection conn, int inqNo){
+		List<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqAttachment");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inqNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFileNo(rset.getInt("file_no"));
+				at.setFilePath(rset.getString("file_path"));
+				at.setFileName(rset.getString("file_name"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	public int updateInq(Connection conn, int inqNo, String inqAnswer) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -174,5 +244,48 @@ public class InqDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int selectInqListCount(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public int selectInqHotelListCount(Connection conn, String hotelName) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqHotelListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 }
