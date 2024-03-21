@@ -11,6 +11,7 @@ public class Attachment {
 	private int refNo;
 	private String refType;
 	private String fileName;
+	private String originName; 
 	
 	
 	public Attachment() {}
@@ -163,6 +164,22 @@ public class Attachment {
 
 
 
+
+
+
+
+
+	public String getOriginName() {
+		return originName;
+	}
+
+
+
+
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
+	}
 
 
 
