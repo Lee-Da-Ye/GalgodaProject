@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +10,46 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-<style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-</style>
 <script>
 
-<!-- 호텔명, 태그명 버튼 각각 클릭 시 활성화 -->
+	$(document).ready(function(){
+	    // 페이지가 로딩될 때 서블릿 호출
+	    $.ajax({
+	        url: "mainPageHotelList.co", 
+	        type: "GET", 
+	        dataType: "json", // 받은 데이터 타입을 JSON으로 지정
+	        success: function(response){
+	         
+	            // 받은 JSON 데이터를 화면에 표시
+	            $.each(response, function(index, hotel){
+	                var hotelName = hotel.hotelName;
+	                var imgPath = hotel.imgPath;
+	                
+	                // 각 호텔 정보를 화면에 표시하는 코드 작성
+	                var hotelElement = '<div class="mainpage_imgContent">';
+	                hotelElement += '<div class="mainpage_hotelThumbnail">';
+	                hotelElement += '<img class="mainpage_hotelImg" src="<%=request.getContextPath()%>/' + imgPath + '" alt="' + hotelName + '">';
+	                hotelElement += '<div class="hotelNameOverlay">' + hotelName + '</div>'; // 호텔 이름 추가
+	                hotelElement += '</div>';
+	                hotelElement += '</div>';
+	                
+	             // 이미지를 추가할 위치에 이미지 엘리먼트 추가
+	                $("#hotelImages").append(hotelElement);
+	            });
+	        },
+	        error: function(xhr, status, error){
+	            alert('인기 호텔 리스트 불러오기에 실패했습니다.');
+	            console.error("서블릿 호출 실패: " + error);
+	        }
+	    });
+	});
+
+
+
+
+		<!-- 호텔명, 태그명 버튼 각각 클릭 시 활성화 -->
     
 	    $(document).ready(function() {
 	        // 호텔명 버튼이나 태그명 버튼이 클릭되었을 때의 이벤트 처리
@@ -133,22 +168,15 @@
             <div class="main_bottom">
                 <div class="main">
                     <h2 class="mainpage_h2" style="margin-left: 200px;">인기 호텔</h2>
-                    <div class="mainpage_imgContent" >
-                        <div class="mainpage_hotelThumbnail">
-                            <img class="mainpage_hotelImg" src="" alt="">
-                        </div>
-                        <div class="mainpage_hotelThumbnail">
-                            <img class="mainpage_hotelImg" src="" alt="">
-                        </div>
-                        <div class="mainpage_hotelThumbnail">
-                            <img class="mainpage_hotelImg" src="" alt="">
-                        </div>
-                        
+                    
+                    <div class="mainpage_imgContent" id="hotelImages">
+                    
                     </div>
+                             
                 </div>
                 
-            </div>
-        </section>
+            </div>        
+       </section>
 	
 	
 		<%@ include file="/views/common/footer.jsp" %>

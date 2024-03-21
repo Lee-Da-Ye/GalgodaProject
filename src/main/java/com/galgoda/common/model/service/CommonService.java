@@ -1,10 +1,15 @@
 package com.galgoda.common.model.service;
 
+import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.commit;
+import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.rollback;
+
 import java.sql.Connection;
+import java.util.List;
 
 import com.galgoda.common.model.dao.CommonDao;
-
-import static com.galgoda.common.template.JDBCTemplate.*;
+import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
@@ -225,5 +230,16 @@ public class CommonService {
     	close(conn);
     	
     	return result;
+    }
+    
+    public List<Hotel> selectPopularHotelList(){
+    	
+    	Connection conn = getConnection();
+    	List<Hotel> popularHotelList = cDao.selectPopularHotelList(conn);
+    	
+    	close(conn);
+    	
+    	return popularHotelList;
+    	
     }
 }

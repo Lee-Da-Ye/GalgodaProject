@@ -188,5 +188,16 @@
 		   AND  PHONE = ?
 	</entry>
 	
+	<entry key="selectPopularHotelList">
+		SELECT 
+		        HOTEL_NAME
+		        , HOTEL_NO
+		        , COUNT(*) RES_COUNT
+		        , IMG_PATH
+		  FROM  TB_RES_INFO
+		  JOIN  TB_HOTEL USING (HOTEL_NO)
+		  GROUP BY HOTEL_NAME, HOTEL_NO, IMG_PATH
+		  ORDER BY RES_COUNT DESC
+	</entry>
 	
 </properties>

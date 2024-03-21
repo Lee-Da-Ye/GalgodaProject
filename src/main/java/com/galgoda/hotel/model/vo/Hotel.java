@@ -18,6 +18,7 @@ public class Hotel {
 	 private String tagNo;
 	 private String imgPath;
 	 private int memNo;
+	 private int resCount; // 호텔 예약 횟수
 	
 	 public Hotel() {}
 
@@ -46,7 +47,18 @@ public class Hotel {
 	}
 
 
+	
 
+
+
+
+	public Hotel(String hotelName, int hotelNo, int resCount, String imgPath) {
+		super();
+		this.hotelName = hotelName;
+		this.hotelNo = hotelNo;
+		this.resCount = resCount;
+		this.imgPath = imgPath;
+	}
 
 
 
@@ -347,6 +359,20 @@ public class Hotel {
 
 
 
+
+
+
+
+	public int getResCount() {
+		return resCount;
+	}
+
+
+
+
+	public void setResCount(int resCount) {
+		this.resCount = resCount;
+	}
 
 
 
