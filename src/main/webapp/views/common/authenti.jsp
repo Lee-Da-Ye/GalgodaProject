@@ -93,7 +93,7 @@
 	                        </div>
 	                        <div class="col">
 	                            <div class="input-group">
-	                                <input type="text" class="form-control" id="inputPhoneNumber" name="phone" placeholder="휴대폰 번호를 입력하세요">
+	                                <input type="text" class="form-control" oninput="hypenTel(this)" maxlength="13" id="inputPhoneNumber" name="phone" placeholder="휴대폰 번호를 입력하세요">
 	                                <div class="input-group-append">
 	                                    <button type="button" onclick="sendVerificationCode();" class="btn btn-outline-primary identification_box">인증번호 받기</button>
 	                                </div>
@@ -181,6 +181,13 @@
 			
 		    	window.location.href = "<%=contextPath%>/signupChoice.co";
 		    
+		}
+		
+		// 휴대폰 번호 입력 시 자동 - 넣기
+		 const hypenTel = (target) => {
+		 target.value = target.value
+		   .replace(/[^0-9]/g, '')
+		   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 		}
 			
 		</script>

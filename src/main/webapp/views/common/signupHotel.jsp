@@ -57,6 +57,12 @@
 </style>
 
 <script>
+
+	//초기 상태 설정: 중복 확인 및 비밀번호 일치, 인증코드 일치 여부를 저장하는 변수들
+	var isEmailValid = false;
+	var isUserIdValid = false;
+	var isPasswordMatch = false;
+	var isVerificationCodeMatch = false;
     
     
     function checkPassword() {
@@ -66,12 +72,13 @@
         if (password1 === password2) {
             // 비밀번호가 일치할 때의 처리
             alert("비밀번호가 일치합니다.");
-            // 여기에 추가적으로 원하는 로직을 작성할 수 있습니다.
+            isPasswordMatch = true;
         } else {
             // 비밀번호가 일치하지 않을 때의 처리
             alert("비밀번호가 일치하지 않습니다.");
-            // 여기에 추가적으로 원하는 로직을 작성할 수 있습니다.
+            isPasswordMatch = false;
         }
+        checkSignUpButtonState(); // 회원가입 버튼 상태 업데이트
     }
     
     function emailCheck() {
@@ -94,9 +101,12 @@
                 // 서버에서 받은 응답 처리
                 if (response.isEmailDuplicate) {
                     alert("중복된 이메일입니다.");
+                    isEmailValid = false; // 이메일이 중복됨을 저장
                 } else {
                     alert("사용 가능한 이메일입니다.");
+                    isEmailValid = true; // 이메일이 중복되지 않음을 저장
                 }
+                checkSignUpButtonState(); // 회원가입 버튼 상태 업데이트
             },
             error: function(xhr, status, error) {
                 console.error("Error:", error);
@@ -124,9 +134,12 @@
                 // 서버에서 받은 응답 처리
                 if (response.isUserIdDuplicate) {
                     alert("중복된 아이디입니다.");
+                    isUserIdValid = false; // 아이디가 중복됨을 저장
                 } else {
                     alert("사용 가능한 아이디입니다.");
+                    isUserIdValid = true; // 아이디가 중복되지 않음을 저장
                 }
+                checkSignUpButtonState(); // 회원가입 버튼 상태 업데이트
             },
             error: function(xhr, status, error) {
                 console.error("Error:", error);
@@ -157,9 +170,12 @@
                 // 서버에서 받은 응답 처리
                 if (response.isCodeAccord) {
                     alert("인증코드가 일치합니다.");
+                    isVerificationCodeMatch = true;
                 } else {
                     alert("인증코드가 불일치합니다.");
+                    isVerificationCodeMatch = false;
                 }
+                checkSignUpButtonState(); // 회원가입 버튼 상태 업데이트
             },
             error: function(xhr, status, error) {
                 console.error("Error:", error);
@@ -194,7 +210,26 @@
 	    } else {
 	        document.getElementById("userPwdValidationMessage").innerText = "비밀번호 생성 규칙 위반"; // 유효하지 않은 경우 알림 메시지를 표시합니다.
 	    }
-}
+	}
+    
+ 	// 휴대폰 번호 입력 시 자동 - 넣기
+	 const hypenTel = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	}
+	 
+	// 회원가입 버튼 상태 업데이트 함수
+	    function checkSignUpButtonState() {
+	        // 모든 조건이 충족되었을 때 버튼을 활성화
+	        if (isEmailValid && isUserIdValid && isPasswordMatch && isVerificationCodeMatch) {
+	            document.getElementById("signup_btn").disabled = false;
+	        } else {
+	            document.getElementById("signup_btn").disabled = true;
+	        }
+	    }
+	 
+	 
    
 </script>
 </head>
@@ -279,7 +314,7 @@
                                     </tr>
                                     <tr>
                                         <th>연락처 *</th>
-                                        <td><input type="text" name="phone" class="form-control" required></td>
+                                        <td><input type="text" oninput="hypenTel(this)" maxlength="13" name="phone" class="form-control" required></td>
                                     </tr>
                                     
                                     
@@ -319,7 +354,7 @@
 
                                 <br>
 
-                                <button type="submit" class="btn" id="signup_btn" style="width: 100%;">회원가입 완료</button>
+                                <button type="submit" class="btn" id="signup_btn" style="width: 100%;" disabled>회원가입 완료</button>
                     
                         </form>
                 

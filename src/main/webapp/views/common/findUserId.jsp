@@ -100,7 +100,7 @@
                             </div>
                             <div class="col">
                                 <div class="input-group">
-                                    <input type="tel" class="form-control" name="phone" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요 ('-' 포함)">
+                                    <input type="tel" class="form-control" name="phone" oninput="hypenTel(this)" maxlength="13" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요">
                                     <div class="input-group-append">
                                         <button type="button" id="identification_box" class="btn btn-outline-primary" onclick="sendVerificationCode();">인증번호 받기</button>
                                     </div>
@@ -174,6 +174,13 @@
 			        // 코드가 일치하지 않는 경우
 			        alert("인증번호가 올바르지 않습니다.");
 			    }
+			}
+			
+			// 휴대폰 번호 입력 시 자동 - 넣기
+			 const hypenTel = (target) => {
+			 target.value = target.value
+			   .replace(/[^0-9]/g, '')
+			   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 			}
 	
 		</script>
