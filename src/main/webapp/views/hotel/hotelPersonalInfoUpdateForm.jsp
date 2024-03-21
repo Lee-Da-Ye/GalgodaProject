@@ -139,6 +139,47 @@
 	    document.getElementById("myForm").submit();
 	}
 	
+	// 이메일 중복 확인 함수
+    function emailCheck() {
+    	// 이메일 입력값 가져오기
+        var email = document.getElementById("email").value;
+        var originalEmail = document.getElementById("originalEmail").value;
+
+        // 입력값이 비어 있는지 확인
+        if (email === "") {
+            alert("이메일을 입력해주세요.");
+            return; // 함수 종료
+        }
+
+        
+     	// 새로운 이메일과 기존 이메일이 다른 경우에만 중복 확인 실행
+        if (email !== originalEmail) {
+	        // 서버로 이메일 중복 확인 요청을 보냄
+	        $.ajax({
+	            type: "GET",
+	            url: "<%=request.getContextPath()%>/emailDoubleCheck.co",
+	            data: { email: email },
+	            dataType: "json",
+	            success: function(response) {
+	                // 서버에서 받은 응답 처리
+	                if (response.isEmailDuplicate) {
+	                    alert("중복된 이메일입니다.");
+	                    document.getElementById("updateInfoButton").disabled = true; // 중복된 경우 정보 수정 버튼 비활성화
+	                } else {
+	                    alert("사용 가능한 이메일입니다.");
+	                    document.getElementById("updateInfoButton").disabled = false; // 사용 가능한 경우 정보 수정 버튼 활성화
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Error:", error);
+	            }
+	        });
+        } else{
+        	 alert("기존 이메일에서 변경이 없습니다.");
+        	 document.getElementById("updateInfoButton").disabled = false; // 사용 가능한 경우 정보 수정 버튼 활성화
+        }
+    }
+	
 	
 </script>
 </head>
@@ -255,7 +296,13 @@
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td><input type="email" name="email" class="form-control" required value="<%=hu.getMemEmail()%>"></td>
+                                    <td>
+                                            <div style="display: flex;">
+                                                <input type="email" id="email" name="email" class="form-control" required style="flex: 1;" value="<%=hu.getMemEmail()%>">
+                                                <input type="hidden" id="originalEmail" value="<%=hu.getMemEmail()%>"> <!-- 기존 이메일을 저장하는 hidden input -->
+                                                <button type="button" id="doubleCheckEmail" class="btn btn-outline-primary btn-sm" style="background-color: rgb(99,76,70); color: white; border: none;" onclick="emailCheck();">중복확인</button>
+                                            </div>
+                                    </td>
                                 </tr>
                                 
         
@@ -266,7 +313,7 @@
                         <br>
                         
                         <div style="display: flex; justify-content: flex-end;">
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal1" style="margin-right: 5px; background-color: rgb(235, 231, 227); border: none; color: black;">정보수정</button>
+                            <button type="button" id="updateInfoButton" class="btn btn-secondary" data-toggle="modal" data-target="#myModal1" style="margin-right: 5px; background-color: rgb(235, 231, 227); border: none; color: black;" disabled>정보수정</button>
                             <button type="button" class="btn btn-secondary brown_button" data-toggle="modal" data-target="#myModal2">회원탈퇴</button>
                         </div>
 
