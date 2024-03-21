@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.galgoda.customer.model.vo.Review;
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.hotel.model.vo.Report;
 
 public class ReportDao {
@@ -26,7 +26,7 @@ public class ReportDao {
 		}
 	}
 	
-	public List<Report> selectReportUserList(Connection conn){
+	public List<Report> selectReportUserList(Connection conn, PageInfo pi){
 		List<Report> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -34,6 +34,11 @@ public class ReportDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Report r = new Report(rset.getInt("rep_no")
@@ -53,13 +58,18 @@ public class ReportDao {
 		
 	}
 	
-	public List<Report> selectReportReviewList(Connection conn){
+	public List<Report> selectReportReviewList(Connection conn, PageInfo pi){
 		List<Report> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectReportReviewList");
 		try {
 			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Report r = new Report();
@@ -134,6 +144,52 @@ public class ReportDao {
 			close(pstmt);
 		}
 		return r;
+	}
+	
+	public int selectReportReviewListCount(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReportReviewListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+		
+	}
+	
+	public int selectReportUserListCount(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReportUserListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+		
 	}
 	
 }
