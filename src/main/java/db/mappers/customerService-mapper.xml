@@ -186,4 +186,62 @@
 		     , STATUS = 'Y'
 		 WHERE INQ_NO = ?
 	</entry>
+	
+	<entry key="selectReportUserList">
+		SELECT
+		       REP_NO
+		     , USER_ID
+		     , REP_REASON
+		     , REP_DATE
+		     , R.STATUS
+		  FROM TB_REPORT R
+		  JOIN TB_USER ON (REP_REF_NO = USER_NO)
+		 WHERE REP_TYPE = 'U'
+		 ORDER
+		    BY 1 DESC
+	</entry>
+	
+	<entry key="selectReportReviewList">
+		SELECT
+		       REP_NO
+		     , USER_ID
+		     , REV_TITLE
+		     , REP_DATE
+		     , R.STATUS
+		  FROM TB_REPORT R
+		  JOIN TB_REVIEW ON (REP_REF_NO = REV_NO)
+		  JOIN TB_USER USING (USER_NO)
+		 WHERE REP_TYPE = 'R'
+		 ORDER
+		    BY 1 DESC
+	</entry>
+	
+	<entry key="selectReportUser">
+		SELECT
+		       REP_NO
+		     , USER_ID
+		     , RES_NO
+		     , REP_REASON
+		     , REP_CONTENT
+		  FROM TB_REPORT
+		  JOIN TB_USER ON (REP_REF_NO = USER_NO)
+		 WHERE REP_NO = ?
+	</entry>
+	
+	<entry key="selectReportReview">
+		SELECT
+		       REP_NO
+		     , REV_NO
+		     , USER_ID
+		     , R.RES_NO
+		     , V.REGIST_DATE
+		     , REV_RATING
+		     , REV_TITLE
+		     , REV_CONTENT
+		     , R.FILE_NO
+		  FROM TB_REPORT R
+		  JOIN TB_REVIEW V ON (REP_REF_NO = REV_NO)
+		  JOIN TB_USER USING (USER_NO)
+		 WHERE REP_NO = ?
+	</entry>
 </properties>

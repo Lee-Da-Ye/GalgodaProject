@@ -36,11 +36,15 @@ public class HotelService {
 	
 	public int insertHotel(Hotel h, List<Attachment> list) {
 		Connection conn = getConnection();
+		
+		
 		int result2 = 1;
 		
 		int result1 = hDao.insertHotel(conn, h);
 		
+		if(!list.isEmpty()) {
 		 result2 = hDao.insertHoAttachment(conn, list);
+		}
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -108,6 +112,7 @@ public class HotelService {
 	public HotelUser selectHotelUser(String userId) {
 		Connection conn = getConnection();
 		HotelUser hu = hDao.selectHotelUser(conn, userId);
+		
 		close(conn);
 		
 		return hu;
@@ -177,6 +182,30 @@ public class HotelService {
 		
 		return result;
 		
+	}
+	
+<<<<<<< HEAD
+	public Hotel selectHotelForm(int memNo) {
+		Connection conn = getConnection();
+		
+		Hotel h = hDao.selectHotelForm(conn, memNo);
+		close(conn);
+		
+		return h;
+=======
+	public int deleteHotelUser(String userId) {
+		Connection conn = getConnection();
+		int result = hDao.deleteHotelUser(conn, userId);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+>>>>>>> 0f65a165a254be3d97c6cd1072e7b8c41e8bcada
 	}
 	
 }

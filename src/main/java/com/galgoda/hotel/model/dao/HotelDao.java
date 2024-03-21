@@ -73,6 +73,8 @@ public class HotelDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertHotel");
 
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, h.getHotelName());
@@ -448,5 +450,75 @@ public class HotelDao {
 		return result;
 	}
 	
+<<<<<<< HEAD
 	
+	
+	
+	public Hotel selectHotelForm(Connection conn, int memNo) {
+		
+		Hotel h = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelForm");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				h = new Hotel();
+				h.setHotelNo(rset.getInt("hotel_no"));
+				h.setHotelName(rset.getString("hotel_name"));
+				h.setHotelAddress(rset.getString("hotel_address"));
+				h.setHotelDetailAdd(rset.getString("hotel_detailadd"));
+				h.setHotelTel(rset.getString("hotel_tel"));
+				h.setHotelSite(rset.getString("hotel_site"));
+				h.setHotelCheckin(rset.getInt("hotel_checkin"));
+				h.setHotelCheckout(rset.getInt("hotel_checkout"));
+				h.setHotelDetail(rset.getString("hotel_detail"));
+				h.setHotelIntro(rset.getString("hotel_intro"));
+				h.setRefundpolicy(rset.getString("refundpolicy"));
+				h.setTagNo(rset.getString("tag_no"));
+				h.setImgPath(rset.getString("img_path"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return h;
+		
+				
+		
+		
+		
+		
+		
+	}
+	
+=======
+	public int deleteHotelUser(Connection conn, String userId) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteHotelUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+>>>>>>> 0f65a165a254be3d97c6cd1072e7b8c41e8bcada
 }

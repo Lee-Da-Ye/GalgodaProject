@@ -85,13 +85,13 @@
                     </div>
                     <div class="row mt-1" style="padding-left: 90px;">
                         <div class="col-md-6">
-                            <a href="" id="find_pwd" class="d-block">비밀번호 찾기</a>
+                            <a href="<%=contextPath %>/findUserPwd.co" id="find_pwd" class="d-block">비밀번호 찾기</a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="text-center mt-3">
-                    <button type="submit" class="btn btn-primary" style="width: 500px; background-color: rgb(191, 180, 176); border: none; display: block; margin: 0 auto;">로그인 화면으로 이동</button>
+                    <a href="<%=contextPath %>/loginMain.co" class="btn btn-primary" style="width: 500px; background-color: rgb(191, 180, 176); border: none; display: block; margin: 0 auto;">로그인 화면으로 이동</a>
                 </div>
                 
                 

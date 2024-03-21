@@ -4,19 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer Resign Form</title>
+<title>HotelUser Resign Form</title>
 <style>
-	/* 사이드메뉴 선택함에 따라 색상 변경 */
-    .modify_btn{
-        background-color: rgb(99, 76, 70);
-    }
+		/* 사이드메뉴바 선택 시 색상 적용 */
+        .modify_btn{
+            background-color: rgb(99, 76, 70);
+            color: white;
+        }
 </style>
 </head>
 <body>
 	<div class="wrap">
-        
         <%@ include file="/views/common/header.jsp" %>
-
 
         <section class="main_content">
             
@@ -27,14 +26,24 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">예약관리</a>
+                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
                         <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">상세 조회</a>
+                            <a href="">호텔 등록</a>
                         </div>
                     <li>
                         <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">예약 변경/취소</a>
+                            <a href="">호텔 정보 수정</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="demo" class="collapse" style="margin-left: 30px;">
+                            <a href="">객실 등록</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div id="demo" class="collapse" style="margin-left: 30px;">
+                            <a href="">객실 수정</a>
                         </div>
                     </li>
                     
@@ -45,24 +54,26 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">위시리스트</a>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">예약 관리</a>
                     </li>
                     
                     <li class="modify_btn">
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo3" style="color : white">개인정보 수정</a>
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">고객센터</a>
                     </li>
                     
                     
                 </ul>
             </div>
 
-            <div class="page_content"> 
-                
+            <div class="page_content">
                 <div class="withdraw_page">
             
                     <div class="withdraw_header">
                         <h2>회원 탈퇴</h2>
-                        <div style="border: 2px solid lightgray;"></div>
+                        <div style="border: 2px solid lightgray; min-width: 800px;"></div>
                     </div>
     
                     <br>
@@ -98,7 +109,7 @@
                                 </div>
                             </div>
                             <div class="col pl-0">
-                                <label for="checkbox2">탈퇴 후 회원정보 및 사이트 이용기록은 모두 삭제됩니다.</label>
+                                <label for="checkbox2">탈퇴 후 회원정보, 객실정보 및 사이트 이용기록은 모두 삭제됩니다.</label>
                             </div>
                         </div>
                 
@@ -116,22 +127,20 @@
                                 </div>
                             </div>
                             <div class="col pl-0">
-                                <label for="checkbox3">탈퇴 후에도 게시판형 서비스에 등록한 게시물은 그대로 남아 있습니다.</label>
+                                <label for="checkbox3">탈퇴 후 재가입 시 호텔 정보, 객실 정보 등 관련 정보를 모두 신규 등록해야 합니다.</label>
                             </div>
                         </div>
                 
                         <div style="margin-left: 20px; margin-top: -15px;">
-                            <h6 style="font-size: 14px; color: gray;">본 사이트에 올린 리뷰 및 문의글은 탈퇴 시 자동 삭제되지 않고 그대로 남아 있습니다.
-                                <br>삭제를 원하는 게시글이 있다면 반드시 탈퇴 전 비공개 처리하거나 삭제하시기 바랍니다. <br>
-                                탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 게시글을 임의로 삭제해드릴 수 없습니다. </h6>
+                            <h6 style="font-size: 14px; color: gray;">본 사이트에 게재되었던 호텔 정보, 객실 정보 등은 회원 탈퇴와 동시에 일괄 삭제됩니다.
+                                <br>탈퇴 후 재가입 시 기존에 등록되었던 정보는 사용할 수 없습니다.</h6>
                         </div>
 
                         <br>
 
 
                         <div style="margin-left: 20px; margin-top: -15px;">
-                            <h6 style="font-size: 16px; color: gray; font-weight: bold;">탈퇴 후에는 기존 아이디로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다.
-                                <br>게시판형 서비스에 남아 있는 게시글은 탈퇴 후 삭제할 수 없습니다. </h6>
+                            <h6 style="font-size: 16px; color: gray; font-weight: bold; white-space: nowrap;">탈퇴 후에는 기존 아이디로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다.</h6>
                         </div>
 
                         <br>
@@ -148,6 +157,7 @@
                             </div>
                         </div>
                         
+                        <br>
 
                         <div style="display: flex; justify-content: flex-end;">
                             <button type="button" class="btn btn-secondary" id="withdrawButton" data-toggle="modal" data-target="#myModal1" style="margin-right: 200px; background-color: rgb(99, 76, 70);" disabled>회원탈퇴</button>
@@ -169,7 +179,7 @@
                                     <!-- 모달 푸터 -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                        <a href="<%=contextPath%>/resignConfirm.cu" class="btn btn-danger" id="confirmWithdrawButton">확인</a>
+                                        <a href="<%=contextPath%>/resignConfirm.hu" class="btn btn-danger" id="confirmWithdrawButton">확인</a>
                                     </div>
                                 </div>
                             </div>
@@ -206,15 +216,26 @@
                             });
                         </script>
                         
+                        
+                        
+
+                        
+
+                        
+
+
+
 
                     </div>
                     
                 </div>
+
             </div>
 
 
         </section>
 
         <%@ include file="/views/common/footer.jsp" %>
+    </div>
 </body>
 </html>

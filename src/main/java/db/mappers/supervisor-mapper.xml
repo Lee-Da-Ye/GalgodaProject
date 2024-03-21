@@ -239,4 +239,12 @@
 		  FROM TB_USER
 		 WHERE STATUS = 'Y'
 	</entry>
+	
+	<entry key="deleteUser">
+		UPDATE
+				TB_USER
+		   SET  STATUS = 'N'
+		 WHERE	USER_NO = ?
+	</entry>
+	
 </properties>

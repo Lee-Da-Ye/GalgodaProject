@@ -69,6 +69,13 @@
 	
 	    // 이미 화면에 표시된 기존 비밀번호 가져오기
 	    var originPasswordOnPage = "<%= hu.getMemPwd() %>";
+	    
+	 	// 비밀번호 유효성 체크
+	    var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+	    if (!newPassword.match(passwordPattern)) {
+	        alert("비밀번호는 8자 이상, 영문, 숫자, 특수문자를 포함해야 합니다.");
+	        return;
+	    }
 	
 	    // 입력한 기존 비밀번호가 이미 화면에 표시된 기존 비밀번호와 일치하는지 확인
 	    if (originPassword !== originPasswordOnPage) {
@@ -308,7 +315,7 @@
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
+                                <a href="<%=contextPath%>/resign.hu" class="btn btn-danger">확인</a>
                                 </div>
                         
                             </div>
@@ -334,7 +341,10 @@
                                                     <td style="width: 60%;"><input type="password" id="originPassword" class="form-control" required></td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 40%;">새로운 비밀번호</td>
+                                                    <td style="width: 40%;">
+                                                    새로운 비밀번호
+                                                    <p style="white-space: nowrap;">8자 이상/영문,숫자,특수문자 포함</p>
+                                                    </td>
                                                     <td style="width: 60%;"><input type="password" id="newPassword" class="form-control" required></td>
                                                 </tr>
                                                 <tr>

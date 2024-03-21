@@ -14,14 +14,44 @@ public class Report {
 	 private int fileNo;
 	 private String repType;
 	 private int repRefNo;
+	 private String userId; // table join 으로 새로 추가된 변수
+	 private String revTitle; // table join 으로 새로 추가된 변수
+	 private int revNo; // table join 으로 새로 추가된 변수
+	 private Date registDate; // table join 으로 새로 추가된 변수
+	 private int revRating; // table join 으로 새로 추가된 변수
+	 private String revContent; // table join 으로 새로 추가된 변수
+	 
 	 
 	 public Report() {}
 
 	 
 	 
-	 
-	 
-	 
+    
+    
+    
+    /**
+     * 신고 유저 조회용 매개변수 생성자
+     * @param repNo
+     * @param repReason
+     * @param repDate
+     * @param status
+     * @param userId
+     * 
+     */
+	public Report(int repNo, String repReason, Date repDate, String status, String userId) {
+		super();
+		this.repNo = repNo;
+		this.repReason = repReason;
+		this.repDate = repDate;
+		this.status = status;
+		this.userId = userId;
+	}
+
+
+
+
+
+
 	public Report(int repNo, int resNo, String repReason, String repContent, Date repDate, String status, int fileNo,
 			String repType, int repRefNo) {
 		super();
@@ -34,6 +64,96 @@ public class Report {
 		this.fileNo = fileNo;
 		this.repType = repType;
 		this.repRefNo = repRefNo;
+	}
+
+
+
+
+	
+	
+	public Date getRegistDate() {
+		return registDate;
+	}
+
+
+
+
+
+
+	public void setRegistDate(Date registDate) {
+		this.registDate = registDate;
+	}
+
+
+
+
+
+
+	public int getRevRating() {
+		return revRating;
+	}
+
+
+
+
+
+
+	public void setRevRating(int revRating) {
+		this.revRating = revRating;
+	}
+
+
+
+
+
+
+	public String getRevContent() {
+		return revContent;
+	}
+
+
+
+
+
+
+	public void setRevContent(String revContent) {
+		this.revContent = revContent;
+	}
+
+
+
+
+
+
+	public int getRevNo() {
+		return revNo;
+	}
+
+
+
+
+
+
+	public void setRevNo(int revNo) {
+		this.revNo = revNo;
+	}
+
+
+
+
+
+
+	public String getRevTitle() {
+		return revTitle;
+	}
+
+
+
+
+
+
+	public void setRevTitle(String revTitle) {
+		this.revTitle = revTitle;
 	}
 
 
@@ -198,8 +318,20 @@ public class Report {
 		this.repRefNo = repRefNo;
 	}
 
+	
 
 
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 
 

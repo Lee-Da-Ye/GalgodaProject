@@ -136,11 +136,6 @@ public class HotelInsertController extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/hotelinsertForm.ho");
 				
 				
-			} else { // 실패 => 에러페이지
-				
-				request.getSession().setAttribute("alertMsg", "호텔 등록을 실패했습니다.");
-				response.sendRedirect(request.getContextPath() + "/hotelinsertForm.ho");
-			
 			}
 		
 		

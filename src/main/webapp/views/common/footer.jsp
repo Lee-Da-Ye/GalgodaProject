@@ -10,7 +10,7 @@
 	<!-- Footer start -->
          <footer class="footer">
             <div class="footer_link">
-                <a href="">GALGODA 소개</a> 
+                <a href="<%=request.getContextPath()%>/galgodaIntro.co">GALGODA 소개</a> 
                 <a href="list.no?page=1">공지사항</a> 
                 <a href="">개인정보처리방침</a> 
                 <a href="">이용약관</a> 

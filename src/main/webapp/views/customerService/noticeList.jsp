@@ -291,16 +291,16 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#aaa">신고 관리</a>
+                        <a class="nav-link" data-toggle="collapse" data-target="#aaa">신고 관리</a>
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 계정 관리</a>
+                            <a href="<%= contextPath %>/userList.rep">신고 계정 관리</a>
                         </div>
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 리뷰 관리</a>
+                            <a href="<%= contextPath %>/reviewList.rep">신고 리뷰 관리</a>
                         </div>
                     </li>
                 </ul>
