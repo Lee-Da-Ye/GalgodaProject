@@ -121,6 +121,7 @@ public class HotelInsertController extends HttpServlet {
 					Attachment at = new Attachment();
 					at.setFilePath("resources/upfiles/" + multiRequest.getFilesystemName("upload_file" + i));
 					at.setFileName(multiRequest.getFilesystemName(key));
+					at.setOriginName(multiRequest.getOriginalFileName(key));
 					
 					list.add(at);
 					

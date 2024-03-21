@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.hotel.model.service.HotelService;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.hotel.model.vo.Tag;
@@ -34,13 +35,15 @@ public class HotelUpdateFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getMemNo();
-		
+		String htype = "H";
 		
 		Hotel h =  new HotelService().selectHotelForm(memNo);
 		List<Tag> list = new HotelService().hotelInsertForm();
+		List<Attachment> alist = new HotelService().selectFileList(h.getHotelNo(), htype);
 		
 		request.setAttribute("h", h);
 		request.setAttribute("list", list);
+		request.setAttribute("alist", alist);
 		
 		request.getRequestDispatcher("/views/hotel/hotelUpdateForm.jsp").forward(request, response);
 		
