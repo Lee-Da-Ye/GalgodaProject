@@ -312,7 +312,72 @@
 		   		  ,	?
 		   		  , ?
 		   		) 
-		   		
-	
 	</entry>
+	
+	<entry key="selectTagList">
+		SELECT 
+				TAG_NO
+			  ,	TAG_NAME
+			  , STATUS
+		  FROM	TB_TAG
+		 WHERE	STATUS ='Y'
+	</entry>
+	
+	<entry key="selectOptionList">
+		SELECT 
+				OP_NO
+			  ,	OP_NAME
+			  , STATUS
+		  FROM	TB_OPTION
+		 WHERE	STATUS ='Y'
+	</entry>
+	
+	<entry key="insertTag">
+		INSERT 
+		  INTO	TB_TAG
+		VALUES (
+					SEQ_TAGNO.NEXTVAL
+				  ,	?
+				  , 'Y'
+			   )
+	</entry>
+	
+	<entry key="updateTag">
+		UPDATE 
+		  		TB_TAG
+		   SET 	TAG_NAME = ?
+		 WHERE  TAG_NAME = ?
+	</entry>
+	
+	<entry key="deleteTag">
+		UPDATE 
+		  		TB_TAG
+		   SET 	STATUS = 'N'
+		 WHERE  TAG_NAME = ?
+	</entry>
+	
+	<entry key="insertOption">
+		INSERT 
+		  INTO	TB_Option
+		VALUES (
+					SEQ_OPNO.NEXTVAL
+				  ,	?
+				  , 'Y'
+			   )
+	</entry>
+	
+	<entry key="updateOption">
+		UPDATE 
+		  		TB_Option
+		   SET 	OP_NAME = ?
+		 WHERE  OP_NAME = ?
+	</entry>
+	
+	<entry key="deleteOption">
+		UPDATE 
+		  		TB_Option
+		   SET 	STATUS = 'N'
+		 WHERE  OP_NAME = ?
+	</entry>
+	
 </properties>

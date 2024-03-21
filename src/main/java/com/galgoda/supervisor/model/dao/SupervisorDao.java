@@ -12,6 +12,8 @@ import java.util.Properties;
 
 import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
+import com.galgoda.hotel.model.vo.Option;
+import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
 import com.galgoda.supervisor.model.vo.Terms;
@@ -591,6 +593,170 @@ public class SupervisorDao {
 			close(pstmt);
 		}
 				
+		return result;
+	}
+	public List<Tag> selectTagList(Connection conn) {
+		List<Tag> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Tag(
+							rset.getInt("tag_no")
+						  ,	rset.getString("tag_name")
+						  , rset.getString("status")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public List<Option> selectOptionList(Connection conn) {
+		List<Option> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOptionList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Option(
+							rset.getInt("op_no")
+						  ,	rset.getString("op_name")
+						  , rset.getString("status")
+						));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public int insertTag(Connection conn, String tagName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertTag");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tagName);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateTag(Connection conn, String tagName, String newTagName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateTag");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newTagName);
+			pstmt.setString(2, tagName);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	
+	public int deleteTag(Connection conn, String tagName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteTag");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tagName);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int insertOption(Connection conn, String name) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertOption");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateOption(Connection conn, String originName, String newName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateOption");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newName);
+			pstmt.setString(2, originName);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	public int deleteOption(Connection conn, String name) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteOption");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	

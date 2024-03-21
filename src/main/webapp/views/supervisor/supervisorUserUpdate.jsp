@@ -103,11 +103,11 @@ table td{
                                     <td>
                                         <div style="display: flex;">
                                         <%String phone = user.getPhone(); %>
-                                            <input type="text" name="phone1" class="form-control" style="flex: 1;" required value="<%=phone!=null?phone.substring(0,phone.indexOf('-')):' '%>">
+                                            <input type="text" name="phone1" class="form-control" style="flex: 1;" required value="<%=phone!=null && phone.contains("-") ? phone.substring(0,phone.indexOf('-')):' '%>">
                                             <span style="margin: 0 5px; text-align: center;">-</span>
-                                            <input type="text" name="phone2" class="form-control" style="flex: 1;" required value="<%=phone!=null?phone.substring(phone.indexOf('-')+1,phone.lastIndexOf('-')):' '%>">
+                                            <input type="text" name="phone2" class="form-control" style="flex: 1;" required value="<%=phone!=null && phone.contains("-") ? phone.substring(phone.indexOf('-')+1,phone.lastIndexOf('-')):' '%>">
                                             <span style="margin: 0 5px;">-</span>
-                                            <input type="text" name="phone3" class="form-control" style="flex: 1;" required value="<%=phone!=null?phone.substring(phone.lastIndexOf('-')+1):' '%>">
+                                            <input type="text" name="phone3" class="form-control" style="flex: 1;" required value="<%=phone!=null && phone.contains("-") ? phone.substring(phone.lastIndexOf('-')+1):' '%>">
                                         </div>
                                     </td>
                                 </tr>

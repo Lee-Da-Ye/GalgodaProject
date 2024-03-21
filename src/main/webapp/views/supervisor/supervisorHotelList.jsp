@@ -58,10 +58,10 @@
                         <a class="nav-link" href="<%=contextPath %>/codeList.su?page=1" >호텔코드 등록</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >태그 관리</a>
+                        <a class="nav-link" href="<%=contextPath %>/tag.su" >태그 관리</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >추가옵션 관리</a>
+                        <a class="nav-link" href="<%=contextPath %>/option.su" >추가옵션 관리</a>
                     </li>
                 </ul>
             </div>
@@ -110,7 +110,7 @@
                         <option>담당자</option>
                         
                     </select>
-                    <a href="" class="btn btn-secondary" id="buttonColor" onclick="modifyButton();" >수정하기</a>
+                    <button class="btn btn-secondary" id="buttonColor" onclick="modifyButton();" >수정하기</button>
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete" >삭제하기</button>
                 </div>
 
@@ -141,7 +141,6 @@
             <div class="modal" id="userDelete">
                 <div class="modal-dialog modal-sm">
                 <div class="modal-content">
-            
                     <!-- Modal body -->
                     <div class="modal-body center">
                     <p>해당 호텔정보를 삭제하시겠습니까?</p>
@@ -171,9 +170,13 @@
             	})
             	function modifyButton(){
 			    	var hotelNo = $('input[type="radio"]:checked').closest('tr').find('td:eq(1)').text();
-			        location.href = "<%=contextPath%>/detailHotel.su?no=" + hotelNo;
-
+			    	location.href = "<%=contextPath%>/hotelDetail.su?no=" + hotelNo;
             	}	
+			    
+			    function deleteButton(){
+			    	userNo = $('input[type="radio"]:checked').closest('tr').children().eq(1).text();
+			    	location.href = "<%=contextPath%>/deleteUser.su?no=" + userNo;
+			    }
 			</script>
             
             

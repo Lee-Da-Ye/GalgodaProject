@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
+import com.galgoda.hotel.model.vo.Option;
+import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
 import com.galgoda.supervisor.model.dao.SupervisorDao;
@@ -229,6 +231,70 @@ public class SupervisorService {
 		}else {
 			rollback(conn);
 		}
+		close(conn);
+		
+		return result;
+	}
+
+	public List<Tag> selectTagList() {
+		Connection conn = getConnection();
+		List<Tag> list = sDao.selectTagList(conn);
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Option> selectOptionList() {
+		Connection conn = getConnection();
+		List<Option> list = sDao.selectOptionList(conn);
+		close(conn);
+		
+		return list;
+	}
+
+	public int insertTag(String tagName) {
+		Connection conn = getConnection();
+		int result = sDao.insertTag(conn,tagName);
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateTag(String tagName, String newTagName) {
+		Connection conn =getConnection();
+		int result = sDao.updateTag(conn,tagName,newTagName);
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteTag(String tagName) {
+		Connection conn =getConnection();
+		int result = sDao.deleteTag(conn,tagName);
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertOption(String name) {
+		Connection conn =getConnection();
+		int result = sDao.insertOption(conn,name);
+		close(conn);
+		
+		return result;
+	}
+	
+	public int updateOption(String originName, String newName) {
+		Connection conn =getConnection();
+		int result = sDao.updateOption(conn,originName,newName);
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteOption(String name) {
+		Connection conn =getConnection();
+		int result = sDao.deleteOption(conn,name);
 		close(conn);
 		
 		return result;
