@@ -41,6 +41,7 @@
 		.left_nav{
 		    display: flex; 
 		    align-items: center;
+		    
 		}
 		.left_nav>a{
 		    margin-right: 100px;
@@ -62,7 +63,7 @@
 	
 	<!-- header start-->
         <header class="header">
-            <a href="" class="header_logo center">
+            <a href="<%=contextPath%>/mypage.su" class="header_logo center">
                     <img src="<%=contextPath%>/resources/images/mainLogo.png" height="100%" alt="메인로고이미지">
             </a>
             <nav class="header_nav">

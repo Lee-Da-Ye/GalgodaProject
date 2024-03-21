@@ -12,9 +12,9 @@
 						  ,	USER_NAME
 						  ,	USER_ENG_NAME
 						  ,	USER_PWD
-						  ,	BIRTH_DATE
+						  ,	NVL(BIRTH_DATE,'미입력') BIRTH_DATE
 						  ,	NVL(EMAIL,'미입력') EMAIL
-						  ,	PHONE
+						  ,	NVL(PHONE,'미입력') PHONE
 						  , ZIPCODE
 						  ,	NVL(ADDRESS,'미입력') ADDRESS
 						  ,	NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
@@ -40,9 +40,9 @@
 			  ,	USER_NAME
 			  ,	USER_ENG_NAME
 			  ,	USER_PWD
-			  ,	BIRTH_DATE
+			  ,	NVL(BIRTH_DATE,'미입력') BIRTH_DATE
 			  ,	NVL(EMAIL,'미입력') EMAIL
-			  ,	PHONE
+			  ,	NVL(PHONE,'미입력') PHONE
 			  , ZIPCODE
 			  ,	NVL(ADDRESS,'미입력') ADDRESS
 			  ,	NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
@@ -98,9 +98,9 @@
 		                     , HOTEL_NO
 		                     , HOTEL_ADDRESS
 		                  FROM TB_MEM TM
-		                  JOIN TB_HOTEL USING(HOTEL_NAME)
-		                 WHERE TM.STATUS = 'Y'
-		   				   AND HOTEL_NAME IS NOT NULL
+		                  LEFT JOIN TB_HOTEL TH USING(HOTEL_NAME)
+		                 WHERE TH.STATUS = 'Y'
+		                   AND TM.STATUS = 'Y'
 		                 order 
 		                    by TM.MEM_NO DESC
              			) A
@@ -112,11 +112,16 @@
 	
 	<entry key="selectHotelListCount">
 		SELECT COUNT(*) COUNT
-		  FROM TB_MEM
+		  FROM TB_HOTEL
 		 WHERE STATUS = 'Y'
 		   AND HOTEL_NAME IS NOT NULL
 	</entry>
-	
+	<entry key="selectCodeCount">
+		SELECT COUNT(*) COUNT
+		  FROM TB_MEM
+		 WHERE STATUS = 'Y'
+		 
+	</entry>
 	<entry key="insertTerm">
 		INSERT 
 		  INTO TB_TERMS
@@ -247,4 +252,67 @@
 		 WHERE	USER_NO = ?
 	</entry>
 	
+	<entry key="selectCodeList">
+		SELECT *
+		  FROM (
+				SELECT ROWNUM RNUM, A.*
+				  FROM (
+						SELECT 
+								MEM_NO
+							  ,	NVL(MEM_NAME,'미배정') MEM_NAME
+							  ,	AUTHENTICODE
+							  ,	HOTEL_NAME
+						  FROM	TB_MEM
+						 WHERE	STATUS = 'Y'
+						 ORDER
+						 	BY	MEM_NO DESC
+						) A
+				)
+		  WHERE  RNUM BETWEEN ? AND ?				
+	</entry>
+	<entry key="selectCode">
+		SELECT 
+				NVL(MEM_NAME,'미배정') MEM_NAME 
+			  ,	AUTHENTICODE
+			  ,	HOTEL_NAME
+			  ,	MEM_NO
+		  FROM	TB_MEM
+		 WHERE	MEM_NO = ?
+	</entry>
+	
+	<entry key="updateCode">
+		UPDATE
+				TB_MEM
+		   SET	
+		   		MEM_NAME = ?
+			  ,	AUTHENTICODE = ?
+			  ,	HOTEL_NAME = ?		   		
+		  WHERE	MEM_NO = ?
+	</entry>
+	
+	<entry key="deleteCode">
+		UPDATE 
+				TB_MEM
+		   SET	
+		   		STATUS = 'N'
+		 WHERE	MEM_NO = ?			   		
+	</entry>
+	
+	<entry key="insertCode">
+		 INSERT 
+		   INTO TB_MEM
+		   		(	
+		   			MEM_NO
+		   		  ,	AUTHENTICODE
+			  	  , HOTEL_NAME
+		   		)
+		   		VALUES
+		   		(	
+		   			SEQ_MEMNO.NEXTVAL
+		   		  ,	?
+		   		  , ?
+		   		) 
+		   		
+	
+	</entry>
 </properties>

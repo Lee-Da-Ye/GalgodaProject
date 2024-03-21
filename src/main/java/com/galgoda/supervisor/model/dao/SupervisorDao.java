@@ -450,6 +450,149 @@ public class SupervisorDao {
 		}
 		return result;
 	}
+	public int selectCodeCount(Connection conn) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCodeCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public List<HotelUser> selectCodeList(Connection conn, PageInfo pi) {
+		List<HotelUser> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCodeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				HotelUser h = new HotelUser();
+				h.setMemNo(rset.getInt("mem_no"));
+				h.setMemName(rset.getString("mem_name"));
+				h.setAuthentiCode(rset.getString("authenticode"));
+				h.setHotelName(rset.getString("hotel_name"));
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+	public HotelUser selectCode(Connection conn, int memNo) {
+		HotelUser code = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				code = new HotelUser();
+				code.setMemName(rset.getString("mem_name"));
+				code.setAuthentiCode(rset.getString("authenticode"));
+				code.setHotelName(rset.getString("hotel_name"));
+				code.setMemNo(rset.getInt("mem_no"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return code;
+	}
+	public int updateCode(Connection conn, HotelUser code) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateCode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code.getMemName());
+			pstmt.setString(2, code.getAuthentiCode());
+			pstmt.setString(3, code.getHotelName());
+			pstmt.setInt(4, code.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int deleteCode(Connection conn, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			result =pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int insertCode(Connection conn, HotelUser code) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCode");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code.getAuthentiCode());
+			pstmt.setString(2, code.getHotelName());
+			result =pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
 	
 	
 	

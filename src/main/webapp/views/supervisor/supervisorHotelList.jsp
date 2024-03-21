@@ -55,7 +55,7 @@
                         <a class="nav-link" href="" style="background-color: rgb(115, 90, 75); color: white;" >호텔등록 현황</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >호텔코드 등록</a>
+                        <a class="nav-link" href="<%=contextPath %>/codeList.su?page=1" >호텔코드 등록</a>
                     </li>
                     <li>
                         <a class="nav-link" href="" >태그 관리</a>
@@ -108,10 +108,7 @@
                         <option value="name">호텔번호</option>
                         <option selected>호텔이름</option>
                         <option>담당자</option>
-                        <option>담당자</option>
-                        <option >담당자연락처</option>
-                        <option>이메일</option>
-                        <option>주소</option>
+                        
                     </select>
                     <a href="" class="btn btn-secondary" id="buttonColor" onclick="modifyButton();" >수정하기</a>
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete" >삭제하기</button>

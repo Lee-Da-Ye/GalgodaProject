@@ -45,6 +45,7 @@ public class SupervisorService {
 			rollback(conn);
 		}
 		close(conn);
+		
 		return updateUser;
 	}
 
@@ -164,6 +165,72 @@ public class SupervisorService {
 			rollback(conn);
 		}
 		close(conn);
+		return result;
+	}
+
+	public List<HotelUser> selectCodeList(PageInfo pi) {
+		Connection conn = getConnection();
+		List<HotelUser> list = sDao.selectCodeList(conn,pi);
+				
+		return list;
+	}
+
+	public int selectCodeCount() {
+		Connection conn = getConnection();
+		int listCount = sDao.selectCodeCount(conn);
+		close(conn);
+		
+		return listCount;
+		
+	}
+
+	public HotelUser selectCode(int memNo) {
+		Connection conn = getConnection();
+		HotelUser code = sDao.selectCode(conn,memNo);
+		close(conn);
+		
+		return code;
+	}
+
+	public int updateCode(HotelUser code) {
+		Connection conn = getConnection();
+		int result = sDao.updateCode(conn,code);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteCode(int memNo) {
+		Connection conn = getConnection();
+		int result = sDao.deleteCode(conn,memNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertCode(HotelUser code) {
+		Connection conn = getConnection();
+		int result = sDao.insertCode(conn,code);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
 		return result;
 	}
 	
