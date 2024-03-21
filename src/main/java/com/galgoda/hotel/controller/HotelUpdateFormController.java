@@ -1,6 +1,7 @@
 package com.galgoda.hotel.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.galgoda.hotel.model.service.HotelService;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.HotelUser;
 
 /**
@@ -35,8 +37,10 @@ public class HotelUpdateFormController extends HttpServlet {
 		
 		
 		Hotel h =  new HotelService().selectHotelForm(memNo);
+		List<Tag> list = new HotelService().hotelInsertForm();
 		
 		request.setAttribute("h", h);
+		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/views/hotel/hotelUpdateForm.jsp").forward(request, response);
 		

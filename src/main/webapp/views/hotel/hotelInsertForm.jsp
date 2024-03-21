@@ -34,10 +34,17 @@
          .add_content { 
             display: inline-block;
             width: 100%;
-            min-height: 200px;
+            min-height: 100px;
             padding: 20px;
             height: 100%;
             }
+         #refund {
+          	display: inline-block;
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            height: 100%;
+         }
         .add_content input{ margin-right: 8px;}
         .page_content label { margin-left: 10px; margin-right: 15px; margin-top: 3px;}
 
@@ -173,8 +180,8 @@
                             <tr>
                                 <td id="td4"><button class="btn " id="btnname" type="button" >취소정책</button></td>
                                 <td id="td2">
-                                    <div class="form-control add_content">   
-                                        <label><input type="radio" name="refundpolicy" value="1" checked> &nbsp; 체크인 1일 전 예약 취소 시 전액 환불됩니다. 체크인 1일 이내 취소
+                                    <div class="form-control add_content" id="refund">   
+                                        <label><input type="radio" name="refundpolicy" value="1" > &nbsp; 체크인 1일 전 예약 취소 시 전액 환불됩니다. 체크인 1일 이내 취소
                                                                     또는 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
                                         <label><input type="radio" name="refundpolicy" value="2" > &nbsp; 체크인 5일 전 예약 취소 시 전액 환불됩니다. 체크인 5일 이내 취소
                                             또는 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>

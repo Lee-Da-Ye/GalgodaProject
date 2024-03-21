@@ -3,11 +3,14 @@
     
     
 <%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
-
+<%@ page import="com.galgoda.hotel.model.vo.Tag" %>
+<%@ page import="java.util.List" %> 
 
 <%
 
 	Hotel h  = (Hotel)request.getAttribute("h");
+	List<Tag> list = (List<Tag>)request.getAttribute("list");
+
 
 
 %>
@@ -26,7 +29,7 @@
         #btnbrown {background-color: #634C46; color: white; font-size: 15px; border: 1px solid #D4D4D4 ; width: 113px; height: 40px; padding: 7px; margin-left: 6px;}
         #btnconfirm {background-color: #EBE7E3; font-size: 15px; border: 1px solid #D4D4D4 ; width: 85px; height: 40px; padding: 7px;  }
          #td1 {width:94px ; }
-         #td2 {width:600px ; }
+         #td2 {width:600px ;}
          #td3 {width:150px ; }
          #td4 {display: inline-block;}
          
@@ -35,10 +38,17 @@
          .add_content { 
             display: inline-block;
             width: 100%;
-            min-height: 200px;
+            min-height: 100px;
             padding: 20px;
             height: 100%;
             }
+         #refund {
+          	display: inline-block;
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            height: 100%;
+         }
         .add_content>input{ margin-right: 10px;}
         .page_content label { margin-left: 10px; margin-right: 15px; }
 
@@ -103,7 +113,7 @@
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
-                                <td id="td2"><input type="text" class="form-control" required readonly value="<%= h.getHotelName() %>"></td>
+                                <td id="td2"><input type="text" class="form-control" required readonly name="hotelName" value="<%= h.getHotelName() %>"></td>
                             </tr>
                             </table>
                             <table>
@@ -118,23 +128,23 @@
                             <table>
                             <tr>
                                 <td id="td1"></td>
-                                <td id="td2"><input type="text" class="form-control" value="<%= h.getHotelDetailAdd() %>"></td>
+                                <td id="td2"><input type="text" class="form-control" name="hotelDetailAdd" value="<%= h.getHotelDetailAdd() %>"></td>
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn " id="btnname" type="button" >대표전화</button></td>
-                                <td id="td2"><input type="text" class="form-control" required value="<%=h.getHotelTel() %>"></td>
+                                <td id="td2"><input type="text" class="form-control" required name="hotelTel" value="<%=h.getHotelTel() %>"></td>
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >홈페이지</button></td>
-                                <td id="td2"><input type="url" class="form-control" value="<%= h.getHotelSite() %>"></td>
+                                <td id="td2"><input type="url" class="form-control" name="hotelSite" value="<%= h.getHotelSite() %>"></td>
                             </tr>
                         </table>
 
                         <table>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnlarge" type="button" >체크인/체크아웃시간</button></td>
-                                <td id="td3">  <input type="number" class="form-control"  name="amount" min="0" max="24" step="1" value="<%= h.getHotelCheckin() %>" style="margin-left: 8px;" required></td><td> &nbsp; &nbsp;&nbsp;PM &nbsp;&nbsp;/ &nbsp;&nbsp; </td>    
-                                              <td id="td3">  <input type="number"  class="form-control" name="amount" min="0" max="24" step="1" value="<%= h.getHotelCheckout() %>" required></td> <td> &nbsp;&nbsp;AM </td>
+                                <td id="td3">  <input type="number" class="form-control" min="0" max="24" step="1" name="hotelCheckin" value="<%= h.getHotelCheckin() %>" style="margin-left: 8px;" required></td><td> &nbsp; &nbsp;&nbsp;PM &nbsp;&nbsp;/ &nbsp;&nbsp; </td>    
+                                              <td id="td3">  <input type="number"  class="form-control" name="hotelCheckout" min="0" max="24" step="1" value="<%= h.getHotelCheckout() %>" required></td> <td> &nbsp;&nbsp;AM </td>
                                 </td>
                             </tr>
                         </table>
@@ -142,28 +152,30 @@
                             <tr>
                                 <td id="td4"><button class="btn " id="btnname" type="button" style="vertical-align: top; display:inline-block" >중요사항</button></td>
                                 <td id="td2" >
-                                     <div class="form-control add_content">   
-                                        <label><input type="checkbox"  checked> &nbsp;에어컨</label>
-                                        <label><input type="checkbox" > &nbsp;세탁서비스</label>
-                                        <label><input type="checkbox" > &nbsp;공용주방</label>
-                                        <label><input type="checkbox" > &nbsp;공항 셔틀 서비스</label>
-                                        <label><input type="checkbox"  checked> &nbsp;무료 wi-fi</label>
-                                        <label><input type="checkbox" > &nbsp;조식</label>
-                                        <label><input type="checkbox" > &nbsp;주방용</label>   
-                                    </div>
+                                     <div class="form-control add_content" id="hoDetail">   
+                                        <label><input type="checkbox" name="hotelDetail" value="에어컨"> &nbsp;에어컨</label>
+                                        <label><input type="checkbox" name="hotelDetail" value="세탁서비스"> &nbsp;세탁서비스</label>
+                                        <label><input type="checkbox" name="hotelDetail" value="공용주방"> &nbsp;공용주방</label>
+                                        <label><input type="checkbox" name="hotelDetail" value="공항셔틀서비스"> &nbsp;공항 셔틀 서비스</label>
+                                        <label><input type="checkbox" name="hotelDetail" value="무료wifi"> &nbsp;무료 wi-fi</label>
+                                        <label><input type="checkbox" name="hotelDetail" value="조식"> &nbsp;조식</label>
+                                        <label><input type="checkbox" name="hotelDetail" value="주방용"> &nbsp;주방용</label>   
+                                   
+                                   
+                                   </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td id="td4"><button class="btn " id="btnname" type="button" >태그</button></td>
                                 <td id="td2">
                                     <div class="form-control add_content">   
-                                        <label><input type="checkbox" checked> &nbsp;관광</label>
-                                        <label><input type="checkbox" > &nbsp;휴양</label>
-                                        <label><input type="checkbox" > &nbsp;바다</label>
-                                        <label><input type="checkbox" checked> &nbsp;가족여행</label>
-                                        <label><input type="checkbox" > &nbsp;제주</label>
-                                        <label><input type="checkbox" > &nbsp;동부</label>
-                                        <label><input type="checkbox" > &nbsp;주방용</label>   
+                                        
+                                        <% for(Tag t : list){ %>
+                                        	
+                                        		<label><input type="checkbox" name="hotelTag" value="<%= t.getTagNo() %>" > &nbsp;<%= t.getTagName() %></label>
+                                       		
+                                        <% } %>
+             
                                     </div>
 
                                 </td>
@@ -171,19 +183,19 @@
                             <tr>
                                 <td id="td4"><button class="btn" id="btnname" type="button" >호텔소개</button></td>
                                 <td id="td2">
-                                    <textarea class="form-control" name="content" placeholder="내용 입력" 
+                                    <textarea class="form-control" name="hotelIntro" placeholder="내용 입력" 
                                     cols="35" rows="5" style="resize:none;"><%= h.getHotelIntro() %></textarea>
                                     </td>
                             </tr>
                             <tr>
                                 <td id="td4"><button class="btn " id="btnname" type="button" >취소정책</button></td>
                                 <td id="td2">
-                                    <div class="form-control add_content">   
-                                        <label><input type="checkbox" checked> &nbsp; 체크인 1일 전 예약 취소 시 전액 환불됩니다. 체크인 1일 이내 취소
+                                    <div class="form-control add_content" id="refund">   
+                                        <label><input type="radio" name="refundpolicy" value="1" > &nbsp; 체크인 1일 전 예약 취소 시 전액 환불됩니다. 체크인 1일 이내 취소
                                                                     또는 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
-                                        <label><input type="checkbox" > &nbsp; 체크인 5일 전 예약 취소 시 전액 환불됩니다. 체크인 5일 이내 취소
+                                        <label><input type="radio" name="refundpolicy" value="2" > &nbsp; 체크인 5일 전 예약 취소 시 전액 환불됩니다. 체크인 5일 이내 취소
                                             또는 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
-                                        <label><input type="checkbox" > &nbsp; 체크인 7일 전 예약 취소 시 전액 환불됩니다. 체크인 7일 이내 취소
+                                        <label><input type="radio" name="refundpolicy" value="3" > &nbsp; 체크인 7일 전 예약 취소 시 전액 환불됩니다. 체크인 7일 이내 취소
                                             시 50% 환불되며, 노쇼(No-show)의 경우 전액 환불되지 않습니다.</label>
                                        
                                     </div>
@@ -192,7 +204,7 @@
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >대표사진</button></td>
-                                <td id="td2"><input type="file" name="main_photo" class="form-control" required></td>
+                                <td id="td2"><input type="file" name="hotelImgPath"  class="form-control" required></td>
                             </tr>
                             <tr>
                                 <td id="td4"><button class="btn" id="btnname" type="button" >사진추가</button></td>
@@ -222,10 +234,28 @@
                     /* 체크박스 체크 부분 */
                     $(function(){
                     	
-                    	<%= h.getHotelDetail() %>
+                    	/* 호텔디테일부분*/
+                    	var hoDetail = '<%= h.getHotelDetail() %>';
+                    	var  d = hoDetail.split(", ");
                     	
+                    	for(var i = 0; i<d.length; i++){
+                    			 $('input:checkbox[name=hotelDetail][value='+d[i]+']').attr("checked", true).parent().addClass('on');
+                    	}    
+                    	 
+                    	/* 환불규정부분 */ 
+     					var repolicy = '<%= h.getRefundpolicy() %>';
+                        	$('input:radio[name=refundpolicy][value='+repolicy+']').attr("checked", true).parent().addClass('on');
+
+                        /* 태그부분 */
+     	               	var taglist = '<%= h.getTagNo() %>';
+     	                var  v = taglist.split(", ");
+     	                        	
+     	                for(var j = 0; j<v.length; j++){
+     	                        $('input:checkbox[name=hotelTag][value='+v[j]+']').attr("checked", true).parent().addClass('on');
+     	                } 
+                          
                     })
-                    
+                  
                     /* 체크박스 끝 */
                     
                     
