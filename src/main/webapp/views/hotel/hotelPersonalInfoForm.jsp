@@ -33,30 +33,29 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">예약관리</a>
+                        <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">상세 조회</a>
-                        </div>
-                    <li>
-                    </li>
-                    <div id="demo" class="collapse" style="margin-left: 30px;">
-                        <a href="">예약 변경/취소</a>
-                    </div>
-                    <li>
-                    </li>
-                    <div id="demo" class="collapse" style="margin-left: 30px;">
-                        <a href="">리뷰 관리</a>
-                    </div>
-                    <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">위시리스트</a>
-                    </li>
-                    
-                    <li>
-                        <a class="nav-link" style="color: white; background-color: rgb(99, 76, 70);" href="#" data-toggle="collapse" data-target="#demo3">개인정보 수정</a>
-                    </li>
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a></div> </li> 
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
+                    <li> <div id="demo"  class="collapse " style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
                     
                     
+                    <li> 
+                        <a class="nav-link" href="<%= contextPath %>/resList.ho?page=1"  >예약관리</a>
+                    </li>
+                  
+                    <li>
+                        <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="<%=contextPath %>/personalInfo.ho" data-target="#demo3">담당자 정보 수정</a>
+                    </li>
+                        
+                    
+                    <li>
+                         <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
+                    </li>
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
                 </ul>
             </div>
 

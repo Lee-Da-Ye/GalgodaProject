@@ -226,11 +226,11 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">예약 관리</a>
+                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">예약관리</a>
                     </li>
                     
                     <li class="modify_btn">
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                        <a class="nav-link" href="<%=contextPath %>/personalInfo.ho" style="color: white; background-color: rgb(115, 90, 75);" data-target="#demo3">담당자 정보 수정</a>
                     </li>
 
                     <li>
