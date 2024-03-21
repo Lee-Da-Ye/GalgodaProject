@@ -223,6 +223,24 @@
 		
 		</entry>
 		
+		<entry key="selectHotelForm">
+			SELECT 
+					HOTEL_NO
+				  , HOTEL_NAME
+				  , HOTEL_ADDRESS
+				  , HOTEL_DETAILADD
+				  , HOTEL_TEL
+				  , HOTEL_SITE
+				  , HOTEL_CHECKIN
+				  , HOTEL_CHECKOUT
+				  , HOTEL_DETAIL
+				  , NVL(HOTEL_INTRO,'없음') HOTEL_INTRO
+				  , REFUNDPOLICY
+				  , TAG_NO
+				  , IMG_PATH
+			 FROM TB_HOTEL
+			WHERE MEM_NO =  ?
+		</entry>
 		<entry key="deleteHotelUser">
 			UPDATE
 					TB_MEM

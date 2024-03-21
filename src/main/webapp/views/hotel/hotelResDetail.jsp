@@ -167,7 +167,7 @@
                        <% } else if (r.getResStatus().equals("예약취소")){ %>
                             <!-- case3 : 취소예약일때 -->
                              
-                                <a class="btn " id="btnconfirm" type="button" href="<%= contextPath %>/resList.ho?page=1" >목록으로</button>
+                                <a class="btn " id="btnconfirm" type="button" href="<%= contextPath %>/resList.ho?page=1" >목록으로</a>
                             
                        <% } %>
                         </div>
