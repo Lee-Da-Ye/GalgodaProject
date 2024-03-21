@@ -76,33 +76,19 @@ $(document).ready(function(){
             <div class="sideMenubar">
                 <ul class="nav flex-column">
                     <li>
-                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">메뉴명</h3>
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">마이페이지</h3>
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/resManagement.cu" data-target="#demo">예약관리</a>
                     </li>
-                    <li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">상세 조회</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">예약 변경/취소</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">리뷰 관리</a>
-                        </div>
-                    </li>
+                    
                     <li class="sideMenubar_wishlist">
                         <a href="<%=contextPath%>/wishlist.cu" class="nav-link" style="background-color: rgb(99, 76, 70); color: white;" data-target="#demo2">위시리스트</a>
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">개인정보 수정</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/personalInfo.cu" data-target="#demo3">개인정보 수정</a>
                     </li>
                     
                     
