@@ -8,8 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.galgoda.customer.model.vo.Reservation;
+import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
@@ -453,5 +457,35 @@ public class CommonDao {
 		return result;
 	}	
 	
+	public List<Hotel> selectPopularHotelList(Connection conn) {
+		
+		List<Hotel> popularHotelList = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPopularHotelList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				popularHotelList.add(new Hotel(rset.getString("hotel_name")
+					       , rset.getInt("hotel_no")
+					       , rset.getInt("res_count")
+					       , rset.getString("img_path")));
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return popularHotelList;
+		
+	}
 	
 }
