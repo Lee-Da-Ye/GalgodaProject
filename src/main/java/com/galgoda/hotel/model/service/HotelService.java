@@ -183,8 +183,7 @@ public class HotelService {
 		return result;
 		
 	}
-	
-<<<<<<< HEAD
+
 	public Hotel selectHotelForm(int memNo) {
 		Connection conn = getConnection();
 		
@@ -192,7 +191,9 @@ public class HotelService {
 		close(conn);
 		
 		return h;
-=======
+
+	}
+
 	public int deleteHotelUser(String userId) {
 		Connection conn = getConnection();
 		int result = hDao.deleteHotelUser(conn, userId);
@@ -205,7 +206,6 @@ public class HotelService {
 		close(conn);
 		
 		return result;
->>>>>>> 0f65a165a254be3d97c6cd1072e7b8c41e8bcada
 	}
 	
 }

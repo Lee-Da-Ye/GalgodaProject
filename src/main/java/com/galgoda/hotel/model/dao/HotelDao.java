@@ -449,10 +449,7 @@ public class HotelDao {
 		
 		return result;
 	}
-	
-<<<<<<< HEAD
-	
-	
+
 	
 	public Hotel selectHotelForm(Connection conn, int memNo) {
 		
@@ -501,7 +498,6 @@ public class HotelDao {
 		
 	}
 	
-=======
 	public int deleteHotelUser(Connection conn, String userId) {
 		
 		int result = 0;
@@ -520,5 +516,4 @@ public class HotelDao {
 		}
 		return result;
 	}
->>>>>>> 0f65a165a254be3d97c6cd1072e7b8c41e8bcada
 }
