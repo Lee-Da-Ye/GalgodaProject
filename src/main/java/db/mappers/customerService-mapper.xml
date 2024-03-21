@@ -21,11 +21,41 @@
 		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
-	<entry key="selectListCount">
+	
+	<entry key="selectNoticeListCount">
 		SELECT
 		       COUNT(*) COUNT
 		  FROM TB_NOTICE
 		 WHERE STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectInqListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM TB_INQ
+		 WHERE STATUS != 'N'
+	</entry>
+	
+	<entry key="selectInqHotelListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM TB_INQ
+		 WHERE STATUS != 'N'
+		   AND HOTEL_NAME = ?
+	</entry>
+	
+	<entry key="selectReportUserListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM TB_REPORT
+		 WHERE REP_TYPE = 'U'
+	</entry>
+	
+	<entry key="selectReportReviewListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM TB_REPORT
+		 WHERE REP_TYPE = 'R'
 	</entry>
 	
 	<entry key="selectNotice">
@@ -152,18 +182,47 @@
 		  )
 	</entry>
 	
-	<entry key="selectInqList">
-		SELECT
-		       INQ_NO
-		     , HOTEL_NAME
-		     , INQ_TYPE
-		     , INQ_TITLE
-		     , TO_CHAR(REGIST_DATE, 'YYYY-MM-DD') REGIST_DATE
-		     , STATUS
-		  FROM TB_INQ
-		 WHERE STATUS != 'N'
-		 ORDER
-		    BY 1 DESC
+	<entry key="selectInqUserList">
+		SELECT *
+		  FROM(
+		       SELECT ROWNUM RNUM, A.* 
+		       FROM(
+		            SELECT 
+		                   INQ_NO
+		                 , HOTEL_NAME
+		                 , INQ_TYPE
+		                 , INQ_TITLE
+		                 , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
+                         , STATUS
+		              FROM TB_INQ
+		             WHERE STATUS != 'N'
+		             ORDER 
+		                BY 1 DESC
+		      ) A
+		 )     
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectInqHotelList">
+		SELECT *
+		  FROM(
+		       SELECT ROWNUM RNUM, A.* 
+		       FROM(
+		            SELECT 
+		                   INQ_NO
+		                 , HOTEL_NAME
+		                 , INQ_TYPE
+		                 , INQ_TITLE
+		                 , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
+                         , STATUS
+		              FROM TB_INQ
+		             WHERE STATUS != 'N'
+		               AND HOTEL_NAME = ?
+		             ORDER 
+		                BY 1 DESC
+		      ) A
+		 )     
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectInq">
@@ -180,6 +239,17 @@
 		   AND INQ_NO = ?
 	</entry>
 	
+	<entry key="selectInqAttachment">
+		SELECT
+			   FILE_NO
+			 , FILE_PATH
+			 , FILE_NAME
+	      FROM TB_FILE
+	     WHERE STATUS = 'Y'
+	       AND REF_TYPE = 'I'
+	       AND REF_NO = ?
+	</entry>
+	
 	<entry key="updateInq">
 		UPDATE TB_INQ
 		   SET ANS_CONTENT = ?
@@ -188,32 +258,46 @@
 	</entry>
 	
 	<entry key="selectReportUserList">
-		SELECT
-		       REP_NO
-		     , USER_ID
-		     , REP_REASON
-		     , REP_DATE
-		     , R.STATUS
-		  FROM TB_REPORT R
-		  JOIN TB_USER ON (REP_REF_NO = USER_NO)
-		 WHERE REP_TYPE = 'U'
-		 ORDER
-		    BY 1 DESC
+		SELECT *
+		  FROM(
+		       SELECT ROWNUM RNUM, A.* 
+		       FROM(
+		            SELECT
+                           REP_NO
+                         , USER_ID
+                         , REP_REASON
+                         , REP_DATE
+                         , R.STATUS
+                      FROM TB_REPORT R
+                      JOIN TB_USER ON (REP_REF_NO = USER_NO)
+                     WHERE REP_TYPE = 'U'
+                     ORDER
+                        BY 1 DESC
+                          ) A
+		 )     
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectReportReviewList">
-		SELECT
-		       REP_NO
-		     , USER_ID
-		     , REV_TITLE
-		     , REP_DATE
-		     , R.STATUS
-		  FROM TB_REPORT R
-		  JOIN TB_REVIEW ON (REP_REF_NO = REV_NO)
-		  JOIN TB_USER USING (USER_NO)
-		 WHERE REP_TYPE = 'R'
-		 ORDER
-		    BY 1 DESC
+		SELECT *
+		  FROM(
+		       SELECT ROWNUM RNUM, A.* 
+		       FROM(
+		            SELECT
+                           REP_NO
+                         , USER_ID
+                         , REV_TITLE
+                         , REP_DATE
+                         , R.STATUS
+                      FROM TB_REPORT R
+                      JOIN TB_REVIEW ON (REP_REF_NO = REV_NO)
+                      JOIN TB_USER USING (USER_NO)
+                     WHERE REP_TYPE = 'R'
+                     ORDER
+                        BY 1 DESC
+                    ) A
+		 )     
+		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectReportUser">

@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.galgoda.hotel.model.vo.Report" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.galgoda.common.model.vo.PageInfo" %>
 <%
 	List<Report> list = (List<Report>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
 <html>
@@ -77,13 +79,25 @@
                     </table>
                 </div>
                 <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
-                    <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+                    <% if(pi.getCurrentPage() == 1){ %>
+                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+                    <% }else { %>
+                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/reviewList.rep?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a></li>
+                 	<% } %>
+                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
+                    	<% if(p == pi.getCurrentPage()){ %>
+	                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
+	                    <% }else { %>
+	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/reviewList.rep?page=<%= p %>"><%= p %></a></li>
+                 		<% } %>
+                 	<% } %>
+                    
+                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
+                    <li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+                    <% }else { %>
+                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/reviewList.rep?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a></li>
+                	
+                	<% } %>
                 </ul>
             </div>
 
