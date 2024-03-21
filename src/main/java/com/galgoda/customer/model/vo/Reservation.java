@@ -323,7 +323,7 @@ public class Reservation {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Reservation [resNo=" + resNo + ", hotelNo=" + hotelNo + ", hotelName=" + hotelName + ", userNo="
