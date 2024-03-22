@@ -40,6 +40,11 @@
                     </li>
                     
                     <li>
+                        <a class="nav-link" style="color: black;" href="" data-target="#demo2">리뷰관리</a>
+                    </li>
+                    
+                    
+                    <li>
                         <a class="nav-link" style="color: white; background-color: rgb(99, 76, 70);" href="<%=contextPath%>/personalInfo.cu" data-target="#demo3">개인정보 수정</a>
                     </li>
                     
