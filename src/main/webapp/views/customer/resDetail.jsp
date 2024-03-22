@@ -3,6 +3,32 @@
 <%@ page import="com.galgoda.customer.model.vo.Reservation" %>
 <%
     Reservation selectedReservation = (Reservation)request.getAttribute("selectedReservation");
+
+	//객실 번호에 따른 객실 이름 가져오기
+	String roomName = "";
+	int roomNo = selectedReservation.getRoNo();
+	switch (roomNo) {
+	    case 1:
+	        roomName = "스탠다드더블";
+	        break;
+	    case 2:
+	        roomName = "디럭스트윈";
+	        break;
+	    case 3:
+	        roomName = "슈페리어킹";
+	        break;
+	    case 4:
+	        roomName = "스위트룸";
+	        break;
+	    case 5:
+	        roomName = "스탠다드싱글";
+	        break;
+	}
+	
+	System.out.println(roomNo);
+	System.out.println(roomName);
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -113,7 +139,7 @@
                             </tr>
                             <tr>
                                 <th>객실타입</th>
-                                <td><%=selectedReservation.getRoName()%></td>
+                                <td><%=roomName %></td>
                             </tr>
                             <tr>
                                 <th>추가옵션</th>
