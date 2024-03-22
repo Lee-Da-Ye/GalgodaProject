@@ -25,9 +25,6 @@
 	        break;
 	}
 	
-	System.out.println(roomNo);
-	System.out.println(roomName);
-	
 	
 %>
 <!DOCTYPE html>
