@@ -239,10 +239,9 @@
                 <h2 class="contentName">1:1 문의내역</h2>
                 <div style="margin-top: 10px; border: 2px solid lightgray;"></div>
                 <div style="margin-top: 20px;">
-                    <select id="hotelCategory">
-                    	<option value="category">전체</option>
+                    <select name="category" id="hotelCategory">
                     	<% for(int i=0; i<list2.size(); i++){ %>
-                        <option value="category + <%= i %>"><%= list2.get(i).getHotelName() %></option>
+                        <option value="<%= list2.get(i).getHotelName() %>"><%= list2.get(i).getHotelName() %></option>
                         <% } %>
                     </select>
                 </div>
@@ -261,7 +260,7 @@
                             <td><%= inq.getInqNo() %></td>
                             <td><%= inq.getCategory() %></td>
                             <td><%= inq.getInqType() %></td>
-                            <td><a href=""><%= inq.getInqTitle() %></a></td>
+                            <td><a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a></td>
                             <td><%= inq.getRegistDate() %></td>
                             <% if(inq.getStauts().equalsIgnoreCase("w")){ %>
                             	<td>답변 대기</td>
@@ -296,22 +295,7 @@
                 </ul>
             </div>
             <script>
-				const selectElement = document.getElementById('hotelCategory');
 				
-				selectElement.addEventListener('change', function() {
-				  const options = selectElement.options;
-				  
-				  for (let i = 0; i < options.length; i++) {
-				    if (options[i].selected) {
-				      options[i].setAttribute('selected', 'selected');
-				    } else {
-				      options[i].removeAttribute('selected');
-				    }
-				  }
-				});
-			    $('#hotelCategory').change(function(){
-			        
-			    });
 				
 			</script>
             
