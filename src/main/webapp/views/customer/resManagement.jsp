@@ -58,8 +58,8 @@
                     </li>
                     
                     <li class="reservation_btn">
-                        <a class="nav-link" href="<%=contextPath%>/resManagement.cu" style="background-color: #634c46; color: white;" >예약관리</a>
-                    </li>
+                        <a class="nav-link" href="<%=contextPath%>/resManagement.cu" data-toggle="collapse" data-target="#demo" style="background-color: #634c46; color: white;" >예약관리</a>
+   					</li>
                         
                     <li>
                         <a class="nav-link" style="color: black;" href="<%=contextPath%>/wishlist.cu" data-target="#demo2">위시리스트</a>

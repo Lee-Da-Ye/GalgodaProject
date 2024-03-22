@@ -19,7 +19,7 @@
 	    $.ajax({
 	        url: "mainPageHotelList.co", 
 	        type: "GET", 
-	        dataType: "json", // 받은 데이터 타입을 JSON으로 지정
+	        dataType: "json", 
 	        success: function(response){
 	         
 	            // 받은 JSON 데이터를 화면에 표시
