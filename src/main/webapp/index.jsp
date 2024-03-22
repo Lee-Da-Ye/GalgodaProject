@@ -102,7 +102,7 @@
 		<section class="mainpage_content">
             <div class="main_image"><img src="<%=contextPath%>/resources/images/mainPageImg.jpg" width="100%" alt="메인홈페이지 이미지"></div>
             <div class="main_top">
-                <form id="searchForm" action="" method="get">
+                <form id="searchForm" action="<%= contextPath %>/search.main" method="get">
                     <table class="main_searchBar">
                         <thead>
                             <tr>
@@ -143,7 +143,7 @@
 								</td>
                                 
                                 <td><input type="date" name="checkInDate" class="form-control"></td>
-                                <td><input type="date" name="checkInDate" class="form-control"></td>
+                                <td><input type="date" name="checkOutDate" class="form-control"></td>
                                 <td></td>
                                 <td><input type="number" min="0" name="peopleCount" class="form-control"></td>
                                 <td><input type="number" min="0" name="roomCount" class="form-control"></td>
