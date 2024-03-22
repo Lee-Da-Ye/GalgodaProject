@@ -125,7 +125,38 @@
 					</li>
 				</ul>
 			</div>
+			<% }else if(loginAdmin != null){ %>
+			<div class="sideMenubar">
+                <ul class="nav flex-column">
+                    <li>
+                        <h3 class="sideMenubar_head">고객센터 관리</h3>
+                    </li>
+
+                    <li>
+                        <a class="nav-link" href="#">공지사항 관리</a>
+                    </li>
+
+                    <li style="background-color: rgb(115, 90, 75);">
+                        <a class="nav-link" style="color: white;" href="">문의사항 관리</a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#aaa">신고 관리</a>
+                    </li>
+                    <li>
+                        <div class="collapse" id="aaa" style="margin-left: 30px;">
+                            <a href="">신고 계정 관리</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapse" id="aaa" style="margin-left: 30px;">
+                            <a href="">신고 리뷰 관리</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 			<% } %>
+			
 			<div class="page_content">
 				<h2 class="contentName">1:1 문의내역</h2>
 				<div style="margin-top: 10px; border: 2px solid lightgray;"></div>
@@ -201,9 +232,7 @@
 						<% if(loginCustomer != null && loginCustomer.getUserName().equals(inq.getInqWriter())){ %>
 						<tr>
 							<td colspan="4" align="right">
-								<button type="button" class="btn"
-									style="background-color: rgb(235, 231, 227); margin-left: 90%; margin-bottom: 20px;"
-									onclick="deleteInq();">삭제</button>
+								<a href="<%= contextPath %>/delete.inq?no=<%= inq.getInqNo() %>" class="btn" style="background-color: rgb(235, 231, 227); margin-left: 90%; margin-bottom: 20px;" onclick="deleteInq();">삭제</a>
 							</td>
 						</tr>
 						<% } %>
@@ -231,9 +260,7 @@
 
 			<script>
                 function deleteInq(){
-                    if(confirm("해당 문의를 삭제하시겠습니까?")){
-                        alert("문의가 삭제되었습니다.");
-                    }
+                    confirm("해당 문의를 삭제하시겠습니까?")
                 }
             </script>
 		</section>
