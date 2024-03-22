@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
+import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.hotel.model.vo.Option;
 import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.Customer;
@@ -299,5 +300,36 @@ public class SupervisorService {
 		
 		return result;
 	}
+
+	public Hotel detailHotel(int hotelNo) {
+		Connection conn = getConnection();
+		Hotel h = sDao.detailHotel(conn,hotelNo);
+		close(conn);
+		
+		return h;
+	}
+
+	public String hotelCount() {
+		Connection conn = getConnection();
+		String hotelCount = sDao.hotelCount(conn);
+		close(conn);
+		return hotelCount;
+	}
+
+	public String newInqCount() {
+		Connection conn = getConnection();
+		String newInqCount = sDao.newInqCount(conn);
+		close(conn);
+		return newInqCount;
+	}
+
+	public String termsCount() {
+		Connection conn = getConnection();
+		String termsCount = sDao.termsCount(conn);
+		close(conn);
+		return termsCount;
+	}
+
+	
 	
 }

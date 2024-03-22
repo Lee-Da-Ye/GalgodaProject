@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
+import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.hotel.model.vo.Option;
 import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.Customer;
@@ -758,6 +759,108 @@ public class SupervisorDao {
 		}
 		
 		return result;
+	}
+	public Hotel detailHotel(Connection conn, int hotelNo) {
+		Hotel h = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("detailHotel");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hotelNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				h = new Hotel(
+							rset.getInt("hotel_no")
+						  ,	rset.getString("hotel_name")
+						  , rset.getString("hotel_address")
+						  , rset.getString("hotel_detailadd")
+						  , rset.getString("hotel_tel")
+						  , rset.getString("hotel_site")
+						  , rset.getInt("hotel_checkin")
+						  , rset.getInt("hotel_checkout")
+						  , rset.getString("hotel_detail")
+						  , rset.getString("hotel_intro")
+						  , rset.getString("refundpolicy")
+						  , rset.getString("status")
+						  , rset.getString("tag_no")
+						  , rset.getString("img_path")
+						  , rset.getInt("mem_no")
+						);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return h;
+	}
+	public String hotelCount(Connection conn) {
+		String hotelCount = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("hotelCount");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				hotelCount = rset.getString("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hotelCount;
+	}
+	public String newInqCount(Connection conn) {
+		String newInqCount = null;
+		PreparedStatement pstmt = null;
+		String sql = "SELECT COUNT(*) COUNT FROM TB_INQ WHERE MODIFY_DATE >= sysdate - 1";
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				newInqCount = rset.getString("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return newInqCount;
+	}
+	public String termsCount(Connection conn) {
+		String termsCount = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("termsCount");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				termsCount = rset.getString("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return termsCount;
 	}
 	
 	

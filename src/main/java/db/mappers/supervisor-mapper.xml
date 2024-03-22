@@ -380,4 +380,39 @@
 		 WHERE  OP_NAME = ?
 	</entry>
 	
+	<entry key="detailHotel">
+		SELECT 
+					HOTEL_NO
+				  , HOTEL_NAME
+				  , HOTEL_ADDRESS
+				  , HOTEL_DETAILADD
+				  , HOTEL_TEL
+				  , HOTEL_SITE
+				  , HOTEL_CHECKIN
+				  , HOTEL_CHECKOUT
+				  , HOTEL_DETAIL
+				  , NVL(HOTEL_INTRO,'없음') HOTEL_INTRO
+				  , REFUNDPOLICY
+				  , STATUS
+				  , TAG_NO
+				  , IMG_PATH
+				  , MEM_NO
+			 FROM TB_HOTEL
+			WHERE HOTEL_NO = ?	
+	</entry>
+	
+	<entry key ="hotelCount">
+		SELECT COUNT(*) COUNT
+		  FROM TB_HOTEL
+		 WHERE STATUS = 'Y'
+	</entry>
+	
+	<entry key="termsCount">
+		SELECT COUNT(*) COUNT
+		  FROM TB_TERMS
+		 WHERE STATUS = 'Y'
+		 
+	</entry>
+	
+	
 </properties>
