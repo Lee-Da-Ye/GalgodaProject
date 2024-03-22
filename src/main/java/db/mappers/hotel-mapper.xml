@@ -7,8 +7,25 @@
 			SELECT 
 					TAG_NO
 				  , TAG_NAME
-			  FROM tb_tag
+			  FROM TB_TAG
 			 WHERE STATUS = 'Y'
+		
+		</entry>
+		
+		<entry key="roominsertForm">
+		
+			SELECT 
+					OP_NO
+				  , OP_NAME
+			  FROM TB_OPTION
+			 WHERE STATUS = 'Y'
+		
+		</entry>
+		
+		<entry key="selectHotelNo">
+			SELECT HOTEL_NO
+			  FROM TB_HOTEL
+			 WHERE HOTEL_NAME = ?
 		
 		</entry>
 
@@ -36,6 +53,41 @@
 				
 		</entry>
 		
+		<entry key="insertRoom">
+			INSERT
+				INTO TB_Room
+				( 
+					RO_NO
+				  , HOTEL_NO
+				  , RO_NAME
+				  , RO_SIZE
+				  , RO_PEOPLE
+				  , RO_BATHROOM
+				  , RO_PRICE
+				  , RO_COUNT
+				  , OP_NO
+				  , REGIST_DATE
+				  , STATUS
+				  , IMG_PATH
+				)
+				VALUES
+				(
+					SEQ_ROOMNO.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , SYSDATE
+				  , 'Y'
+				  , ?
+				)
+				
+		</entry>
+		
 		<entry key="insertHoAttachment">
 			INSERT
 				INTO TB_FILE
@@ -46,6 +98,23 @@
 				  , 'Y'
 				  , SEQ_HOTELNO.CURRVAL
 				  , 'H'
+				  , ?
+				  , ?
+				)
+
+
+		</entry>
+		
+		<entry key="insertRoAttachment">
+			INSERT
+				INTO TB_FILE
+				VALUES
+				(
+					SEQ_FILENO.NEXTVAL
+				  , ?
+				  , 'Y'
+				  , SEQ_ROOMNO.CURRVAL
+				  , 'R'
 				  , ?
 				  , ?
 				)

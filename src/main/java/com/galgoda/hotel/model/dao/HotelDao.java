@@ -2,7 +2,6 @@ package com.galgoda.hotel.model.dao;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
 
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,7 +17,9 @@ import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Option;
 import com.galgoda.hotel.model.vo.Report;
+import com.galgoda.hotel.model.vo.Room;
 import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.HotelUser;
 
@@ -67,6 +68,61 @@ public class HotelDao {
 		}
 		return list;
 	}
+	
+	public Hotel  selectHotelNo(Connection conn, String hotelName) {
+		Hotel h = new Hotel();
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelNo");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				h.setHotelNo(rset.getInt("hotel_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return h;
+	}
+	
+	
+	public List<Option> roomInsertForm(Connection conn){
+		List<Option> list = new ArrayList<>();
+		Option o = null;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("roominsertForm");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				o = new Option();
+				o.setOpNo(rset.getInt("op_no"));
+				o.setOpName(rset.getString("op_name"));
+
+				list.add(o);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 
 
 	public int insertHotel(Connection conn,Hotel h) {
@@ -102,11 +158,67 @@ public class HotelDao {
 		return result;
 
 	}
+	
+	public int insertRoom(Connection conn, Room r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRoom");
+
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getHotelNo());
+			pstmt.setString(2, r.getRoomName());
+			pstmt.setString(3, r.getRoomSize());
+			pstmt.setInt(4, r.getRoPeople());
+			pstmt.setInt(5, r.getRoBath());
+			pstmt.setInt(6, r.getRoPrice());
+			pstmt.setInt(7, r.getRoCount());
+			pstmt.setString(8, r.getOpNo());
+			pstmt.setString(9, r.getImgPath());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+
+	}
 
 	public int insertHoAttachment(Connection conn, List<Attachment> list) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertHoAttachment");
+
+		try {
+			for(Attachment at : list) {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, at.getFilePath());
+				pstmt.setString(2, at.getFileName());
+				pstmt.setString(3, at.getOriginName());
+
+				result = pstmt.executeUpdate();
+			}
+
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertRoAttachment(Connection conn,List<Attachment> list) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertRoAttachment");
 
 		try {
 			for(Attachment at : list) {

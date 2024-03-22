@@ -1,8 +1,6 @@
 package com.galgoda.hotel.model.service;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
-import static com.galgoda.common.template.JDBCTemplate.getConnection;
-import static com.galgoda.common.template.JDBCTemplate.close;
 import static com.galgoda.common.template.JDBCTemplate.commit;
 import static com.galgoda.common.template.JDBCTemplate.getConnection;
 import static com.galgoda.common.template.JDBCTemplate.rollback;
@@ -16,7 +14,9 @@ import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.dao.HotelDao;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Option;
 import com.galgoda.hotel.model.vo.Report;
+import com.galgoda.hotel.model.vo.Room;
 import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.HotelUser;
 
@@ -36,6 +36,24 @@ public class HotelService {
 	
 	}
 	
+	public Hotel  selectHotelNo(String hotelName) {
+		Connection conn = getConnection();
+		
+		Hotel h = hDao.selectHotelNo(conn, hotelName);
+		close(conn);
+		
+		return h;
+	}
+	
+	public List<Option> roomInsertForm(){
+		Connection conn = getConnection();
+		
+		List<Option> list = hDao.roomInsertForm(conn);
+		close(conn);
+		
+		return list;
+	}
+	
 	public int insertHotel(Hotel h, List<Attachment> list) {
 		Connection conn = getConnection();
 		
@@ -46,6 +64,29 @@ public class HotelService {
 		
 		if(!list.isEmpty()) {
 		 result2 = hDao.insertHoAttachment(conn, list);
+		}
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+	}
+	
+	
+	public int insertRoom(Room r, List<Attachment> list) {
+		Connection conn = getConnection();
+		
+		
+		int result2 = 1;
+		
+		int result1 = hDao.insertRoom(conn, r);
+		
+		if(!list.isEmpty()) {
+		 result2 = hDao.insertRoAttachment(conn, list);
 		}
 		
 		if(result1 > 0 && result2 > 0) {
@@ -239,5 +280,7 @@ public class HotelService {
 		return list;
 		
 	}
+	
+	
 	
 }

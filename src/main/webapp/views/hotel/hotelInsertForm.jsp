@@ -71,7 +71,7 @@
                     </li>
                     <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
                     <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelupdateForm.ho">호텔 정보 수정</a></div> </li>  
-                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
+                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath%>/roominsertForm.ho">객실등록</a></div> </li>  
                     <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
                     <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
                     
