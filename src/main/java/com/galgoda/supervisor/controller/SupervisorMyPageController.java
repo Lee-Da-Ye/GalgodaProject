@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.supervisor.model.service.SupervisorService;
+
 /**
  * Servlet implementation class SupervisorMyPageController
  */
@@ -27,6 +29,14 @@ public class SupervisorMyPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		SupervisorService ss = new SupervisorService();
+		String hotelCount = ss.hotelCount();
+		String newInqCount = ss.newInqCount();
+		String termsCount = ss.termsCount();
+		
+		request.setAttribute("hotelCount", hotelCount);
+		request.setAttribute("newInqCount", newInqCount);
+		request.setAttribute("termsCount", termsCount);
 		request.getRequestDispatcher("/views/supervisor/supervisorMain.jsp").forward(request, response);
 	}
 

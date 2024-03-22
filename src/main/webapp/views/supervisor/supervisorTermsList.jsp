@@ -34,7 +34,7 @@
                     </li>
                     
                     <li>
-                        <a href="<%=contextPath %>/termsList.su" class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="" >이용약관 관리</a>
+                        <a href="<%=contextPath %>/termsList.su" class="nav-link" style="background-color: rgb(115, 90, 75); color: white;">이용약관 관리</a>
                     </li>
                         
                     

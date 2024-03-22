@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String termsCount = (String)request.getAttribute("termsCount");
+	String newInqCount = (String)request.getAttribute("newInqCount");
+	String hotelCount = (String)request.getAttribute("hotelCount");
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +117,7 @@ width: 600px;
                     <div class="mypage_shortcut">  
                         <div class="mypage_circle">
                             <div class="mypage_circle_num" id="cirMenu1" >
-                                <a href="<%=contextPath%>" id="cirMenuLink1" class="mypage_cir_menu">40</a>
+                                <a href="<%=contextPath%>/hotelList.su?page=1" id="cirMenuLink1" class="mypage_cir_menu"><%=hotelCount %></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">호텔 등록 현황</button>
@@ -121,7 +126,7 @@ width: 600px;
                         
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">12</a>
+                                <a href="<%=contextPath %>" class="mypage_cir_menu"><%=newInqCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">고객센터 새 문의글</button>
@@ -129,7 +134,7 @@ width: 600px;
                         </div>
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" class="mypage_cir_menu">3</a>
+                                <a href="<%=contextPath %>/termsList.su" class="mypage_cir_menu"><%=termsCount %></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">이용약관 등록 수</button>
