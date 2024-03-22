@@ -135,6 +135,7 @@
 		      , RES_EMAIL = ?
 		      , PAY = ?
 		      , PAY_METHOD = ?
+		      , RES_STATUS = '예약대기'
 		  WHERE RES_NO = ? 
 	</entry>
 	
