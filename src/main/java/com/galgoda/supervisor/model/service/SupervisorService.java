@@ -330,6 +330,65 @@ public class SupervisorService {
 		return termsCount;
 	}
 
+	public Hotel selectHotelForm(int hotelNo) {
+		Connection conn =getConnection();
+		Hotel h = sDao.selectHotelForm(conn,hotelNo);
+		close(conn);
+		
+		return h;
+	}
+
+	public HotelUser selectMem(int memNo) {
+		Connection conn = getConnection();
+		HotelUser mem = sDao.selectMem(conn,memNo);
+		close(conn);
+		
+		return mem;
+	}
+
+	public int updateMem(HotelUser mem) {
+		Connection conn = getConnection();
+		int result = sDao.updateMem(conn,mem);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	public int deleteMem(int memNo) {
+		Connection conn = getConnection();
+		int result = sDao.deleteMem(conn,memNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+
+	public int deleteHotel(int hotelNo) {
+		Connection conn = getConnection();
+		int result = sDao.deleteHotel(conn,hotelNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 	
 	
 }

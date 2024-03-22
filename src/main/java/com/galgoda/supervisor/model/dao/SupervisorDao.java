@@ -862,7 +862,142 @@ public class SupervisorDao {
 		
 		return termsCount;
 	}
+	public Hotel selectHotelForm(Connection conn, int hotelNo) {
+		
+		Hotel h = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelForm");
 	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hotelNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				h = new Hotel();
+				h.setHotelNo(rset.getInt("hotel_no"));
+				h.setHotelName(rset.getString("hotel_name"));
+				h.setHotelAddress(rset.getString("hotel_address"));
+				h.setHotelDetailAdd(rset.getString("hotel_detailadd"));
+				h.setHotelTel(rset.getString("hotel_tel"));
+				h.setHotelSite(rset.getString("hotel_site"));
+				h.setHotelCheckin(rset.getInt("hotel_checkin"));
+				h.setHotelCheckout(rset.getInt("hotel_checkout"));
+				h.setHotelDetail(rset.getString("hotel_detail"));
+				h.setHotelIntro(rset.getString("hotel_intro"));
+				h.setRefundpolicy(rset.getString("refundpolicy"));
+				h.setTagNo(rset.getString("tag_no"));
+				h.setImgPath(rset.getString("img_path"));
+				h.setMemNo(rset.getInt("mem_no"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return h;
+	}
+	public HotelUser selectMem(Connection conn, int memNo) {
+		HotelUser mem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new HotelUser(
+							rset.getInt("mem_no")
+						  ,	rset.getString("mem_id")
+						  , rset.getString("mem_pwd")
+						  , rset.getString("mem_name")
+						  , rset.getString("mem_phone")
+						  , rset.getString("mem_email")
+						  , rset.getDate("regist_date")
+						  , rset.getDate("modify_date")
+						  , rset.getString("status")
+						  , rset.getString("authenticode")
+						  , rset.getString("hotel_name")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return mem;
+	}
+	public int updateMem(Connection conn, HotelUser mem) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mem.getMemName());
+			pstmt.setString(2, mem.getMemPhone());
+			pstmt.setString(3, mem.getMemEmail());
+			pstmt.setInt(4, mem.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 	
+	public int deleteMem(Connection conn, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	public int deleteHotel(Connection conn, int hotelNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteHotel");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hotelNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 	
 }

@@ -148,7 +148,7 @@
             
                     <!-- Modal footer -->
                     <div class="modal-footer center">
-                        <a href="" class="btn btn-secondary" style="width: 80px;">Ok</a>
+                        <button onclick="deleteButton();" class="btn btn-secondary" style="width: 80px;">Ok</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
             
@@ -174,8 +174,8 @@
             	}	
 			    
 			    function deleteButton(){
-			    	userNo = $('input[type="radio"]:checked').closest('tr').children().eq(1).text();
-			    	location.href = "<%=contextPath%>/deleteUser.su?no=" + userNo;
+			    	hotelNo = $('input[type="radio"]:checked').closest('tr').children().eq(1).text();
+			    	location.href = "<%=contextPath%>/deleteHotel.su?no=" + hotelNo;
 			    }
 			</script>
             

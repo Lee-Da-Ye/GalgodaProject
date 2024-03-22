@@ -2,417 +2,490 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectUserList">
-	SELECT *
-	  FROM ( 
-			SELECT ROWNUM RNUM, A.*
-			  FROM (
-					SELECT
-							USER_NO
-						  ,	USER_ID
-						  ,	USER_NAME
-						  ,	USER_ENG_NAME
-						  ,	USER_PWD
-						  ,	NVL(BIRTH_DATE,'미입력') BIRTH_DATE
-						  ,	NVL(EMAIL,'미입력') EMAIL
-						  ,	NVL(PHONE,'미입력') PHONE
-						  , ZIPCODE
-						  ,	NVL(ADDRESS,'미입력') ADDRESS
-						  ,	NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
-						  , ETC
-						  ,	REGIST_DATE
-						  ,	MODIFY_DATE
-						  ,	STATUS
-					   FROM TB_USER
-					  WHERE STATUS = 'Y'
-					  ORDER
-					  	 BY USER_NO DESC
-				  	 ) A
-		  	 )
-	 WHERE   RNUM BETWEEN ? AND ?
-		 
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT
+		USER_NO
+		, USER_ID
+		, USER_NAME
+		, USER_ENG_NAME
+		, USER_PWD
+		, NVL(BIRTH_DATE,'미입력') BIRTH_DATE
+		, NVL(EMAIL,'미입력') EMAIL
+		, NVL(PHONE,'미입력') PHONE
+		, ZIPCODE
+		, NVL(ADDRESS,'미입력') ADDRESS
+		, NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
+		, ETC
+		, REGIST_DATE
+		, MODIFY_DATE
+		, STATUS
+		FROM TB_USER
+		WHERE STATUS = 'Y'
+		ORDER
+		BY USER_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
 	</entry>
-	
+
 	<!-- 유저한명 조회 -->
 	<entry key="selectUser">
 		SELECT
-				USER_NO
-			  ,	USER_ID
-			  ,	USER_NAME
-			  ,	USER_ENG_NAME
-			  ,	USER_PWD
-			  ,	NVL(BIRTH_DATE,'미입력') BIRTH_DATE
-			  ,	NVL(EMAIL,'미입력') EMAIL
-			  ,	NVL(PHONE,'미입력') PHONE
-			  , ZIPCODE
-			  ,	NVL(ADDRESS,'미입력') ADDRESS
-			  ,	NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
-			  , ETC
-			  ,	REGIST_DATE
-			  ,	MODIFY_DATE
-			  ,	STATUS
-		   FROM TB_USER
-		  WHERE USER_NO = ?
+		USER_NO
+		, USER_ID
+		, USER_NAME
+		, USER_ENG_NAME
+		, USER_PWD
+		, NVL(BIRTH_DATE,'미입력') BIRTH_DATE
+		, NVL(EMAIL,'미입력') EMAIL
+		, NVL(PHONE,'미입력') PHONE
+		, ZIPCODE
+		, NVL(ADDRESS,'미입력') ADDRESS
+		, NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
+		, ETC
+		, REGIST_DATE
+		, MODIFY_DATE
+		, STATUS
+		FROM TB_USER
+		WHERE USER_NO = ?
 	</entry>
-	
-	<entry key ="updateUser">
-		UPDATE 
-		  		TB_USER
-		   SET	USER_NAME = ?
-		   	 ,	PHONE = ?
-		   	 ,	EMAIL = ? 
-		   	 , 	ADDRESS	= ?
-		   	 ,	ADDRESS_DETAIL= ?
-		 WHERE	USER_ID = ?
-		   
+
+	<entry key="updateUser">
+		UPDATE
+		TB_USER
+		SET USER_NAME = ?
+		, PHONE = ?
+		, EMAIL = ?
+		, ADDRESS = ?
+		, ADDRESS_DETAIL= ?
+		WHERE USER_ID = ?
+
 	</entry>
-	
+
 	<entry key="selectTermsList">
-		SELECT 
-				TERMS_NO
-			  ,	TERMS_TITLE
-			  ,	TERMS_CONTENT
-			  ,	ADMIN_ID
-			  , NVL(NOTES,' ') NOTES
-			  ,	REGIST_DATE
-			  ,	MODIFY_DATE
-			  ,	T.STATUS STATUS
-		  FROM 	TB_TERMS T
-		  JOIN  TB_ADMIN USING(ADMIN_NO)
-		 WHERE 	T.STATUS = 'Y'
-		 ORDER
-		 	BY	TERMS_NO DESC
-	
+		SELECT
+		TERMS_NO
+		, TERMS_TITLE
+		, TERMS_CONTENT
+		, ADMIN_ID
+		, NVL(NOTES,' ') NOTES
+		, REGIST_DATE
+		, MODIFY_DATE
+		, T.STATUS STATUS
+		FROM TB_TERMS T
+		JOIN TB_ADMIN USING(ADMIN_NO)
+		WHERE T.STATUS = 'Y'
+		ORDER
+		BY TERMS_NO DESC
+
 	</entry>
-	
+
 	<entry key="selectHotelList">
 		SELECT *
-		  FROM (
-				SELECT ROWNUM RNUM, A.*
-        		  FROM (
-		                SELECT TM.MEM_NO
-		                     , MEM_NAME
-		                     , MEM_ID
-		                     , HOTEL_NAME
-		                     , MEM_EMAIL
-		                     , MEM_PHONE
-		                     , HOTEL_NO
-		                     , HOTEL_ADDRESS
-		                  FROM TB_MEM TM
-		                  LEFT JOIN TB_HOTEL TH USING(HOTEL_NAME)
-		                 WHERE TH.STATUS = 'Y'
-		                   AND TM.STATUS = 'Y'
-		                 order 
-		                    by TM.MEM_NO DESC
-             			) A
-             	)
-    	WHERE   RNUM BETWEEN ? AND ?
-		
-	
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT TM.MEM_NO
+		, MEM_NAME
+		, MEM_ID
+		, HOTEL_NAME
+		, MEM_EMAIL
+		, MEM_PHONE
+		, HOTEL_NO
+		, HOTEL_ADDRESS
+		FROM TB_MEM TM
+		LEFT JOIN TB_HOTEL TH USING(HOTEL_NAME)
+		WHERE TH.STATUS = 'Y'
+		AND TM.STATUS = 'Y'
+		order
+		by TM.MEM_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+
 	</entry>
-	
+
 	<entry key="selectHotelListCount">
 		SELECT COUNT(*) COUNT
-		  FROM TB_HOTEL
-		 WHERE STATUS = 'Y'
-		   AND HOTEL_NAME IS NOT NULL
+		FROM TB_HOTEL
+		WHERE STATUS = 'Y'
+		AND HOTEL_NAME IS NOT NULL
 	</entry>
 	<entry key="selectCodeCount">
 		SELECT COUNT(*) COUNT
-		  FROM TB_MEM
-		 WHERE STATUS = 'Y'
-		 
+		FROM TB_MEM
+		WHERE STATUS = 'Y'
+
 	</entry>
 	<entry key="insertTerm">
-		INSERT 
-		  INTO TB_TERMS
-		  (
-		  	TERMS_NO
-		  ,	TERMS_TITLE
-		  ,	TERMS_CONTENT
-		  ,	ADMIN_NO
-		  ,	NOTES
-		  )
-		  VALUES
-		  (
-		  	SEQ_TERMNO.NEXTVAL
-		  ,	?
-		  , ?
-		  , ?
-		  , ?
-		  )
+		INSERT
+		INTO TB_TERMS
+		(
+		TERMS_NO
+		, TERMS_TITLE
+		, TERMS_CONTENT
+		, ADMIN_NO
+		, NOTES
+		)
+		VALUES
+		(
+		SEQ_TERMNO.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, ?
+		)
 	</entry>
-	
-	<entry key = "insertTermAt">
-    	INSERT 
-    	  INTO TB_FILE
-    	(
-    		FILE_NO
-		  ,	REF_NO
-		  ,	FILE_NAME
-		  ,	FILE_PATH  
-		  , REF_TYPE 
-		  , STATUS 	
-    	)
-    	VALUES
-    	(
-    		SEQ_FILENO.NEXTVAL
-    	  , SEQ_TERMNO.CURRVAL
-    	  , ?
-    	  , ?
-    	  , 'T'
-    	  ,	'Y'
-    	)	
+
+	<entry key="insertTermAt">
+		INSERT
+		INTO TB_FILE
+		(
+		FILE_NO
+		, REF_NO
+		, FILE_NAME
+		, FILE_PATH
+		, REF_TYPE
+		, STATUS
+		)
+		VALUES
+		(
+		SEQ_FILENO.NEXTVAL
+		, SEQ_TERMNO.CURRVAL
+		, ?
+		, ?
+		, 'T'
+		, 'Y'
+		)
 	</entry>
 	<entry key="detailTerms">
-	 SELECT	
-	 		TERMS_NO
-		 ,	TERMS_TITLE
-		 ,	TERMS_CONTENT
-		 ,	ADMIN_ID
-		 ,	NVL(NOTES,' ') NOTES
-		 ,	MODIFY_DATE
-	   FROM TB_TERMS
-	   JOIN TB_ADMIN USING (ADMIN_NO)
-	  WHERE TERMS_NO = ?
+		SELECT
+		TERMS_NO
+		, TERMS_TITLE
+		, TERMS_CONTENT
+		, ADMIN_ID
+		, NVL(NOTES,' ') NOTES
+		, MODIFY_DATE
+		FROM TB_TERMS
+		JOIN TB_ADMIN USING (ADMIN_NO)
+		WHERE TERMS_NO = ?
 	</entry>
-	
+
 	<entry key="selectFile">
-		SELECT 
-				FILE_NO
-			  ,	FILE_PATH
-			  ,	STATUS
-			  ,	REF_NO
-			  ,	REF_TYPE
-			  ,	FILE_NAME
-		  FROM	TB_FILE
-		 WHERE 	REF_NO = ?
-		   AND	REF_TYPE = 'T'	
+		SELECT
+		FILE_NO
+		, FILE_PATH
+		, STATUS
+		, REF_NO
+		, REF_TYPE
+		, FILE_NAME
+		FROM TB_FILE
+		WHERE REF_NO = ?
+		AND REF_TYPE = 'T'
 	</entry>
-	
+
 	<entry key="updateTerm">
 		UPDATE
-				TB_TERMS
-		   SET		
-		   		TERMS_TITLE = ?
-		   	  ,	TERMS_CONTENT = ?
-		   	  , NOTES = ?
-		  WHERE	TERMS_NO =?		   	  
-		
+		TB_TERMS
+		SET
+		TERMS_TITLE = ?
+		, TERMS_CONTENT = ?
+		, NOTES = ?
+		WHERE TERMS_NO =?
+
 	</entry>
-	
+
 	<entry key="updateTermAt">
-		UPDATE 
-				TB_FILE
-		   SET	
-		   		FILE_NAME = ?
-		   	  ,	FILE_PATH = ? 
-		  WHERE FILE_NO = ?		   	  
+		UPDATE
+		TB_FILE
+		SET
+		FILE_NAME = ?
+		, FILE_PATH = ?
+		WHERE FILE_NO = ?
 	</entry>
-	
+
 	<entry key="insertNewTermAt">
-		INSERT 
-    	  INTO TB_FILE
-    	(
-    		FILE_NO
-		  ,	REF_NO
-		  ,	FILE_NAME
-		  ,	FILE_PATH  
-		  , REF_TYPE 
-		  , STATUS 	
-    	)
-    	VALUES
-    	(
-    		SEQ_FILENO.NEXTVAL
-    	  , ?
-    	  , ?
-    	  , ?
-    	  , 'T'
-    	  ,	'Y'
-    	)		
+		INSERT
+		INTO TB_FILE
+		(
+		FILE_NO
+		, REF_NO
+		, FILE_NAME
+		, FILE_PATH
+		, REF_TYPE
+		, STATUS
+		)
+		VALUES
+		(
+		SEQ_FILENO.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, 'T'
+		, 'Y'
+		)
 	</entry>
-	
+
 	<entry key="deleteTerm">
 		UPDATE
-				TB_TERMS
-		   SET	STATUS = 'N'
-		 WHERE	TERMS_NO = ?
-	
+		TB_TERMS
+		SET STATUS = 'N'
+		WHERE TERMS_NO = ?
+
 	</entry>
-	
+
 	<entry key="selectUserListCount">
 		SELECT COUNT(*) COUNT
-		  FROM TB_USER
-		 WHERE STATUS = 'Y'
+		FROM TB_USER
+		WHERE STATUS = 'Y'
 	</entry>
-	
+
 	<entry key="deleteUser">
 		UPDATE
-				TB_USER
-		   SET  STATUS = 'N'
-		 WHERE	USER_NO = ?
+		TB_USER
+		SET STATUS = 'N'
+		WHERE USER_NO = ?
 	</entry>
-	
+
 	<entry key="selectCodeList">
 		SELECT *
-		  FROM (
-				SELECT ROWNUM RNUM, A.*
-				  FROM (
-						SELECT 
-								MEM_NO
-							  ,	NVL(MEM_NAME,'미배정') MEM_NAME
-							  ,	AUTHENTICODE
-							  ,	HOTEL_NAME
-						  FROM	TB_MEM
-						 WHERE	STATUS = 'Y'
-						 ORDER
-						 	BY	MEM_NO DESC
-						) A
-				)
-		  WHERE  RNUM BETWEEN ? AND ?				
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT
+		MEM_NO
+		, NVL(MEM_NAME,'미배정') MEM_NAME
+		, AUTHENTICODE
+		, HOTEL_NAME
+		FROM TB_MEM
+		WHERE STATUS = 'Y'
+		ORDER
+		BY MEM_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	<entry key="selectCode">
+		SELECT
+		NVL(MEM_NAME,'미배정') MEM_NAME
+		, AUTHENTICODE
+		, HOTEL_NAME
+		, MEM_NO
+		FROM TB_MEM
+		WHERE MEM_NO = ?
+	</entry>
+
+	<entry key="updateCode">
+		UPDATE
+		TB_MEM
+		SET
+		MEM_NAME = ?
+		, AUTHENTICODE = ?
+		, HOTEL_NAME = ?
+		WHERE MEM_NO = ?
+	</entry>
+
+	<entry key="deleteCode">
+		UPDATE
+		TB_MEM
+		SET
+		STATUS = 'N'
+		WHERE MEM_NO = ?
+	</entry>
+
+	<entry key="insertCode">
+		INSERT
+		INTO TB_MEM
+		(
+		MEM_NO
+		, AUTHENTICODE
+		, HOTEL_NAME
+		)
+		VALUES
+		(
+		SEQ_MEMNO.NEXTVAL
+		, ?
+		, ?
+		)
+	</entry>
+
+	<entry key="selectTagList">
+		SELECT
+		TAG_NO
+		, TAG_NAME
+		, STATUS
+		FROM TB_TAG
+		WHERE STATUS ='Y'
+	</entry>
+
+	<entry key="selectOptionList">
+		SELECT
+		OP_NO
+		, OP_NAME
+		, STATUS
+		FROM TB_OPTION
+		WHERE STATUS ='Y'
+	</entry>
+
+	<entry key="insertTag">
+		INSERT
+		INTO TB_TAG
+		VALUES (
+		SEQ_TAGNO.NEXTVAL
+		, ?
+		, 'Y'
+		)
+	</entry>
+
+	<entry key="updateTag">
+		UPDATE
+		TB_TAG
+		SET TAG_NAME = ?
+		WHERE TAG_NAME = ?
+	</entry>
+
+	<entry key="deleteTag">
+		UPDATE
+		TB_TAG
+		SET STATUS = 'N'
+		WHERE TAG_NAME = ?
+	</entry>
+
+	<entry key="insertOption">
+		INSERT
+		INTO TB_Option
+		VALUES (
+		SEQ_OPNO.NEXTVAL
+		, ?
+		, 'Y'
+		)
+	</entry>
+
+	<entry key="updateOption">
+		UPDATE
+		TB_Option
+		SET OP_NAME = ?
+		WHERE OP_NAME = ?
+	</entry>
+
+	<entry key="deleteOption">
+		UPDATE
+		TB_Option
+		SET STATUS = 'N'
+		WHERE OP_NAME = ?
+	</entry>
+
+	<entry key="detailHotel">
+		SELECT
+		HOTEL_NO
+		, HOTEL_NAME
+		, HOTEL_ADDRESS
+		, HOTEL_DETAILADD
+		, HOTEL_TEL
+		, HOTEL_SITE
+		, HOTEL_CHECKIN
+		, HOTEL_CHECKOUT
+		, HOTEL_DETAIL
+		, NVL(HOTEL_INTRO,'없음') HOTEL_INTRO
+		, REFUNDPOLICY
+		, STATUS
+		, TAG_NO
+		, IMG_PATH
+		, MEM_NO
+		FROM TB_HOTEL
+		WHERE HOTEL_NO = ?
+	</entry>
+
+	<entry key="hotelCount">
+		SELECT COUNT(*) COUNT
+		FROM TB_HOTEL
+		WHERE STATUS = 'Y'
+	</entry>
+
+	<entry key="termsCount">
+		SELECT COUNT(*) COUNT
+		FROM TB_TERMS
+		WHERE STATUS = 'Y'
+
+	</entry>
+
+	<entry key="selectAttachment">
+		SELECT
+		FILE_NO
+		, FILE_PATH
+		, FILE_NAME
+		, FILE_ORIGIN_NAME
+		FROM TB_FILE
+		WHERE REF_NO = ?
+		AND REF_TYPE = 'H'
+		AND STATUS = 'Y'
+	</entry>
+
+	<entry key="selectHotelForm">
+		SELECT
+		HOTEL_NO
+		, HOTEL_NAME
+		, HOTEL_ADDRESS
+		, HOTEL_DETAILADD
+		, HOTEL_TEL
+		, HOTEL_SITE
+		, HOTEL_CHECKIN
+		, HOTEL_CHECKOUT
+		, HOTEL_DETAIL
+		, NVL(HOTEL_INTRO,'없음') HOTEL_INTRO
+		, REFUNDPOLICY
+		, TAG_NO
+		, IMG_PATH
+		, MEM_NO
+		FROM TB_HOTEL
+		WHERE HOTEL_NO = ?
+	</entry>
+
+	<entry key="selectMem">
 		SELECT 
-				NVL(MEM_NAME,'미배정') MEM_NAME 
+				MEM_NO
+			  ,	MEM_ID
+			  ,	MEM_PWD
+			  ,	MEM_NAME
+			  ,	NVL(MEM_PHONE,'미입력') MEM_PHONE
+			  ,	NVL(MEM_EMAIL,'미입력') MEM_EMAIL
+			  ,	REGIST_DATE
+			  ,	MODIFY_DATE
+			  ,	STATUS
 			  ,	AUTHENTICODE
 			  ,	HOTEL_NAME
-			  ,	MEM_NO
 		  FROM	TB_MEM
 		 WHERE	MEM_NO = ?
 	</entry>
 	
-	<entry key="updateCode">
-		UPDATE
+	<entry key="updateMem">
+		UPDATE 
 				TB_MEM
 		   SET	
 		   		MEM_NAME = ?
-			  ,	AUTHENTICODE = ?
-			  ,	HOTEL_NAME = ?		   		
-		  WHERE	MEM_NO = ?
+		   	  ,	MEM_PHONE = ?
+		   	  , MEM_EMAIL = ?
+		 WHERE	MEM_NO = ?
 	</entry>
-	
-	<entry key="deleteCode">
+	<entry key="deleteMem">
 		UPDATE 
 				TB_MEM
 		   SET	
-		   		STATUS = 'N'
-		 WHERE	MEM_NO = ?			   		
+		   		STATUS ='N'
+		 WHERE	MEM_NO = ?
 	</entry>
 	
-	<entry key="insertCode">
-		 INSERT 
-		   INTO TB_MEM
-		   		(	
-		   			MEM_NO
-		   		  ,	AUTHENTICODE
-			  	  , HOTEL_NAME
-		   		)
-		   		VALUES
-		   		(	
-		   			SEQ_MEMNO.NEXTVAL
-		   		  ,	?
-		   		  , ?
-		   		) 
-	</entry>
-	
-	<entry key="selectTagList">
-		SELECT 
-				TAG_NO
-			  ,	TAG_NAME
-			  , STATUS
-		  FROM	TB_TAG
-		 WHERE	STATUS ='Y'
-	</entry>
-	
-	<entry key="selectOptionList">
-		SELECT 
-				OP_NO
-			  ,	OP_NAME
-			  , STATUS
-		  FROM	TB_OPTION
-		 WHERE	STATUS ='Y'
-	</entry>
-	
-	<entry key="insertTag">
-		INSERT 
-		  INTO	TB_TAG
-		VALUES (
-					SEQ_TAGNO.NEXTVAL
-				  ,	?
-				  , 'Y'
-			   )
-	</entry>
-	
-	<entry key="updateTag">
+	<entry key="deleteHotel">
 		UPDATE 
-		  		TB_TAG
-		   SET 	TAG_NAME = ?
-		 WHERE  TAG_NAME = ?
+				TB_HOTEL
+		   SET	
+		   		STATUS ='N'
+		 WHERE	HOTEL_NO = ?
 	</entry>
-	
-	<entry key="deleteTag">
-		UPDATE 
-		  		TB_TAG
-		   SET 	STATUS = 'N'
-		 WHERE  TAG_NAME = ?
-	</entry>
-	
-	<entry key="insertOption">
-		INSERT 
-		  INTO	TB_Option
-		VALUES (
-					SEQ_OPNO.NEXTVAL
-				  ,	?
-				  , 'Y'
-			   )
-	</entry>
-	
-	<entry key="updateOption">
-		UPDATE 
-		  		TB_Option
-		   SET 	OP_NAME = ?
-		 WHERE  OP_NAME = ?
-	</entry>
-	
-	<entry key="deleteOption">
-		UPDATE 
-		  		TB_Option
-		   SET 	STATUS = 'N'
-		 WHERE  OP_NAME = ?
-	</entry>
-	
-	<entry key="detailHotel">
-		SELECT 
-					HOTEL_NO
-				  , HOTEL_NAME
-				  , HOTEL_ADDRESS
-				  , HOTEL_DETAILADD
-				  , HOTEL_TEL
-				  , HOTEL_SITE
-				  , HOTEL_CHECKIN
-				  , HOTEL_CHECKOUT
-				  , HOTEL_DETAIL
-				  , NVL(HOTEL_INTRO,'없음') HOTEL_INTRO
-				  , REFUNDPOLICY
-				  , STATUS
-				  , TAG_NO
-				  , IMG_PATH
-				  , MEM_NO
-			 FROM TB_HOTEL
-			WHERE HOTEL_NO = ?	
-	</entry>
-	
-	<entry key ="hotelCount">
-		SELECT COUNT(*) COUNT
-		  FROM TB_HOTEL
-		 WHERE STATUS = 'Y'
-	</entry>
-	
-	<entry key="termsCount">
-		SELECT COUNT(*) COUNT
-		  FROM TB_TERMS
-		 WHERE STATUS = 'Y'
-		 
-	</entry>
-	
 	
 </properties>
