@@ -55,7 +55,7 @@ public class CustomerResUpdateFormController extends HttpServlet {
 	        }
 	    }
 
-		System.out.println(selectedReservation);
+		
 	    
 	    request.setAttribute("selectedReservation", selectedReservation); //
 		
