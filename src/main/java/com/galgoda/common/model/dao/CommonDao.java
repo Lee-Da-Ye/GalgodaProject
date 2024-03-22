@@ -17,6 +17,7 @@ import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
+import com.galgoda.supervisor.model.vo.Terms;
 
 
 public class CommonDao {
@@ -485,6 +486,39 @@ public class CommonDao {
 
 		return popularHotelList;
 		
+	}
+
+	public List<Terms> selectTermsList(Connection conn) {
+		List<Terms> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		String sql = prop.getProperty("selectTermsList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Terms(
+							rset.getInt("terms_no")
+						  ,	rset.getString("terms_title")
+						  , rset.getString("terms_content")
+						  , rset.getString("admin_id")
+						  , rset.getString("notes")
+						  , rset.getString("regist_date")
+						  , rset.getString("modify_date")
+						  , rset.getString("status")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 }

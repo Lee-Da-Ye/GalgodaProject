@@ -13,6 +13,7 @@ import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
+import com.galgoda.supervisor.model.vo.Terms;
 
 public class CommonService {
 	
@@ -242,4 +243,12 @@ public class CommonService {
     	return popularHotelList;
     	
     }
+
+	public List<Terms> selectTermsList() {
+		Connection conn = getConnection();
+		List<Terms> list = cDao.selectTermsList(conn);
+		close(conn);
+		
+		return list;
+	}
 }
