@@ -95,17 +95,80 @@
 		    });
 		});
 
+		
+		$(document).ready(function() {
+		    // 예약 인원이 3명이면 스위트룸만 선택 가능하도록 설정
+		    $('#resPeople').change(function() {
+		        var capacity = parseInt($(this).val());
+		        if (capacity === 3) {
+		            $("select[name='roomType'] option").each(function() {
+		                if ($(this).val() !== '4') { // 스위트룸이 아닌 경우 비활성화
+		                    $(this).prop("disabled", true);
+		                } else { // 스위트룸인 경우 활성화
+		                    $(this).prop("disabled", false);
+		                }
+		            });
+		        } else {
+		            // 예약 인원이 3명이 아니면 모든 옵션 활성화
+		            $("select[name='roomType'] option").prop("disabled", false);
+		        }
+		    });
+		});
+		
+		// 예약인원, 룸 타입 선택에 따른 결제금액 업데이트
+	   	$(document).ready(function() {
+		   	 $('#checkInDate, #checkOutDate, #roomType').on('change', function() {
+		         // 선택된 체크인 날짜와 체크아웃 날짜 가져오기
+		         var checkInDate = moment($('#checkInDate').val(), 'YYYY년 MM월 DD일');
+		         var checkOutDate = moment($('#checkOutDate').val(), 'YYYY년 MM월 DD일');
+		         
+		         // 숙박 일수 계산
+		         var numberOfNights = getNumberOfNights(checkInDate, checkOutDate);
+		         
+		         // 선택된 룸 타입 가져오기
+		         var roomType = parseInt($('select[name="roomType"]').val());
+		         
+		         // 가격 계산 : (숙박일수 * 객실 가격)
+		         var roomPrice = calculateRoomPrice(roomType);
+		         var totalPrice = numberOfNights * roomPrice;
+		         
+		         // 화면에 결제금액 업데이트
+		         $('input[name="resPay"]').val(totalPrice);
+	     	});
+		    
+		    // 객실 가격 계산 함수
+		    function calculateRoomPrice(roomType) {
+		        // 각각의 객실 타입에 따른 가격을 반환하는 로직 작성
+		        switch (roomType) {
+		            case 1: // 스탠다드 더블
+		                return 100000; 
+		            case 2: // 디럭스 트윈
+		                return 150000; 
+		            case 3: // 슈페리어 킹
+		                return 120000; 
+		            case 4: // 스위트룸
+		                return 200000;
+		            case 5: // 스탠다드 싱글
+		                return 80000; 
+		            default:
+		                return 0;
+		        }
+		    }
+		});
 
-
-
-
-
+		
+	 	// 숙박 일수 계산 함수
+	    function getNumberOfNights(checkInDate, checkOutDate) {
+	        return checkOutDate.diff(checkInDate, 'days');
+	    }
 		
 		// form 제출 함수
 		function submitForm() {
 		    var form = document.getElementById('updateForm');
 		    form.submit();
 		}
+		
+		
     	 
 </script>
 
@@ -191,18 +254,17 @@
                                 <tr>
                                     <th>예약인원</th>
                                     <td colspan="3">
-                                        <select name="resPeople" class="form-control">
-                                            <option value="1" selected>1명</option>
+                                        <select id="resPeople" name="resPeople" class="form-control">
+                                            <option value="1">1명</option>
                                             <option value="2">2명</option>
                                             <option value="3">3명</option>
-                                            <option value="4">4명</option>
                                     </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>객실타입</th>
                                     <td colspan="3">
-                                        <select name="roomType" class="form-control">
+                                        <select name="roomType" id="roomType" class="form-control">
                                                 <option value="1">스탠다드더블</option>
                                                 <option value="2">디럭스트윈</option>
                                                 <option value="3">슈페리어킹</option>
@@ -294,8 +356,8 @@
                                     <td><input type="text" name="resEmail" class="form-control" required value="<%=selectedReservation.getResEmail()%>"></td>
                                 </tr>
                                 <tr>
-                                    <th>결제금액</th>
-                                    <td><input type="text" name="resPay" class="form-control" required value="<%=selectedReservation.getPay()%>"></td>
+                                    <th>결제금액(원)</th>
+                                    <td><input type="text" name="resPay" class="form-control" required value="<%=selectedReservation.getPay() %>"></td>
                                 </tr>
                                 <tr>
                                     <th>결제수단</th>

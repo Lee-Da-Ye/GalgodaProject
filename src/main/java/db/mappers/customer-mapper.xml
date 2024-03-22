@@ -24,8 +24,9 @@
 			  ,	RES_EMAIL
 			  , H.IMG_PATH
               , RO_NAME
+              , RO_PRICE
               , OP_NAME
-			  FROM TB_RES_INFO RI
+			  FROM TB_RES_INFO
 			  JOIN TB_HOTEL H USING (HOTEL_NO)
               JOIN TB_ROOM R USING (HOTEL_NO)
             WHERE USER_NO = ?

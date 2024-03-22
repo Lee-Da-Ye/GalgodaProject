@@ -62,6 +62,7 @@ public class CustomerDao {
 										       , rset.getString("res_email")
 										       , rset.getString("img_path")
 										       , rset.getString("ro_name")
+										       , rset.getInt("ro_price")
 										       , rset.getString("op_name")));
 			}
 			
