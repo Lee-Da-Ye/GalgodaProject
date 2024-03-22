@@ -27,7 +27,7 @@ public class FaqHotelListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getRequestDispatcher("views/customerService/faqHotel.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/customerService/faqHotel.jsp").forward(request, response);
 	}
 
 	/**
