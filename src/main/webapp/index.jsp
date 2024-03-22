@@ -102,7 +102,7 @@
 		<section class="mainpage_content">
             <div class="main_image"><img src="<%=contextPath%>/resources/images/mainPageImg.jpg" width="100%" alt="메인홈페이지 이미지"></div>
             <div class="main_top">
-                <form id="searchForm" action="<%= contextPath %>/search.main" method="get">
+                <form id="searchForm" action="<%= contextPath %>/search.res" method="get">
                     <table class="main_searchBar">
                         <thead>
                             <tr>
