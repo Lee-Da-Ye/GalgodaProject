@@ -257,6 +257,12 @@
 		 WHERE INQ_NO = ?
 	</entry>
 	
+	<entry key="deleteInq">
+		UPDATE TB_INQ
+		   SET STATUS = 'N'
+		 WHERE INQ_NO = ?
+	</entry>
+	
 	<entry key="selectReportUserList">
 		SELECT *
 		  FROM(
@@ -271,6 +277,7 @@
                       FROM TB_REPORT R
                       JOIN TB_USER ON (REP_REF_NO = USER_NO)
                      WHERE REP_TYPE = 'U'
+                       AND R.STATUS != 'C' 
                      ORDER
                         BY 1 DESC
                           ) A
@@ -293,6 +300,7 @@
                       JOIN TB_REVIEW ON (REP_REF_NO = REV_NO)
                       JOIN TB_USER USING (USER_NO)
                      WHERE REP_TYPE = 'R'
+                       AND R.STATUS != 'C'
                      ORDER
                         BY 1 DESC
                     ) A
@@ -307,6 +315,7 @@
 		     , RES_NO
 		     , REP_REASON
 		     , REP_CONTENT
+		     , REP_TYPE
 		  FROM TB_REPORT
 		  JOIN TB_USER ON (REP_REF_NO = USER_NO)
 		 WHERE REP_NO = ?
@@ -323,9 +332,47 @@
 		     , REV_TITLE
 		     , REV_CONTENT
 		     , R.FILE_NO
+		     , REP_TYPE
 		  FROM TB_REPORT R
 		  JOIN TB_REVIEW V ON (REP_REF_NO = REV_NO)
 		  JOIN TB_USER USING (USER_NO)
 		 WHERE REP_NO = ?
 	</entry>
+	
+	<entry key="deleteReportReview">
+		UPDATE TB_REPORT
+		   SET STATUS = 'Y'
+		 WHERE REP_REF_NO = ?
+		   AND REP_TYPE = 'R'
+	</entry>
+	
+	<entry key="deleteReview">
+		UPDATE TB_REVIEW
+			   SET STATUS = 'N'
+			 WHERE REV_NO = ?
+	</entry>
+	
+	<entry key="deleteReportUser">
+		UPDATE TB_REPORT
+		   SET STATUS = 'Y'
+		 WHERE REP_REF_NO = (
+		 						SELECT USER_NO
+		 						  FROM TB_USER
+		 						 WHERE USER_ID = ?
+		 					)
+		   AND REP_TYPE = 'U'
+	</entry>
+	
+	<entry key="deleteUser">
+		UPDATE TB_USER
+		   SET STATUS = 'N'
+		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="cancelReport">
+		UPDATE TB_REPORT
+		   SET STATUS = 'C'
+		 WHERE REP_NO = ?
+	</entry>
+	
 </properties>

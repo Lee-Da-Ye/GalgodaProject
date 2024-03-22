@@ -87,8 +87,8 @@
                         </tr>
                         <tr>
                             <td colspan="2" align="center">
-                                <button type="button" class="btn" style="background-color: rgb(115, 90, 75); color: white;" onclick="deleteUser();">사용자 삭제</button>
-                                <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="cancelRep();">신고 취소</button>
+                                <a href="<%= contextPath %>/userDelete.rep?userId=<%= r.getUserId() %>" class="btn" style="background-color: rgb(115, 90, 75); color: white;" onclick="deleteUser();">사용자 삭제</a>
+                                <a href="<%= contextPath %>/cancel.rep?no=<%= r.getRepNo() %>&type=<%= r.getRepType() %>" class="btn" style="background-color: rgb(235, 231, 227);" onclick="cancelRep();">신고 취소</a>
                             </td>
                             
                         </tr>
@@ -98,15 +98,11 @@
             <script>
                 // 신고계정삭제하는 메소드
                 function deleteUser(){
-                    if(confirm("해당 사용자의 계정을 삭제하시겠습니까?")){
-                        alert("해당 사용자의 계정이 삭제되었습니다.");
-                    }
+                    confirm("해당 사용자의 계정을 삭제하시겠습니까?");
                 }
                 // 신고취소하는 메소드
                 function cancelRep(){
-                    if(confirm("해당 사용자에 대한 신고를 취소시키시겠습니까?")){
-                        alert("해당 신고가 취소처리되었습니다.");
-                    }
+                    confirm("해당 사용자에 대한 신고를 취소시키시겠습니까?");
                 }
             </script>
 
