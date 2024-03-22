@@ -106,4 +106,17 @@ public class InqService {
 		close(conn);
 		return count;
 	}
+	
+	public int deleteInq(int inqNo) {
+		Connection conn = getConnection();
+		int result = iDao.deleteInq(conn, inqNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }

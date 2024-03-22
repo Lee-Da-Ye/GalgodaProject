@@ -45,12 +45,16 @@ public class InqListController extends HttpServlet {
 		int startPage; 
 		int endPage; 
 		String hotelName;
+		String category;
 		
 		if(request.getSession().getAttribute("loginHotel") != null) {
 			hotelName = ((HotelUser)request.getSession().getAttribute("loginHotel")).getHotelName();
 			listCount = new InqService().selectInqHotelListCount(hotelName);
-		}else {
+		}else if(request.getSession().getAttribute("loginCustomer") != null) {
 			listCount = new InqService().selectInqListCount();
+		}else {
+			category = request.getParameter("cateogry");
+			listCount = new InqService().selectInqHotelListCount(category);
 		}
 		currentPage = Integer.parseInt(request.getParameter("page"));
 		pageLimit = 5;
@@ -66,8 +70,11 @@ public class InqListController extends HttpServlet {
 		if(request.getSession().getAttribute("loginHotel") != null) {
 			hotelName = ((HotelUser)request.getSession().getAttribute("loginHotel")).getHotelName();
 			list1 = new InqService().selectInqHotelList(pi, hotelName);
-		}else {
+		}else if(request.getSession().getAttribute("loginCustomer") != null) {
 			list1 = new InqService().selectInqUserList(pi);
+		}else {
+			category = request.getParameter("cateogry");
+			list1 = new InqService().selectInqHotelList(pi, category);
 		}
 		List<Hotel> list2 = new InqService().selectHotelName();
 		

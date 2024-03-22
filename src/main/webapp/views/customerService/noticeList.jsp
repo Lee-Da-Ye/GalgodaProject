@@ -56,11 +56,11 @@
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="#" data-toggle="collapse" data-target="#demo">공지사항</a>
+                        <a class="nav-link" style="color: white;" href="<%= contextPath %>/list.no?page=1">공지사항</a>
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#demo2">자주 묻는 질문</a>
+                        <a class="nav-link" href="<%= contextPath %>/hotel.faq">자주 묻는 질문</a>
                     </li>
                 </ul>
             </div>
@@ -120,7 +120,7 @@
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="list.no">공지사항</a>
+                        <a class="nav-link" style="color: white;" href="list.no?page=1">공지사항</a>
                     </li>
 
                     <li>
@@ -137,7 +137,7 @@
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">문의내역</a>
+                            <a href="<%= contextPath %>/list.inq?page=1">문의내역</a>
                         </div>
                     </li>
 
@@ -221,7 +221,7 @@
                          <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
                     <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
-                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="list.inq">문의사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="list.inq?page=1">문의사항</a></div> </li>   
                 </ul>
             </div>
             
@@ -287,7 +287,7 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" href="<%= contextPath %>/list.inq">문의사항 관리</a>
+                        <a class="nav-link" href="<%= contextPath %>/list.inq?page=1">문의사항 관리</a>
                     </li>
 
                     <li>
@@ -295,12 +295,12 @@
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="<%= contextPath %>/userList.rep">신고 계정 관리</a>
+                            <a href="<%= contextPath %>/userList.rep?page=1">신고 계정 관리</a>
                         </div>
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="<%= contextPath %>/reviewList.rep">신고 리뷰 관리</a>
+                            <a href="<%= contextPath %>/reviewList.rep?page=1">신고 리뷰 관리</a>
                         </div>
                     </li>
                 </ul>

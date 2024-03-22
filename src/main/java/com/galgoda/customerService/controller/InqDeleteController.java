@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.galgoda.customerService.model.service.InqService;
-import com.galgoda.customerService.model.vo.Inq;
 
 /**
- * Servlet implementation class InqAnswerController
+ * Servlet implementation class InqDeleteController
  */
-@WebServlet("/answer.inq")
-public class InqAnswerController extends HttpServlet {
+@WebServlet("/delete.inq")
+public class InqDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InqAnswerController() {
+    public InqDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +29,14 @@ public class InqAnswerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		int inqNo = Integer.parseInt(request.getParameter("no"));
-		Inq inq = new InqService().selectInq(inqNo);
-		request.setAttribute("inq", inq);
-		request.getRequestDispatcher("/views/customerService/inqAnswer.jsp").forward(request, response);
+		
+		int result = new InqService().deleteInq(inqNo);
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "문의사항이 삭제되었습니다.");
+			response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
+		}
 	}
 
 	/**

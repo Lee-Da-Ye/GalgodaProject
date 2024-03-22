@@ -106,6 +106,7 @@ public class ReportDao {
 				r.setResNo(rset.getInt("res_no"));
 				r.setRepReason(rset.getString("rep_reason"));
 				r.setRepContent(rset.getString("rep_content"));
+				r.setRepType(rset.getString("rep_type"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -135,6 +136,7 @@ public class ReportDao {
 				r.setRevTitle(rset.getString("rev_title"));
 				r.setRevContent(rset.getString("rev_content"));
 				r.setFileNo(rset.getInt("file_no"));
+				r.setRepType(rset.getString("rep_type"));
 			}
 			
 		} catch (SQLException e) {
@@ -190,6 +192,92 @@ public class ReportDao {
 		
 		return count;
 		
+	}
+	
+	public int deleteReview(Connection conn, int revNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteReportReview(Connection conn, int revNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReportReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	public int deleteUser(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteReportUser(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteReportUser");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int cancelReport(Connection conn, int repNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("cancelReport");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, repNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

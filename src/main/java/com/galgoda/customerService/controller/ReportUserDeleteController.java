@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.galgoda.customerService.model.service.InqService;
-import com.galgoda.customerService.model.vo.Inq;
+import com.galgoda.customerService.model.service.ReportService;
 
 /**
- * Servlet implementation class InqAnswerController
+ * Servlet implementation class ReportUserDeleteController
  */
-@WebServlet("/answer.inq")
-public class InqAnswerController extends HttpServlet {
+@WebServlet("/userDelete.rep")
+public class ReportUserDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InqAnswerController() {
+    public ReportUserDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +29,18 @@ public class InqAnswerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int inqNo = Integer.parseInt(request.getParameter("no"));
-		Inq inq = new InqService().selectInq(inqNo);
-		request.setAttribute("inq", inq);
-		request.getRequestDispatcher("/views/customerService/inqAnswer.jsp").forward(request, response);
+
+		String userId = request.getParameter("userId");
+		
+		int result = new ReportService().deleteReportUser(userId);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "신고된 사용자의 계정이 삭제되었습니다");
+			response.sendRedirect(request.getContextPath() + "/userList.rep?page=1");
+		}else {
+			request.getSession().setAttribute("alertMsg", "신고된 사용자의 계정 삭제에 실패했습니다");
+			response.sendRedirect(request.getContextPath() + "/userList.rep?page=1");
+		}
 	}
 
 	/**

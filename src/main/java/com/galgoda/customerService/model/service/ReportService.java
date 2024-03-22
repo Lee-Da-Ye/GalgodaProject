@@ -1,7 +1,6 @@
 package com.galgoda.customerService.model.service;
 
-import static com.galgoda.common.template.JDBCTemplate.close;
-import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -60,5 +59,47 @@ public class ReportService {
 		
 		close(conn);
 		return count;
+	}
+	
+	public int deleteReportReview(int revNo) {
+		Connection conn = getConnection();
+		
+		
+		int result1 = rDao.deleteReview(conn, revNo);
+		int result2 = rDao.deleteReportReview(conn, revNo);
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
+	
+	public int deleteReportUser(String userId) {
+		Connection conn = getConnection();
+		int result1 = rDao.deleteUser(conn, userId);
+		int result2 = rDao.deleteReportUser(conn, userId);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1 * result2;
+	}
+	
+	public int cancelReport(int repNo) {
+		Connection conn = getConnection();
+		int result = rDao.cancelReport(conn, repNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 }

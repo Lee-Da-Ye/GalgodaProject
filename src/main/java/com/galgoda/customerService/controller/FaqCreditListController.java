@@ -27,7 +27,7 @@ public class FaqCreditListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getRequestDispatcher("views/customerService/faqCredit.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/customerService/faqCredit.jsp").forward(request, response);
 	}
 
 	/**

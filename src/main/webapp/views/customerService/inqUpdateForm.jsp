@@ -46,8 +46,8 @@
                     <li>
                          <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
-                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
-                    <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/list.no?page=1">공지사항</a></div> </li>   
+                    <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/list.inq?page=1">문의사항</a></div> </li>   
                 </ul>
             </div>
 

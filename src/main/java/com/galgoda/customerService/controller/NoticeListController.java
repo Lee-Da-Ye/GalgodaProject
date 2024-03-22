@@ -44,7 +44,7 @@ public class NoticeListController extends HttpServlet {
 		
 		NoticeService nService = new NoticeService();
 		
-		listCount = nService.selectListCount();
+		listCount = nService.selectNoticeListCount();
 		currentPage = Integer.parseInt(request.getParameter("page"));
 		pageLimit = 5;
 		boardLimit = 10;

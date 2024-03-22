@@ -288,4 +288,21 @@ public class InqDao {
 		}
 		return count;
 	}
+	
+	public int deleteInq(Connection conn, int inqNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteInq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inqNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

@@ -69,7 +69,8 @@
 
         <!-- section start -->
         <section class="main_content">
-
+			
+		
             <div class="sideMenubar">
                 <ul class="nav flex-column">
                     <li>
@@ -81,7 +82,7 @@
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="#" data-toggle="collapse" data-target="#demo2">자주 묻는 질문</a>
+                        <a class="nav-link" style="color: white;" href="<%= contextPath %>/hotel.faq">자주 묻는 질문</a>
                     </li>
 
                     <li>
@@ -89,12 +90,12 @@
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">문의하기</a>
+                            <a href="<%= contextPath %>/enrollForm.inq">문의하기</a>
                         </div>
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">문의내역</a>
+                            <a href="<%= contextPath %>/list.inq?page=?">문의내역</a>
                         </div>
                     </li>
 

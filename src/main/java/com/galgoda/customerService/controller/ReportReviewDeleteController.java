@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.galgoda.customerService.model.service.InqService;
-import com.galgoda.customerService.model.vo.Inq;
+import com.galgoda.customerService.model.service.ReportService;
 
 /**
- * Servlet implementation class InqAnswerController
+ * Servlet implementation class ReportReviewDeleteController
  */
-@WebServlet("/answer.inq")
-public class InqAnswerController extends HttpServlet {
+@WebServlet("/reviewDelete.rep")
+public class ReportReviewDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InqAnswerController() {
+    public ReportReviewDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +29,19 @@ public class InqAnswerController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int inqNo = Integer.parseInt(request.getParameter("no"));
-		Inq inq = new InqService().selectInq(inqNo);
-		request.setAttribute("inq", inq);
-		request.getRequestDispatcher("/views/customerService/inqAnswer.jsp").forward(request, response);
+
+		int revNo = Integer.parseInt(request.getParameter("no"));
+		
+		int result = new ReportService().deleteReportReview(revNo);
+		
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "신고된 리뷰가 삭제되었습니다");
+			response.sendRedirect(request.getContextPath() + "/reviewList.rep?page=1");
+		} else {
+			request.getSession().setAttribute("alertMsg", "신고된 리뷰 삭제에 실패했습니다.");
+			response.sendRedirect(request.getContextPath() + "/reviewList.rep?page=1");
+		}
+	
 	}
 
 	/**

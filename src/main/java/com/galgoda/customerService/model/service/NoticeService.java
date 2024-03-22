@@ -88,9 +88,9 @@ public class NoticeService {
 		return result;
 	}
 	
-	public int selectListCount() {
+	public int selectNoticeListCount() {
 		Connection conn = getConnection();
-		int count = nDao.selectListCount(conn);
+		int count = nDao.selectNoticeListCount(conn);
 		
 		close(conn);
 		return count;

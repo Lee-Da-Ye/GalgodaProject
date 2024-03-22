@@ -167,11 +167,11 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int selectListCount(Connection conn) {
+	public int selectNoticeListCount(Connection conn) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectListCount");
+		String sql = prop.getProperty("selectNoticeListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
