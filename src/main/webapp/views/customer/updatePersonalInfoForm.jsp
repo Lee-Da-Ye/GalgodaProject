@@ -238,27 +238,20 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath %>/resManagement.cu" >예약관리</a>
                     </li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">상세 조회</a>
-                        </div>
+                        
                     <li>
-                    </li>
-                    <div id="demo" class="collapse" style="margin-left: 30px;">
-                        <a href="">예약 변경/취소</a>
-                    </div>
-                    <li>
-                    </li>
-                    <div id="demo" class="collapse" style="margin-left: 30px;">
-                        <a href="">리뷰 관리</a>
-                    </div>
-                    <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">위시리스트</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath %>/wishlist.cu">위시리스트</a>
                     </li>
                     
+             		<li>
+                        <a class="nav-link" style="color: black;" href="" data-target="#demo2">리뷰관리</a>
+                    </li>
+                    
+                    
                     <li>
-                        <a class="nav-link" style="color: white; background-color: rgb(99, 76, 70)" href="#" data-toggle="collapse" data-target="#demo3">개인정보 수정</a>
+                        <a class="nav-link" style="color: white; background-color: rgb(99, 76, 70)" href="<%=contextPath %>/personalInfo.cu" >개인정보 수정</a>
                     </li>
                     
                     
