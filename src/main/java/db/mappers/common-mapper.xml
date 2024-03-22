@@ -35,7 +35,6 @@
 			  ,	REGIST_DATE
 			  ,	MODIFY_DATE
 			  ,	STATUS
-			  ,	ROLE
 			  ,	AUTHENTICODE
 			  ,	HOTEL_NAME
 			  FROM TB_MEM

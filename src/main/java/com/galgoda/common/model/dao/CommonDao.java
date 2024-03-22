@@ -101,7 +101,6 @@ public class CommonDao {
 									  , rset.getDate("regist_date")
 									  , rset.getDate("modify_date")
 									  , rset.getString("status")
-									  , rset.getString("role")
 									  , rset.getString("authenticode")
 									  , rset.getString("hotel_name"));
 			}
