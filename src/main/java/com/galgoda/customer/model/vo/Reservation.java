@@ -28,8 +28,10 @@ public class Reservation {
 	private String resEmail;
 	private String imgPath; // table join 으로 새로 추가된 변수
 	private String roName; // table join 으로 새로 추가된 변수
+	private int roPrice; // table join 으로 새로 추가된 변수
 	private String opName; // table join 으로 새로 추가된 변수
 	private String userId; // table join 으로 새로 추가된 변수
+
 	
 	
 	public Reservation() {}
@@ -113,6 +115,7 @@ public class Reservation {
 	
 	
 	
+	
 
 	public Reservation(int resNo, int hotelNo, String hotelName, int userNo, int roNo, String dateIn, String dateOut,
 			Date resDate, String resStatus, String req, String reasonCancel, String payMethod, int pay, Date payDate,
@@ -139,6 +142,39 @@ public class Reservation {
 		this.resEmail = resEmail;
 		this.imgPath = imgPath;
 		this.roName = roName;
+		this.opName = opName;
+	}
+	
+	
+	
+	
+
+	public Reservation(int resNo, int hotelNo, String hotelName, int userNo, int roNo, String dateIn, String dateOut,
+			Date resDate, String resStatus, String req, String reasonCancel, String payMethod, int pay, Date payDate,
+			int resPeople, String resName, String resPhone, String resEmail, String imgPath, String roName, int roPrice,
+			String opName) {
+		super();
+		this.resNo = resNo;
+		this.hotelNo = hotelNo;
+		this.hotelName = hotelName;
+		this.userNo = userNo;
+		this.roNo = roNo;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
+		this.resDate = resDate;
+		this.resStatus = resStatus;
+		this.req = req;
+		this.reasonCancel = reasonCancel;
+		this.payMethod = payMethod;
+		this.pay = pay;
+		this.payDate = payDate;
+		this.resPeople = resPeople;
+		this.resName = resName;
+		this.resPhone = resPhone;
+		this.resEmail = resEmail;
+		this.imgPath = imgPath;
+		this.roName = roName;
+		this.roPrice = roPrice;
 		this.opName = opName;
 	}
 
@@ -324,6 +360,16 @@ public class Reservation {
 		this.userId = userId;
 	}
 	
+	
+	
+	public int getRoPrice() {
+		return roPrice;
+	}
+
+	public void setRoPrice(int roPrice) {
+		this.roPrice = roPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [resNo=" + resNo + ", hotelNo=" + hotelNo + ", hotelName=" + hotelName + ", userNo="
