@@ -56,7 +56,7 @@ public class CustomerResDetailController extends HttpServlet {
 	            break;
 	        }
 	    }
-		
+		System.out.println(selectedReservation);
 	    request.setAttribute("selectedReservation", selectedReservation);
 		
 		request.getRequestDispatcher("/views/customer/resDetail.jsp").forward(request, response);

@@ -4,8 +4,8 @@
 	
 	<entry key="selectReservation">
 		SELECT
-				RES_NO
-			  ,	HOTEL_NO
+				re.RES_NO
+			  ,	h.HOTEL_NO
 			  , HOTEL_NAME
 			  ,	USER_NO
 			  ,	R.RO_NO
@@ -26,9 +26,9 @@
               , RO_NAME
               , RO_PRICE
               , OP_NAME
-			  FROM TB_RES_INFO
-			  JOIN TB_HOTEL H USING (HOTEL_NO)
-              JOIN TB_ROOM R USING (HOTEL_NO)
+			  FROM TB_RES_INFO RE
+			  JOIN TB_HOTEL H ON (RE.HOTEL_NO = H.HOTEL_NO)
+              JOIN TB_ROOM R ON (RE.RO_NO = R.RO_NO)
             WHERE USER_NO = ?
             ORDER BY DATE_IN ASC
 	</entry>
