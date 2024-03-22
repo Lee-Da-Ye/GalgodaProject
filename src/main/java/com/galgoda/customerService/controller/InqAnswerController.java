@@ -33,7 +33,7 @@ public class InqAnswerController extends HttpServlet {
 		int inqNo = Integer.parseInt(request.getParameter("no"));
 		Inq inq = new InqService().selectInq(inqNo);
 		request.setAttribute("inq", inq);
-		request.getRequestDispatcher("views/customerService/inqAnswer.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/customerService/inqAnswer.jsp").forward(request, response);
 	}
 
 	/**

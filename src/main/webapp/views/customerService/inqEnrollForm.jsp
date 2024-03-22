@@ -39,7 +39,7 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#">자주 묻는 질문</a>
+                        <a class="nav-link" href="<%= contextPath %>/hotel.faq">자주 묻는 질문</a>
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
@@ -47,12 +47,12 @@
                     </li>
                     <li style="background-color: rgb(191, 180, 176);">
                         <div class="collapse show" id="aaa" style="margin-left: 30px;">
-                            <a href="">문의하기</a>
+                            <a href="<%= contextPath %>/enrollForm.inq">문의하기</a>
                         </div>
                     </li>
                     <li>
                         <div class="collapse show" id="aaa" style="margin-left: 30px;">
-                            <a href="list.inq">문의내역</a>
+                            <a href="<%= contextPath %>/list.inq?page=1">문의내역</a>
                         </div>
                     </li>
 

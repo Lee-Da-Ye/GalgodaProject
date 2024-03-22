@@ -37,7 +37,7 @@ public class inqUpdateController extends HttpServlet {
 		
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "문의사항 답변이 등록되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/list.inq");
+			response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
 		}
 	
 	}

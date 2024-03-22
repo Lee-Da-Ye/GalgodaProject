@@ -60,7 +60,7 @@ public class InqInsertController extends HttpServlet {
 
 				if(multiRequest.getOriginalFileName(key) != null) {
 					Attachment at = new Attachment();
-					at.setFilePath("resources/upfiles" + multiRequest.getFilesystemName(key));
+					at.setFilePath("resources/upfiles/" + multiRequest.getFilesystemName(key));
 					at.setFileName(multiRequest.getFilesystemName(key));
 
 					list.add(at);
@@ -70,7 +70,7 @@ public class InqInsertController extends HttpServlet {
 
 			if(result > 0) {
 				request.getSession().setAttribute("alertMsg", "문의가 등록되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/list.inq");
+				response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
 			}
 		}
 	}

@@ -136,9 +136,7 @@
             </div>
             <script>
                 function updateNotice(){
-                    if(confirm("해당 공지사항을 수정하시겠습니까?")){
-                        alert("공지사항이 수정되었습니다.");
-                    }
+                    confirm("해당 공지사항을 수정하시겠습니까?");
                 }
             </script>
 
