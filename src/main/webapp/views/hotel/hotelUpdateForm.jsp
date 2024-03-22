@@ -145,8 +145,8 @@
                             <tr>
                                 <td id="td1"><button class="btn" id="btnlarge" type="button" >체크인/체크아웃시간</button></td>
                                 <td id="td3">  <input type="number" class="form-control" min="0" max="24" step="1" name="hotelCheckin" value="<%= h.getHotelCheckin() %>" style="margin-left: 8px;" required></td><td> &nbsp; &nbsp;&nbsp;PM &nbsp;&nbsp;/ &nbsp;&nbsp; </td>    
-                                              <td id="td3">  <input type="number"  class="form-control" name="hotelCheckout" min="0" max="24" step="1" value="<%= h.getHotelCheckout() %>" required></td> <td> &nbsp;&nbsp;AM </td>
-                                </td>
+                                <td id="td3">  <input type="number"  class="form-control" name="hotelCheckout" min="0" max="24" step="1" value="<%= h.getHotelCheckout() %>" required></td> <td> &nbsp;&nbsp;AM </td>
+                                
                             </tr>
                         </table>
                         <table>

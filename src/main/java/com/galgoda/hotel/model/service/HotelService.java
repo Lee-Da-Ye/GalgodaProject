@@ -236,6 +236,16 @@ public class HotelService {
 		return h;
 
 	}
+	
+	public List<Room> selectRoomList(String hotelName) {
+		Connection conn = getConnection();
+		
+		List<Room> list = hDao.selectRoomList(conn, hotelName);
+		close(conn);
+		
+		return list;
+
+	}
 
 	public int deleteHotelUser(String userId) {
 		Connection conn = getConnection();

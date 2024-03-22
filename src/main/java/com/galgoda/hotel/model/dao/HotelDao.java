@@ -605,11 +605,47 @@ public class HotelDao {
 		return h;
 		
 				
+	}
+	
+	public List<Room> selectRoomList(Connection conn, String hotelName) {
+		List<Room> list = new ArrayList<>();
 		
-		
-		
-		
-		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRoomList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			pstmt.setString(1, hotelName);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Room r = new Room();
+				r.setRoomNo(rset.getInt("ro_no"));
+				r.setHotelNo(rset.getInt("hotel_no"));
+				r.setRoomName(rset.getString("ro_name"));
+				r.setRoomSize(rset.getString("ro_size"));
+				r.setRoPeople(rset.getInt("ro_bathroom"));
+				r.setRoPrice(rset.getInt("ro_price"));
+				r.setRoCount(rset.getInt("ro_count"));
+				r.setOpNo(rset.getString("op_no"));
+				r.setImgPath(rset.getString("img_path"));
+				
+				list.add(r);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
 	}
 	
 	public int deleteHotelUser(Connection conn, String userId) {

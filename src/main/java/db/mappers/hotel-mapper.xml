@@ -311,6 +311,29 @@
 			 FROM TB_HOTEL
 			WHERE MEM_NO =  ?
 		</entry>
+		
+		<entry key="selectRoomList">
+			SELECT
+					RO_NO
+				  , HOTEL_NO
+				  , RO_NAME
+				  , RO_SIZE
+				  , RO_PEOPLE
+				  , RO_BATHROOM
+				  , RO_PRICE
+				  , RO_COUNT
+				  , OP_NO
+				  , IMG_PATH
+		 	  FROM TB_ROOM
+		 	 WHERE HOTEL_NO = (
+		 						SELECT HOTEL_NO
+		 						  FROM TB_HOTEL
+		 						 WHERE HOTEL_NAME = ?
+		 						) 
+		</entry>
+		
+		
+		
 		<entry key="deleteHotelUser">
 			UPDATE
 					TB_MEM
