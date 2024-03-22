@@ -259,7 +259,7 @@
 
                         /* 태그부분 */
      	               	var taglist = '<%= h.getTagNo() %>';
-     	                var  v = taglist.split(", ");
+     	                var  v = taglist.split(",");
      	                        	
      	                for(var j = 0; j<v.length; j++){
      	                        $('input:checkbox[name=hotelTag][value='+v[j]+']').attr("checked", true).parent().addClass('on');
