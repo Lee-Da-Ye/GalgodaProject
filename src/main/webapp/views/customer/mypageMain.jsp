@@ -166,7 +166,7 @@
 
                     <div class="mypage_menu">
                         <div class="mypage_rectangle">
-                            <a href="<%=contextPath%>/resManagement.cu" class="mypage_rec_menu">예약 관리</a>
+                            <a href="<%=contextPath%>/resManagement.cu?page=1" class="mypage_rec_menu">예약 관리</a>
                         </div>
                         <div class="mypage_rectangle">
                             <a href="<%=contextPath%>/wishlist.cu" class="mypage_rec_menu">위시리스트</a>

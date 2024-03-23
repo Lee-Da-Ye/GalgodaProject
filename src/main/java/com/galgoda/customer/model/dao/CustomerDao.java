@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.member.model.vo.Customer;
@@ -78,7 +79,67 @@ public class CustomerDao {
 		return reservations;
 	}
 	
-public Reservation selectReservationCase(Connection conn, int resNo) {
+	
+	public List<Reservation> selectReservationList(Connection conn, int userNo, PageInfo pi) {
+		List<Reservation> reservations = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReservationList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				reservations.add(new Reservation(rset.getInt("res_no")
+										       , rset.getInt("hotel_no")
+										       , rset.getString("hotel_name")
+										       , rset.getInt("user_no")
+										       , rset.getInt("ro_no")
+										       , rset.getString("date_in")
+										       , rset.getString("date_out")
+										       , rset.getDate("res_date")
+										       , rset.getString("res_status")
+										       , rset.getString("req")
+										       , rset.getString("reason_cancel")
+										       , rset.getString("pay_method")
+										       , rset.getInt("pay")
+										       , rset.getDate("pay_date")
+										       , rset.getInt("res_people")
+										       , rset.getString("res_name")
+										       , rset.getString("res_phone")
+										       , rset.getString("res_email")
+										       , rset.getString("img_path")
+										       , rset.getString("ro_name")
+										       , rset.getInt("ro_price")
+										       , rset.getString("op_name")));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reservations;
+		
+		
+		
+		
+	}
+	
+	public Reservation selectReservationCase(Connection conn, int resNo) {
 		
 		Reservation reservation = null;
 		PreparedStatement pstmt = null;

@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.galgoda.customer.model.vo.Reservation" %>
+<%@page import="com.galgoda.common.model.vo.PageInfo"%>
 <%
 	List<Reservation> reservations = (List<Reservation>)request.getAttribute("reservations");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
 <!DOCTYPE html>
 <html>
@@ -157,6 +159,27 @@
                     <br>
                     <% } %>
 
+					<br>
+					
+					<ul class="pagination justify-content-center" >
+	                	<%if(pi.getCurrentPage()==1){ %>
+	                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+	                    <%}else{ %>
+	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=pi.getCurrentPage()-1%>">Previous</a></li>
+	                    <%} %>
+	                    <%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	                    	<%if(p==pi.getCurrentPage()){ %>
+		                    <li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
+		                    <%}else{ %>
+		                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=p%>"><%=p %></a></li>
+		                    <%} %>
+	                    <%} %>
+						<%if(pi.getCurrentPage()==pi.getMaxPage()){ %>                    
+	                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+	                    <%}else{ %>
+	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
+	                    <%} %>
+	                 </ul>
 
                     <br><br>
                   

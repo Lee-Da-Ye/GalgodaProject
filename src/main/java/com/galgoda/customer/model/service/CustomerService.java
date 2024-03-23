@@ -1,10 +1,14 @@
 package com.galgoda.customer.model.service;
 
-import static com.galgoda.common.template.JDBCTemplate.*;
+import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.commit;
+import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.dao.CustomerDao;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Wishlist;
@@ -20,6 +24,14 @@ public class CustomerService {
 		close(conn);
 		return reservations;
 	}
+	
+	public List<Reservation> selectReservationList(int userNo, PageInfo pi) {
+		Connection conn = getConnection();
+		List<Reservation> reservations = cDao.selectReservationList(conn, userNo, pi);
+		close(conn);
+		return reservations;
+	}
+	
 	
 	public List<Wishlist> selectWishlist(int userNo) {
 		Connection conn = getConnection();

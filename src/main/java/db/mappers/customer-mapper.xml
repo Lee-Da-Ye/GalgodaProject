@@ -33,6 +33,45 @@
             ORDER BY DATE_IN ASC
 	</entry>
 	
+	<entry key="selectReservationList">
+		SELECT *
+			FROM (
+			SELECT ROWNUM RNUM, A.*
+				FROM (
+						SELECT
+						re.RES_NO
+					  ,	h.HOTEL_NO
+					  , HOTEL_NAME
+					  ,	USER_NO
+					  ,	R.RO_NO
+					  ,	DATE_IN
+					  ,	DATE_OUT
+					  ,	RES_DATE
+					  ,	RES_STATUS
+					  ,	REQ
+					  ,	REASON_CANCEL
+					  ,	PAY_METHOD
+					  ,	PAY
+					  ,	PAY_DATE
+					  ,	RES_PEOPLE
+					  ,	RES_NAME
+					  ,	RES_PHONE
+					  ,	RES_EMAIL
+					  , H.IMG_PATH
+		              , RO_NAME
+		              , RO_PRICE
+		              , OP_NAME
+					  FROM TB_RES_INFO RE
+					  JOIN TB_HOTEL H ON (RE.HOTEL_NO = H.HOTEL_NO)
+		              JOIN TB_ROOM R ON (RE.RO_NO = R.RO_NO)
+		            WHERE USER_NO = ?
+		            ORDER BY DATE_IN ASC
+					) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	
+	</entry>
+	
 	<entry key="selectReservationCase">
 		SELECT
 				RES_NO
