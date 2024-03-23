@@ -86,6 +86,9 @@
 	        });
 	    });
 	    
+	    function setSearchType(searchType) {
+	        document.getElementById("searchType").value = searchType; // 호텔명/태그명 선택에 따른 값 설정
+	        }
 	  
 	    
 </script>
