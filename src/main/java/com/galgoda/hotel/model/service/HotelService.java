@@ -6,6 +6,7 @@ import static com.galgoda.common.template.JDBCTemplate.getConnection;
 import static com.galgoda.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.galgoda.common.model.vo.Attachment;
@@ -291,6 +292,24 @@ public class HotelService {
 		
 	}
 	
+	public List<Hotel> searchHotelList(Reservation r, String searchType){
+		Connection conn = getConnection();
+		
+		List<Hotel> list  = new ArrayList<>();
+		if(searchType.equals("hotelName")) {
+			
+			list = hDao.searchHotelName(conn, r);
+			
+		} else if(searchType.equals("tagName")){
+			
+			list = hDao.searchTagName(conn, r);
+		}
+
+		
+		close(conn);
+		return list;
+		
 	
+	}
 	
 }

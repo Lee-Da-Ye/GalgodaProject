@@ -19,7 +19,9 @@ public class Hotel {
 	 private String imgPath;
 	 private int memNo;
 	 private int resCount; // 호텔 예약 횟수
-	
+	 private int reviewCount; // 호텔별 리뷰 수
+	 private int minPrice; // 호텔별 객실 최저가
+	 
 	 public Hotel() {}
 
 	 
@@ -372,6 +374,34 @@ public class Hotel {
 
 	public void setResCount(int resCount) {
 		this.resCount = resCount;
+	}
+
+
+
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+
+
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+
+
+
+	public int getMinPrice() {
+		return minPrice;
+	}
+
+
+
+
+	public void setMinPrice(int minPrice) {
+		this.minPrice = minPrice;
 	}
 
 
