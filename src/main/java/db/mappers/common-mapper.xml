@@ -221,4 +221,12 @@
 		 	BY	TERMS_NO DESC
 	
 	</entry>
+	
+	<entry key="selectTagList">
+		SELECT
+		       TAG_NO
+		     , TAG_NAME
+		  FROM TB_TAG
+		 WHERE STATUS = 'Y'
+	</entry>
 </properties>

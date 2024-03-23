@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.galgoda.common.model.dao.CommonDao;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
@@ -249,6 +250,14 @@ public class CommonService {
 		List<Terms> list = cDao.selectTermsList(conn);
 		close(conn);
 		
+		return list;
+	}
+	
+	public List<Tag> selectTagList(){
+		Connection conn = getConnection();
+		List<Tag> list = cDao.selectTagList(conn);
+		
+		close(conn);
 		return list;
 	}
 }

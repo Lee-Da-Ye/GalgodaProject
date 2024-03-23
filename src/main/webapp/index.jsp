@@ -88,8 +88,35 @@
 	    
 	    function setSearchType(searchType) {
 	        document.getElementById("searchType").value = searchType; // 호텔명/태그명 선택에 따른 값 설정
-	        }
-	  
+	        };
+	        
+        $(function () {
+			$(".tagName_btn").click(function() {
+				$.ajax({
+					url: "mainPageTagList",
+					type: "get",
+					success: function(list) {
+						let value = "";
+						
+						if(list.length > 0 ){
+							for(int i=0; i<list.length; i++){
+								value += "<label>"
+								       +  "<input type="checkbox" name="tagCheckbox" value=" + list[i].tagNo + ">"
+								       + list[i].tagName
+								       + "</label>";
+								       
+								 %("#tagCheckboxes").html(value);
+								       
+								       
+							}
+							
+						}
+					}
+					
+				})
+			})
+		})
+  
 	    
 </script>
 
@@ -135,12 +162,7 @@
 								        </div>
 								        
 								        <div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px;">
-								            <label><input type="checkbox" name="tagCheckbox" value="1"> 관광</label>
-								            <label><input type="checkbox" name="tagCheckbox" value="2"> 휴양</label>
-								            <label><input type="checkbox" name="tagCheckbox" value="3"> 바다</label>
-								            <label><input type="checkbox" name="tagCheckbox" value="4"> 가족여행</label>
-								            <label><input type="checkbox" name="tagCheckbox" value="5"> 제주</label>
-								            <label><input type="checkbox" name="tagCheckbox" value="6"> 동부</label>
+								       
 								        </div>
 								    </div>
 								</td>

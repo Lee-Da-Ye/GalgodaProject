@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.member.model.vo.Admin;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
@@ -521,4 +521,30 @@ public class CommonDao {
 		return list;
 	}
 	
+	public List<Tag> selectTagList(Connection conn){
+		List<Tag> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Tag t = new Tag();
+				t.setTagNo(rset.getInt("tag_no"));
+				t.setTagName(rset.getString("tag_name"));
+				
+				list.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
 }
