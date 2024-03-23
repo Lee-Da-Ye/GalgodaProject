@@ -7,22 +7,25 @@
 	//객실 번호에 따른 객실 이름 가져오기
 	String roomName = "";
 	int roomNo = selectedReservation.getRoNo();
-	switch (roomNo) {
-	    case 1:
-	        roomName = "스탠다드더블";
-	        break;
-	    case 2:
-	        roomName = "디럭스트윈";
-	        break;
-	    case 3:
-	        roomName = "슈페리어킹";
-	        break;
-	    case 4:
-	        roomName = "스위트룸";
-	        break;
-	    case 5:
-	        roomName = "스탠다드싱글";
-	        break;
+	switch (roomNo % 5) {
+    case 1:
+    	roomName = "스탠다드싱글";
+        break;
+    case 2:
+    	roomName = "스탠다드더블";
+        break;
+    case 3:
+    	roomName = "슈페리어킹";
+        break;
+    case 4:
+    	roomName = "디럭스트윈";
+        break;
+    case 0:
+    	roomName = "스위트룸";
+        break;
+    default:
+    	roomName = "기타"; 
+        break;
 	}
 	
 	

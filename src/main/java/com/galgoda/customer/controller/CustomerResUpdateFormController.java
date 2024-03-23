@@ -56,7 +56,7 @@ public class CustomerResUpdateFormController extends HttpServlet {
 	    }
 
 		
-	    
+	    request.setAttribute("reservations", reservations);
 	    request.setAttribute("selectedReservation", selectedReservation); //
 		
 		request.getRequestDispatcher("/views/customer/resUpdateForm.jsp").forward(request, response);

@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.galgoda.customer.model.vo.Reservation" %>
+<%@ page import="java.util.List" %>
 <%
+	
     Reservation selectedReservation = (Reservation)request.getAttribute("selectedReservation");
+	List<Reservation> reservations = (List<Reservation>)request.getAttribute("reservations");
 %>    
 <!DOCTYPE html>
 <html>
@@ -132,14 +135,32 @@
 		         var roomPrice = calculateRoomPrice(roomType);
 		         var totalPrice = numberOfNights * roomPrice;
 		         
+		         // 결제금액 변경 시 변경금액 결제하기 버튼 활성화 하기
+		         // 이전 결제금액 가져오기
+		        // var previousAmount = parseFloat($('input[name="resPay"]').attr('data-previous-amount'));
+		         
 		         // 화면에 결제금액 업데이트
 		         $('input[name="resPay"]').val(totalPrice);
+		         
+		         // 결제금액이 변경되었는지 확인하고 변경이 있을 경우 버튼을 활성화
+		         /*if (previousAmount !== totalPrice) {
+		             $('#paymentButton').prop('disabled', false);
+		         } else {
+		             $('#paymentButton').prop('disabled', true);
+		         }
+		         
+		         // 변경된 결제금액을 데이터 속성에 업데이트
+		         $('input[name="resPay"]').attr('data-previous-amount', totalPrice);
+		   		*/
+		         
 	     	});
 		    
 		    // 객실 가격 계산 함수
 		    function calculateRoomPrice(roomType) {
 		        // 각각의 객실 타입에 따른 가격을 반환하는 로직 작성
-		        switch (roomType) {
+		        switch (roomType % 5) {
+		        	case 0: // 스탠다드 싱글
+		        		return 80000;
 		            case 1: // 스탠다드 더블
 		                return 100000; 
 		            case 2: // 디럭스 트윈
@@ -148,8 +169,6 @@
 		                return 120000; 
 		            case 4: // 스위트룸
 		                return 200000;
-		            case 5: // 스탠다드 싱글
-		                return 80000; 
 		            default:
 		                return 0;
 		        }
@@ -168,8 +187,44 @@
 		    form.submit();
 		}
 		
+		// 휴대폰 번호 입력 시 자동 - 넣기
+		 const hypenTel = (target) => {
+		 target.value = target.value
+		   .replace(/[^0-9]/g, '')
+		   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+		}
+		 
+		// 변경된 금액 결제하기 기능으로 넘어가기 버튼
+		function payChangeAmount() {
+			window.location.href = "<%=request.getContextPath()%>/resPayChangeAmount.cu?id=<%=selectedReservation.getResNo()%>";
+		}
 		
-    	 
+		
+		// 예약 정보가 변경이 되어야 예약변경 버튼 활성화
+		$(document).ready(function() {
+		    // 예약 정보 변경을 감지할 변수
+		    var reservationChanged = false;
+
+		    // 예약 정보 변경 시 변수를 true로 설정
+		    $('#checkInDate, #checkOutDate, #resPeople, #roomType, input[name="option"], #resName, #resPhone, #resEmail, #resPay, #resPayMethod').on('change', function() {
+		        reservationChanged = true;
+		        activateReservationButton();
+		    });
+
+		    // 예약 변경 버튼 활성화 함수
+		    function activateReservationButton() {
+		        if (reservationChanged) {
+		            $('#reservation_btn').prop('disabled', false);
+		        } else {
+		            $('#reservation_btn').prop('disabled', true);
+		        }
+		    }
+
+		    // 페이지 로드 시 호출하여 초기 상태 설정
+		    activateReservationButton();
+		});
+		 
+			
 </script>
 
 
@@ -265,11 +320,45 @@
                                     <th>객실타입</th>
                                     <td colspan="3">
                                         <select name="roomType" id="roomType" class="form-control">
-                                                <option value="1">스탠다드더블</option>
-                                                <option value="2">디럭스트윈</option>
-                                                <option value="3">슈페리어킹</option>
-                                                <option value="4">스위트룸</option>
-                                                <option value="5">스탠다드싱글</option>
+                                         	<% 
+											    // 선택한 호텔 번호
+											    int selectedHotelNo = selectedReservation.getHotelNo();
+											    
+											    // 해당 호텔의 객실 번호 생성
+											    for (int i = 1; i <= 50; i++) { 
+											        int roNo = i;
+											        String roName = ""; // 객실 이름 초기화
+											        
+											        // 선택한 호텔에 해당하는 객실만 표시
+											        if ((roNo - 1) / 5 + 1 == selectedHotelNo) {
+											            switch (roNo % 5) {
+											                case 1:
+											                    roName = "스탠다드싱글";
+											                    break;
+											                case 2:
+											                    roName = "스탠다드더블";
+											                    break;
+											                case 3:
+											                    roName = "슈페리어킹";
+											                    break;
+											                case 4:
+											                    roName = "디럭스트윈";
+											                    break;
+											                case 0:
+											                    roName = "스위트룸";
+											                    break;
+											                default:
+											                    roName = "기타"; 
+											                    break;
+											            }
+											        
+											            
+												%>
+											            <option value="<%= roNo %>"><%= roName %></option>
+												<%
+											        }
+											    }
+												%>
                                         </select>
                                     </td>
                                 </tr>
@@ -277,6 +366,11 @@
                                	<script>
 	                               	$(function(){
 	                               	    // 현재 선택된 객실 유형을 가져오는 서버 측 코드
+	                               	    
+	                               	    
+	                               	    
+	                               	    
+	                               	    
 	                               	    let selectedRoomType = '<%= selectedReservation.getRoNo() %>';
 	
 	                               	    // 셀렉트 요소의 값을 선택된 객실 유형으로 설정
@@ -345,23 +439,25 @@
                             <table style="width: 80%; border-spacing: 10px; border-collapse: separate;">
                                 <tr>
                                     <th style="width: 10%;">예약자</th>
-                                    <td><input type="text" name="resName" class="form-control" required value="<%=selectedReservation.getResName()%>"></td>
+                                    <td><input type="text" id="resName" name="resName" class="form-control" required value="<%=selectedReservation.getResName()%>"></td>
                                 </tr>
                                 <tr>
                                     <th>연락처</th>
-                                    <td><input type="text" name="resPhone" class="form-control" required value="<%=selectedReservation.getResPhone()%>"></td>
+                                    <td><input type="text" id="resPhone" name="resPhone" oninput="hypenTel(this)" maxlength="13" class="form-control" required value="<%=selectedReservation.getResPhone()%>"></td>
                                 </tr>
                                 <tr>
                                     <th>이메일</th>
-                                    <td><input type="text" name="resEmail" class="form-control" required value="<%=selectedReservation.getResEmail()%>"></td>
+                                    <td><input type="text" id="resEmail" name="resEmail" class="form-control" required value="<%=selectedReservation.getResEmail()%>"></td>
                                 </tr>
                                 <tr>
                                     <th>결제금액(원)</th>
-                                    <td><input type="text" name="resPay" class="form-control" required value="<%=selectedReservation.getPay() %>"></td>
+                                    <td>
+                                    	<input type="text" id="resPay" name="resPay" oninput="activatePaymentButton(this)" class="form-control" required value="<%=selectedReservation.getPay() %>" data-previous-amount="<%=selectedReservation.getPay()%>" readonly>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>결제수단</th>
-                                    <td><input type="text" name="resPayMethod" class="form-control" required value="<%=selectedReservation.getPayMethod()%>"></td>
+                                    <td><input type="text" id="resPayMethod" name="resPayMethod" class="form-control" required value="<%=selectedReservation.getPayMethod()%>" readonly></td>
                                 </tr>
         
                             </table>
@@ -370,8 +466,12 @@
                         </div>
                         
                         <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                        	
                             <div>
-                                <a href="" class="btn rev_button" data-toggle="modal" data-target="#myModal1" style="margin-right: 10px;">예약변경</a>
+                                <button type="button" class="btn" id="reservation_btn" data-toggle="modal" data-target="#myModal1" style="margin-right: 10px;">예약변경</button>
+                            </div>
+                            <div>
+                                <button type="button" id="paymentButton" class="btn rev_button" onclick="payChangeAmount();" style="margin-right: 10px;" >예약변경 후 결제하기</button>
                             </div>
                             <div>
                                 <a href="" class="btn rev_button" data-toggle="modal" data-target="#myModal2" style="margin-right: 210px;">예약취소</a>
@@ -391,7 +491,7 @@
                         
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                예약을 변경하시겠습니까?
+                                예약을 변경을 요청하시겠습니까?
                                 </div>
                         
                                 <!-- Modal footer -->

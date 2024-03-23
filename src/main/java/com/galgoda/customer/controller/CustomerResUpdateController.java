@@ -99,11 +99,13 @@ public class CustomerResUpdateController extends HttpServlet {
 			
 			// 마이페이지 / 알람문구("성공적으로 회원정보 변경되었습니다.")
 			
-			session.setAttribute("alertMsg", "예약정보 변경이 완료되었습니다.");
+			session.setAttribute("alertMsg", "예약정보 변경 요청이 완료되었습니다."
+				    + "변경된 결제금액으로 결제 시 호텔 관리자가 승인 검토할 예정입니다.");
+
 			request.setAttribute("selectedReservation", selectedReservation); // 동일한 키값으로 다시 담게 되면 덮어씌워짐
 			request.setAttribute("reservations", reservations); // 동일한 키값으로 다시 담게 되면 덮어씌워짐
 			
-			response.sendRedirect(request.getContextPath() + "/resManagement.cu");
+			response.sendRedirect(request.getContextPath() + "/resUpdateForm.cu?id=" + resNo);
 		}
 		
 		

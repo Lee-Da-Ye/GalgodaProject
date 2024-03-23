@@ -98,7 +98,37 @@
                                 <div><img src="<%= request.getContextPath()%>/<%=r.getImgPath()%>" style="width: 200px; height: 200px; padding:10px"></div>
                                 <div>
                                     <br>
+                                    
+								     <% 
+									    // ro_no에 해당하는 ro_name을 가져와 화면에 표시
+									    int roNo = r.getRoNo();
+									  	
+									    String roName = "";
+									    
+									    switch (roNo % 5) {
+									        case 1:
+									            roName = "스탠다드싱글";
+									            break;
+									        case 2:
+									            roName = "스탠다드더블";
+									            break;
+									        case 3:
+									            roName = "슈페리어킹";
+									            break;
+									        case 4:
+									            roName = "디럭스트윈";
+									            break;
+									        case 0:
+									            roName = "스위트룸";
+									            break;
+									        default:
+									            roName = "기타"; 
+									            break;
+									    }
+									%>
+                                    
                                     <h6><%=r.getDateIn() %> - <%=r.getDateOut()%></h6>
+                                    <h6><%= roName %></h6>
                                     <h6>총 <%=r.getResPeople()%>명</h6>
                                     <h6>추가 옵션 : <%=r.getOpName()%></h6>
                                 </div>
