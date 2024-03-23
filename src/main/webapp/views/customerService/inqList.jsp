@@ -7,6 +7,7 @@
 <%
 	List<Inq> list1 = (List<Inq>)request.getAttribute("list1");
 	List<Hotel> list2 = (List<Hotel>)request.getAttribute("list2");
+	List<Inq> list3 = (List<Inq>)request.getAttribute("list3");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 %>
@@ -247,55 +248,54 @@
                 </div>
                 <div style="margin-top: 20px;">
                     <table class="table">
-                        <tr align="center" class="table-active">
-                            <th style="width: 7%;">번호</th>
-                            <th style="width: 15%;">구분</th>
-                            <th style="width: 10%;">문의유형</th>
-                            <th style="width: 35%;">제목</th>
-                            <th style="width: 20%;">작성일</th>
-                            <th>상태</th>
-                        </tr>
-                        <% for(Inq inq : list1){ %>
-                        <tr align="center">
-                            <td><%= inq.getInqNo() %></td>
-                            <td><%= inq.getCategory() %></td>
-                            <td><%= inq.getInqType() %></td>
-                            <td><a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a></td>
-                            <td><%= inq.getRegistDate() %></td>
-                            <% if(inq.getStauts().equalsIgnoreCase("w")){ %>
-                            	<td>답변 대기</td>
-                            <% }else if(inq.getStauts().equalsIgnoreCase("y")){ %>
-                            	<td style="opacity: 0.5;">답변 완료</td>
+                    	<thead>
+	                        <tr align="center" class="table-active">
+	                            <th style="width: 20%;">구분</th>
+	                            <th style="width: 10%;">문의유형</th>
+	                            <th style="width: 55%;">제목</th>
+	                            <th>작성일</th>
+	                        </tr>
+                        </thead>
+                        <tbody>
+                        	<% for(Inq inq : list3){ %>
+	                        	<% if(list2.get(0).getHotelName().equals(inq.getCategory())){ %>
+	                        	<tr align="center">
+	                        		<td><%= inq.getCategory() %></td>
+	                        		<td><%= inq.getInqType() %></td>
+	                        		<td><a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a></td>
+	                        		<td><%= inq.getRegistDate() %></td>
+	                        	</tr>
+	                        	<% } %>
                         	<% } %>
-                        </tr>
-                        <% } %>
+                        </tbody>
                     </table>
                 </div>
-                <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
-	                    
-                    <% if(pi.getCurrentPage() == 1){ %>
-                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
-                    <% }else { %>
-                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a></li>
-                 	<% } %>
-                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
-                    	<% if(p == pi.getCurrentPage()){ %>
-	                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
-	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a></li>
-                 		<% } %>
-                 	<% } %>
-                    
-                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
-                    <li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
-                    <% }else { %>
-                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a></li>
-                	
-                	<% } %>
-                </ul>
+                
             </div>
             <script>
-				
+				$(function() {
+					$("#hotelCategory").change(function() {
+						var hotelName = $(this).val();
+						$.ajax({
+							url : "<%= contextPath %>/adminList.inq",
+							data : {category:hotelName},
+							success: function(list) {
+								let value = "";
+								
+								for(let i=0; i<list.length; i++){
+                					value += "<tr align='center'>"
+                							+ 	"<td>" + list[i].category + "</td>"
+                							+	"<td>" + list[i].inqType + "</td>"
+                							+	"<td><a href='" + "<%= contextPath %>/detail.inq?no=" + list[i].inqNo + "'>" + list[i].inqTitle + "</a></td>"
+                							+	"<td>" + list[i].registDate + "</td>"
+                							+"</tr>";
+								}
+								$(".table tbody").html(value);
+							}
+						})
+					})
+				})
+			
 				
 			</script>
             

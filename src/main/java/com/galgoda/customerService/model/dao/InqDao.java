@@ -305,4 +305,68 @@ public class InqDao {
 		}
 		return result;
 	}
+	
+	public List<Inq> selectInqAdminList(Connection conn, String hotelName){
+		List<Inq> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqAdminList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, hotelName);
+			
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Inq inq = new Inq();
+				inq.setInqNo(rset.getInt("INQ_NO"));
+				inq.setCategory(rset.getString("HOTEL_NAME"));
+				inq.setInqType(rset.getString("INQ_TYPE"));
+				inq.setInqTitle(rset.getString("INQ_TITLE"));
+				inq.setRegistDate(rset.getString("REGIST_DATE"));
+				inq.setStauts(rset.getString("STATUS"));
+				
+				list.add(inq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public List<Inq> selectInqList(Connection conn){
+		List<Inq> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Inq inq = new Inq();
+				inq.setInqNo(rset.getInt("INQ_NO"));
+				inq.setCategory(rset.getString("HOTEL_NAME"));
+				inq.setInqType(rset.getString("INQ_TYPE"));
+				inq.setInqTitle(rset.getString("INQ_TITLE"));
+				inq.setRegistDate(rset.getString("REGIST_DATE"));
+				inq.setStauts(rset.getString("STATUS"));
+				
+				list.add(inq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

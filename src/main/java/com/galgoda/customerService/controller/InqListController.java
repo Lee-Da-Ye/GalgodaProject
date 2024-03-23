@@ -45,41 +45,42 @@ public class InqListController extends HttpServlet {
 		int startPage; 
 		int endPage; 
 		String hotelName;
-		String category;
 		
 		if(request.getSession().getAttribute("loginHotel") != null) {
 			hotelName = ((HotelUser)request.getSession().getAttribute("loginHotel")).getHotelName();
 			listCount = new InqService().selectInqHotelListCount(hotelName);
-		}else if(request.getSession().getAttribute("loginCustomer") != null) {
-			listCount = new InqService().selectInqListCount();
 		}else {
-			category = request.getParameter("cateogry");
-			listCount = new InqService().selectInqHotelListCount(category);
+			listCount = new InqService().selectInqListCount();
 		}
+		
 		currentPage = Integer.parseInt(request.getParameter("page"));
 		pageLimit = 5;
 		boardLimit = 10;
 		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		startPage = (currentPage-1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit - 1;
+		
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
+		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		List<Inq> list1 = new ArrayList<>();
+		
 		if(request.getSession().getAttribute("loginHotel") != null) {
 			hotelName = ((HotelUser)request.getSession().getAttribute("loginHotel")).getHotelName();
 			list1 = new InqService().selectInqHotelList(pi, hotelName);
-		}else if(request.getSession().getAttribute("loginCustomer") != null) {
-			list1 = new InqService().selectInqUserList(pi);
 		}else {
-			category = request.getParameter("cateogry");
-			list1 = new InqService().selectInqHotelList(pi, category);
+			list1 = new InqService().selectInqUserList(pi);
 		}
+		
 		List<Hotel> list2 = new InqService().selectHotelName();
+		
+		List<Inq> list3 = new InqService().selectInqList();
 		
 		request.setAttribute("list1", list1);
 		request.setAttribute("list2", list2);
+		request.setAttribute("list3", list3);
 		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("/views/customerService/inqList.jsp").forward(request, response);
 	

@@ -119,4 +119,20 @@ public class InqService {
 		close(conn);
 		return result;
 	}
+	
+	public List<Inq> selectInqAdminList(String hotelName){
+		Connection conn = getConnection();
+		List<Inq> list = iDao.selectInqAdminList(conn, hotelName);
+		
+		close(conn);
+		return list;
+	}
+	
+	public List<Inq> selectInqList(){
+		Connection conn = getConnection();
+		List<Inq> list = iDao.selectInqList(conn);
+		
+		close(conn);
+		return list;
+	}
 }
