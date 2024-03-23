@@ -167,7 +167,7 @@
             
             <div class="main_bottom">
                 <div class="main">
-                    <h2 class="mainpage_h2" style="margin-left: 200px;">인기 호텔</h2>
+                    <h2 class="mainpage_h2" style="text-align : center;">인기 호텔</h2>
                     
                     <div class="mainpage_imgContent" id="hotelImages">
                     
