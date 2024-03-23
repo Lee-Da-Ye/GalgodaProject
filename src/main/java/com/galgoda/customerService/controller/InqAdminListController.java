@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customerService.model.service.InqService;
 import com.galgoda.customerService.model.vo.Inq;
+import com.galgoda.hotel.model.vo.Hotel;
 import com.google.gson.Gson;
 
 /**
@@ -35,10 +37,38 @@ public class InqAdminListController extends HttpServlet {
 
 		String category = request.getParameter("category");
 		
-		List<Inq> list = new InqService().selectInqAdminList(category);
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
 		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(list, response.getWriter());
+		int maxPage; 
+		int startPage; 
+		int endPage; 
+		
+		listCount = new InqService().selectInqHotelListCount(category);
+		currentPage = Integer.parseInt(request.getParameter("page"));
+		pageLimit = 5;
+		boardLimit = 10;
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		startPage = (currentPage-1) / pageLimit * pageLimit + 1;
+		endPage = startPage + pageLimit - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		
+		List<Inq> list = new InqService().selectInqHotelList(pi, category);
+		
+		List<Hotel> list2 = new InqService().selectHotelName();
+		
+		request.setAttribute("list", list);
+		request.setAttribute("list2", list2);
+		request.setAttribute("pi", pi);
+		
+		request.getRequestDispatcher("/views/customerService/inqAdminList.jsp").forward(request, response);
 	}
 
 	/**

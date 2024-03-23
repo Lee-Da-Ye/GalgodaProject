@@ -21,7 +21,7 @@
         .sideMenubar_head {
             width: 80%;
             margin-left: 10px;
-            margin-right: 30px;
+            margin-right: 50px;
             margin-top: 10px;
             border-bottom: 1px solid gray;
     	}
@@ -275,24 +275,10 @@
             <script>
 				$(function() {
 					$("#hotelCategory").change(function() {
-						var hotelName = $(this).val();
-						$.ajax({
-							url : "<%= contextPath %>/adminList.inq",
-							data : {category:hotelName},
-							success: function(list) {
-								let value = "";
-								
-								for(let i=0; i<list.length; i++){
-                					value += "<tr align='center'>"
-                							+ 	"<td>" + list[i].category + "</td>"
-                							+	"<td>" + list[i].inqType + "</td>"
-                							+	"<td><a href='" + "<%= contextPath %>/detail.inq?no=" + list[i].inqNo + "'>" + list[i].inqTitle + "</a></td>"
-                							+	"<td>" + list[i].registDate + "</td>"
-                							+"</tr>";
-								}
-								$(".table tbody").html(value);
-							}
-						})
+						var category = $(this).val();
+			            var contextPath = '<%= contextPath %>';
+			            var newURL = contextPath + '/adminList.inq?page=1&category=' + category;
+			            window.location.href = newURL;
 					})
 				})
 			
