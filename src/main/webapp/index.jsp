@@ -130,9 +130,9 @@
                         <thead>
                             <tr>
                                 <td width="300px">
-                                	<input type="hidden" id="searchType" name="searchType"> <!-- 숨겨진 입력 필드로 검색 타입을 저장 -->
+                                	<input type="hidden" id="searchType" name="searchType" value="hotelName"> <!-- 숨겨진 입력 필드로 검색 타입을 저장 -->
                                 	<div class="d-flex search_btn">
-                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn" onclick="setSearchType('hotelName')">호텔명</button>
+                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn active" onclick="setSearchType('hotelName')">호텔명</button>
                                             <button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')">태그명</button>
                                     </div>
                                 </td>
