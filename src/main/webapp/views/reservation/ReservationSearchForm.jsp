@@ -186,6 +186,7 @@
         .hotelInfo{
             margin-left: 50px;
             cursor: pointer;
+            width: 100%;
         }
         /* 태그 창 관련 스타일 */
         .tagList {
