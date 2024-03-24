@@ -81,6 +81,7 @@
 	            // 태그명 버튼이 선택되었을 때 태그 선택 창을 보이고, 입력칸을 숨깁니다.
 	            else {
 	                $("#hotelNameInputWrapper").hide();
+	                // 태그명 버튼 선택시 태그 리스트 출력하는 ajax
 	                $.ajax({
 						url: "mainPageTagList.co",
 						type: "get",
@@ -93,8 +94,8 @@
 			                            list[i].tagName +
 			                            "</label>";
 			                    }
-			                    $("#tagCheckboxes").html(value); // 수정: 태그 체크박스를 출력하는 부분을 이동
-			                    $("#tagCheckboxes").show(); // 수정: 태그 체크박스를 보이도록 처리
+			                    $("#tagCheckboxes").html(value);
+			                    $("#tagCheckboxes").show(); 
 			                }
 						}
 						

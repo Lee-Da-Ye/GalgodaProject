@@ -629,6 +629,7 @@ public class CommonDao {
 		return list;
 	}
 	
+	// 태그 목록 조회용 메소드
 	public List<Tag> selectTagList(Connection conn){
 		List<Tag> list = new ArrayList<>();
 		PreparedStatement pstmt = null;

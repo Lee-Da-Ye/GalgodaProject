@@ -254,6 +254,7 @@
 	
 	</entry>
 	
+	<!-- 태그 목록 조회용 쿼리문 -->
 	<entry key="selectTagList">
 		SELECT
 		       TAG_NO
