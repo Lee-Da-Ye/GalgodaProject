@@ -172,6 +172,7 @@
                             </div>
                         </div>
                     
+                    	
                         <!-- 아이디 찾기 버튼 -->
                         <button type="button" id="identification_enter" class="btn btn-primary btn-block" onclick="resetPwdForm();" disabled>비밀번호 재설정</button>
                     </form>
@@ -190,6 +191,7 @@
 	
 			function sendVerificationCode() {
 			    var phoneNumber = document.getElementById("inputPhoneNumber").value;
+			    
 			    var xhr = new XMLHttpRequest();
 			    xhr.open("GET", "<%=contextPath%>/authentiSms.co?phone=" + phoneNumber, true); // 서블릿 URL에 따라 수정
 			    xhr.onreadystatechange = function () {

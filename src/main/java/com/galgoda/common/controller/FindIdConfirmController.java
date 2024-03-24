@@ -31,24 +31,72 @@ public class FindIdConfirmController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+HttpSession session = request.getSession();
 		
+		String userType = request.getParameter("userType");
 		String userName = request.getParameter("userName");
 		String phone = request.getParameter("phone");
 		
-		String userId = new CommonService().findUserId(userName, phone);
-		
-		System.out.println(userId);
-		
-		if(userId == null) {
-			// 해당하는 userID 없음
-			session.setAttribute("alertMsg", "회원정보에 고객님의 정보가 없습니다.");
-			response.sendRedirect(request.getContextPath() + "/loginMain.co");
-		} else {
-			// 해당하는 userId 있음
-			request.setAttribute("userId", userId);
-			request.getRequestDispatcher("/views/common/findUserIdResult.jsp").forward(request, response);
+		// 고객인 경우
+		if("customer".equals(userType)) {
+			
+			String userId = new CommonService().findUserId(userName, phone);
+			
+			if(userId == null) {
+				// 해당하는 userID 없음
+				session.setAttribute("alertMsg", "회원정보에 고객님의 정보가 없습니다.");
+				response.sendRedirect(request.getContextPath() + "/loginMain.co");
+			} else {
+				// 해당하는 userId 있음
+				request.setAttribute("userId", userId);
+				request.getRequestDispatcher("/views/common/findUserIdResult.jsp").forward(request, response);
+			}
+			
+			
 		}
+		
+		if("hotel".equals(userType)) {
+			
+			String userId = new CommonService().findHotelUserId(userName, phone);
+			
+			if(userId == null) {
+				// 해당하는 userID 없음
+				session.setAttribute("alertMsg", "회원정보에 담당자님의 정보가 없습니다.");
+				response.sendRedirect(request.getContextPath() + "/loginMain.co");
+			} else {
+				// 해당하는 userId 있음
+				request.setAttribute("userId", userId);
+				request.getRequestDispatcher("/views/common/findUserIdResult.jsp").forward(request, response);
+			}
+			
+			
+		}
+		
+		if("admin".equals(userType)) {
+			
+			String userId = new CommonService().findAdminUserId(userName, phone);
+			
+			if(userId == null) {
+				// 해당하는 userID 없음
+				session.setAttribute("alertMsg", "회원정보에 관리자님의 정보가 없습니다.");
+				response.sendRedirect(request.getContextPath() + "/loginMain.co");
+			} else {
+				// 해당하는 userId 있음
+				request.setAttribute("userId", userId);
+				request.getRequestDispatcher("/views/common/findUserIdResult.jsp").forward(request, response);
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}

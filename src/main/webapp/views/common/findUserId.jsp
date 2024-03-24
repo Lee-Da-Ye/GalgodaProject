@@ -34,6 +34,51 @@
 	        margin-bottom: 30px;
         }
 </style>
+
+<!-- 고객, 호텔, 관리자 버튼 각각 클릭 시 활성화 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $(".customer_btn, .hotel_btn, .admin_btn").click(function() {
+            // 클릭된 버튼에만 'active' 클래스를 추가하고 다른 버튼에서는 'active' 클래스를 제거
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    });
+
+    function setUserType(userType) {
+    document.getElementById("userType").value = userType; // 클릭한 버튼에 대한 유저 타입 값을 설정
+    }
+    
+    function findIdForm(){
+    	
+        event.preventDefault(); // 폼의 제출을 막음
+        	
+        var userType = document.getElementById("userType").value;
+        if (userType === "") {
+            alert("로그인 유형을 선택하세요.");
+            return false; // 폼 제출을 막음
+        }
+
+        // 필수 입력란을 확인하여 비어 있는지 검사
+        var userName = document.getElementById("inputName").value;
+        var phone = document.getElementById("inputPhoneNumber").value;
+        var verificationCode = document.getElementById("inputVerificationCode").value;
+
+        if (userName === "" || phone === "" || verificationCode === "") {
+            alert("모든 필수 입력란을 작성하세요.");
+            return false; // 폼 제출을 막음
+    }
+    
+    
+    
+    // 폼 제출
+    document.getElementById("myForm").submit();
+    	
+    }
+
+
+</script>
 </head>
 <body>
 	<div class="wrap">
@@ -81,7 +126,15 @@
         
                 <div id="identification_main" class="card-body">
                     <!-- 휴대폰 번호로 아이디 찾기 폼 -->
-                    <form action="<%=contextPath %>/findUserIdConfirm.co" method="POST">
+                    <form id="myForm" action="<%=contextPath %>/findUserIdConfirm.co" method="POST">
+                    
+                    <input type="hidden" id="userType" name="userType"> <!-- 숨겨진 입력 필드로 유저 타입을 저장 -->
+                                        <div class="d-flex loginuser_btn">
+                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 customer_btn" onclick="setUserType('customer');">고객</button>
+                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotel_btn" onclick="setUserType('hotel');">호텔</button>
+                                            <button type="button" class="btn btn-outline-primary flex-fill admin_btn" onclick="setUserType('admin');">관리자</button>
+                                        </div>
+                    	<br>               
                                         
                         <!-- 이름 입력 -->
                         <div class="form-row align-items-center mb-3">
@@ -100,9 +153,9 @@
                             </div>
                             <div class="col">
                                 <div class="input-group">
-                                    <input type="tel" class="form-control" name="phone" oninput="hypenTel(this)" maxlength="13" id="inputPhoneNumber" placeholder="휴대폰 번호를 입력하세요">
+                                    <input type="text" class="form-control" oninput="hypenTel(this)" maxlength="13" id="inputPhoneNumber" name="phone" placeholder="휴대폰 번호를 입력하세요">
                                     <div class="input-group-append">
-                                        <button type="button" id="identification_box" class="btn btn-outline-primary" onclick="sendVerificationCode();">인증번호 받기</button>
+                                        <button type="button" onclick="sendVerificationCode();" class="btn btn-outline-primary identification_box">인증번호 받기</button>
                                     </div>
                                 </div>
                             </div>
@@ -117,14 +170,14 @@
 	                            <div class="input-group">
 	                                <input type="text" class="form-control" id="inputVerificationCode" placeholder="인증번호를 입력하세요">
 	                                <div class="input-group-append">
-	                                        <button type="button" id="identification_box" class="btn btn-outline-primary" onclick="confirmVerificationCode();">인증번호 확인</button>
+	                                        <button type="button" class="btn btn-outline-primary identification_box" onclick="confirmVerificationCode();">인증번호 확인</button>
 	                                </div>
 	                             </div>
                             </div>
                         </div>
                     
                         <!-- 아이디 찾기 버튼 -->
-                        <button type="submit" id="identification_enter" class="btn btn-primary btn-block">휴대폰 번호로 아이디 찾기</button>
+                        <button type="button" id="identification_enter" class="btn btn-primary btn-block" onclick="findIdForm();" disabled>휴대폰 번호로 아이디 찾기</button>
                     </form>
                 
                     <br><br>
@@ -137,12 +190,13 @@
 
 		<script>
 			
-			var verificationCode = ""; // 전역 변수 선언
-	
-			function sendVerificationCode() {
-			    var phoneNumber = document.getElementById("inputPhoneNumber").value;
-			    var xhr = new XMLHttpRequest();
-			    xhr.open("GET", "<%=contextPath%>/authentiSms.co?phone=" + phoneNumber, true); // 서블릿 URL에 따라 수정
+		var verificationCode = ""; // 전역 변수 선언
+		
+		function sendVerificationCode() {
+		    var phoneNumber = document.getElementById("inputPhoneNumber").value;
+		    var xhr = new XMLHttpRequest();
+		    if(phoneNumber != "") {
+		    	xhr.open("GET", "<%=contextPath%>/authentiSms.co?phone=" + phoneNumber, true); // 서블릿 URL에 따라 수정
 			    xhr.onreadystatechange = function () {
 			        if (xhr.readyState === XMLHttpRequest.DONE) {
 			            if (xhr.status === 200) {
@@ -159,8 +213,11 @@
 			        }
 			    };
 			    xhr.send();
-			}
-	
+		    } else {
+		    	alert("휴대폰 번호를 입력해주세요.")
+		    }
+		    
+		}
 	
 	
 			function confirmVerificationCode() {
@@ -170,9 +227,11 @@
 			    if (inputCode === verificationCode) {
 			        // 코드가 일치하는 경우
 			        alert("인증이 완료되었습니다.");
+			        enableFindIdButton(); // 아이디 찾기 버튼 활성화
 			    } else {
 			        // 코드가 일치하지 않는 경우
 			        alert("인증번호가 올바르지 않습니다.");
+			        disableFindIdButton(); // 아이디 찾기 버튼 비활성화
 			    }
 			}
 			
@@ -182,6 +241,18 @@
 			   .replace(/[^0-9]/g, '')
 			   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 			}
+			 
+			// 아이디 찾기 버튼을 활성화하는 함수
+			    function enableFindIdButton() {
+			        var button = document.getElementById("identification_enter");
+			        button.disabled = false; // 버튼 활성화
+			    }
+
+		    // 아이디 찾기 버튼을 비활성화하는 함수
+		    function disableFindIdButton() {
+		        var button = document.getElementById("identification_enter");
+		        button.disabled = true; // 버튼 비활성화
+		    }
 	
 		</script>
 

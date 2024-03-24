@@ -155,6 +155,22 @@
 		   AND  PHONE = ?
 	</entry>
 	
+	<entry key="findHotelUserId">
+		SELECT 
+		        MEM_ID
+		  FROM  TB_MEM
+		 WHERE  MEM_NAME = ?
+		   AND  MEM_PHONE = ?
+	</entry>
+	
+	<entry key="findAdminUserId">
+		SELECT 
+		        ADMIN_ID
+		  FROM  TB_ADMIN
+		 WHERE  ADMIN_NAME = ?
+		   AND  PHONE = ?
+	</entry>
+	
 	<entry key="resetCustomerPwd">
 		UPDATE
 				TB_USER

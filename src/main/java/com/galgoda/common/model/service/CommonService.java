@@ -190,6 +190,28 @@ public class CommonService {
     	
     }
     
+    public String findHotelUserId(String userName, String phone) {
+    	
+    	Connection conn = getConnection();
+    	String userId = cDao.findHotelUserId(conn, userName, phone);
+    	
+		close(conn);
+		
+		return userId;
+    	
+    }
+    
+    public String findAdminUserId(String userName, String phone) {
+    	
+    	Connection conn = getConnection();
+    	String userId = cDao.findAdminUserId(conn, userName, phone);
+    	
+		close(conn);
+		
+		return userId;
+    	
+    }
+    
     public Customer resetCustomerPwd(String userId, String newPassword) {
     	Connection conn = getConnection();
     	int result = cDao.resetCustomerPwd(conn, userId, newPassword);
