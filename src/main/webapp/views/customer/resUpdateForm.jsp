@@ -103,7 +103,7 @@
 		        var capacity = parseInt($(this).val());
 		        if (capacity === 3) {
 		            $("select[name='roomType'] option").each(function() {
-		                if ($(this).val() !== '4') { // 스위트룸이 아닌 경우 비활성화
+		                if (parseInt($(this).val())%5 !== 0) { // 스위트룸이 아닌 경우 비활성화
 		                    $(this).prop("disabled", true);
 		                } else { // 스위트룸인 경우 활성화
 		                    $(this).prop("disabled", false);

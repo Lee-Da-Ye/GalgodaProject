@@ -89,6 +89,15 @@
                     </div>
 
                     <br>
+                    
+                    <% if(reservations.isEmpty()) {%>
+                    
+                    	<div>
+                    		<h4>예약 내역이 없습니다.</h4>
+                    	</div>
+                    	
+                    <% } else { %>
+                    
 
 					<% for(Reservation r : reservations) { %>
                     <div class="res_content1" style="display: flex;">
@@ -167,8 +176,36 @@
                     </div>
                     <br>
                     <% } %>
+                    
+                <% } %>
 
 					<br>
+					
+					<% if(reservations.isEmpty()) {%>
+					
+					<ul class="pagination justify-content-center" style="display:none;">
+	                	<%if(pi.getCurrentPage()==1){ %>
+	                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+	                    <%}else{ %>
+	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=pi.getCurrentPage()-1%>">Previous</a></li>
+	                    <%} %>
+	                    <%for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
+	                    	<%if(p==pi.getCurrentPage()){ %>
+		                    <li class="page-item active"><a class="page-link" href="#"><%=p %></a></li>
+		                    <%}else{ %>
+		                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=p%>"><%=p %></a></li>
+		                    <%} %>
+	                    <%} %>
+						<%if(pi.getCurrentPage()==pi.getMaxPage()){ %>                    
+	                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+	                    <%}else{ %>
+	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
+	                    <%} %>
+	                </ul>
+					
+					
+					<% } else { %>
+					
 					
 					<ul class="pagination justify-content-center" >
 	                	<%if(pi.getCurrentPage()==1){ %>
@@ -188,7 +225,9 @@
 	                    <%}else{ %>
 	                    <li class="page-item"><a class="page-link" href="<%=contextPath%>/resManagement.cu?page=<%=pi.getCurrentPage()+1%>">Next</a></li>
 	                    <%} %>
-	                 </ul>
+	                </ul>
+	                
+	                <% } %>
 
                     <br><br>
                   

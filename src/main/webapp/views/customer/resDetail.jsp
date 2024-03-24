@@ -240,7 +240,7 @@
                             <!-- Modal footer -->
                             <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                            <a href="<%=contextPath%>/resCancel.cu" class="btn btn-danger">확인</a>
+                            <a href="<%=contextPath%>/resCancel.cu?id=<%=selectedReservation.getResNo()%>" class="btn btn-danger">확인</a>
                             </div>
                     
                         </div>
