@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
+	<entry key="selectNotice">
+		SELECT 
+		       NOTICE_NO
+		     , NOTICE_TITLE
+		     , NOTICE_CONTENT
+		     , TO_CHAR(REGIST_DATE, 'YYYY-MM-DD') REGIST_DATE
+		     , MEM_NO
+		     , ADMIN_NO
+		  FROM TB_NOTICE
+		 WHERE NOTICE_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
 	
 	<entry key="selectNoticeList">
 		SELECT *
@@ -66,18 +79,7 @@
 		 WHERE REP_TYPE = 'R'
 	</entry>
 	
-	<entry key="selectNotice">
-		SELECT 
-		       NOTICE_NO
-		     , NOTICE_TITLE
-		     , NOTICE_CONTENT
-		     , TO_CHAR(REGIST_DATE, 'YYYY-MM-DD') REGIST_DATE
-		     , MEM_NO
-		     , ADMIN_NO
-		  FROM TB_NOTICE
-		 WHERE NOTICE_NO = ?
-		   AND STATUS = 'Y'
-	</entry>
+	
 	
 	<entry key="insertHotelNotice">
 		INSERT
@@ -281,6 +283,7 @@
 		     , INQ_TITLE
 		     , INQ_CONTENT
 		     , ANS_CONTENT
+		     , STATUS
 		  FROM TB_INQ
 		 WHERE STATUS != 'N'
 		   AND INQ_NO = ?
@@ -421,5 +424,16 @@
 		   SET STATUS = 'C'
 		 WHERE REP_NO = ?
 	</entry>
+	
+	<entry key="selectFaqList">
+		SELECT
+		       FAQ_NO
+		     , FAQ_CONTENT
+		     , FAQ_ANSWER
+		  FROM TB_FAQ
+		 WHERE CATEGORY = ?
+	</entry>
+	
+	
 	
 </properties>

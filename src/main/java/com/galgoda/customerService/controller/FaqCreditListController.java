@@ -1,11 +1,16 @@
 package com.galgoda.customerService.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.galgoda.customerService.model.service.FaqService;
+import com.galgoda.customerService.model.vo.Faq;
 
 /**
  * Servlet implementation class FaqCreditController
@@ -27,6 +32,12 @@ public class FaqCreditListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String category = "C";
+		
+		List<Faq> list = new FaqService().selectFaqList(category);
+		
+		request.setAttribute("list", list);
+		
 		request.getRequestDispatcher("/views/customerService/faqCredit.jsp").forward(request, response);
 	}
 
