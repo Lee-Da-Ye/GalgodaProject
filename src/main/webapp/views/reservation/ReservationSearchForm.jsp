@@ -103,6 +103,8 @@
 <style>
 
 
+
+
  
  /* 검색바 관련 서식*/
         .main_top{
@@ -143,13 +145,15 @@
         }
         
         /*호텔 관련 영역 서식 */
+		.main_content{ flex-direction: column;}
         
         /*정렬리스트 스타일*/
-        .order{
-            margin-top: 10px;
-            text-align: right;
-            max-height:30px;
-        }
+        #arraylist {
+		    margin-bottom: 20px;
+		    text-align: right;
+		    height : 10%; /* 기본 값으로 변경 */
+		    overflow: hidden; /* 내용이 넘치는 경우 숨김 처리 */
+		}
         h2{
             color: rgb(115, 90, 85);
         }
@@ -164,16 +168,13 @@
             flex-direction: column;
             flex-wrap: nowrap;
             justify-content: center;
-            margin-top: 10px;
         }
         .hotelSummary {
             display:flex;
             margin: 10px;
             border: 1px solid lightgray;
             padding: 5px;
-            cursor: pointer;
             position: relative;
-            display: flex;
             flex-direction: row;
             
         }
@@ -184,6 +185,7 @@
         /* 호텔 정보 스타일 */
         .hotelInfo{
             margin-left: 50px;
+            cursor: pointer;
         }
         /* 태그 창 관련 스타일 */
         .tagList {
@@ -498,7 +500,7 @@
         
         /* 조회된 호텔 클릭시 폼 두개 합쳐서  제출 */
 		       document.addEventListener("DOMContentLoaded", function() {
-				    var hotelSummary = document.querySelector(".hotelSummary");
+				    var hotelSummary = document.querySelector(".hotelInfo");
 				
 				    hotelSummary.addEventListener("click", function() {
 				        var form1Data = new FormData(document.getElementById("searchForm"));
@@ -540,10 +542,11 @@
          <%@ include file="/views/common/header.jsp"%>
 
 
-        <section class="main_content">
-           
-				            <div class="main_top">
-				                 <form id="searchForm" >
+		<section class="main_content">
+		
+			<div class="main_top">
+			
+				 <form id="searchForm" >
 				                    <table class="main_searchBar">
 				                        <thead>
 				                            <tr>
@@ -598,47 +601,46 @@
 				                            </tr>
 				                        </tbody>
 				                    </table>
-				                </form>
-				                
-				            </div>
-				            
-				            <div class="main_bottom">
-				                <div class="order" style="height: 100px">
-				                    <select name="list">
+				   </form>
+				
+			</div>
+			
+			
+			<div class="main_bottom">
+			
+				
+				
+				<div class="main">
+					<div class="hotelSummaryBundle" >
+					
+					 <span id="arraylist" class="float-right" >
+				        <select name="list">
 				                        <option value="">평점순</option>
 				                        <option value="">리뷰많은순</option>
 				                        <option value="">인기순</option>
-				                    </select>
-				                </div>
-				
-				
-				               	<div class="main">
-				                    <div class="hotelSummaryBundle" >
-							<% for(Hotel h : list){ %>
-				                        <div class="hotelSummary">
-				                        
+				        </select>
+				 	</span>
+					
+						<% for(Hotel h : list){ %>
+				            <div class="hotelSummary">
 				                        <form  id="searchForm2" >
 				                        <input type="hidden" name="selectHotelNo" value="<%= h.getHotelNo() %>">
 				                        </form>
 				                        
-				                        
-				                            <img class="hotelImg" src="<%= h.getImgPath() %>" alt="호텔 대표이미지1">
-				                            <div class="hotelInfo">
-				                                <div style="padding-top: 15px;">
+				                         <img class="hotelImg" src="<%= h.getImgPath() %>" alt="호텔 대표이미지1">
+				    		
+				    					<div class="hotelInfo">
+				    						
+				    						 <div style="padding-top: 15px;">
 				                                    <h3><b><%= h.getHotelName() %></b><!--<a href="" class="btn btn-secondary buttonColor" align="right">예약</a>--></h3>
-				                                    
-				                                </div>
-				<table>
-				                                <td>
-				                                   
-				                                    <tr class="form-control" required>
-				                                        <span class="fa fa-star stars" id="star1"></span>
-				                                        <span class="fa fa-star stars" id="star2"></span>
-				                                        <span class="fa fa-star stars" id="star3"></span>
-				                                        <span class="fa fa-star stars" id="star4"></span>
-				                                        <span class="fa fa-star stars" id="star5"></span>
-				                        
-				                                        <script>
+				                             </div>
+				    						
+				    						 <span class="fa fa-star stars" id="star1"></span>
+				                             <span class="fa fa-star stars" id="star2"></span>
+				                             <span class="fa fa-star stars" id="star3"></span>
+				                             <span class="fa fa-star stars" id="star4"></span>
+				                             <span class="fa fa-star stars" id="star5"></span>
+				    							<script>
 				                                        function add(ths,sno){
 				                                            for (var i=1;i<=5;i++){
 				                                                var cur=document.getElementById("star"+i)
@@ -652,21 +654,19 @@
 				                                                }
 				                                            }
 				                                        }
-				                                        </script>
-				                                        <tr><%= h.getReviewCount() %>+</tr>
-				                                    </tr>
-				                                    <br><br>
-				                                    <tr align="left">
-				                                        #제주 #동부 #휴양 #바다 #바다뷰 #성산일출봉 #가족여행
-				                                    </tr>
-				                                    <br><br>
-				                                    <h4><%= h.getMinPrice() %>원 ~</h4>
-				                                </td>
-				                                
-				    </table>
-				                            </div>
-				                            
-				                            <div class="heartbox"> 
+				                                </script>
+				    						<%= h.getReviewCount() %>+
+				    						 <br><br>
+				    						 #제주 #동부 #휴양 #바다 #바다뷰 #성산일출봉 #가족여행
+				    						  <br><br>
+				                              <h4><%= h.getMinPrice() %>원 ~</h4>
+				    						
+				    					
+				    					</div>                    
+						
+					
+					
+										<div class="heartbox"> 
 				                                <input type="checkbox" class="checkbox" id="checkbox1" />
 				                                <label for="checkbox1"> 
 				                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
@@ -706,19 +706,40 @@
 				                                </label>
 				                                
 				                            </div>
-				                            
-				                            
-				                        </div>
+										
+					
+					
+					
+					  		</div>
 				                        
-				             <% } %>
-				                       
-				                  </div>
-				                        
-				              </div>
-				       </div>
-				             
-        </section>
-
+				       <% } %>
+					
+					
+					
+					
+					
+					</div>
+				</div>
+				
+				
+				
+				
+				
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		</section>
+       
         
         
           <%@ include file="/views/common/footer.jsp"%>
