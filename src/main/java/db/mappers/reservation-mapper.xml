@@ -66,6 +66,18 @@
 		</entry>
 
 
+		<entry key="addwishList">
+			INSERT
+				INTO TB_WISH
+				VALUES
+				(
+					SEQ_WISHNO.NEXTVAL
+				  , ?
+				  , ?
+				  , SYSDATE
+				)
+		
+		</entry>
 
 
 

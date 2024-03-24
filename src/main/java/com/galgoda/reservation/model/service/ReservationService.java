@@ -1,7 +1,9 @@
 package com.galgoda.reservation.model.service;
 
 import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.commit;
 import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -37,7 +39,20 @@ public class ReservationService {
 		return list;
 		
 		
+	}
 	
+	public int wishlList(int userNo, int wishHotelNo) {
+		Connection conn = getConnection();
+		int result = rDao.wishList(conn, userNo, wishHotelNo);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 	
 }
