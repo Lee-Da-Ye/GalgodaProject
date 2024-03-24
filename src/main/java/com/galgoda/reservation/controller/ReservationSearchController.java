@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.galgoda.customer.model.vo.Reservation;
-import com.galgoda.hotel.model.service.HotelService;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.reservation.model.service.ReservationService;
 
 /**
  * Servlet implementation class ReservationSearchController
@@ -54,8 +54,9 @@ public class ReservationSearchController extends HttpServlet {
 		r.setResPeople(peopleCount);
 		r.setRoomCount(roomCount);
 		
-		List<Hotel> list = new HotelService().searchHotelList(r, searchType);
+		List<Hotel> list = new ReservationService().searchHotelList(r, searchType);
 		
+		System.out.println(list);
 		request.setAttribute("list", list);
 		request.setAttribute("r", r);
 		

@@ -385,38 +385,5 @@
 			AND STATUS = 'Y'
 		</entry>
 
-		<entry key="searchHotelName">
-		         SELECT 
-					    h.HOTEL_NO HOTEL_NO,
-					    h.HOTEL_NAME HOTEL_NAME,
-					    h.TAG_NO TAG_NO,
-					    h.IMG_PATH IMG_PATH,
-					    NVL(r.REVIEW_COUNT, 0) AS REVIEW_COUNT,
-					    MIN_PRICE
-					FROM 
-					    TB_HOTEL h
-					LEFT JOIN 
-					    (SELECT HOTEL_NO, COUNT(*) AS REVIEW_COUNT
-					     FROM TB_REVIEW
-					     WHERE STATUS = 'Y'
-					     GROUP BY HOTEL_NO) r
-					ON 
-					    h.HOTEL_NO = r.HOTEL_NO
-					    
-					LEFT JOIN
-						(SELECT HOTEL_NO, MIN(RO_PRICE) MIN_PRICE
-					     FROM TB_ROOM
-					     WHERE STATUS = 'Y'
-					     GROUP BY HOTEL_NO) O
-					ON 
-					    h.HOTEL_NO = O.HOTEL_NO
-					WHERE 
-					    h.STATUS = 'Y'
-					    AND h.HOTEL_NAME LIKE ?
 		
-		</entry>
-		<entry key="searchTagName">
-		
-		
-		</entry>
 </properties>

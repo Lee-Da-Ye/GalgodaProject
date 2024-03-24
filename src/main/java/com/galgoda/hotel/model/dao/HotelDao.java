@@ -758,50 +758,7 @@ public class HotelDao {
 		
 	}
 	
-	public List<Hotel> searchHotelName(Connection conn, Reservation r){
-		List<Hotel> list = new ArrayList<>();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("searchHotelName");
-		
-		String hotelName = "%"+r.getHotelName()+"%";
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			System.out.println(r.getHotelName());
-			
-			pstmt.setString(1,hotelName );
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Hotel h = new Hotel();
-				h.setHotelNo(rset.getInt("HOTEL_NO"));
-				h.setHotelName(rset.getString("hotel_name"));
-				h.setTagNo(rset.getString("tag_no"));
-				h.setImgPath(rset.getString("img_path"));
-				h.setReviewCount(rset.getInt("review_count"));
-				h.setMinPrice(rset.getInt("min_price"));
-				
-				list.add(h);
-			}
-
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-
-		return list;
-	}
 	
-	public List<Hotel> searchTagName(Connection conn, Reservation r){
-		
-	}
 		
 }
  
