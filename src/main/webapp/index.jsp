@@ -133,8 +133,8 @@
 </head>
 <body>
 	<div class="wrap">
+	
 		<%@ include file="/views/common/header.jsp" %>
-		
 		
 		<section class="mainpage_content">
             <div class="main_image"><img src="<%=contextPath%>/resources/images/mainPageImg.jpg" width="100%" alt="메인홈페이지 이미지"></div>
@@ -143,11 +143,11 @@
                     <table class="main_searchBar">
                         <thead>
                             <tr>
-                                <td width="300px">
+                            	<td width="300px">
                                 	<input type="hidden" id="searchType" name="searchType" value="hotelName"> <!-- 숨겨진 입력 필드로 검색 타입을 저장 -->
                                 	<div class="d-flex search_btn">
-                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn active" onclick="setSearchType('hotelName')">호텔명</button>
-                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')">태그명</button>
+                                    	<button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn active" onclick="setSearchType('hotelName')">호텔명</button>
+                                    	<button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')">태그명</button>
                                     </div>
                                 </td>
                                 <td width="150px" style="text-align: center;">체크인</td>
@@ -167,18 +167,23 @@
 								                <input type="text" name="hotelName" id="hotelNameInput" class="form-control" style="text-align: center;" onclick="toggleCheckboxes()">
 								            </div>
 								        </div>
-								        
 								        <div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px; max-height: 76px; overflow-y: auto;">
-								       
 								        </div>
 								    </div>
 								</td>
-                                
-                                <td><input type="date" name="checkInDate" class="form-control" value="<%= today %>"></td>
-                                <td><input type="date" name="checkOutDate" class="form-control" value="<%= tomorrow %>"></td>
+                                <td>
+                                	<input type="date" name="checkInDate" class="form-control" value="<%= today %>" required>
+                               	</td>
+                                <td>
+                                	<input type="date" name="checkOutDate" class="form-control" value="<%= tomorrow %>" required>
+                               	</td>
                                 <td></td>
-                                <td><input type="number" min="1" name="peopleCount" value="1" class="form-control"></td>
-                                <td><input type="number" min="1" name="roomCount" value="1" class="form-control"></td>
+                                <td>
+                                	<input type="number" min="1" name="peopleCount" value="1" class="form-control" required>
+                               	</td>
+                                <td>
+                                	<input type="number" min="1" name="roomCount" value="1" class="form-control" required>
+                               	</td>
                                 <td colspan="2" align="right">
 					                <button type="submit" class="btn main_searchButton">검색하기</button>
 					            </td>
@@ -190,7 +195,6 @@
 					                    <input type="text" class="form-control" style="text-align: center;">
 					                </div>
 		           				</td>
-                                
                             </tr>
                         </tbody>
                     </table>
@@ -200,18 +204,14 @@
             <div class="main_bottom">
                 <div class="main">
                     <h2 class="mainpage_h2" style="text-align : center;">인기 호텔</h2>
-                    
                     <div class="mainpage_imgContent" id="hotelImages">
-                    
                     </div>
-                             
                 </div>
-                
             </div>        
        </section>
 	
-	
 		<%@ include file="/views/common/footer.jsp" %>
+		
 	</div>
 </body>
 </html>

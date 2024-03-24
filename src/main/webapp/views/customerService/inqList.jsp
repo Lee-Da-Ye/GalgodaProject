@@ -16,14 +16,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	/* 사용자_1대1문의내역페이지 스타일 */
-        .sideMenubar_head {
-            width: 80%;
-            margin-left: 10px;
-            margin-right: 50px;
-            margin-top: 10px;
-            border-bottom: 1px solid gray;
-    	}
+	.sideMenubar_head {
+		width: 80%;
+		margin-left: 10px;
+		margin-right: 50px;
+		margin-top: 10px;
+		border-bottom: 1px solid gray;
+	}
 </style>
 </head>
 <body>
@@ -62,7 +61,6 @@
                             <a href="<%= contextPath %>/list.inq">문의내역</a>
                         </div>
                     </li>
-
                 </ul>
             </div>
 
@@ -82,40 +80,54 @@
                         <tr align="center">
                             <td><%= i.getCategory() %></td>
                             <td><%= i.getInqType() %></td>
-                            <td><a href="<%= contextPath %>/detail.inq?no=<%= i.getInqNo()%>"><%= i.getInqTitle() %></a></td>
+                            <td>
+                            	<a href="<%= contextPath %>/detail.inq?no=<%= i.getInqNo()%>"><%= i.getInqTitle() %></a>
+                           	</td>
                             <td><%= i.getRegistDate() %></td>
                             <% if(i.getStauts().equalsIgnoreCase("w")){ %>
-                            	<td>답변 대기</td>
+                           	<td>답변 대기</td>
                             <% }else if(i.getStauts().equalsIgnoreCase("y")){ %>
-                            	<td style="opacity: 0.5;">답변 완료</td>
+                           	<td style="opacity: 0.5;">답변 완료</td>
                         	<% } %>
                         </tr>
                         <% } %>
                     </table>
 	                <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
-	                    
 	                    <% if(pi.getCurrentPage() == 1){ %>
-	                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                    <li class="page-item disabled">
+	                    	<a class="page-link" href="#">&lt;</a>
+                    	</li>
 	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a></li>
+	                    <li class="page-item">
+	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a>
+                    	</li>
 	                 	<% } %>
+	                 	
 	                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
 	                    	<% if(p == pi.getCurrentPage()){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
+		                    <li class="page-item active">
+		                    	<a class="page-link" href="#"><%= p %></a>
+	                    	</li>
 		                    <% }else { %>
-		                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a></li>
+		                    <li class="page-item">
+		                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a>
+	                    	</li>
 	                 		<% } %>
 	                 	<% } %>
 	                    
 	                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
-	                    <li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                    <li class="page-item disabled">
+	                    	<a class="page-link" href="#">&gt;</a>
+                    	</li>
 	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a></li>
-	                	
+	                    <li class="page-item">
+	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a>
+                    	</li>
 	                	<% } %>
 	                </ul>
                 </div>
             </div>
+            
 			<% }else if(loginHotel != null){ %>
 			<div class="sideMenubar">
                 <ul class="nav flex-column">
@@ -126,29 +138,53 @@
                     <li>
                         <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
-                    <li> <div id="demo"  class="collapse " style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
-                    
-                    
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">호텔등록</a>
+                   		</div>
+                   	</li> 
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">호텔 정보 수정</a>
+                    	</div>
+                   	</li>  
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">객실등록</a>
+                    	</div> 
+                    </li>  
+                    <li> 
+                    	<div id="demo"  class="collapse " style="margin-left: 30px;">
+                    		<a href="">객실수정</a>
+                   		</div> 
+                 	</li>  
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">리뷰 관리</a>
+                   		</div> 
+                   	</li>   
                     <li>
                         <a class="nav-link"  href="#">예약관리</a>
                     </li>
-                  
                     <li>
                         <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
                     </li>
-                        
-                    
                     <li>
                          <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
-                    <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/list.no?page=1">공지사항</a></div> </li>   
-                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/list.inq?page=1">문의사항</a></div> </li>   
+                    <li> 
+                    	<div id="demo4" class="collapse show" style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/list.no?page=1">공지사항</a>
+                  		</div> 
+                  	</li>   
+                    <li style="background-color: #BFB4B0;"> 
+                    	<div id="demo4" class="collapse show" style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/list.inq?page=1">문의사항</a>
+                    	</div> 
+                    </li>   
                 </ul>
             </div>	
+            
 			<div class="page_content">
                 <h2 class="contentName">1:1 문의내역</h2>
                 <div style="margin-top: 10px; border: 2px solid lightgray;"></div>
@@ -163,44 +199,59 @@
                         </tr>
                         <% for(Inq i : list1){ %>
                         	<% if(loginHotel.getHotelName().equals(i.getCategory())){ %>
-		                        <tr align="center">
-		                            <td><%= i.getInqWriter() %></td>
-		                            <td><%= i.getInqType() %></td>
-		                            <td><a href="<%= contextPath %>/detail.inq?no=<%= i.getInqNo()%>"><%= i.getInqTitle() %></a></td>
-		                            <td><%= i.getRegistDate() %></td>
-		                            <% if(i.getStauts().equalsIgnoreCase("w")){ %>
-		                            	<td>답변 대기</td>
-		                            <% }else if(i.getStauts().equalsIgnoreCase("y")){ %>
-		                            	<td style="opacity: 0.5;">답변 완료</td>
-		                        	<% } %>
-		                        </tr>
+	                        <tr align="center">
+	                            <td><%= i.getInqWriter() %></td>
+	                            <td><%= i.getInqType() %></td>
+	                            <td>
+	                            	<a href="<%= contextPath %>/detail.inq?no=<%= i.getInqNo()%>"><%= i.getInqTitle() %></a>
+                            	</td>
+	                            <td><%= i.getRegistDate() %></td>
+	                            <% if(i.getStauts().equalsIgnoreCase("w")){ %>
+                            	<td>답변 대기</td>
+	                            <% }else if(i.getStauts().equalsIgnoreCase("y")){ %>
+                            	<td style="opacity: 0.5;">답변 완료</td>
+	                        	<% } %>
+	                        </tr>
                         	<% } %>
                         <% } %>
                     </table>
                     <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
 	                    
 	                    <% if(pi.getCurrentPage() == 1){ %>
-	                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                    <li class="page-item disabled">
+	                    	<a class="page-link" href="#">&lt;</a>
+                    	</li>
 	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a></li>
+	                    <li class="page-item">
+	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a>
+                    	</li>
 	                 	<% } %>
+	                 	
 	                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
 	                    	<% if(p == pi.getCurrentPage()){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
+		                    <li class="page-item active">
+		                    	<a class="page-link" href="#"><%= p %></a>
+                    		</li>
 		                    <% }else { %>
-		                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a></li>
+		                    <li class="page-item">
+		                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a>
+                    		</li>
 	                 		<% } %>
 	                 	<% } %>
 	                    
 	                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
-	                    <li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                    <li class="page-item disabled">
+	                    	<a class="page-link" href="#">&gt;</a>
+                    	</li>
 	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a></li>
-	                	
+	                    <li class="page-item">
+	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a>
+                    	</li>
 	                	<% } %>
 	                </ul>
                 </div>
             </div>
+            
 			<% }else if(loginAdmin != null){ %>
 			<div class="sideMenubar">
                 <ul class="nav flex-column">
@@ -260,7 +311,9 @@
 	                        		<td><%= inq.getCategory() %></td>
 	                        		<td><%= inq.getInqWriter() %></td>
 	                        		<td><%= inq.getInqType() %></td>
-	                        		<td><a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a></td>
+	                        		<td>
+	                        			<a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a>
+                        			</td>
 	                        		<td><%= inq.getRegistDate() %></td>
 	                        	</tr>
                         	<% } %>
@@ -269,27 +322,37 @@
                     <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
 	                    
 	                    <% if(pi.getCurrentPage() == 1){ %>
-	                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                    <li class="page-item disabled">
+	                    	<a class="page-link" href="#">&lt;</a>
+                   		</li>
 	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a></li>
+	                    <li class="page-item">
+	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a>
+                    	</li>
 	                 	<% } %>
 	                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
 	                    	<% if(p == pi.getCurrentPage()){ %>
-		                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
+		                    <li class="page-item active">
+		                    	<a class="page-link" href="#"><%= p %></a>
+	                    	</li>
 		                    <% }else { %>
-		                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a></li>
+		                    <li class="page-item">
+		                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a>
+	                    	</li>
 	                 		<% } %>
 	                 	<% } %>
 	                    
 	                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
-	                    <li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                    <li class="page-item disabled">
+	                    	<a class="page-link" href="#">&gt;</a>
+                   		</li>
 	                    <% }else { %>
-	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a></li>
-	                	
+	                    <li class="page-item">
+	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a>
+                    	</li>
 	                	<% } %>
 	                </ul>
                 </div>
-                
             </div>
             <script>
 				$(function() {
@@ -300,10 +363,7 @@
 			            window.location.href = newURL;
 					})
 				})
-			
-				
 			</script>
-            
 			<% } %>
         </section>
         <!-- section end -->

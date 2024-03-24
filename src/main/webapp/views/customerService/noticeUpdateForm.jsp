@@ -25,6 +25,13 @@
             width: 100px;
             text-align: center;
         }
+        .sideMenubar_head {
+		width: 80%;
+		margin-left: 10px;
+		margin-right: 50px;
+		margin-top: 10px;
+		border-bottom: 1px solid gray;
+	}
 </style>
 </head>
 <body>

@@ -9,6 +9,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	.sideMenubar_head {
+		width: 80%;
+		margin-left: 10px;
+		margin-right: 50px;
+		margin-top: 10px;
+		border-bottom: 1px solid gray;
+	}
+</style>
 </head>
 <body>
 	<div class="wrap">
@@ -27,27 +36,50 @@
                     <li>
                         <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
-                    <li> <div id="demo"  class="collapse " style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
-                    
-                    
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">호텔등록</a>
+                   		</div> 
+                   	</li> 
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">호텔 정보 수정</a>
+                   		</div> 
+                  	</li>  
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">객실등록</a>
+                    	</div> 
+                    </li>  
+                    <li> 
+                    	<div id="demo"  class="collapse " style="margin-left: 30px;">
+                    		<a href="">객실수정</a>
+                    	</div> 
+                    </li>  
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="">리뷰 관리</a>
+                    	</div> 
+                    </li>   
                     <li>
                         <a class="nav-link"  href="#">예약관리</a>
                     </li>
-                  
                     <li>
                         <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
                     </li>
-                        
-                    
                     <li>
                          <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
-                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/list.no?page=1">공지사항</a></div> </li>   
-                    <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/list.inq?page=1">문의사항</a></div> </li>   
+                    <li> 
+                    	<div id="demo4" class="collapse show" style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/list.no?page=1">공지사항</a>
+                    	</div> 
+                    </li>   
+                    <li style="background-color: #BFB4B0;"> 
+                    	<div id="demo4" class="collapse show" style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/list.inq?page=1">문의사항</a>
+                    	</div> 
+                    </li>   
                 </ul>
             </div>
 
@@ -64,7 +96,6 @@
                                 <th style="width: 100px;">문의유형</th>
                                 <td><%= inq.getInqType() %></td>
                             </tr>
-                            
                             <tr>
                                 <th>제목</th>
                                 <td colspan="3"><%= inq.getInqTitle() %></td>
