@@ -162,8 +162,8 @@
                                 <td><input type="date" name="checkInDate" class="form-control"></td>
                                 <td><input type="date" name="checkOutDate" class="form-control"></td>
                                 <td></td>
-                                <td><input type="number" min="0" name="peopleCount" class="form-control"></td>
-                                <td><input type="number" min="0" name="roomCount" class="form-control"></td>
+                                <td><input type="number" min="1" name="peopleCount" value="1" class="form-control"></td>
+                                <td><input type="number" min="1" name="roomCount" value="1" class="form-control"></td>
                                 <td colspan="2" align="right">
 					                <button type="submit" class="btn main_searchButton">검색하기</button>
 					            </td>
