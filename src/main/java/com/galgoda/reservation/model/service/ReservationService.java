@@ -19,7 +19,7 @@ public class ReservationService {
 	public List<Hotel> searchHotelList(Reservation r, String searchType){
 		Connection conn = getConnection();
 		
-		System.out.println(r);
+		
 		
 		List<Hotel> list  = new ArrayList<>();
 		if(searchType.equals("hotelName")) {
@@ -34,7 +34,6 @@ public class ReservationService {
 		
 		close(conn);
 		
-		System.out.println(list);
 		return list;
 		
 		

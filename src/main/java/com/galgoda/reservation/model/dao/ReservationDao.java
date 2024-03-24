@@ -34,7 +34,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		System.out.println(r);
+		
 		String sql = prop.getProperty("searchHotelName");
 		
 		String hotelName = "%"+r.getHotelName()+"%";
@@ -43,7 +43,7 @@ public class ReservationDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			System.out.println(r.getHotelName());
+			
 			
 			pstmt.setString(1,hotelName );
 			
@@ -68,7 +68,7 @@ public class ReservationDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(list);
+		
 		return list;
 	}
 	
@@ -79,7 +79,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		System.out.println(r);
+		
 		String sql = prop.getProperty("searchTagName");
 		
 		String tagNo = r.getTagNo();
@@ -112,7 +112,7 @@ public class ReservationDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(list);
+	
 		return list;
 	}
 

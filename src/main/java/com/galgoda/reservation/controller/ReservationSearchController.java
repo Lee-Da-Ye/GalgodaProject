@@ -44,7 +44,7 @@ public class ReservationSearchController extends HttpServlet {
 		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
 		
 		String searchType = request.getParameter("searchType");
-		System.out.println(searchType);
+		
 	
 		Reservation r = new Reservation();
 		r.setHotelName(hotelName);
@@ -57,7 +57,7 @@ public class ReservationSearchController extends HttpServlet {
 		
 		List<Hotel> list = new ReservationService().searchHotelList(r, searchType);
 		
-		System.out.println(list);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("r", r);
 		
