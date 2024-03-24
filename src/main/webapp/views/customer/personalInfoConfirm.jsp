@@ -33,7 +33,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/resManagement.cu" data-target="#demo">예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/resManagement.cu?page=1" data-target="#demo">예약관리</a>
                     </li>
                     <li>
                         <a class="nav-link" style="color: black;" href="<%=contextPath%>/wishlist.cu" data-target="#demo2">위시리스트</a>

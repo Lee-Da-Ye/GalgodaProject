@@ -60,7 +60,7 @@
                     </li>
                     
                     <li class="reservation_btn">
-                        <a class="nav-link" href="<%=contextPath%>/resManagement.cu" data-toggle="collapse" data-target="#demo" style="background-color: #634c46; color: white;" >예약관리</a>
+                        <a class="nav-link" href="<%=contextPath%>/resManagement.cu?page=1" data-target="#demo" style="background-color: #634c46; color: white;" >예약관리</a>
    					</li>
                         
                     <li>
@@ -142,7 +142,7 @@
 			                <div class="res_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px; justify-content: space-between; word-break: break-all;">
 			                    <span class="btn btn-secondary"><%=r.getResStatus()%></span>
 			                    <!-- 예약 상태가 "예약취소"일 때 버튼 비활성화 -->
-			                    <a href="<%=contextPath%>/resDetail.cu?id=<%=r.getResNo()%>" class="btn rev_button">상세 조회</a>
+			                    <button class="btn rev_button" disabled>상세 조회</button>
 			                    <button class="btn rev_button" disabled>예약 변경/취소</button>
 			                    <button class="btn rev_button" disabled>리뷰 등록/삭제</button>
 			                </div>
@@ -152,9 +152,18 @@
 			                    <span class="btn btn-secondary"><%=r.getResStatus()%></span>
 			                    <a href="<%=contextPath%>/resDetail.cu?id=<%=r.getResNo()%>" class="btn rev_button">상세 조회</a>
 			                    <a href="<%=contextPath%>/resUpdateForm.cu?id=<%=r.getResNo()%>" class="btn rev_button">예약 변경/취소</a>
-			                    <a href="" class="btn rev_button">리뷰 등록/삭제</a>
+			                    
+			                    
+			                    <% if(r.getResStatus().equals("예약확정")) { %>
+			                    <a href="" class="btn rev_button" >리뷰 등록/삭제</a>
+			                    <% } else { %>
+			                    <button class="btn rev_button" disabled>리뷰 등록/삭제</button>
+			                    <% } %>
+			                    
 			                </div>
 			            <% } %>
+			            
+			            
                     </div>
                     <br>
                     <% } %>

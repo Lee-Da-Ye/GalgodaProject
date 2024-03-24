@@ -70,7 +70,6 @@
 		    const pickerCheckIn = new Pikaday({
 		        field: document.getElementById('checkInDate'),
 		        format: 'YYYY년 MM월 DD일', // 표시 형식 변경
-		        minDate: new Date(),
 		        onSelect: function(selectedDate) {
 		            var nextDay = new Date(selectedDate.getTime() + 24 * 60 * 60 * 1000);
 		            $("#checkOutDate").datepicker("option", "minDate", nextDay);
@@ -81,7 +80,6 @@
 		    const pickerCheckOut = new Pikaday({
 		        field: document.getElementById('checkOutDate'),
 		        format: 'YYYY년 MM월 DD일', // 표시 형식 변경
-		        minDate: new Date(),
 		    });
 		
 		    // 체크인, 체크아웃 날짜가 변경되면 포맷을 수정합니다.
@@ -130,28 +128,30 @@
 		         
 		         // 선택된 룸 타입 가져오기
 		         var roomType = parseInt($('select[name="roomType"]').val());
-		         
+		         console.log(roomType);
 		         // 가격 계산 : (숙박일수 * 객실 가격)
 		         var roomPrice = calculateRoomPrice(roomType);
 		         var totalPrice = numberOfNights * roomPrice;
 		         
 		         // 결제금액 변경 시 변경금액 결제하기 버튼 활성화 하기
 		         // 이전 결제금액 가져오기
-		        // var previousAmount = parseFloat($('input[name="resPay"]').attr('data-previous-amount'));
+		         var previousAmount = parseFloat($('input[name="resPay"]').attr('data-previous-amount'));
 		         
 		         // 화면에 결제금액 업데이트
 		         $('input[name="resPay"]').val(totalPrice);
 		         
+		         /*
 		         // 결제금액이 변경되었는지 확인하고 변경이 있을 경우 버튼을 활성화
-		         /*if (previousAmount !== totalPrice) {
+		         	if (previousAmount !== totalPrice) {
 		             $('#paymentButton').prop('disabled', false);
 		         } else {
 		             $('#paymentButton').prop('disabled', true);
 		         }
+		         */
 		         
-		         // 변경된 결제금액을 데이터 속성에 업데이트
+		         //변경된 결제금액을 데이터 속성에 업데이트
 		         $('input[name="resPay"]').attr('data-previous-amount', totalPrice);
-		   		*/
+		   		
 		         
 	     	});
 		    
@@ -159,15 +159,15 @@
 		    function calculateRoomPrice(roomType) {
 		        // 각각의 객실 타입에 따른 가격을 반환하는 로직 작성
 		        switch (roomType % 5) {
-		        	case 0: // 스탠다드 싱글
+		        	case 1: // 스탠다드 싱글
 		        		return 80000;
-		            case 1: // 스탠다드 더블
+		            case 2: // 스탠다드 더블
 		                return 100000; 
-		            case 2: // 디럭스 트윈
+		            case 3: // 디럭스 트윈
 		                return 150000; 
-		            case 3: // 슈페리어 킹
+		            case 4: // 슈페리어 킹
 		                return 120000; 
-		            case 4: // 스위트룸
+		            case 0: // 스위트룸
 		                return 200000;
 		            default:
 		                return 0;
@@ -176,16 +176,24 @@
 		});
 
 		
+		
 	 	// 숙박 일수 계산 함수
 	    function getNumberOfNights(checkInDate, checkOutDate) {
 	        return checkOutDate.diff(checkInDate, 'days');
 	    }
 		
-		// form 제출 함수
-		function submitForm() {
-		    var form = document.getElementById('updateForm');
-		    form.submit();
-		}
+	 	// 폼 제출 시 선택된 객실 번호를 숨겨진 입력 필드에 저장하는 함수
+	    function updateSelectedRoom() {
+	        var selectedRoom = document.getElementById("roomType").value;
+	        document.getElementById("selectedRoom").value = selectedRoom;
+	    }
+	    
+	    // 폼 제출 시 호출되는 함수
+	    function submitForm() {
+	        updateSelectedRoom(); // 선택된 객실 번호 업데이트
+	        var form = document.getElementById('updateForm');
+	        form.submit(); 
+	    }
 		
 		// 휴대폰 번호 입력 시 자동 - 넣기
 		 const hypenTel = (target) => {
@@ -319,6 +327,7 @@
                                 <tr>
                                     <th>객실타입</th>
                                     <td colspan="3">
+                                   		<input type="hidden" id="selectedRoom" name="selectedRoom" value="">
                                         <select name="roomType" id="roomType" class="form-control">
                                          	<% 
 											    // 선택한 호텔 번호
@@ -352,7 +361,7 @@
 											                    break;
 											            }
 											        
-											            
+											            // 객실 번호 옵션으로 생성
 												%>
 											            <option value="<%= roNo %>"><%= roName %></option>
 												<%
@@ -364,23 +373,16 @@
                                 </tr>
                                 
                                	<script>
-	                               	$(function(){
+	                               	$(document).ready(function() {
 	                               	    // 현재 선택된 객실 유형을 가져오는 서버 측 코드
-	                               	    
-	                               	    
-	                               	    
-	                               	    
-	                               	    
 	                               	    let selectedRoomType = '<%= selectedReservation.getRoNo() %>';
 	
 	                               	    // 셀렉트 요소의 값을 선택된 객실 유형으로 설정
 	                               	    $('select[name="roomType"]').val(selectedRoomType);
-	                               	});
-	                               	
-	                               	$(function(){
+	
 	                               	    // 현재 선택된 예약 인원을 가져오는 서버 측 코드
 	                               	    let selectedResPeople = '<%= selectedReservation.getResPeople() %>';
-
+	
 	                               	    // 셀렉트 요소의 값을 선택된 예약 인원으로 설정
 	                               	    $('select[name="resPeople"]').val(selectedResPeople);
 	                               	});
@@ -408,6 +410,12 @@
                             </table>
                             
                             <script>
+                            
+                         // 폼 제출 시 선택된 객실 번호를 숨겨진 입력 필드에 저장하는 함수
+                            function updateSelectedRoom() {
+                                var selectedRoom = document.getElementById("roomType").value;
+                                document.getElementById("selectedRoom").value = selectedRoom;
+                            }
                             
                             	$(function(){
                             		// 현재 예약 정보의 추가옵션들 
