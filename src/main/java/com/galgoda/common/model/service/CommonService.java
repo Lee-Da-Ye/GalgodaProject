@@ -83,10 +83,50 @@ public class CommonService {
     	
     }
     
+    public boolean isHotelEmailDuplicate(String email) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.isHotelEmailDuplicate(conn, email);
+    	
+    	if (result > 0) {
+            // 이메일이 이미 존재하는 경우
+    		rollback(conn);
+    		close(conn);
+            return true;
+        } else {
+            // 이메일이 존재하지 않는 경우
+        	commit(conn);
+        	close(conn);
+            return false;
+        }
+    	
+    	
+    }
+    
     public boolean isUserIdDuplicate(String userId) {
     	
     	Connection conn = getConnection();
     	int result = cDao.isUserIdDuplicate(conn, userId);
+    	
+    	if (result > 0) {
+            // 아이디가 이미 존재하는 경우
+    		rollback(conn);
+    		close(conn);
+            return true;
+        } else {
+            // 아이디가 존재하지 않는 경우
+        	commit(conn);
+        	close(conn);
+            return false;
+        }
+    	
+    	
+    }
+    
+    public boolean isHotelUserIdDuplicate(String userId) {
+    	
+    	Connection conn = getConnection();
+    	int result = cDao.isHotelUserIdDuplicate(conn, userId);
     	
     	if (result > 0) {
             // 아이디가 이미 존재하는 경우

@@ -102,12 +102,28 @@
 		 WHERE EMAIL = ?
 	</entry>
 	
+	<entry key="isHotelEmailDuplicate">
+		SELECT 
+				COUNT(*)
+		  FROM TB_MEM
+		 WHERE MEM_EMAIL = ?
+	</entry>
+	
 	<entry key="isUserIdDuplicate">
 		SELECT 
 				COUNT(*)
 		  FROM TB_USER
 		 WHERE USER_ID = ?
 	</entry>
+	
+	<entry key="isHotelUserIdDuplicate">
+		SELECT 
+				COUNT(*)
+		  FROM TB_MEM
+		 WHERE MEM_ID = ?
+	</entry>
+	
+	
 	
 	<entry key="isCodeAccord">
 		SELECT

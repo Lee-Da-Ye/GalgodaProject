@@ -161,7 +161,8 @@
                 </div>
                 
                 <script>
-				document.addEventListener('DOMContentLoaded', function() {
+				document.addEventListener('DOMContentLoaded', function() { 
+					// DOMContentLoaded 이벤트를 사용하여 페이지의 모든 요소가 로드되었을 때 스크립트 코드가 실행되도록 함
 				    const checkbox1 = document.getElementById('checkbox1');
 				    const checkbox2 = document.getElementById('checkbox2');
 				    const button = document.querySelector('.identification_btn');

@@ -94,7 +94,7 @@
         // 서버로 이메일 중복 확인 요청을 보냄
         $.ajax({
             type: "GET",
-            url: "<%=request.getContextPath()%>/emailDoubleCheck.co",
+            url: "<%=request.getContextPath()%>/hotelEmailDoubleCheck.co",
             data: { email: email },
             dataType: "json",
             success: function(response) {
@@ -127,7 +127,7 @@
         // 서버로 아이디 중복 확인 요청을 보냄
         $.ajax({
             type: "GET",
-            url: "<%=request.getContextPath()%>/userIdDoubleCheck.co",
+            url: "<%=request.getContextPath()%>/hotelUserIdDoubleCheck.co",
             data: { userId: userId },
             dataType: "json",
             success: function(response) {
