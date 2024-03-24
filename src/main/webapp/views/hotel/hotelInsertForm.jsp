@@ -159,7 +159,7 @@
                             <tr>
                                 <td id="td4"><button class="btn" id="btnname" type="button" >태그</button></td>
                                 <td id="td2">
-                                    <div class="form-control add_content">   
+                                    <div class="form-control add_content" style="overflow-y: auto;">   
                                         
                                         <% for(Tag t : list){ %>
                                         	<label><input type="checkbox" name="hotelTag" value="<%= t.getTagNo() %>"> &nbsp;<%= t.getTagName() %></label>
