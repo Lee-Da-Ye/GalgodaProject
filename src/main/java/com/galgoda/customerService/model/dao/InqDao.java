@@ -231,6 +231,7 @@ public class InqDao {
 				inq.setInqTitle(rset.getString("INQ_TITLE"));
 				inq.setInqContent(rset.getString("INQ_CONTENT"));
 				inq.setAnsContent(rset.getString("ANS_CONTENT"));
+				inq.setStauts(rset.getString("STATUS"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
