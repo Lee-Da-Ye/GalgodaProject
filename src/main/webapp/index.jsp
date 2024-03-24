@@ -168,7 +168,7 @@
 								            </div>
 								        </div>
 								        
-								        <div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px;">
+								        <div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px; max-height: 76px; overflow-y: auto;">
 								       
 								        </div>
 								    </div>
