@@ -47,10 +47,10 @@ public class CustomerResCancelController extends HttpServlet {
 		if(result > 0) {
 			session.setAttribute("alertMsg", "예약이 성공적으로 취소되었습니다.");
 			session.setAttribute("reservations", reservations); // 동일한 키값으로 다시 담게 되면 덮어씌워짐
-			response.sendRedirect(request.getContextPath() + "/resManagement.cu");
+			response.sendRedirect(request.getContextPath() + "/resManagement.cu?page=1");
 		}else {
 			session.setAttribute("alertMsg", "예약취소에 실패하였습니다.");
-			response.sendRedirect(request.getContextPath() + "/resManagement.cu");
+			response.sendRedirect(request.getContextPath() + "/resManagement.cu?page=1");
 		}
 		
 		
