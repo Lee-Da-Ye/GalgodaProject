@@ -166,10 +166,10 @@
             }, function(rsp) { // callback
                 if (rsp.success) {
                     alert("결제가 완료되었습니다.");
-                    window.location.href = "<%=request.getContextPath()%>/resManagement.cu";
+                    window.location.href = "<%=request.getContextPath()%>/resManagement.cu?page=1";
                 } else {
                     alert("결제에 실패했습니다.");
-                    window.location.href = "<%=request.getContextPath()%>/resManagement.cu";
+                    window.location.href = "<%=request.getContextPath()%>/resManagement.cu?page=1";
                 }
             }); 
         }
