@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.galgoda.customer.model.vo.Reservation;
+import com.galgoda.hotel.model.service.HotelService;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Tag;
 import com.galgoda.reservation.model.service.ReservationService;
 
 /**
@@ -56,9 +58,10 @@ public class ReservationSearchController extends HttpServlet {
 		r.setSearchType(searchType);
 		
 		List<Hotel> list = new ReservationService().searchHotelList(r, searchType);
-		
+		List<Tag> tlist = new HotelService().hotelInsertForm();
 		
 		request.setAttribute("list", list);
+		request.setAttribute("tlist", tlist);
 		request.setAttribute("r", r);
 		
 		request.getRequestDispatcher("/views/reservation/ReservationSearchForm.jsp").forward(request, response);

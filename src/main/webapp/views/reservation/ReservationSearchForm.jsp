@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.galgoda.customer.model.vo.Reservation" %>
 <%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
+<%@ page import="com.galgoda.hotel.model.vo.Tag" %>
 
 <%@ page import="java.util.List" %>  
 
@@ -9,6 +10,7 @@
 	
 	
 	List<Hotel> list = (List<Hotel>)request.getAttribute("list");
+	List<Tag> tlist = (List<Tag>)request.getAttribute("tlist");
 	Reservation r = (Reservation)request.getAttribute("r");
 
 
@@ -622,6 +624,8 @@
 				        </select>
 				 	</span>
 					
+					
+						<% int i = 1; %>
 						<% for(Hotel h : list){ %>
 				            <div class="hotelSummary">
 				                        <form  id="searchForm2" >
@@ -658,18 +662,49 @@
 				                                </script>
 				    						<%= h.getReviewCount() %>+
 				    						 <br><br>
-				    						 #제주 #동부 #휴양 #바다 #바다뷰 #성산일출봉 #가족여행
+				    						
+				    						 
+				    						<%
+											    String tagNos = h.getTagNo(); // TAG_NO 값이 ','로 구분되어 있다고 가정
+											    if (tagNos != null && !tagNos.isEmpty()) { // h.getTagNo()가 null이 아니고 비어 있지 않은 경우에만 실행
+											        String[] tagNoArray = tagNos.split(","); // 구분자로 TAG_NO 값을 분할하여 배열에 저장
+											        for (String tagNo : tagNoArray) {
+											            int tagNoInt = Integer.parseInt(tagNo.trim()); // 문자열로 된 TAG_NO 값을 정수형으로 변환
+											            if (tlist != null && !tlist.isEmpty()) { // tlist가 null이 아니고 비어 있지 않은 경우에만 실행
+											                for (Tag t : tlist) {
+											                    if (t.getTagNo() == tagNoInt) { // TAG_NO가 일치하는 경우에만 출력
+											%>
+											                        # <%= t.getTagName() %> 
+											<%
+											                    }
+											                }
+											            }
+											        }
+											    }
+											%>
+															    						 
+				    						 
 				    						  <br><br>
 				                              <h4><%= h.getMinPrice() %>원 ~</h4>
 				    						
 				    					
 				    					</div>                    
 						
+						
 					
 					
-										<div class="heartbox"> 
-				                                <input type="checkbox" class="checkbox" id="checkbox1" />
-				                                <label for="checkbox1"> 
+										
+												 <% if (loginCustomer != null) { %>
+										<div class="heartbox" data-hotel-no="<%= h.getHotelNo() %>">
+												    <form class="wishlist-form" action="<%= contextPath %>/wishlist.res" method="get">
+												        <input type="hidden" name="userNo" value="<%= loginCustomer.getUserNo() %>">
+												        <input type="hidden" name="wishHotelNo" value="<%=  h.getHotelNo() %>">
+												    </form>
+												<% } %>	
+											
+										
+				                                <input type="checkbox" class="checkbox" id="checkbox<%= i %>" />
+				                                <label for="checkbox<%= i %>"> 
 				                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
 				                                        <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
 				                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
@@ -709,12 +744,26 @@
 				                            </div>
 										
 					
+					<script>
+					
+					
+					 $(document).ready(function(){
+					        $('.heartbox').on('click', function(){
+					            // 체크박스의 체크 여부 확인
+					           var isChecked = $(this).find('.checkbox').is(':checked');
+					            if(isChecked) {
+					                // 선택된 경우 해당 div에 있는 폼을 제출
+					                var hotelNo = $(this).data('hotel-no');
+					                $(this).find('.wishlist-form').submit();
+					            }
+					        });
+					    });
+					</script>
 					
 					
 					  		</div>
-				                        
+				                  <% i++; %>      
 				       <% } %>
-					
 					
 					
 					
