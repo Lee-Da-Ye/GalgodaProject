@@ -36,6 +36,14 @@
 		 WHERE STATUS != 'N'
 	</entry>
 	
+	<entry key="selectInqUserListCount">
+		SELECT
+		       COUNT(*) COUNT
+		  FROM TB_INQ
+		 WHERE STATUS != 'N'
+		   AND INQ_WRITER = ?
+	</entry>
+	
 	<entry key="selectInqHotelListCount">
 		SELECT
 		       COUNT(*) COUNT
@@ -182,6 +190,28 @@
 		  )
 	</entry>
 	
+	<entry key="selectInqList">
+		SELECT *
+		  FROM(
+		       SELECT ROWNUM RNUM, A.* 
+		       FROM(
+		            SELECT 
+		                   INQ_NO
+		                 , HOTEL_NAME
+		                 , INQ_WRITER
+		                 , INQ_TYPE
+		                 , INQ_TITLE
+		                 , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
+                         , STATUS
+		              FROM TB_INQ
+		             WHERE STATUS != 'N'
+		             ORDER 
+		                BY 1 DESC
+		      ) A
+		 )     
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 	<entry key="selectInqUserList">
 		SELECT *
 		  FROM(
@@ -196,6 +226,7 @@
                          , STATUS
 		              FROM TB_INQ
 		             WHERE STATUS != 'N'
+		               AND INQ_WRITER = ?
 		             ORDER 
 		                BY 1 DESC
 		      ) A
@@ -211,6 +242,7 @@
 		            SELECT 
 		                   INQ_NO
 		                 , HOTEL_NAME
+		                 , INQ_WRITER
 		                 , INQ_TYPE
 		                 , INQ_TITLE
 		                 , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
@@ -236,20 +268,6 @@
           FROM TB_INQ
          WHERE STATUS != 'N'
            AND HOTEL_NAME = ?
-         ORDER 
-            BY 1 DESC
-	</entry>
-	
-	<entry key="selectInqList">
-		SELECT
-		       INQ_NO
-		     , HOTEL_NAME
-		     , INQ_TYPE
-		     , INQ_TITLE
-		  	 , TO_CHAR(REGIST_DATE, 'YYYY/MM/DD') REGIST_DATE
-             , STATUS
-          FROM TB_INQ
-         WHERE STATUS != 'N'
          ORDER 
             BY 1 DESC
 	</entry>

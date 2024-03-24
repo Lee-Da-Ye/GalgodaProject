@@ -44,9 +44,9 @@ public class InqService {
 		return result1 * result2;
 	}
 	
-	public List<Inq> selectInqUserList(PageInfo pi){
+	public List<Inq> selectInqUserList(PageInfo pi, String userName){
 		Connection conn = getConnection();
-		List<Inq> list = iDao.selectInqUserList(conn, pi);
+		List<Inq> list = iDao.selectInqUserList(conn, pi, userName);
 		
 		close(conn);
 		return list;
@@ -60,6 +60,13 @@ public class InqService {
 		return list;
 	}
 	
+	public List<Inq> selectInqList(PageInfo pi){
+		Connection conn = getConnection();
+		List<Inq> list = iDao.selectInqList(conn, pi);
+		
+		close(conn);
+		return list;
+	}
 	
 	
 	public Inq selectInq(int inqNo) {
@@ -94,6 +101,14 @@ public class InqService {
 	public int selectInqListCount() {
 		Connection conn = getConnection();
 		int count = iDao.selectInqListCount(conn);
+		
+		close(conn);
+		return count;
+	}
+	
+	public int selectInqUserListCount(String userName) {
+		Connection conn = getConnection();
+		int count = iDao.selectInqUserListCount(conn, userName);
 		
 		close(conn);
 		return count;

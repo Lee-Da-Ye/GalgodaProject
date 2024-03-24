@@ -7,7 +7,6 @@
 <%
 	List<Inq> list1 = (List<Inq>)request.getAttribute("list1");
 	List<Hotel> list2 = (List<Hotel>)request.getAttribute("list2");
-	List<Inq> list3 = (List<Inq>)request.getAttribute("list3");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 %>
@@ -73,8 +72,7 @@
                 <div style="margin-top: 20px;">
                     <table class="table table-hover">
                         <tr align="center" class="table-active">
-                            <th style="width: 7%;">번호</th>
-                            <th style="width: 15%;">구분</th>
+                            <th style="width: 20%;">구분</th>
                             <th style="width: 10%;">문의유형</th>
                             <th style="width: 35%;">제목</th>
                             <th style="width: 20%;">작성일</th>
@@ -82,7 +80,6 @@
                         </tr>
                         <% for(Inq i : list1){ %>
                         <tr align="center">
-                            <td><%= i.getInqNo() %></td>
                             <td><%= i.getCategory() %></td>
                             <td><%= i.getInqType() %></td>
                             <td><a href="<%= contextPath %>/detail.inq?no=<%= i.getInqNo()%>"><%= i.getInqTitle() %></a></td>
@@ -158,17 +155,16 @@
                 <div style="margin-top: 20px;">
                     <table class="table table-hover">
                         <tr align="center" class="table-active">
-                            <th style="width: 7%;">번호</th>
-                            
+                        	<th style="width: 15%;">작성자</th>
                             <th style="width: 10%;">문의유형</th>
-                            <th style="width: 50%;">제목</th>
+                            <th style="width: 45%;">제목</th>
                             <th style="width: 20%;">작성일</th>
                             <th>상태</th>
                         </tr>
                         <% for(Inq i : list1){ %>
                         	<% if(loginHotel.getHotelName().equals(i.getCategory())){ %>
 		                        <tr align="center">
-		                            <td><%= i.getInqNo() %></td>
+		                            <td><%= i.getInqWriter() %></td>
 		                            <td><%= i.getInqType() %></td>
 		                            <td><a href="<%= contextPath %>/detail.inq?no=<%= i.getInqNo()%>"><%= i.getInqTitle() %></a></td>
 		                            <td><%= i.getRegistDate() %></td>
@@ -241,6 +237,7 @@
                 <div style="margin-top: 10px; border: 2px solid lightgray;"></div>
                 <div style="margin-top: 20px;">
                     <select name="category" id="hotelCategory">
+                    	<option value="전체">전체</option>
                     	<% for(int i=0; i<list2.size(); i++){ %>
                         <option value="<%= list2.get(i).getHotelName() %>"><%= list2.get(i).getHotelName() %></option>
                         <% } %>
@@ -250,25 +247,47 @@
                     <table class="table">
                     	<thead>
 	                        <tr align="center" class="table-active">
-	                            <th style="width: 20%;">구분</th>
+	                            <th style="width: 15%;">구분</th>
+	                            <th style="width: 10%;">작성자</th>
 	                            <th style="width: 10%;">문의유형</th>
-	                            <th style="width: 55%;">제목</th>
+	                            <th style="width: 45%;">제목</th>
 	                            <th>작성일</th>
 	                        </tr>
                         </thead>
                         <tbody>
-                        	<% for(Inq inq : list3){ %>
-	                        	<% if(list2.get(0).getHotelName().equals(inq.getCategory())){ %>
+                        	<% for(Inq inq : list1){ %>
 	                        	<tr align="center">
 	                        		<td><%= inq.getCategory() %></td>
+	                        		<td><%= inq.getInqWriter() %></td>
 	                        		<td><%= inq.getInqType() %></td>
 	                        		<td><a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a></td>
 	                        		<td><%= inq.getRegistDate() %></td>
 	                        	</tr>
-	                        	<% } %>
                         	<% } %>
                         </tbody>
                     </table>
+                    <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
+	                    
+	                    <% if(pi.getCurrentPage() == 1){ %>
+	                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                    <% }else { %>
+	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a></li>
+	                 	<% } %>
+	                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
+	                    	<% if(p == pi.getCurrentPage()){ %>
+		                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
+		                    <% }else { %>
+		                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a></li>
+	                 		<% } %>
+	                 	<% } %>
+	                    
+	                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
+	                    <li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                    <% }else { %>
+	                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a></li>
+	                	
+	                	<% } %>
+	                </ul>
                 </div>
                 
             </div>

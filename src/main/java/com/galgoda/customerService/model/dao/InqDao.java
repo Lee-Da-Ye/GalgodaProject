@@ -99,7 +99,44 @@ public class InqDao {
 		
 	}
 	
-	public List<Inq> selectInqUserList(Connection conn, PageInfo pi){
+	public List<Inq> selectInqList(Connection conn, PageInfo pi){
+		List<Inq> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Inq inq = new Inq();
+				inq.setInqNo(rset.getInt("INQ_NO"));
+				inq.setCategory(rset.getString("HOTEL_NAME"));
+				inq.setInqWriter(rset.getString("inq_writer"));
+				inq.setInqType(rset.getString("INQ_TYPE"));
+				inq.setInqTitle(rset.getString("INQ_TITLE"));
+				inq.setRegistDate(rset.getString("REGIST_DATE"));
+				inq.setStauts(rset.getString("STATUS"));
+				
+				list.add(inq);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public List<Inq> selectInqUserList(Connection conn, PageInfo pi, String userName){
 		List<Inq> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -110,8 +147,9 @@ public class InqDao {
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, userName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
@@ -155,6 +193,7 @@ public class InqDao {
 				Inq inq = new Inq();
 				inq.setInqNo(rset.getInt("INQ_NO"));
 				inq.setCategory(rset.getString("HOTEL_NAME"));
+				inq.setInqWriter(rset.getString("inq_writer"));
 				inq.setInqType(rset.getString("INQ_TYPE"));
 				inq.setInqTitle(rset.getString("INQ_TITLE"));
 				inq.setRegistDate(rset.getString("REGIST_DATE"));
@@ -254,6 +293,28 @@ public class InqDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public int selectInqUserListCount(Connection conn, String userName) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInqUserListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				count = rset.getInt("count");

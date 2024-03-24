@@ -14,6 +14,7 @@ import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customerService.model.service.InqService;
 import com.galgoda.customerService.model.vo.Inq;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.member.model.vo.Customer;
 import com.galgoda.member.model.vo.HotelUser;
 
 /**
@@ -45,10 +46,14 @@ public class InqListController extends HttpServlet {
 		int startPage; 
 		int endPage; 
 		String hotelName;
+		String userName;
 		
 		if(request.getSession().getAttribute("loginHotel") != null) {
 			hotelName = ((HotelUser)request.getSession().getAttribute("loginHotel")).getHotelName();
 			listCount = new InqService().selectInqHotelListCount(hotelName);
+		}else if(request.getSession().getAttribute("loginCustomer") != null) {
+			userName = ((Customer)request.getSession().getAttribute("loginCustomer")).getUserName();
+			listCount = new InqService().selectInqUserListCount(userName);
 		}else {
 			listCount = new InqService().selectInqListCount();
 		}
@@ -70,17 +75,18 @@ public class InqListController extends HttpServlet {
 		if(request.getSession().getAttribute("loginHotel") != null) {
 			hotelName = ((HotelUser)request.getSession().getAttribute("loginHotel")).getHotelName();
 			list1 = new InqService().selectInqHotelList(pi, hotelName);
+		}else if(request.getSession().getAttribute("loginCustomer") != null) {
+			userName = ((Customer)request.getSession().getAttribute("loginCustomer")).getUserName();
+			list1 = new InqService().selectInqUserList(pi, userName );
 		}else {
-			list1 = new InqService().selectInqUserList(pi);
+			list1 = new InqService().selectInqList(pi);
 		}
 		
 		List<Hotel> list2 = new InqService().selectHotelName();
 		
-		List<Inq> list3 = new InqService().selectInqList();
 		
 		request.setAttribute("list1", list1);
 		request.setAttribute("list2", list2);
-		request.setAttribute("list3", list3);
 		request.setAttribute("pi", pi);
 		request.getRequestDispatcher("/views/customerService/inqList.jsp").forward(request, response);
 	

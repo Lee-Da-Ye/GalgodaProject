@@ -5,7 +5,7 @@
 <%@ page import="com.galgoda.customerService.model.vo.Inq"%>
 <%@ page import="com.galgoda.hotel.model.vo.Hotel"%>
 <%
-	List<Inq> list = (List<Inq>)request.getAttribute("list");
+	List<Inq> list1 = (List<Inq>)request.getAttribute("list1");
 	List<Hotel> list2 = (List<Hotel>)request.getAttribute("list2");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 %>
@@ -63,6 +63,7 @@
 				<div style="margin-top: 10px; border: 2px solid lightgray;"></div>
 				<div style="margin-top: 20px;">
 					<select name="category" id="hotelCategory">
+						<option value="전체">전체</option>
 						<% for(int i=0; i<list2.size(); i++){ %>
 						<option value="<%= list2.get(i).getHotelName() %>"><%= list2.get(i).getHotelName() %></option>
 						<% } %>
@@ -72,16 +73,18 @@
 					<table class="table">
 						<thead>
 							<tr align="center" class="table-active">
-								<th style="width: 20%;">구분</th>
-								<th style="width: 10%;">문의유형</th>
-								<th style="width: 55%;">제목</th>
-								<th>작성일</th>
+								<th style="width: 15%;">구분</th>
+	                            <th style="width: 10%;">작성자</th>
+	                            <th style="width: 10%;">문의유형</th>
+	                            <th style="width: 45%;">제목</th>
+	                            <th>작성일</th>
 							</tr>
 						</thead>
 						<tbody>
-							<% for(Inq inq : list){ %>
+							<% for(Inq inq : list1){ %>
 							<tr align="center">
 								<td><%= inq.getCategory() %></td>
+								<td><%= inq.getInqWriter() %></td>
 								<td><%= inq.getInqType() %></td>
 								<td><a
 									href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a></td>
@@ -94,20 +97,20 @@
 					<ul class="pagination"
 						style="margin-top: 50px; width: 95%; justify-content: center;">
 						
-						<% if(!list.isEmpty()){ %>
+						<% if(!list1.isEmpty()){ %>
 						
 							<% if(pi.getCurrentPage() == 1){ %>
 							<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
 							<% }else { %>
 							<li class="page-item"><a class="page-link"
-								href="<%= contextPath %>/adminList.inq?page=<%= pi.getCurrentPage() - 1 %>&category=<%= list.get(0).getCategory() %>">&lt;</a></li>
+								href="<%= contextPath %>/adminList.inq?page=<%= pi.getCurrentPage() - 1 %>&category=<%= request.getParameter("category") %>">&lt;</a></li>
 							<% } %>
 							<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>
 							<% if(p == pi.getCurrentPage()){ %>
 							<li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
 							<% }else { %>
 							<li class="page-item"><a class="page-link"
-								href="<%= contextPath %>/adminList.inq?page=<%= p %>&category=<%= list.get(0).getCategory() %>"><%= p %></a></li>
+								href="<%= contextPath %>/adminList.inq?page=<%= p %>&category=<%= request.getParameter("category") %>"><%= p %></a></li>
 							<% } %>
 							<% } %>
 	
@@ -115,7 +118,7 @@
 							<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
 							<% }else { %>
 							<li class="page-item"><a class="page-link"
-								href="<%= contextPath %>/adminList.inq?page=<%= pi.getCurrentPage() + 1 %>&category=<%= list.get(0).getCategory() %>">&gt;</a></li>
+								href="<%= contextPath %>/adminList.inq?page=<%= pi.getCurrentPage() + 1 %>&category=<%= request.getParameter("category") %>">&gt;</a></li>
 	
 							<% } %>
 						
@@ -124,14 +127,13 @@
 				</div>
 
 			</div>
-			<% if(!list.isEmpty()){ %>
 			<script>
 				$(function() {
-					var hotelName = '<%= list.get(0).getCategory() %>';
-					$('option[value=' + hotelName + ']').attr("selected" ,true);
-					
+					var selectedCategory = '<%= (request.getParameter("category") != null) ? request.getParameter("category") : "전체" %>';
+		            $('#hotelCategory').val(selectedCategory);
 					
 					$("#hotelCategory").change(function() {
+						
 						var category = $(this).val();
 			            var contextPath = '<%= contextPath %>';
 			            var newURL = contextPath + '/adminList.inq?page=1&category=' + category;
@@ -141,7 +143,6 @@
 			
 				
 			</script>
-			<% } %>
 		</section>
 		
 		

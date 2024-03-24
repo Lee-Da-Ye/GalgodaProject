@@ -1,6 +1,7 @@
 package com.galgoda.customerService.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,6 @@ import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customerService.model.service.InqService;
 import com.galgoda.customerService.model.vo.Inq;
 import com.galgoda.hotel.model.vo.Hotel;
-import com.google.gson.Gson;
 
 /**
  * Servlet implementation class InqAdminListController
@@ -46,7 +46,11 @@ public class InqAdminListController extends HttpServlet {
 		int startPage; 
 		int endPage; 
 		
-		listCount = new InqService().selectInqHotelListCount(category);
+		if(category.equals("전체")) {
+			listCount = new InqService().selectInqListCount();
+		}else {
+			listCount = new InqService().selectInqHotelListCount(category);
+		}
 		currentPage = Integer.parseInt(request.getParameter("page"));
 		pageLimit = 5;
 		boardLimit = 10;
@@ -60,11 +64,16 @@ public class InqAdminListController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		List<Inq> list = new InqService().selectInqHotelList(pi, category);
+		List<Inq> list1 = new ArrayList<>();
+		if(category.equals("전체")) {
+			list1 = new InqService().selectInqList(pi);
+		}else {
+			list1 = new InqService().selectInqHotelList(pi, category);
+		}
 		
 		List<Hotel> list2 = new InqService().selectHotelName();
 		
-		request.setAttribute("list", list);
+		request.setAttribute("list1", list1);
 		request.setAttribute("list2", list2);
 		request.setAttribute("pi", pi);
 		
