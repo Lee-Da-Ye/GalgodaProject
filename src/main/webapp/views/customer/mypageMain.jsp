@@ -137,7 +137,7 @@
                     <div class="mypage_shortcut">  
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%=contextPath%>/resManagement.cu" id="mypage_cir_menu"><%=resCount%></a>
+                                <a href="<%=contextPath%>/resManagement.cu?page=1" id="mypage_cir_menu"><%=resCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <a class="btn">예약현황</a>
