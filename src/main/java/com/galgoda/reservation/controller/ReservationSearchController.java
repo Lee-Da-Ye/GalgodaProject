@@ -53,6 +53,7 @@ public class ReservationSearchController extends HttpServlet {
 		r.setDateOut(hotelCheckout);
 		r.setResPeople(peopleCount);
 		r.setRoomCount(roomCount);
+		r.setSearchType(searchType);
 		
 		List<Hotel> list = new ReservationService().searchHotelList(r, searchType);
 		

@@ -33,6 +33,7 @@ public class Reservation {
 	private String userId; // table join 으로 새로 추가된 변수
 	private String tagNo; // table join으로 새로 추가된 변수
 	private int roomCount; // 호텔검색시 사용 변수
+	private String searchType;
 	
 	public Reservation() {}
 
@@ -388,6 +389,16 @@ public class Reservation {
 
 	public void setRoomCount(int roomCount) {
 		this.roomCount = roomCount;
+	}
+	
+	
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
 
 	@Override

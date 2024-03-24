@@ -28,7 +28,80 @@
     <!-- 평점 관련 스타일 적용-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    
+   <script>
+
+   <!-- 호텔명, 태그명 버튼 각각 클릭 시 활성화 -->
+   
+   $(document).ready(function() {
+       // 호텔명 버튼이나 태그명 버튼이 클릭되었을 때의 이벤트 처리
+       $(".hotelName_btn, .tagName_btn").click(function() {
+           // 클릭된 버튼에만 'active' 클래스를 추가하고 다른 버튼에서는 'active' 클래스를 제거
+           $(this).addClass("active").siblings().removeClass("active");
+           
+        	// 태그명 버튼이 선택되었을 때 체크박스를 보이도록 처리
+           if ($(this).hasClass("tagName_btn")) {
+               $("#tagCheckboxes").show();
+           } else {
+               $("#tagCheckboxes").hide();
+           }
+       });
+   });
+
+   
+   $(document).ready(function() {
+       // 호텔명, 태그명 버튼 각각 클릭 시 활성화
+       $(".hotelName_btn, .tagName_btn").click(function() {
+           // 클릭된 버튼에만 'active' 클래스를 추가하고 다른 버튼에서는 'active' 클래스를 제거
+           $(this).addClass("active").siblings().removeClass("active");
+           
+           // 호텔명 버튼이 선택되었을 때 입력칸을 보이고, 태그 선택 창을 숨깁니다.
+           if ($(this).hasClass("hotelName_btn")) {
+               $("#hotelNameInputWrapper").show();
+               $("#tagCheckboxes").hide();
+           } 
+           // 태그명 버튼이 선택되었을 때 태그 선택 창을 보이고, 입력칸을 숨깁니다.
+           else {
+               $("#hotelNameInputWrapper").hide();
+               $.ajax({
+					url: "mainPageTagList.co",
+					type: "get",
+					success: function(list) {
+						let value = "";
+		                if (list.length > 0) {
+		                    for (let i = 0; i < list.length; i++) {
+		                        value += "<label>" +
+		                            "<input type='checkbox' name='tagCheckbox' value='" + list[i].tagNo + "'>" +
+		                            list[i].tagName +
+		                            "</label>";
+		                    }
+		                    $("#tagCheckboxes").html(value); // 수정: 태그 체크박스를 출력하는 부분을 이동
+		                    $("#tagCheckboxes").show(); // 수정: 태그 체크박스를 보이도록 처리
+		                }
+					}
+					
+				})
+           }
+       });
+   });
+   
+   function setSearchType(searchType) {
+       document.getElementById("searchType").value = searchType; // 호텔명/태그명 선택에 따른 값 설정
+       };
+       
+       $(function(){
+		       /* 태그부분 */
+		       	var taglist = '<%= r.getTagNo() %>';
+		        var  v = taglist.split(",");
+		                	
+		        for(var j = 0; j<v.length; j++){
+		                $('input:checkbox[name=tagCheckbox][value='+v[j]+']').prop("checked", true).parent().addClass('on');
+		        } 
+       })
+ 
+   </script>
+   
 <style>
+
 
  
  /* 검색바 관련 서식*/
@@ -398,6 +471,14 @@
       
 
 </style>
+
+   
+	<script>
+   			 var contextPath = "<%= request.getContextPath() %>";
+	</script>
+	<script src="your_script.js"></script>
+		
+		
  <script>
         $(document).ready(function(){
             $('.checkbox').change(function(){
@@ -412,6 +493,43 @@
                 }
             });
         });
+        
+       
+        
+        /* 조회된 호텔 클릭시 폼 두개 합쳐서  제출 */
+		       document.addEventListener("DOMContentLoaded", function() {
+				    var hotelSummary = document.querySelector(".hotelSummary");
+				
+				    hotelSummary.addEventListener("click", function() {
+				        var form1Data = new FormData(document.getElementById("searchForm"));
+				        var form2Data = new FormData(document.getElementById("searchForm2"));
+				        
+				        // form2Data의 값을 form1Data에 병합
+				        for (var [key, value] of form2Data.entries()) {
+				            form1Data.append(key, value);
+				        }
+				
+				        // form1Data를 폼으로 변환하여 전송
+				        var combinedForm = document.createElement("form");
+				        combinedForm.method = "GET"; // 또는 "GET" 설정
+				        combinedForm.action = contextPath + "/resDetail.res"; // 전송할 대상 URL 설정
+				        
+				        // 폼에 폼 데이터 추가
+				        for (var pair of form1Data.entries()) {
+				            var input = document.createElement("input");
+				            input.type = "hidden";
+				            input.name = pair[0];
+				            input.value = pair[1];
+				            combinedForm.appendChild(input);
+				        }
+				
+				        // document body에 폼 추가하여 제출
+				        document.body.appendChild(combinedForm);
+				        combinedForm.submit();
+				    });
+				});
+        
+        /* 폼 제출 부분 끝*/
     </script>
 </head>
 <body>
@@ -424,179 +542,181 @@
 
         <section class="main_content">
            
-            <div class="main_top">
-                <form action="">
-                    <table class="searchBar">
-                        <thead>
-                        	<tr>
-                            <td width="300px">호텔 또는 여행지</td>
-                            <td width="150px">체크인</td>
-                            <td width="150px">체크아웃</td>
-                            <td width="100px"></td>
-                            <td width="110px" align="center">인원수</td>
-                            <td width="110px" align="center">객실</td>
-                            <tr>
-                        </thead>
-                        <tbody>
-                            <tr> 
-                                <td><div class="iconInput"><i class="bi bi-search"></i><input type="text" class="form-control" style="text-align: center;"></div></td>
-                                <td><input type="date" class="form-control" name="checkInDate"></td>
-                                <td><input type="date" class="form-control" name="checkOutDate"></td>
-                                <td></td>
-                                <td><input type="number" class="form-control" name="peopleCount" value="<%= r.getResPeople() %>"></td>
-                                <td><input type="number" class="form-control" name="roomCount" value="<%= r.getRoomCount() %>"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="iconInput">
-                                        <i class="bi bi-tags"></i>
-                                        <input type="text" class="form-control" id="tagInput" style="text-align: center;" placeholder="태그를 선택하세요">
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td colspan="2" align="center"><button type="submit" class="btn btn-secondary searchButton">검색하기</button></td>
-                                
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="tagList" style="padding-left: 80px">
-                        <label><input type="checkbox" value="가족여행"> 가족여행</label><br>
-                        <label><input type="checkbox" value="휴양"> 휴양</label><br>
-                        <label><input type="checkbox" value="나홀로여행"> 나홀로여행</label><br>
-                        <label><input type="checkbox" value="바다"> 바다</label><br>
-                        <label><input type="checkbox" value="관광"> 관광</label><br>
-                        <label><input type="checkbox" value="제주"> 제주</label><br>
-                        <label><input type="checkbox" value="동부"> 동부</label><br>
-                        <label><input type="checkbox" value="서귀포"> 서귀포</label><br>
-                        <label><input type="checkbox" value="산"> 산</label><br>
-                        
-                        
-                    </div>
-
-                    <script>
-                        $(document).ready(function(){
-                            $('#tagInput').click(function(){
-                                var inputWidth = $(this).outerWidth();
-                                $('.tagList').css('width', inputWidth);
-                                $('.tagList').toggle();
-                            });
-                        });
-                    </script>
-                    
-                </form>
-                
-            </div>
-            
-            <div class="main_bottom">
-                <div class="order" style="height: 100px">
-                    <select name="list">
-                        <option value="">평점순</option>
-                        <option value="">리뷰많은순</option>
-                        <option value="">인기순</option>
-                    </select>
-                </div>
-
-
-                <div class="main">
-                    <div class="hotelSummaryBundle" >
-			<% for(Hotel h : list){ %>
-                        <div class="hotelSummary">
-                            <img class="hotelImg" src="<%= h.getImgPath() %>" alt="호텔 대표이미지1">
-                            <div class="hotelInfo">
-                                <div style="padding-top: 15px;">
-                                    <h3><b><%= h.getHotelName() %></b><!--<a href="" class="btn btn-secondary buttonColor" align="right">예약</a>--></h3>
-                                    
-                                </div>
-                                
-                                <td>
-                                   
-                                    <tr class="form-control" required>
-                                        <span class="fa fa-star stars" id="star1"></span>
-                                        <span class="fa fa-star stars" id="star2"></span>
-                                        <span class="fa fa-star stars" id="star3"></span>
-                                        <span class="fa fa-star stars" id="star4"></span>
-                                        <span class="fa fa-star stars" id="star5"></span>
-                        
-                                        <script>
-                                        function add(ths,sno){
-                                            for (var i=1;i<=5;i++){
-                                                var cur=document.getElementById("star"+i)
-                                                cur.className="fa fa-star"
-                                            }
-                        
-                                            for (var i=1;i<=sno;i++){
-                                                var cur=document.getElementById("star"+i)
-                                                if(cur.className=="fa fa-star"){
-                                                    cur.className="fa fa-star checked"
-                                                }
-                                            }
-                                        }
-                                        </script>
-                                        <tr><%= h.getReviewCount() %>+</tr>
-                                    </tr>
-                                    <br><br>
-                                    <tr align="left">
-                                        #제주 #동부 #휴양 #바다 #바다뷰 #성산일출봉 #가족여행
-                                    </tr>
-                                    <br><br>
-                                    <h4><%= h.getMinPrice() %>원 ~</h4>
-                                </td>
-                            </div>
-                            
-                            <div class="heartbox"> 
-                                <input type="checkbox" class="checkbox" id="checkbox1" />
-                                <label for="checkbox1"> 
-                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-                                        <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
-                                            <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
-                                            <g id="heartgroup7" opacity="0" transform="translate(7 6)">
-                                                <circle id="heart1" fill="#9CD8C3" cx="2" cy="6" r="2" />
-                                                <circle id="heart2" fill="#8CE8C3" cx="5" cy="2" r="2" />
-                                            </g>
-                                            <g id="heartgroup6" opacity="0" transform="translate(0 28)">
-                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="7" r="2" />
-                                                <circle id="heart2" fill="#91D2FA" cx="3" cy="2" r="2" />
-                                            </g>
-                                            <g id="heartgroup3" opacity="0" transform="translate(52 28)">
-                                                <circle id="heart2" fill="#9CD8C3" cx="2" cy="7" r="2" />
-                                                <circle id="heart1" fill="#8CE8C3" cx="4" cy="2" r="2" />
-                                            </g>
-                                            <g id="heartgroup2" opacity="0" transform="translate(44 6)">
-                                                <circle id="heart2" fill="#CC8EF5" cx="5" cy="6" r="2" />
-                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="2" r="2" />
-                                            </g>
-                                            <g id="heartgroup5" opacity="0" transform="translate(14 50)">
-                                                <circle id="heart1" fill="#91D2FA" cx="6" cy="5" r="2" />
-                                                <circle id="heart2" fill="#91D2FA" cx="2" cy="2" r="2" />
-                                            </g>
-                                            <g id="heartgroup4" opacity="0" transform="translate(35 50)">
-                                                <circle id="heart1" fill="#F48EA7" cx="6" cy="5" r="2" />
-                                                <circle id="heart2" fill="#F48EA7" cx="2" cy="2" r="2" />
-                                            </g>
-                                            <g id="heartgroup1" opacity="0" transform="translate(24)">
-                                                <circle id="heart1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
-                                                <circle id="heart2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
-                                            </g>
-                                        </g>
-                                    </svg> 
-                                </label>
-                                
-                            </div>
-                            
-                            
-                        </div>
-                        
-                        <% } %>
-                       
-                        </div>
-                        
-                    </div>
-                </div>
-                
-            </div>
+				            <div class="main_top">
+				                 <form id="searchForm" >
+				                    <table class="main_searchBar">
+				                        <thead>
+				                            <tr>
+				                                <td width="300px">
+				                                	<input type="hidden" id="searchType" name="searchType" value=<%= r.getSearchType() %>> <!-- 숨겨진 입력 필드로 검색 타입을 저장 -->
+				                                	<div class="d-flex search_btn">
+				                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn" onclick="setSearchType('hotelName')">호텔명</button>
+				                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')">태그명</button>
+				                                    </div>
+				                                </td>
+				                                <td width="150px" style="text-align: center;">체크인</td>
+				                                <td width="150px" style="text-align: center;">체크아웃</td>
+				                                <td width="100px"></td>
+				                                <td width="110px" align="center">인원수</td>
+				                                <td width="110px" align="center">객실</td>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            <tr> 
+				                                <td>
+												    <div class="position-relative">
+												        <div id="hotelNameInputWrapper" style="display: block;">
+												            <div class="iconInput">
+												                <i class="bi bi-search"></i>
+												                <input type="text" name="hotelName" id="hotelNameInput" class="form-control" style="text-align: center;" onclick="toggleCheckboxes()" value="<%= r.getHotelName() %>">
+												            </div>
+												        </div>
+												        
+												        <div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px;">
+												       
+												        </div>
+												    </div>
+												</td>
+				                                
+				                                <td><input type="date" name="checkInDate" class="form-control" value="<%= r.getDateIn() %>"></td>
+				                                <td><input type="date" name="checkOutDate" class="form-control" value="<%= r.getDateOut() %>"></td>
+				                                <td></td>
+				                                <td><input type="number" min="1" name="peopleCount" value="<%= r.getResPeople() %>" class="form-control"></td>
+				                                <td><input type="number" min="1" name="roomCount" value="<%= r.getRoomCount() %>" class="form-control"></td>
+				                                <td colspan="2" align="right">
+									                <button type="submit" class="btn main_searchButton">검색하기</button>
+									            </td>
+				                            </tr>
+				                            <tr>
+				                                <td colspan="7" style="display: none;">
+									                <div class="iconInput">
+									                    <i class="bi bi-tags"></i>
+									                    <input type="text" class="form-control" style="text-align: center;">
+									                </div>
+						           				</td>
+				                                
+				                            </tr>
+				                        </tbody>
+				                    </table>
+				                </form>
+				                
+				            </div>
+				            
+				            <div class="main_bottom">
+				                <div class="order" style="height: 100px">
+				                    <select name="list">
+				                        <option value="">평점순</option>
+				                        <option value="">리뷰많은순</option>
+				                        <option value="">인기순</option>
+				                    </select>
+				                </div>
+				
+				
+				               	<div class="main">
+				                    <div class="hotelSummaryBundle" >
+							<% for(Hotel h : list){ %>
+				                        <div class="hotelSummary">
+				                        
+				                        <form  id="searchForm2" >
+				                        <input type="hidden" name="selectHotelNo" value="<%= h.getHotelNo() %>">
+				                        </form>
+				                        
+				                        
+				                            <img class="hotelImg" src="<%= h.getImgPath() %>" alt="호텔 대표이미지1">
+				                            <div class="hotelInfo">
+				                                <div style="padding-top: 15px;">
+				                                    <h3><b><%= h.getHotelName() %></b><!--<a href="" class="btn btn-secondary buttonColor" align="right">예약</a>--></h3>
+				                                    
+				                                </div>
+				<table>
+				                                <td>
+				                                   
+				                                    <tr class="form-control" required>
+				                                        <span class="fa fa-star stars" id="star1"></span>
+				                                        <span class="fa fa-star stars" id="star2"></span>
+				                                        <span class="fa fa-star stars" id="star3"></span>
+				                                        <span class="fa fa-star stars" id="star4"></span>
+				                                        <span class="fa fa-star stars" id="star5"></span>
+				                        
+				                                        <script>
+				                                        function add(ths,sno){
+				                                            for (var i=1;i<=5;i++){
+				                                                var cur=document.getElementById("star"+i)
+				                                                cur.className="fa fa-star"
+				                                            }
+				                        
+				                                            for (var i=1;i<=sno;i++){
+				                                                var cur=document.getElementById("star"+i)
+				                                                if(cur.className=="fa fa-star"){
+				                                                    cur.className="fa fa-star checked"
+				                                                }
+				                                            }
+				                                        }
+				                                        </script>
+				                                        <tr><%= h.getReviewCount() %>+</tr>
+				                                    </tr>
+				                                    <br><br>
+				                                    <tr align="left">
+				                                        #제주 #동부 #휴양 #바다 #바다뷰 #성산일출봉 #가족여행
+				                                    </tr>
+				                                    <br><br>
+				                                    <h4><%= h.getMinPrice() %>원 ~</h4>
+				                                </td>
+				                                
+				    </table>
+				                            </div>
+				                            
+				                            <div class="heartbox"> 
+				                                <input type="checkbox" class="checkbox" id="checkbox1" />
+				                                <label for="checkbox1"> 
+				                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+				                                        <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+				                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
+				                                            <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+				                                            <g id="heartgroup7" opacity="0" transform="translate(7 6)">
+				                                                <circle id="heart1" fill="#9CD8C3" cx="2" cy="6" r="2" />
+				                                                <circle id="heart2" fill="#8CE8C3" cx="5" cy="2" r="2" />
+				                                            </g>
+				                                            <g id="heartgroup6" opacity="0" transform="translate(0 28)">
+				                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="7" r="2" />
+				                                                <circle id="heart2" fill="#91D2FA" cx="3" cy="2" r="2" />
+				                                            </g>
+				                                            <g id="heartgroup3" opacity="0" transform="translate(52 28)">
+				                                                <circle id="heart2" fill="#9CD8C3" cx="2" cy="7" r="2" />
+				                                                <circle id="heart1" fill="#8CE8C3" cx="4" cy="2" r="2" />
+				                                            </g>
+				                                            <g id="heartgroup2" opacity="0" transform="translate(44 6)">
+				                                                <circle id="heart2" fill="#CC8EF5" cx="5" cy="6" r="2" />
+				                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="2" r="2" />
+				                                            </g>
+				                                            <g id="heartgroup5" opacity="0" transform="translate(14 50)">
+				                                                <circle id="heart1" fill="#91D2FA" cx="6" cy="5" r="2" />
+				                                                <circle id="heart2" fill="#91D2FA" cx="2" cy="2" r="2" />
+				                                            </g>
+				                                            <g id="heartgroup4" opacity="0" transform="translate(35 50)">
+				                                                <circle id="heart1" fill="#F48EA7" cx="6" cy="5" r="2" />
+				                                                <circle id="heart2" fill="#F48EA7" cx="2" cy="2" r="2" />
+				                                            </g>
+				                                            <g id="heartgroup1" opacity="0" transform="translate(24)">
+				                                                <circle id="heart1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
+				                                                <circle id="heart2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
+				                                            </g>
+				                                        </g>
+				                                    </svg> 
+				                                </label>
+				                                
+				                            </div>
+				                            
+				                            
+				                        </div>
+				                        
+				             <% } %>
+				                       
+				                  </div>
+				                        
+				              </div>
+				       </div>
+				             
         </section>
 
         
@@ -604,6 +724,6 @@
           <%@ include file="/views/common/footer.jsp"%>
           
           
-    </div>
+</div>
 </body>
 </html>
