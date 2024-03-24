@@ -81,7 +81,24 @@
 	            // 태그명 버튼이 선택되었을 때 태그 선택 창을 보이고, 입력칸을 숨깁니다.
 	            else {
 	                $("#hotelNameInputWrapper").hide();
-	                $("#tagCheckboxes").show();
+	                $.ajax({
+						url: "mainPageTagList.co",
+						type: "get",
+						success: function(list) {
+							let value = "";
+			                if (list.length > 0) {
+			                    for (let i = 0; i < list.length; i++) {
+			                        value += "<label>" +
+			                            "<input type='checkbox' name='tagCheckbox' value='" + list[i].tagNo + "'>" +
+			                            list[i].tagName +
+			                            "</label>";
+			                    }
+			                    $("#tagCheckboxes").html(value); // 수정: 태그 체크박스를 출력하는 부분을 이동
+			                    $("#tagCheckboxes").show(); // 수정: 태그 체크박스를 보이도록 처리
+			                }
+						}
+						
+					})
 	            }
 	        });
 	    });
@@ -90,32 +107,7 @@
 	        document.getElementById("searchType").value = searchType; // 호텔명/태그명 선택에 따른 값 설정
 	        };
 	        
-        $(function () {
-			$(".tagName_btn").click(function() {
-				$.ajax({
-					url: "mainPageTagList",
-					type: "get",
-					success: function(list) {
-						let value = "";
-						
-						if(list.length > 0 ){
-							for(int i=0; i<list.length; i++){
-								value += "<label>"
-								       +  "<input type="checkbox" name="tagCheckbox" value=" + list[i].tagNo + ">"
-								       + list[i].tagName
-								       + "</label>";
-								       
-								 %("#tagCheckboxes").html(value);
-								       
-								       
-							}
-							
-						}
-					}
-					
-				})
-			})
-		})
+        
   
 	    
 </script>
