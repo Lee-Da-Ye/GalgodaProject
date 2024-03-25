@@ -238,7 +238,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="<%=contextPath %>/resManagement.cu" >예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath %>/resManagement.cu?page=1" >예약관리</a>
                     </li>
                         
                     <li>
