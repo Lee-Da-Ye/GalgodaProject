@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int roomCount = (int)request.getAttribute("roomCount");
+	int resCount = (int)request.getAttribute("resCount");
+	int reviewCount = (int)request.getAttribute("reviewCount");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,7 +134,7 @@
                     <div class="mypage_shortcut">  
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%= contextPath %>/roomUpdateForm.ho" id="mypage_cir_menu">40</a>
+                                <a href="<%= contextPath %>/roomUpdateForm.ho" id="mypage_cir_menu"><%=roomCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">객실현황</button>
@@ -137,7 +143,7 @@
                         
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%= contextPath %>/resList.ho?page=1" id="mypage_cir_menu">15</a>
+                                <a href="<%= contextPath %>/resList.ho?page=1" id="mypage_cir_menu"><%=resCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">예약현황</button>
@@ -145,7 +151,7 @@
                         </div>
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%= contextPath %>/revList.ho?page=1" id="mypage_cir_menu">26</a>
+                                <a href="<%= contextPath %>/revList.ho?page=1" id="mypage_cir_menu"><%=reviewCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">등록리뷰</button>

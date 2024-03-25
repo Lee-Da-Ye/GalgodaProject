@@ -438,6 +438,30 @@
 		  AND  REF_TYPE = ?
 		
 		</entry>
+		
+		<entry key="countRoom">
+			SELECT
+			        SUM(RO_COUNT)
+			  FROM  TB_ROOM
+			 WHERE  HOTEL_NO = ?
+		
+		</entry>
+		
+		<entry key="countRes">
+			SELECT 
+			        COUNT(*)
+			  FROM  TB_RES_INFO
+			 WHERE  HOTEL_NO = ?
+		
+		</entry>
+		
+		<entry key="countReview">
+			SELECT 
+			        COUNT(*)
+			  FROM  TB_REVIEW
+			 WHERE  HOTEL_NO = ?
+		
+		</entry>
 
 		
 </properties>

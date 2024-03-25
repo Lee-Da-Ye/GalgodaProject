@@ -344,5 +344,32 @@ public class HotelService {
 		return result;
 	}
 	
+	public int countRoom(int hotelNo) {
+		Connection conn = getConnection();
+		int resCount = hDao.countRoom(conn, hotelNo);
+		
+		close(conn);
+		return resCount;
+		
+	}
+	
+	public int countRes(int hotelNo) {
+		Connection conn = getConnection();
+		int resCount = hDao.countRes(conn, hotelNo);
+		
+		close(conn);
+		return resCount;
+		
+	}
+	
+	public int countReview(int hotelNo) {
+		Connection conn = getConnection();
+		int resCount = hDao.countReview(conn, hotelNo);
+		
+		close(conn);
+		return resCount;
+		
+	}
+	
 	
 }
