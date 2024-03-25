@@ -63,7 +63,7 @@
             </a>
             <nav class="header_nav">
                 <div class="left_nav" >
-                <a href="" style="margin-left: 15px;"><i class="bi bi-search"></i>호텔검색</a>
+                <a href="<%=contextPath %>" style="margin-left: 15px;"><i class="bi bi-search"></i>호텔검색</a>
                 </div>
                 <div class="center_nav"></div>
                 
