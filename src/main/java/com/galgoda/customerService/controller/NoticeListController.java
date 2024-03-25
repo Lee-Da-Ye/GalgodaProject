@@ -60,7 +60,11 @@ public class NoticeListController extends HttpServlet {
 		List<Notice> li = nService.selectNoticeList(pi);
 		request.setAttribute("pi", pi);
 		request.setAttribute("li", li);
-		request.getRequestDispatcher("/views/customerService/noticeList.jsp").forward(request, response);
+		if(request.getSession().getAttribute("loginAdmin") != null) {
+			request.getRequestDispatcher("/views/customerService/noticeAdminList.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/views/customerService/noticeList.jsp").forward(request, response);
+		}
 	}
 
 	/**

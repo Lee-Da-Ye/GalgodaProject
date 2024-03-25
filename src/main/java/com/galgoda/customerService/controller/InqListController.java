@@ -88,7 +88,11 @@ public class InqListController extends HttpServlet {
 		request.setAttribute("list1", list1);
 		request.setAttribute("list2", list2);
 		request.setAttribute("pi", pi);
-		request.getRequestDispatcher("/views/customerService/inqList.jsp").forward(request, response);
+		if(request.getSession().getAttribute("loginAdmin") != null) {
+			request.getRequestDispatcher("/views/customerService/inqAdminList.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/views/customerService/inqList.jsp").forward(request, response);
+		}
 	
 	}
 

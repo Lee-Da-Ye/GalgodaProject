@@ -28,7 +28,11 @@ public class NoticeEnrollFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/customerService/noticeEnrollForm.jsp").forward(request, response);
+		if(request.getSession().getAttribute("loginAdmin") != null) {
+			request.getRequestDispatcher("/views/customerService/noticeAdminEnrollForm.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/views/customerService/noticeEnrollForm.jsp").forward(request, response);
+		}
 	}
 
 	/**

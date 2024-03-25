@@ -39,7 +39,12 @@ public class InqDetailController extends HttpServlet {
 		List<Attachment> list = new InqService().selectInqAttachment(inqNo);
 		request.setAttribute("inq", inq);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/customerService/inqDetail.jsp").forward(request, response);
+		
+		if(request.getSession().getAttribute("loginAdmin") != null) {
+			request.getRequestDispatcher("/views/customerService/inqAdminDetail.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/views/customerService/inqDetail.jsp").forward(request, response);
+		}
 		
 		
 	}

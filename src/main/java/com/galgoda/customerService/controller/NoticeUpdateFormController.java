@@ -36,7 +36,11 @@ public class NoticeUpdateFormController extends HttpServlet {
 		Notice n = new NoticeService().selectNotice(noticeNo);
 		
 		request.setAttribute("n", n);
-		request.getRequestDispatcher("/views/customerService/noticeUpdateForm.jsp").forward(request, response);
+		if(request.getSession().getAttribute("loginAdmin") != null) {
+			request.getRequestDispatcher("/views/customerService/noticeAdminUpdateForm.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/views/customerService/noticeUpdateForm.jsp").forward(request, response);
+		}
 	}
 
 	/**
