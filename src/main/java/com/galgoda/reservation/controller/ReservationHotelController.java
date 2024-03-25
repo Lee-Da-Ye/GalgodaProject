@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.galgoda.customer.model.service.CustomerService;
+import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.service.HotelService;
 import com.galgoda.hotel.model.vo.Hotel;
@@ -49,11 +50,35 @@ public class ReservationHotelController extends HttpServlet {
 		//리뷰정보 받아오기
 		List<Review> re = new ReservationService().selectReviewList(no);
 		
+		String hotelName = request.getParameter("hotelName");
+		String[] hotelTags = request.getParameterValues("tagCheckbox");
+		String hotelTag = null;
+		if(hotelTags != null) {
+			hotelTag = String.join(", ", hotelTags);
+		}
+		String hotelCheckin = request.getParameter("checkInDate");
+		String hotelCheckout = request.getParameter("checkOutDate");
+		int peopleCount =Integer.parseInt(request.getParameter("peopleCount"));
+		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
+		
+		String searchType = request.getParameter("searchType");
+		
+		Reservation r = new Reservation();
+		r.setHotelName(hotelName);
+		r.setTagNo(hotelTag);
+		r.setDateIn(hotelCheckin);
+		r.setDateOut(hotelCheckout);
+		r.setResPeople(peopleCount);
+		r.setRoomCount(roomCount);
+		r.setSearchType(searchType);
+		
+		
 		
 		request.setAttribute("hotel", h);
 		request.setAttribute("tag", t);
 		request.setAttribute("room", rm);
 		request.setAttribute("review", re);
+		request.setAttribute("r", r);
 		
 		
 		request.getRequestDispatcher("/views/reservation/ReservationHotelDetail.jsp").forward(request, response);

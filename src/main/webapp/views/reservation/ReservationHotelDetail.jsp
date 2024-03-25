@@ -1,3 +1,4 @@
+<%@page import="com.galgoda.customer.model.vo.Reservation"%>
 <%@page import="java.util.List"%>
 <%@page import="com.galgoda.hotel.model.vo.Room"%>
 <%@page import="com.galgoda.hotel.model.vo.Tag"%>
@@ -14,6 +15,7 @@
 	List<Tag> tag =(List<Tag>)request.getAttribute("tag");
 	List<Review> review = (List<Review>)request.getAttribute("review");
 	List<Room> rm = (List<Room>)request.getAttribute("room");
+	Reservation r = (Reservation)request.getAttribute("r");
 			
 
 %>    
@@ -25,6 +27,79 @@
     <title><%=hotel.getHotelName() %></title>       
     <!-- 평점 관련 스타일 적용-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+
+   <!-- 호텔명, 태그명 버튼 각각 클릭 시 활성화 -->
+   
+   $(document).ready(function() {
+       // 호텔명 버튼이나 태그명 버튼이 클릭되었을 때의 이벤트 처리
+       $(".hotelName_btn, .tagName_btn").click(function() {
+           // 클릭된 버튼에만 'active' 클래스를 추가하고 다른 버튼에서는 'active' 클래스를 제거
+           $(this).addClass("active").siblings().removeClass("active");
+           
+        	// 태그명 버튼이 선택되었을 때 체크박스를 보이도록 처리
+           if ($(this).hasClass("tagName_btn")) {
+               $("#tagCheckboxes").show();
+           } else {
+               $("#tagCheckboxes").hide();
+           }
+       });
+   });
+
+   
+   $(document).ready(function() {
+       // 호텔명, 태그명 버튼 각각 클릭 시 활성화
+       $(".hotelName_btn, .tagName_btn").click(function() {
+           // 클릭된 버튼에만 'active' 클래스를 추가하고 다른 버튼에서는 'active' 클래스를 제거
+           $(this).addClass("active").siblings().removeClass("active");
+           
+           // 호텔명 버튼이 선택되었을 때 입력칸을 보이고, 태그 선택 창을 숨깁니다.
+           if ($(this).hasClass("hotelName_btn")) {
+               $("#hotelNameInputWrapper").show();
+               $("#tagCheckboxes").hide();
+           } 
+           // 태그명 버튼이 선택되었을 때 태그 선택 창을 보이고, 입력칸을 숨깁니다.
+           else {
+               $("#hotelNameInputWrapper").hide();
+               $.ajax({
+					url: "mainPageTagList.co",
+					type: "get",
+					success: function(list) {
+						let value = "";
+		                if (list.length > 0) {
+		                    for (let i = 0; i < list.length; i++) {
+		                        value += "<label>" +
+		                            "<input type='checkbox' name='tagCheckbox' value='" + list[i].tagNo + "'>" +
+		                            list[i].tagName +
+		                            "</label>";
+		                    }
+		                    $("#tagCheckboxes").html(value); // 수정: 태그 체크박스를 출력하는 부분을 이동
+		                    $("#tagCheckboxes").show(); // 수정: 태그 체크박스를 보이도록 처리
+		                }
+					}
+					
+				})
+           }
+       });
+   });
+   
+   function setSearchType(searchType) {
+       document.getElementById("searchType").value = searchType; // 호텔명/태그명 선택에 따른 값 설정
+       };
+       
+       $(function(){
+		       /* 태그부분 */
+		       	var taglist = '<%= r.getTagNo() %>';
+		        var  v = taglist.split(",");
+		                	
+		        for(var j = 0; j<v.length; j++){
+		                $('input:checkbox[name=tagCheckbox][value='+v[j]+']').prop("checked", true).parent().addClass('on');
+		        } 
+       })
+ 
+   </script>
+    
+    
     
 <style>
 #main_content{min-height:600px;}
@@ -169,12 +244,71 @@ h2{
 
         <section id="main_content">
            
-            <!-- main_top임시 지움  -->
-           
+            <!-- 검색바  -->
+           	<div class="main_top">
+			
+				 <form id="searchForm" >
+				                    <table class="main_searchBar">
+				                        <thead>
+				                            <tr>
+				                                <td width="300px">
+				                                	<input type="hidden" id="searchType" name="searchType" value=<%= r.getSearchType() %>> <!-- 숨겨진 입력 필드로 검색 타입을 저장 -->
+				                                	<div class="d-flex search_btn">
+				                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn" onclick="setSearchType('hotelName')">호텔명</button>
+				                                            <button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')">태그명</button>
+				                                    </div>
+				                                </td>
+				                                <td width="150px" style="text-align: center;">체크인</td>
+				                                <td width="150px" style="text-align: center;">체크아웃</td>
+				                                <td width="100px"></td>
+				                                <td width="110px" align="center">인원수</td>
+				                                <td width="110px" align="center">객실</td>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            <tr> 
+				                                <td>
+												    <div class="position-relative">
+												        <div id="hotelNameInputWrapper" style="display: block;">
+												            <div class="iconInput">
+												                <i class="bi bi-search"></i>
+												                <input type="text" name="hotelName" id="hotelNameInput" class="form-control" style="text-align: center;" onclick="toggleCheckboxes()" value="<%= r.getHotelName() %>">
+												            </div>
+												        </div>
+												        
+												        <div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px;">
+												       
+												        </div>
+												    </div>
+												</td>
+				                                
+				                                <td><input type="date" name="checkInDate" class="form-control" value="<%= r.getDateIn() %>"></td>
+				                                <td><input type="date" name="checkOutDate" class="form-control" value="<%= r.getDateOut() %>"></td>
+				                                <td></td>
+				                                <td><input type="number" min="1" name="peopleCount" value="<%= r.getResPeople() %>" class="form-control"></td>
+				                                <td><input type="number" min="1" name="roomCount" value="<%= r.getRoomCount() %>" class="form-control"></td>
+				                                <td colspan="2" align="right">
+									                <button type="submit" class="btn main_searchButton">검색하기</button>
+									            </td>
+				                            </tr>
+				                            <tr>
+				                                <td colspan="7" style="display: none;">
+									                <div class="iconInput">
+									                    <i class="bi bi-tags"></i>
+									                    <input type="text" class="form-control" style="text-align: center;">
+									                </div>
+						           				</td>
+				                                
+				                            </tr>
+				                        </tbody>
+				                    </table>
+				   </form>
+				
+			</div>
+            <!--  main_top 검색바 end -->
            
             <div class="page_content" style="margin-bottom: 150px">
                 <div class="mytitle">
-                
             </div>
             
             <div class="hotelPictures">
@@ -274,7 +408,8 @@ h2{
             <script>
         	
        		function resRoom(RoomNo){
-       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo;
+       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
+       					+ "&checkIn=<%=r.getDateIn()%>" + "&checkOut=<%=r.getDateOut()%>";
        		}
         	
         	</script>
@@ -283,15 +418,15 @@ h2{
                 <div class="hotel_content">
                 <span id="title">객실</span>
                 	
-                	<%for(Room r : rm){ %>
+                	<%for(Room room : rm){ %>
                     <div class="form-control" id="room_list">
-                        <div><img src="<%=contextPath %>/<%=r.getImgPath() %>" style="width: 300px; height: 180px; padding-right: 10px;"></div>
+                        <div><img src="<%=contextPath %>/<%=room.getImgPath() %>" style="width: 300px; height: 180px; padding-right: 10px;"></div>
                             <div style="text-align: left">
-                                <b><%=r.getRoomName() %></b><br>
-                                <%=r.getRoPrice() %>
+                                <b><%=room.getRoomName() %></b><br>
+                                <%=room.getRoPrice() %>
                                
                             </div>
-                            <%if(r.getRoCount()!=0){ %>
+                            <%if(room.getRoCount()!=0){ %>
                             <div class="resPoss" >
                                 예약가능
                             </div>
@@ -302,12 +437,12 @@ h2{
                             <%} %>
                             
                             <div>
-                                <button class="btn" id="btncollapse" data-toggle="collapse" data-target="#room_detail<%=r.getRoomNo()%>"> 자세히 보기</button>
+                                <button class="btn" id="btncollapse" data-toggle="collapse" data-target="#room_detail<%=room.getRoomNo()%>"> 자세히 보기</button>
                                 <br>
-                                <button class="btn" id="btnconfirm" onclick="resRoom(<%=r.getRoomNo() %>);" > 예약하기</button>
+                                <button class="btn" id="btnconfirm" onclick="resRoom(<%=room.getRoomNo() %>);" > 예약하기</button>
                             </div>
                     </div>
-                    <div class="collapse" id="room_detail<%=r.getRoomNo()%>" >
+                    <div class="collapse" id="room_detail<%=room.getRoomNo()%>" >
                     	<div class="form-control" id="rdetail">
 	                        <form>
 	                            <div style="display:flex; margin: 15px 0px 0px 15px;">
@@ -383,7 +518,7 @@ h2{
                 <div>
                     <h3><b>리뷰</b></h3>
                     <%if(review!=null){ %>
-	                    <%for(Review r : review){ %>
+	                    <%for(Review re : review){ %>
 	                    <div class="revBox">
 	                        <div class="rev">
 	                            
@@ -395,15 +530,15 @@ h2{
 	                                <span class="fa fa-star stars" id="star5"></span>
 	                            </p>
 	                            
-	                            <div><b><%=r.getUserId() %></b></div>
+	                            <div><b><%=re.getUserId() %></b></div>
 	                            <ul>
-	                                <li><%=r.getModifyDate() %></li>
+	                                <li><%=re.getModifyDate() %></li>
 	                                
 	                            </ul>
 	                        </div>
 	                        <div class="revText" id="revText">
-	                        	<p><%=r.getRevTitle() %></p>
-	                            <p><%=r.getRevContent() %></p>
+	                        	<p><%=re.getRevTitle() %></p>
+	                            <p><%=re.getRevContent() %></p>
 	                        </div>                       
 	                    </div>
 	                    <%} %>
