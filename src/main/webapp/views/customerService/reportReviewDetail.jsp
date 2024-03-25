@@ -52,24 +52,24 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#">공지사항 관리</a>
+                        <a class="nav-link" href="<%= contextPath %>/list.no?page=1">공지사항 관리</a>
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#">문의사항 관리</a>
+                        <a class="nav-link" href="<%= contextPath %>/list.inq?page=1">문의사항 관리</a>
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="#" data-toggle="collapse" data-target="#aaa">신고 관리</a>
+                        <a class="nav-link" style="color: white;" data-toggle="collapse" data-target="#aaa">신고 관리</a>
                     </li>
                     <li>
                         <div class="collapse show" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 계정 관리</a>
+                            <a href="<%= contextPath %>/userList.rep?page=1">신고 계정 관리</a>
                         </div>
                     </li>
                     <li style="background-color: rgb(191, 180, 176);">
                         <div class="collapse show" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 리뷰 관리</a>
+                            <a href="<%= contextPath %>/reviewList.rep?page=1">신고 리뷰 관리</a>
                         </div>
                     </li>
                 </ul>
@@ -153,7 +153,7 @@
             <script>
                 // 신고리뷰삭제하는 메소드
                 function deleteRev(){
-                    if(!confirm("해당 리뷰를 삭제하시겠습니까?"){
+                    if(!confirm("해당 리뷰를 삭제하시겠습니까?")){
                     	event.preventDefault();
                     }
                 }

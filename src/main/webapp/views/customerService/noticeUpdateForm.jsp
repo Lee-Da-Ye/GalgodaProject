@@ -11,21 +11,22 @@
 <title>Insert title here</title>
 <style type="text/css">
 	/* 공지사항수정페이지 스타일 */
-        .space {
-            padding: 10px;
-        }
-
-        .page_content table {
-            margin-top: 30px;
-            width: 90%;
-        }
-
-        .page_content th {
-            background-color: rgb(235, 231, 227);
-            width: 100px;
-            text-align: center;
-        }
-        .sideMenubar_head {
+	.space {
+		padding: 10px;
+	}
+	
+	.page_content table {
+		margin-top: 30px;
+		width: 90%;
+	}
+	
+	.page_content th {
+		background-color: rgb(235, 231, 227);
+		width: 100px;
+		text-align: center;
+	}
+	
+	.sideMenubar_head {
 		width: 80%;
 		margin-left: 10px;
 		margin-right: 50px;
@@ -49,29 +50,52 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
+                        <a class="nav-link" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
-                    <li> <div id="demo"  class="collapse " style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse " style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
-                    
-                    
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a>
+                    	</div> 
+                    </li> 
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/hotelupdateForm.ho">호텔 정보 수정</a>
+                    	</div> 
+                    </li>  
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="<%= contextPath%>/roominsertForm.ho">객실등록</a>
+                    	</div> 
+                    </li>  
+                    <li> 
+                    	<div id="demo"  class="collapse " style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/roomUpdateForm.ho">객실수정</a>
+                    	</div> 
+                    </li>  
+                    <li> 
+                    	<div id="demo" class="collapse " style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/revList.ho?page=1">리뷰 관리</a>
+                    	</div> 
+                    </li>   
                     <li>
-                        <a class="nav-link"  href="#">예약관리</a>
+                        <a class="nav-link"  href="<%= contextPath %>/resList.ho?page=1">예약관리</a>
                     </li>
-                  
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath %>/personalInfo.ho">담당자 정보 수정</a>
                     </li>
-                        
-                    
                     <li>
-                         <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
+                    	<a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
-                    <li style="background-color: #BFB4B0;"> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
-                    <li> <div id="demo4" class="collapse show" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                    <li style="background-color: #BFB4B0;"> 
+                    	<div id="demo4" class="collapse show" style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/list.no?page=1">공지사항</a>
+                    	</div> 
+                    </li>   
+                    <li> 
+                    	<div id="demo4" class="collapse show" style="margin-left: 30px;">
+                    		<a href="<%= contextPath %>/list.inq?page=1">문의사항</a>
+                   		</div> 
+                  	</li>   
                 </ul>
             </div>
 			<% }else if(loginAdmin != null) { %>
@@ -82,24 +106,24 @@
                     </li>
 
                     <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="#">공지사항 관리</a>
+                        <a class="nav-link" style="color: white;" href="<%= contextPath %>/list.no?page=1">공지사항 관리</a>
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#">문의사항 관리</a>
+                        <a class="nav-link" href="<%= contextPath %>/list.inq?page=1">문의사항 관리</a>
                     </li>
 
                     <li>
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#aaa">신고 관리</a>
+                        <a class="nav-link" data-toggle="collapse" data-target="#aaa">신고 관리</a>
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 계정 관리</a>
+                            <a href="<%= contextPath %>/userList.rep?page=1">신고 계정 관리</a>
                         </div>
                     </li>
                     <li>
                         <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 리뷰 관리</a>
+                            <a href="<%= contextPath %>/reviewList.rep?page=1">신고 리뷰 관리</a>
                         </div>
                     </li>
                 </ul>
@@ -148,8 +172,6 @@
                     }
                 }
             </script>
-
-
         </section>
         <!-- section end -->
 

@@ -101,7 +101,7 @@
 					</li>
 					<li>
 						<div class="collapse" id="aaa" style="margin-left: 30px;">
-							<a href="<%= contextPath %>/list.inq?page=?">문의내역</a>
+							<a href="<%= contextPath %>/list.inq?page=1">문의내역</a>
 						</div>
 					</li>
 				</ul>

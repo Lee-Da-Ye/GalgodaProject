@@ -136,7 +136,7 @@
                         </div>
                         <div style="margin-left: 30%; margin-top: 30px;">
                         	<button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;">등록</button>
-                        	<button type="button" class="btn" style="background-color: rgb(235,231,227);" onclick="history.back();">취소</button>
+                        	<a href="<%= contextPath %>/list.no?page=1" class="btn" style="background-color: rgb(235,231,227);">취소</a>
                         </div>
                     </form>
                 </div>

@@ -126,7 +126,7 @@ width: 600px;
                         
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="<%=contextPath %>" class="mypage_cir_menu"><%=newInqCount%></a>
+                                <a href="<%=contextPath %>/list.inq?page=1" class="mypage_cir_menu"><%=newInqCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">고객센터 새 문의글</button>
@@ -152,7 +152,7 @@ width: 600px;
                             <a href="<%=contextPath%>/userList.su?page=1" class="mypage_rec_menu">사용자 관리</a>
                         </div>
                         <div class="mypage_rectangle">
-                            <a href="" class="mypage_rec_menu">고객센터 관리</a>
+                            <a href="<%= contextPath %>/list.no?page=1" class="mypage_rec_menu">고객센터 관리</a>
                         </div>
                         <div class="mypage_rectangle" onclick="LinkTo(this);">
                             <a href="<%=contextPath %>/termsList.su" class="mypage_rec_menu">홈페이지 관리</a>

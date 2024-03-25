@@ -136,41 +136,41 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link "  href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
+                        <a class="nav-link" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
                     <li> 
                     	<div id="demo" class="collapse " style="margin-left: 30px;">
-                    		<a href="">호텔등록</a>
+                    		<a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a>
                    		</div>
                    	</li> 
                     <li> 
                     	<div id="demo" class="collapse " style="margin-left: 30px;">
-                    		<a href="">호텔 정보 수정</a>
+                    		<a href="<%= contextPath %>/hotelupdateForm.ho">호텔 정보 수정</a>
                     	</div>
                    	</li>  
                     <li> 
                     	<div id="demo" class="collapse " style="margin-left: 30px;">
-                    		<a href="">객실등록</a>
+                    		<a href="<%= contextPath%>/roominsertForm.ho">객실등록</a>
                     	</div> 
                     </li>  
                     <li> 
                     	<div id="demo"  class="collapse " style="margin-left: 30px;">
-                    		<a href="">객실수정</a>
+                    		<a href="<%= contextPath %>/roomUpdateForm.ho">객실수정</a>
                    		</div> 
                  	</li>  
                     <li> 
                     	<div id="demo" class="collapse " style="margin-left: 30px;">
-                    		<a href="">리뷰 관리</a>
+                    		<a href="<%= contextPath %>/revList.ho?page=1">리뷰 관리</a>
                    		</div> 
                    	</li>   
                     <li>
-                        <a class="nav-link"  href="#">예약관리</a>
+                        <a class="nav-link"  href="<%= contextPath %>/resList.ho?page=1">예약관리</a>
                     </li>
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath %>/personalInfo.ho">담당자 정보 수정</a>
                     </li>
                     <li>
-                         <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
+                    	<a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
                     <li> 
                     	<div id="demo4" class="collapse show" style="margin-left: 30px;">
@@ -251,120 +251,7 @@
 	                </ul>
                 </div>
             </div>
-            
-			<% }else if(loginAdmin != null){ %>
-			<div class="sideMenubar">
-                <ul class="nav flex-column">
-                    <li>
-                        <h3 class="sideMenubar_head">고객센터 관리</h3>
-                    </li>
-
-                    <li>
-                        <a class="nav-link" href="#">공지사항 관리</a>
-                    </li>
-
-                    <li style="background-color: rgb(115, 90, 75);">
-                        <a class="nav-link" style="color: white;" href="">문의사항 관리</a>
-                    </li>
-
-                    <li>
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#aaa">신고 관리</a>
-                    </li>
-                    <li>
-                        <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 계정 관리</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapse" id="aaa" style="margin-left: 30px;">
-                            <a href="">신고 리뷰 관리</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="page_content">
-                <h2 class="contentName">1:1 문의내역</h2>
-                <div style="margin-top: 10px; border: 2px solid lightgray;"></div>
-                <div style="margin-top: 20px;">
-                    <select name="category" id="hotelCategory">
-                    	<option value="전체">전체</option>
-                    	<% for(int i=0; i<list2.size(); i++){ %>
-                        <option value="<%= list2.get(i).getHotelName() %>"><%= list2.get(i).getHotelName() %></option>
-                        <% } %>
-                    </select>
-                </div>
-                <div style="margin-top: 20px;">
-                    <table class="table">
-                    	<thead>
-	                        <tr align="center" class="table-active">
-	                            <th style="width: 15%;">구분</th>
-	                            <th style="width: 10%;">작성자</th>
-	                            <th style="width: 10%;">문의유형</th>
-	                            <th style="width: 45%;">제목</th>
-	                            <th>작성일</th>
-	                        </tr>
-                        </thead>
-                        <tbody>
-                        	<% for(Inq inq : list1){ %>
-	                        	<tr align="center">
-	                        		<td><%= inq.getCategory() %></td>
-	                        		<td><%= inq.getInqWriter() %></td>
-	                        		<td><%= inq.getInqType() %></td>
-	                        		<td>
-	                        			<a href="<%= contextPath %>/detail.inq?no=<%= inq.getInqNo() %>"><%= inq.getInqTitle() %></a>
-                        			</td>
-	                        		<td><%= inq.getRegistDate() %></td>
-	                        	</tr>
-                        	<% } %>
-                        </tbody>
-                    </table>
-                    <ul class="pagination" style="margin-top: 50px; width: 95%; justify-content: center;">
-	                    
-	                    <% if(pi.getCurrentPage() == 1){ %>
-	                    <li class="page-item disabled">
-	                    	<a class="page-link" href="#">&lt;</a>
-                   		</li>
-	                    <% }else { %>
-	                    <li class="page-item">
-	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() - 1 %>">&lt;</a>
-                    	</li>
-	                 	<% } %>
-	                 	<% for(int p=pi.getStartPage(); p<=pi.getEndPage(); p++){ %>   
-	                    	<% if(p == pi.getCurrentPage()){ %>
-		                    <li class="page-item active">
-		                    	<a class="page-link" href="#"><%= p %></a>
-	                    	</li>
-		                    <% }else { %>
-		                    <li class="page-item">
-		                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= p %>"><%= p %></a>
-	                    	</li>
-	                 		<% } %>
-	                 	<% } %>
-	                    
-	                    <% if(pi.getCurrentPage() == pi.getMaxPage()){ %>
-	                    <li class="page-item disabled">
-	                    	<a class="page-link" href="#">&gt;</a>
-                   		</li>
-	                    <% }else { %>
-	                    <li class="page-item">
-	                    	<a class="page-link" href="<%= contextPath %>/list.inq?page=<%= pi.getCurrentPage() + 1 %>">&gt;</a>
-                    	</li>
-	                	<% } %>
-	                </ul>
-                </div>
-            </div>
-            <script>
-				$(function() {
-					$("#hotelCategory").change(function() {
-						var category = $(this).val();
-			            var contextPath = '<%= contextPath %>';
-			            var newURL = contextPath + '/adminList.inq?page=1&category=' + category;
-			            window.location.href = newURL;
-					})
-				})
-			</script>
-			<% } %>
+            <% } %>
         </section>
         <!-- section end -->
 
