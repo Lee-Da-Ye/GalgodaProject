@@ -174,6 +174,32 @@ public class ReservationDao {
 		
 		return list;
 	}
+	
+	public String findRoomName(Connection conn, int roomNo) {
+		
+		String roomName ="";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findRoomName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				roomName = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return roomName;
+		
+	}
 
 
 }

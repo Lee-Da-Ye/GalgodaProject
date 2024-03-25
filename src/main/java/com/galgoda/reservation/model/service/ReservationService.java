@@ -64,4 +64,11 @@ public class ReservationService {
 		return list;
 	}
 	
+	public String findRoomName(int roomNo) {
+		Connection conn = getConnection();
+		String roomName = rDao.findRoomName(conn, roomNo);
+		close(conn);
+		
+		return roomName;
+	}
 }

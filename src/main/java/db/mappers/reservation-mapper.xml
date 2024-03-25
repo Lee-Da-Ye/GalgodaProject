@@ -99,6 +99,13 @@
 			    BY  RES_NO DESC
 		
 		</entry>
+		
+		<entry key="findRoomName">
+			SELECT 
+			        RO_NAME
+			  FROM  TB_ROOM
+			 WHERE  RO_NO = ?		
+		</entry>
 
 
 </properties>
