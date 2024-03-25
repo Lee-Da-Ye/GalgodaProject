@@ -77,8 +77,8 @@
                     </li>
                     <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a></div> </li> 
                     <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelupdateForm.ho">호텔 정보 수정</a></div> </li>  
-                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
-                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
+                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath%>/roominsertForm.ho">객실등록</a></div> </li>  
+                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/roomUpdateForm.ho">객실수정</a></div> </li>  
                     <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/revList.ho?page=1">리뷰 관리</a></div> </li>   
                     
                     
@@ -169,7 +169,7 @@
                             <tr>
                                 <td id="td4"><button class="btn " id="btnname" type="button" >태그</button></td>
                                 <td id="td2">
-                                    <div class="form-control add_content">   
+                                    <div class="form-control add_content" style="overflow-y: auto;">   
                                         
                                         <% for(Tag t : list){ %>
                                         	

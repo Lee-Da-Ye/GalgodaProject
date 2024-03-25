@@ -83,15 +83,15 @@
                     <li>
                         <a class="nav-link " style="color: white; background-color: rgb(115, 90, 75);" href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
-                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
-                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
-                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
-                    <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a></div> </li> 
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelupdateForm.ho">호텔 정보 수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath%>/roominsertForm.ho">객실등록</a></div> </li>  
+                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/roomUpdateForm.ho">객실수정</a></div> </li>  
+                    <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/revList.ho?page=1">리뷰 관리</a></div> </li>   
                     
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" >예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%= contextPath %>/resList.ho?page=1" >예약관리</a>
                     </li>
                
                     <li>

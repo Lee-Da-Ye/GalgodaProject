@@ -128,7 +128,7 @@
                     <div class="mypage_shortcut">  
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" id="mypage_cir_menu">40</a>
+                                <a href="<%= contextPath %>/roomUpdateForm.ho" id="mypage_cir_menu">40</a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <button class="btn">객실현황</button>
