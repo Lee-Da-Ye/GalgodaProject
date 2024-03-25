@@ -406,12 +406,24 @@ h2{
             
             
             <script>
-        	
-       		function resRoom(RoomNo){
-       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
-       					+ "&checkIn=<%=r.getDateIn()%>" + "&checkOut=<%=r.getDateOut()%>";
-       		}
-        	
+	            function formatDate(dateString) {
+	                // 문자열을 Date 객체로 변환
+	                var date = new Date(dateString);
+	
+	                // 날짜를 ISO 8601 형식(YYYY-MM-DD)으로 변환
+	                var formattedDate = date.toISOString().slice(0, 10);
+	                return formattedDate;
+	            }
+	       		function resRoom(RoomNo){
+	       		// getDateIn 문자열을 Date 객체로 변환하여 포맷팅
+	       		    var checkInDate = formatDate("<%=r.getDateIn()%>");
+	       		    var checkOutDate = formatDate("<%=r.getDateOut()%>");
+	
+	       			
+	       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
+	       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate;
+	       		}
+	        	
         	</script>
                 
                 
