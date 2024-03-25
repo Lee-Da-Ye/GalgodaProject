@@ -19,13 +19,13 @@ import com.galgoda.hotel.model.vo.Hotel;
  * Servlet implementation class InqAdminListController
  */
 @WebServlet("/adminList.inq")
-public class InqAdminListController extends HttpServlet {
+public class InqAdminCategoryListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InqAdminListController() {
+    public InqAdminCategoryListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -77,7 +77,7 @@ public class InqAdminListController extends HttpServlet {
 		request.setAttribute("list2", list2);
 		request.setAttribute("pi", pi);
 		
-		request.getRequestDispatcher("/views/customerService/inqAdminList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/customerService/inqAdminCategoryList.jsp").forward(request, response);
 	}
 
 	/**
