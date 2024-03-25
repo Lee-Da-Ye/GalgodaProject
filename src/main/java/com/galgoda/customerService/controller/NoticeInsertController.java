@@ -45,7 +45,7 @@ public class NoticeInsertController extends HttpServlet {
 		
 		int writerNo = 0;
 		if(session.getAttribute("loginHotel") != null) {
-			noticeTitle = "[" + ((HotelUser)session.getAttribute("loginHotel")).getMemName() + "]" + request.getParameter("title");
+			noticeTitle = "[" + ((HotelUser)session.getAttribute("loginHotel")).getHotelName() + "]" + request.getParameter("title");
 			noticeContent = request.getParameter("content");
 			writerNo = ((HotelUser)session.getAttribute("loginHotel")).getMemNo();
 			n.setNoticeTitle(noticeTitle);

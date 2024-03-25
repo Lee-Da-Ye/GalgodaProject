@@ -112,7 +112,7 @@
                             <tr>
                                 <th>제목</th>
                                 <td>
-                                    <input type="text" name="title" style="width: 100%;">
+                                    <input type="text" name="title" style="width: 100%;" required>
                                 </td>
                             </tr>
                             <tr>
@@ -120,7 +120,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="margin-top: 20px;">
-                                    <textarea name="content" rows="20" style="resize: none; width: 100%;"></textarea>
+                                    <textarea name="content" rows="20" style="resize: none; width: 100%;" required></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -129,7 +129,7 @@
                             <tr>
                                 <td colspan="2" align="center">
                                     <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;">등록</button>
-                                    <a class="btn" style="background-color: rgb(235, 231, 227);">취소</a>
+                                    <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="history.back();">취소</button>
                                 </td>
                             </tr>
                         </table>

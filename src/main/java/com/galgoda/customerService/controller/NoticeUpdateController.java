@@ -41,7 +41,7 @@ public class NoticeUpdateController extends HttpServlet {
 		int result = new NoticeService().updateNotice(n);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/list.no");
+			response.sendRedirect(request.getContextPath() + "/list.no?page=1");
 		}
 	}
 

@@ -33,7 +33,7 @@ public class InqService {
 		int result2 = 1;
 		
 		if(!list.isEmpty()) {
-			result2 = iDao.insertAttachment(conn, list);
+			result2 = iDao.insertInqAttachment(conn, list);
 		}
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);

@@ -116,7 +116,7 @@
                             <tr>
                                 <th>제목</th>
                                 <td colspan="2">
-                                    <input type="text" name="title" style="width: 100%;" value="<%= n.getNoticeTitle() %>">
+                                    <input type="text" name="title" style="width: 100%;" value="<%= n.getNoticeTitle() %>" required>
                                 </td>
                             </tr>
                             <tr>
@@ -124,7 +124,7 @@
                             </tr>
                             <tr>
                                 <td colspan="3" style="margin-top: 20px;">
-                                    <textarea name="content" rows="20" style="resize: none; width: 100%;"><%= n.getNoticeContent() %></textarea>
+                                    <textarea name="content" rows="20" style="resize: none; width: 100%;" required><%= n.getNoticeContent() %></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -133,7 +133,7 @@
                             <tr>
                                 <td colspan="3" align="center">
                                     <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;" onclick="updateNotice();">수정</button>
-                                    <a class="btn" style="background-color: rgb(235, 231, 227);">취소</a>
+                                    <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="history.back();">취소</button>
                                 </td>
                             </tr>
                         </table>
@@ -143,7 +143,9 @@
             </div>
             <script>
                 function updateNotice(){
-                    confirm("해당 공지사항을 수정하시겠습니까?");
+                    if(!confirm("해당 공지사항을 수정하시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
             </script>
 

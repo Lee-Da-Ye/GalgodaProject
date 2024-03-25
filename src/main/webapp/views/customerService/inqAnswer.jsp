@@ -117,7 +117,7 @@
                             <tr>
                                 <td colspan="4" align="center">
                                     <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;">답변등록</button>
-                                    <a href="<%= contextPath %>/list.inq?page=1" class="btn" style="background-color: rgb(235, 231, 227);">취소</a>
+                                    <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="history.back();">취소</button>
                                 </td>
                             </tr>
                         </table>

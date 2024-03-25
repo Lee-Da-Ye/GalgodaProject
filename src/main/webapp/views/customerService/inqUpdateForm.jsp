@@ -112,13 +112,13 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <textarea name="answer" style="width: 100%; height: 500px; resize: none;"><%= inq.getAnsContent() %></textarea>
+                                    <textarea name="answer" style="width: 100%; height: 500px; resize: none;" required><%= inq.getAnsContent() %></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="4" align="center">
                                     <button type="submit" class="btn" style="background-color: rgb(115, 90, 75); color: white;" onclick="updateInq();">수정</button>
-                                    <button type="button" class="btn" style="background-color: rgb(235, 231, 227);">취소</button>
+                                    <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="history.back();">취소</button>
                                 </td>
                             </tr>
                         </table>
@@ -128,7 +128,9 @@
 			<script>
                 // 수정 confirm창 띄우는 메소드
                 function updateInq(){
-                    confirm("해당 답변내용을 수정하시겠습니까?");
+                    if(!confirm("해당 답변내용을 수정하시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
             </script>
 

@@ -35,7 +35,7 @@ public class NoticeDeleteController extends HttpServlet {
 		int result = new NoticeService().deleteNotice(noticeNo);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/list.no");
+			response.sendRedirect(request.getContextPath() + "/list.no?page=1");
 		}
 	}
 

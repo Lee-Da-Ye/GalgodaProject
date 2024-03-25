@@ -175,10 +175,9 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<textarea style="width: 100%; height: 300px; resize: none;" readonly><%= inq.getInqContent() %></textarea>
+								<textarea style="width: 100%; height: 300px; resize: none; overflow-y: auto;" readonly><%= inq.getInqContent() %></textarea>
 							</td>
 						</tr>
-						<% if(!list.isEmpty()){ %>
 						<tr>
 							<th style="vertical-align: middle;">첨부파일</th>
 							<td colspan="2" style="vertical-align: middle;">
@@ -208,7 +207,6 @@
 							</td>
 							<td></td>
 						</tr>
-						<% } %>
 						<tr>
 							<td colspan="4">
 								<h3 style="color: rgb(115, 90, 75);">답변</h3>
@@ -217,7 +215,7 @@
 						<tr>
 							<td colspan="4">
 								<% if(inq.getAnsContent() != null){ %> 
-								<textarea style="width: 100%; height: 500px; resize: none;" readonly><%= inq.getAnsContent() %></textarea>
+								<textarea style="width: 100%; height: 500px; resize: none; overflow-y: auto;" readonly><%= inq.getAnsContent() %></textarea>
 								<% }else{ %> 
 								<textarea style="width: 100%; height: 500px; resize: none;" readonly></textarea>
 								<% } %>
@@ -251,7 +249,9 @@
 			</div>
 			<script>
                 function deleteInq(){
-                    confirm("해당 문의를 삭제하시겠습니까?")
+                    if(!confirm("해당 문의를 삭제하시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
             </script>
 		</section>

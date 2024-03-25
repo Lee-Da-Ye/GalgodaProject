@@ -78,10 +78,10 @@ public class InqDao {
 		
 	}
 	
-	public int insertAttachment(Connection conn, List<Attachment> list) {
+	public int insertInqAttachment(Connection conn, List<Attachment> list) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertAttachment");
+		String sql = prop.getProperty("insertInqAttachment");
 		try {
 			for(Attachment at : list) {
 				pstmt = conn.prepareStatement(sql);

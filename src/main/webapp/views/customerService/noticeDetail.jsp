@@ -140,7 +140,7 @@
                         </tr>
                         <tr>
                             <td colspan="3" style="margin-top: 20px;">
-                                <textarea name="" rows="20" style="resize: none; width: 100%;" readonly><%= n.getNoticeContent() %></textarea>
+                                <textarea name="" rows="20" style="resize: none; width: 100%; overflow-y: auto;" readonly><%= n.getNoticeContent() %></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -205,7 +205,7 @@
                         </tr>
                         <tr>
                             <td colspan="3" style="margin-top: 20px;">
-                                <textarea name="" rows="20" style="resize: none; width: 100%;" readonly><%= n.getNoticeContent() %></textarea>
+                                <textarea name="" rows="20" style="resize: none; width: 100%; overflow-y: auto;" readonly><%= n.getNoticeContent() %></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -220,7 +220,7 @@
                         <tr>
                             <td colspan="3" align="right">
                                 <a href="<%= contextPath %>/updateForm.no?no=<%= n.getNoticeNo() %>" class="btn" style="background-color: rgb(115, 90, 75); color: white;">수정</a>
-                                <button type="button" class="btn" style="background-color: rgb(235, 231, 227);" onclick="deleteNotice();">삭제</button>
+                                <a href="<%= contextPath %>/delete.no?no=<%= n.getNoticeNo() %>" class="btn" style="background-color: rgb(235, 231, 227);" onclick="deleteNotice();">삭제</button>
                             </td>
                         </tr>
                         <% } %>
@@ -276,7 +276,7 @@
                         </tr>
                         <tr>
                             <td colspan="3" style="margin-top: 20px;">
-                                <textarea name="" rows="20" style="resize: none; width: 100%;" readonly><%= n.getNoticeContent() %></textarea>
+                                <textarea name="" rows="20" style="resize: none; width: 100%; overflow-y: auto;" readonly><%= n.getNoticeContent() %></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -287,22 +287,21 @@
                         <tr>
                             <td colspan="3" class="space"></td>
                         </tr>
-                        <% if(loginAdmin.getAdminNo() == n.getAdminNo()){ %>
                         <tr>
                             <td colspan="3" align="right">
                                 <a href="<%= contextPath %>/updateForm.no?no=<%= n.getNoticeNo() %>" class="btn" style="background-color: rgb(115, 90, 75); color: white;">수정</a>
                                 <a href="<%= contextPath %>/delete.no?no=<%= n.getNoticeNo() %>" class="btn" style="background-color: rgb(235, 231, 227);" onclick="deleteNotice();">삭제</a>
                             </td>
                         </tr>
-                        <% } %>
                     </table>
                 </div>
             </div>
-            
             <% } %>
       		<script>
                 function deleteNotice(){
-                    confirm("해당 공지사항을 삭제하시겠습니까?");
+                    if(!confirm("해당 공지사항을 삭제하시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
             </script>
             

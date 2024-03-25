@@ -83,12 +83,11 @@
                         <tr align="center">
                             <th style="vertical-align: middle;">신고 내용</th>
                             <% if(r.getRepContent() != null){ %>
-                            <td style="height: 300px; vertical-align: middle;">
+                            <td style="height: 300px; vertical-align: middle; overflow-y: auto;">
                             	<%= r.getRepContent() %>
                             </td>
                             <% }else { %>
-                            <td style="height: 300px; vertical-align: middle;">
-                            	
+                            <td style="height: 300px; vertical-align: middle; overflow-y: auto;">
                             </td>
                             <% } %>
                         </tr>
@@ -105,11 +104,15 @@
             <script>
                 // 신고계정삭제하는 메소드
                 function deleteUser(){
-                    confirm("해당 사용자의 계정을 삭제하시겠습니까?");
+                    if(!confirm("해당 사용자의 계정을 삭제하시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
                 // 신고취소하는 메소드
                 function cancelRep(){
-                    confirm("해당 사용자에 대한 신고를 취소시키시겠습니까?");
+                    if(!confirm("해당 사용자에 대한 신고를 취소시키시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
             </script>
 
