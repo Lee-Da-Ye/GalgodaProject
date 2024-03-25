@@ -349,6 +349,7 @@
 		 						  FROM TB_HOTEL
 		 						 WHERE HOTEL_NAME = ?
 		 						) 
+		 	   AND STATUS = 'Y'
 		</entry>
 		
 		
@@ -420,6 +421,21 @@
 				  , ?
 				  
 				)
+		
+		</entry>
+		
+		<entry key="deleteRoom">
+		UPDATE TB_ROOM
+		  SET  STATUS = 'N'
+		 WHERE RO_NO = ?
+		
+		</entry>
+		
+		<entry key="deleteAttachment">
+		UPDATE TB_FILE
+		   SET STATUS = 'N'
+		 WHERE REF_NO = ?
+		  AND  REF_TYPE = ?
 		
 		</entry>
 

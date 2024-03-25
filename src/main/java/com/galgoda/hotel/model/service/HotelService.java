@@ -316,5 +316,33 @@ public class HotelService {
 		return result;
 	}
 	
+	public int deleteRoom(int roomNo) {
+		Connection conn = getConnection();
+		int result = hDao.deleteRoom(conn, roomNo);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteAttachment(int roomNo,String type) {
+		Connection conn = getConnection();
+		int result = hDao.deleteAttachment(conn, roomNo, type);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 	
 }

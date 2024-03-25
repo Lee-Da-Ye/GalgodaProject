@@ -88,15 +88,15 @@
                     <li>
                         <a class="nav-link " style="color: white; background-color: rgb(115, 90, 75);" href="" data-toggle="collapse" data-target="#demo">호텔관리</a>
                     </li>
-                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔등록</a></div> </li> 
-                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">호텔 정보 수정</a></div> </li>  
-                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실등록</a></div> </li>  
-                    <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">객실수정</a></div> </li>  
-                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="">리뷰 관리</a></div> </li>   
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelinsertForm.ho">호텔등록</a></div> </li> 
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/hotelupdateForm.ho">호텔 정보 수정</a></div> </li>  
+                    <li > <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/roominsertForm.ho">객실등록</a></div> </li>  
+                    <li style="background-color: #BFB4B0;"> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/roomUpdateForm.ho">객실수정</a></div> </li>  
+                    <li> <div id="demo" class="collapse show" style="margin-left: 30px;"><a href="<%= contextPath %>/revList.ho?page=1">리뷰 관리</a></div> </li>   
                     
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" >예약관리</a>
+                        <a class="nav-link" style="color: black;" href="<%= contextPath %>/resList.ho?page=1" >예약관리</a>
                     </li>
            
                     <li>
@@ -130,7 +130,7 @@
                     <div class="form-control" id="room_list">
                         객실 <%= i+1 %> -  <%= r.getRoomName() %> 
                             <span class="float-right" >
-                                <button class="btn" id="btnconfirm" type="submit" form="roomForm" formaction="<%= contextPath %>/roomDelete.ho" onclick="deleteRoom();"> 객실 삭제하기</button>
+                                <a class="btn" id="btnconfirm" type="button"  href="<%= contextPath %>/roomDelete.ho?roNo=<%= r.getRoomNo() %>" onclick="deleteRoom();"> 객실 삭제하기</a>
                                 <button class="btn" id="btncollapse" data-toggle="collapse" data-target="#room_detail<%= i+1 %>" onclick=checkOp();> 펼쳐 보기 <img src="resources/images/bottom.png" style="height: 25px;">  </button>
                             </span>
                     </div>
@@ -179,7 +179,7 @@
 	                            </tr>
 	                            <tr>
 	                                <td id="td1"><button class="btn   " id="btnname" type="button" >대표사진</button></td>
-	                                <td id="td2"><input type="file" name="roomImgPath" class="form-control" required></td>
+	                                <td id="td2"><input type="file" name="roomImgPath" class="form-control" ></td>
 	                            </tr>
 	                            <tr>
 	                                <td id="td4"><button class="btn   "  id="btnname"type="button" >사진추가</button></td>
