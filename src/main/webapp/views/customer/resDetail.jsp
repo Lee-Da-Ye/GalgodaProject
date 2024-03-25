@@ -82,7 +82,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" href="<%=contextPath%>/resManagement.cu" style="background-color: #634c46; color: white;">예약관리</a>
+                        <a class="nav-link" href="<%=contextPath%>/resManagement.cu?page=1" style="background-color: #634c46; color: white;">예약관리</a>
                     </li>
                     
                     <li>

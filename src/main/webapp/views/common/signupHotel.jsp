@@ -192,7 +192,7 @@
     function validateUsername() {
         var username = document.getElementById("userId").value;
         var isValid = /^HOTELUSER\d+$/.test(username); // HOTELUSER로 시작하고 숫자가 하나 이상인지 검사하는 정규표현식
-
+       
         if(username != "") {
         	if (isValid) {
                 document.getElementById("usernameValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
@@ -242,8 +242,8 @@
 	            document.getElementById("signup_btn").disabled = true;
 	        }
 	    }
-	 
-	 
+	
+	
    
 </script>
 </head>
