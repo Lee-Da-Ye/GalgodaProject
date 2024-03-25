@@ -75,7 +75,7 @@
                         <a class="nav-link"  href="<%=contextPath %>/tag.su" >태그 관리</a>
                     </li>
                     <li>
-                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;" href="" >추가옵션 관리</a>
+                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;" href="<%=contextPath %>/option.su" >추가옵션 관리</a>
                     </li>
                         
                     

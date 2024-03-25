@@ -62,10 +62,10 @@
                         <a class="nav-link" href="<%=contextPath %>/codeList.su?page=1" style="background-color: rgb(115, 90, 75); color: white;" >호텔코드 등록</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >태그 관리</a>
+                        <a class="nav-link" href="<%=contextPath %>/tag.su" >태그 관리</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >추가옵션 관리</a>
+                        <a class="nav-link" href="<%=contextPath %>/option.su" >추가옵션 관리</a>
                     </li>
                         
                     

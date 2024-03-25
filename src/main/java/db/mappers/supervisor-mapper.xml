@@ -493,5 +493,15 @@
 		   		STATUS ='N'
 		 WHERE	HOTEL_NO = ?
 	</entry>
+	<entry key="searchHotelList">
+		SELECT *
+FROM TB_HOTEL
+WHERE HOTEL_NAME LIKE '%' || ? || '%'
+ORDER
+   BY HOTEL_NO DESC;
 	
+	
+	
+	
+	</entry>
 </properties>

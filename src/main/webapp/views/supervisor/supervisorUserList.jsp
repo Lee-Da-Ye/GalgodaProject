@@ -54,7 +54,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="" >계정정보 조회</a>
+                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="<%=contextPath%>/userList.su" >계정정보 조회</a>
                     </li>
                         
                     

@@ -41,7 +41,44 @@
 <body>
 	<div class="wrap">
         <%@ include file = "/views/common/adminHeader.jsp" %>
-
+		<script>
+		var selectedType = $("#searchOption").val();
+	    var searchValue = $("#searchValue").val();
+	    
+	    function Enter(event) {
+	        if (event.keyCode === 13) {
+	            
+	            
+	        
+	    function search(){
+			$.ajax({
+				url: "<%=contextPath%>/searchHo.su",
+				data:{type:selectedType, value:searchValue},
+				success:function(result){
+					console.log(result);
+					//조회된 공지사항 게시글 수만큼 tr요소를 만들어서
+					// 위의 table#output4 안의 tbody 영역에 뿌려주기
+					let value="";
+					for(let i=0; i<result.length; i++){
+						value +="<tr>" 
+								+ "<td><input type='radio' name='target'></td>"
+								+ "<td> " + result[i].[0] + "</td>"
+								+ "<td> " + result[i].[0] + "</td>"
+								+ "<td> " + result[i].[0] + "</td>"
+								+ "<td> " + result[i].[0] + "</td>" 
+								+ "<td> " + result[i].[0] + "</td>" 
+								+ "<td> " + result[i].[0] + "</td>" 
+								+ "<td> " + result[i].[0] + "</td>" 
+								+ "<tr>";
+					}
+					$("#hotelList tbody").html(value);
+				},erroe : function(){
+					console.log("ajax통신실패");
+				}
+			});
+	    	}
+	    }
+		</script>
 
         <section class="main_content">
             
@@ -52,7 +89,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" href="" style="background-color: rgb(115, 90, 75); color: white;" >호텔등록 현황</a>
+                        <a class="nav-link" href="<%=contextPath %>/hotelList.su?page=1" style="background-color: rgb(115, 90, 75); color: white;" >호텔등록 현황</a>
                     </li>
                     <li>
                         <a class="nav-link" href="<%=contextPath %>/codeList.su?page=1" >호텔코드 등록</a>
@@ -103,12 +140,10 @@
                 </table>
 
                 <div align="center" style="margin-bottom: 20px;">
-                    <input type="text" class="formCustume">
+                    <input type="text" id="searchValue" class="formCustume" onkeydown="Enter(event);">
                     <select name="searchOption" style="margin-right: 20px;" class="formCustume">
-                        <option value="name">호텔번호</option>
-                        <option selected>호텔이름</option>
-                        <option>담당자</option>
-                        
+                        <option value="1" selected>호텔이름</option>
+                        <option value="2">담당자</option>
                     </select>
                     <button class="btn btn-secondary" id="buttonColor" onclick="modifyButton();" >수정하기</button>
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete" >삭제하기</button>
@@ -177,6 +212,9 @@
 			    	hotelNo = $('input[type="radio"]:checked').closest('tr').children().eq(1).text();
 			    	location.href = "<%=contextPath%>/deleteHotel.su?no=" + hotelNo;
 			    }
+			    //검색기능 ajax
+			    
+			        
 			</script>
             
             
