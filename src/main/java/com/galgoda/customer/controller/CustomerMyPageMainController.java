@@ -47,13 +47,13 @@ public class CustomerMyPageMainController extends HttpServlet {
 	    	request.setAttribute("resCount", 0);
 	    }
 	    
-	    if(resCount > 0) {
+	    if(wishCount > 0) {
 	    	request.setAttribute("wishCount", wishCount);
 	    } else {
 	    	request.setAttribute("wishCount", 0);
 	    }
 	    
-	    if(resCount > 0) {
+	    if(reviewCount > 0) {
 	    	request.setAttribute("reviewCount", reviewCount);
 	    } else {
 	    	request.setAttribute("reviewCount", 0);
