@@ -53,7 +53,7 @@
 		    left: 0; /* 왼쪽 여백을 0으로 설정하여 텍스트를 왼쪽 끝에 배치합니다. */
 		    width: fit-content; /* 텍스트 너비에 맞게 요소의 너비를 조정합니다. */
         }
-       
+   
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -200,23 +200,35 @@
         var username = document.getElementById("userId").value;
         var isValid = /^[a-zA-Z0-9]{5,12}$/.test(username); // 정규표현식을 사용하여 유효성을 체크
 
-        if (isValid) {
-            document.getElementById("usernameValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+        if(username != "") {
+        	if (isValid) {
+                document.getElementById("usernameValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+            } else {
+                document.getElementById("usernameValidationMessage").innerText = "아이디 생성 규칙 위반"; 
+            }
         } else {
-            document.getElementById("usernameValidationMessage").innerText = "아이디 생성 규칙 위반"; // 유효하지 않은 경우 알림 메시지를 표시합니다.
+        	document.getElementById("usernameValidationMessage").innerText = ""; // 빈칸일 경우 알림 메시지를 지움
         }
+        
+        
     }
     
     // 비밀번호 유효성 체크
     function validatePassword() {
 	    var password = document.getElementById("password1").value;
-	    var isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/.test(password); // 정규표현식을 사용하여 유효성을 체크
+	    var isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/.test(password); 
 	
-	    if (isValid) {
-	        document.getElementById("userPwdValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+	    if(password != "") {
+	    	if (isValid) {
+		        document.getElementById("userPwdValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+		    } else {
+		        document.getElementById("userPwdValidationMessage").innerText = "비밀번호 생성 규칙 위반"; 
+		    }
 	    } else {
-	        document.getElementById("userPwdValidationMessage").innerText = "비밀번호 생성 규칙 위반"; // 유효하지 않은 경우 알림 메시지를 표시합니다.
+	    	document.getElementById("userPwdValidationMessage").innerText = ""; // 빈칸일 경우 알림 메시지를 지움
 	    }
+	    
+	    
 	}
     
  	// 휴대폰 번호 입력 시 자동 - 넣기
@@ -235,6 +247,8 @@
 	            document.getElementById("signup_btn").disabled = true;
 	        }
 	    } 
+	
+	
 	 
 	 
 </script>
@@ -351,7 +365,7 @@
                                             <div style="display: flex;">
                                                 <input type="text" id="userId" name="userId" class="form-control" required style="flex: 1;" placeholder="5~12자 이내 영문 또는 영문/숫자 조합" oninput="validateUsername();">
                                                 <button type="button" id="doubleCheckId" class="btn btn-outline-primary btn-sm" style="background-color: rgb(99,76,70); color: white; border: none;" onclick="userIdCheck();">중복 확인</button>
-                                           		<span id="usernameValidationMessage" style="color: red;"></span> <!-- 유효성 검사 결과를 표시할 영역입니다. -->
+                                           		<span class="notification_container" id="usernameValidationMessage" style="color: red;"></span> <!-- 유효성 검사 결과를 표시할 영역입니다. -->
                                             </div>
                                         </td>
                                     </tr>

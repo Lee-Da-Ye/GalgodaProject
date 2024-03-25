@@ -193,23 +193,37 @@
         var username = document.getElementById("userId").value;
         var isValid = /^HOTELUSER\d+$/.test(username); // HOTELUSER로 시작하고 숫자가 하나 이상인지 검사하는 정규표현식
 
-        if (isValid) {
-            document.getElementById("usernameValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+        if(username != "") {
+        	if (isValid) {
+                document.getElementById("usernameValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+            } else {
+                document.getElementById("usernameValidationMessage").innerText = "아이디 생성 규칙 위반"; 
+            }
         } else {
-            document.getElementById("usernameValidationMessage").innerText = "아이디 생성 규칙 위반"; // 유효하지 않은 경우 알림 메시지를 표시합니다.
+        	document.getElementById("usernameValidationMessage").innerText = ""; // 빈칸으로 돌아올 경우 알림 메시지를 지움
         }
+        
+        
+        
     }
     
     // 비밀번호 유효성 체크
     function validatePassword() {
 	    var password = document.getElementById("password1").value;
-	    var isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/.test(password); // 정규표현식을 사용하여 유효성을 체크
+	    var isValid = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/.test(password); 
 	
-	    if (isValid) {
-	        document.getElementById("userPwdValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+	    
+	    if(password != "") {
+	    	if (isValid) {
+		        document.getElementById("userPwdValidationMessage").innerText = ""; // 유효한 경우 알림 메시지를 지움
+		    } else {
+		        document.getElementById("userPwdValidationMessage").innerText = "비밀번호 생성 규칙 위반"; 
+		    }
 	    } else {
-	        document.getElementById("userPwdValidationMessage").innerText = "비밀번호 생성 규칙 위반"; // 유효하지 않은 경우 알림 메시지를 표시합니다.
+	    	document.getElementById("userPwdValidationMessage").innerText = ""; // 빈칸으로 돌아올 경우 알림 메시지를 지움
 	    }
+	    
+	    
 	}
     
  	// 휴대폰 번호 입력 시 자동 - 넣기
