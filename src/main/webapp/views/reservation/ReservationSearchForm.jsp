@@ -159,6 +159,9 @@
         h2{
             color: rgb(115, 90, 85);
         }
+        .main_bottom {
+        overflow: auto;
+        }
         .main_bottom>div{
             border-radius:10px;
             min-height:10px;
@@ -481,7 +484,7 @@
 	<script>
    			 var contextPath = "<%= request.getContextPath() %>";
 	</script>
-	<script src="your_script.js"></script>
+	
 		
 		
  <script>
@@ -694,8 +697,8 @@
 					
 					
 										
-												 <% if (loginCustomer != null) { %>
 										<div class="heartbox" data-hotel-no="<%= h.getHotelNo() %>">
+												 <% if (loginCustomer != null) { %>
 												    <form class="wishlist-form" action="<%= contextPath %>/wishlist.res" method="get">
 												        <input type="hidden" name="userNo" value="<%= loginCustomer.getUserNo() %>">
 												        <input type="hidden" name="wishHotelNo" value="<%=  h.getHotelNo() %>">
@@ -744,6 +747,14 @@
 				                            </div>
 										
 					
+					
+					
+					  		</div>
+				                  <% i++; %>      
+				       <% } %>
+					
+					
+					
 					<script>
 					
 					
@@ -761,12 +772,6 @@
 					</script>
 					
 					
-					  		</div>
-				                  <% i++; %>      
-				       <% } %>
-					
-					
-					
 					
 					</div>
 				</div>
@@ -778,16 +783,6 @@
 			</div>
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		
 		</section>
        
         
