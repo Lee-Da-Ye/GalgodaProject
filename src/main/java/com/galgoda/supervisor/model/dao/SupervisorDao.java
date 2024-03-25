@@ -1005,5 +1005,50 @@ public class SupervisorDao {
 		
 		return result;
 	}
+	public List<Hotel> searchHotelList(Connection conn, int type, String value) {
+		List<Hotel> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "";
+		if(type==1) { // 1 호텔이름  2, 담당자 이름
+			sql = prop.getProperty("searchHotelList");
+		}else {
+			sql = prop.getProperty("searchHotelList2");
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Hotel h = new Hotel();
+				h.setHotelNo(rset.getInt("hotel_no"));
+				h.setHotelName(rset.getString("hotel_name"));
+				h.setHotelAddress(rset.getString("hotel_address"));
+				h.setHotelDetailAdd(rset.getString("hotel_detailadd"));
+				h.setHotelTel(rset.getString("hotel_tel"));
+				h.setHotelSite(rset.getString("hotel_site"));
+				h.setHotelCheckin(rset.getInt("hotel_checkin"));
+				h.setHotelCheckout(rset.getInt("hotel_checkout"));
+				h.setHotelDetail(rset.getString("hotel_detail"));
+				h.setHotelIntro(rset.getString("hotel_intro"));
+				h.setRefundpolicy(rset.getString("refundpolicy"));
+				h.setTagNo(rset.getString("tag_no"));
+				h.setImgPath(rset.getString("img_path"));
+				h.setMemNo(rset.getInt("mem_no"));
+				
+				
+				list.add(h);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
 	
 }

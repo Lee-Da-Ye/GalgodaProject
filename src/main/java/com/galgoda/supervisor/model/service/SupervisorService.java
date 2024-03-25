@@ -389,6 +389,14 @@ public class SupervisorService {
 		
 		return result;
 	}
+
+	public List<Hotel> searchHotelList(int type, String value) {
+		Connection conn = getConnection();
+		List<Hotel> list = sDao.searchHotelList(conn,type,value);
+		close(conn);
+		
+		return list;
+	}
 	
 	
 }
