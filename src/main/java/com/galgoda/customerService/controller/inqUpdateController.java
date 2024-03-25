@@ -36,7 +36,10 @@ public class inqUpdateController extends HttpServlet {
 		int result = new InqService().updateInq(inqNo, inqAnswer);
 		
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "문의사항 답변이 등록되었습니다.");
+			request.getSession().setAttribute("alertMsg", "문의사항 답변이 등록되었습니다");
+			response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
+		}else {
+			request.getSession().setAttribute("alertMsg", "문의사항 답변 등록에 실패했습니다");
 			response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
 		}
 	

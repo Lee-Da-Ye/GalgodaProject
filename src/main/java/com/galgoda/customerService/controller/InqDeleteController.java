@@ -34,7 +34,10 @@ public class InqDeleteController extends HttpServlet {
 		
 		int result = new InqService().deleteInq(inqNo);
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "문의사항이 삭제되었습니다.");
+			request.getSession().setAttribute("alertMsg", "문의사항이 삭제되었습니다");
+			response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
+		}else {
+			request.getSession().setAttribute("alertMsg", "문의사항 삭제에 실패했습니다");
 			response.sendRedirect(request.getContextPath() + "/list.inq?page=1");
 		}
 	}

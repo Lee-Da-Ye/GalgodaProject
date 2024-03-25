@@ -35,6 +35,10 @@ public class NoticeDeleteController extends HttpServlet {
 		int result = new NoticeService().deleteNotice(noticeNo);
 		
 		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "공지사항이 삭제되었습니다");
+			response.sendRedirect(request.getContextPath() + "/list.no?page=1");
+		}else {
+			request.getSession().setAttribute("alertMsg", "공지사항 삭제에 실패했습니다");
 			response.sendRedirect(request.getContextPath() + "/list.no?page=1");
 		}
 	}

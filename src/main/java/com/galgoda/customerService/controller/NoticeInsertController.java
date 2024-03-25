@@ -65,6 +65,10 @@ public class NoticeInsertController extends HttpServlet {
 		}
 		
 		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "공지사항이 등록되었습니다");
+			response.sendRedirect(request.getContextPath() + "/list.no?page=1");
+		}else {
+			request.getSession().setAttribute("alertMsg", "공지사항 등록에 실패했습니다");
 			response.sendRedirect(request.getContextPath() + "/list.no?page=1");
 		}
 	}
