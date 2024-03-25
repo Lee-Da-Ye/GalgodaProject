@@ -7,6 +7,10 @@
     pageEncoding="UTF-8"%>
 <% 
 	Hotel hotel = (Hotel)request.getAttribute("hotel");
+	String[] hoteltags = null;
+	if(hotel.getTagNo()!=null){
+		hoteltags = hotel.getTagNo().split(", ");
+	}
 	List<Tag> tag =(List<Tag>)request.getAttribute("tag");
 	List<Review> review = (List<Review>)request.getAttribute("review");
 	List<Room> rm = (List<Room>)request.getAttribute("room");
@@ -204,54 +208,39 @@ h2{
             </div>
             
             <div class="hotelPictures">
-                <img class="hotelImg" src="../../resources/images/hotel_thumbnail1.jpg" alt="호텔 대표이미지1">
+                <img class="hotelImg" src="<%=contextPath %>/<%=hotel.getImgPath() %>" alt="호텔 대표이미지1">
                 <div class="hotelDetailImg">
+                	<!-- 첨부파일 불러와서 호텔넘버 일치하는 것들 뿌리기 -->
                     <div class="hotelDetailImg1">
-                
-                
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-
-                        
+                        <button class="detailImg" onclick="expandImg();">
+                        	<img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;">
+                        </button>
+                        <button class="detailImg" onclick="expandImg();">
+                        	<img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;">
+                        </button>
+                        <button class="detailImg" onclick="expandImg();">
+                        	<img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;">
+                        </button>                        
                     </div>
-                    <div class="hotelDetailImg2">
                     
-                    
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-
-                    </div>
-                    <div class="hotelDetailImg3">
-                    
-                    
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-                        <button class="detailImg" onclick="expandImg();"><img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; padding-right: 10px;"></button>
-
-                    </div>
                 </div>
-                
-                
             </div>
+            
             <!-- 지도 -->
             <div class="box">
                 <div class="story">
                     
                     <p>
-                    <!-- 조건추가해야됨 -->
-                    <%for(Tag t : tag){ %>
-                    	#<%=t.getTagName() %>
+                    <%if(hotel.getTagNo()!=null){ %>
+                    	<%for(Tag t : tag){ %>
+	                    	<% for(String tagNo : hoteltags){%>
+		                    	<%if(t.getTagNo() == Integer.parseInt(tagNo)){ %>
+		                    	 #<%=t.getTagName() %>
+		                    	<%} %>
+	                    	<%} %>
+                    	<%} %>
+                    <%}else{ %>
+                    	등록된 태그가 없습니다.
                     <%} %>
                     </p>
                     <br>
@@ -264,7 +253,7 @@ h2{
                     </p>
                 </div>
                 <div class="map" id="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.608454639534!2d126.4908994!3d33.4855434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x350cfb08a26d8ea7%3A0xcac77d1eaf097827!2z7KCc7KO87Yq567OE7J6Q7LmY64-EIOygnOyjvOyLnCDsl7Drj5kgMjc0LTE2!5e0!3m2!1sko!2skr!4v1710484347417!5m2!1sko!2skr" width="600" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.608454639534!2d126.4908994!3d33.4855434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x350cfb08a26d8ea7%3A0xcac77d1eaf097827!2z7KCc7KO87Yq567OE7J6Q7LmY64-EIOygnOyjvOyLnCDsl7Drj5kgMjc0LTE2!5e0!3m2!1sko!2skr!4v1710484347417!5m2!1sko!2skr" width="500" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 
                
@@ -272,15 +261,21 @@ h2{
             
             
             
-            
+            <script>
+        	
+       		function resRoom(RoomNo){
+       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo;
+       		}
+        	
+        	</script>
                 
                 
-                <div class="hotel_content" style="padding-left: 40px;">
+                <div class="hotel_content">
                 <span id="title">객실</span>
                 	
                 	<%for(Room r : rm){ %>
                     <div class="form-control" id="room_list" style="height: 200px; width: 1200px">
-                        <div><img src="../../resources/images/x-square.png" style="width: 300px; height: 180px; padding-right: 10px;"></div>
+                        <div><img src="<%=contextPath %>/<%=r.getImgPath() %>" style="width: 300px; height: 180px; padding-right: 10px;"></div>
                             <div style="text-align: left">
                                 <b><%=r.getRoomName() %></b><br>
                                 <%=r.getRoPrice() %>
@@ -292,11 +287,13 @@ h2{
                                 <%}else{ %>
                                 예약불가능
                                 <%} %>
-                                
+                                 
                             </div>
+                            
                             <div>
                                 <button class="btn btncollapse" data-toggle="collapse" data-target="#room_detail"> 자세히 보기</button>
-                                <br><button class="btn" id="btnconfirm " onclick="resRoom();"> 예약하기</button>
+                                <br>
+                                <button class="btn" id="btnconfirm" onclick="resRoom(<%=r.getRoomNo() %>);" > 예약하기</button>
                             </div>
                     </div>
                     <div class="collapse" id="room_detail" >
@@ -367,96 +364,37 @@ h2{
                 </div>
                 <div>
                     <h3><b>리뷰</b></h3>
-                    
+                    <%for(Review r : review){ %>
                     <div class="revBox">
                         <div class="rev">
                             
-                            <td class="form-control" required>
+                            <p>
                                 <span class="fa fa-star stars" id="star1"></span>
                                 <span class="fa fa-star stars" id="star2"></span>
                                 <span class="fa fa-star stars" id="star3"></span>
                                 <span class="fa fa-star stars" id="star4"></span>
                                 <span class="fa fa-star stars" id="star5"></span>
-                
-                                <script>
-                                function add(ths,sno){
-                                    for (var i=1;i<=5;i++){
-                                        var cur=document.getElementById("star"+i)
-                                        cur.className="fa fa-star"
-                                    }
-                
-                                    for (var i=1;i<=sno;i++){
-                                        var cur=document.getElementById("star"+i)
-                                        if(cur.className=="fa fa-star"){
-                                            cur.className="fa fa-star checked"
-                                        }
-                                    }
-                                }
-                                </script>
-                                
+                            </p>
                             
-                                
-                            
-                            </td>
-                            <div><b>Boram Kang</b></div>
+                            <div><b><%=r.getUserId() %></b></div>
                             <ul>
-                                <li>가족 여행</li>
-                                <li>스위트룸</li>
+                                <li><%=r.getModifyDate() %></li>
+                                
                             </ul>
                         </div>
                         <div class="revText" id="revText">
-                            <td>아름다운 함덕 해수욕장이 가까워서 좋아요! 무엇보다도 유명한 맛집과 도보로 이동 가능 하단 것도 큰 장점입니다. 공항과 가까운 것은 말할 것도 없고요. 체크인은 대면으로 했지만 체크아웃은 fast checkout이라고 엘레베이터 앞에 키 반납하면 간단하게 끝나더라고요. 다음에 제주시 갈 일 있으면 또 묵을까 합니다. 공조시스템도 잘 작동하고, 화장실도 넓고 깨끗해서 기분 좋게 잘 쉬다 갑니다. 다음번엔 호텔 시설(라운지, 카페)를 좀 이용해볼까봐요~ 조식이 맛있다는 후기가 많아서 기대됩니다.</td>
-                        </div>
-                        
-                       
+                        	<p><%=r.getRevTitle() %></p>
+                            <p><%=r.getRevContent() %></p>
+                        </div>                       
                     </div>
-                    <div class="revBox">
-                        <div class="rev">
-                            
-                            <td class="form-control" required>
-                                <span class="fa fa-star stars" id="star1"></span>
-                                <span class="fa fa-star stars" id="star2"></span>
-                                <span class="fa fa-star stars" id="star3"></span>
-                                <span class="fa fa-star stars" id="star4"></span>
-                                <span class="fa fa-star stars" id="star5"></span>
-                
-                                <script>
-                                function add(ths,sno){
-                                    for (var i=1;i<=5;i++){
-                                        var cur=document.getElementById("star"+i)
-                                        cur.className="fa fa-star"
-                                    }
-                
-                                    for (var i=1;i<=sno;i++){
-                                        var cur=document.getElementById("star"+i)
-                                        if(cur.className=="fa fa-star"){
-                                            cur.className="fa fa-star checked"
-                                        }
-                                    }
-                                }
-                                </script>
-                                
-                            
-                                
-                            
-                            </td>
-                            <div><b>Yeonghun Kim</b></div>
-                            <ul>
-                                <li>가족 여행</li>
-                                <li>스위트룸</li>
-                            </ul>
-                        </div>
-                        <div class="revText" id="revText">
-                            <td>공항에서 접근성이 좋아요. 늦은 시간에 제주 오면 이용합니다. 그래도 차가 있어야 오갈 수 있어요. 대중교통으로는 불편합니다.
-                                늦은 시간에 주차할 때에 대응이 느렸습니다. 조식 맛있습니다.</td>
-                        </div>
-                        
-                       
-                    </div>
-                    
+                    <%} %>
+                    <!--  리뷰박스 끝  -->
                 </div>
             </div>
         </section>
+        
+        
+        
 
          <%@ include file="/views/common/footer.jsp"%>
     </div>

@@ -78,7 +78,27 @@
 				)
 		
 		</entry>
-
+		
+		<entry key="selectReviewList">
+			SELECT  
+			        REV_NO
+			      , RES_NO
+			      , HOTEL_NO
+			      , USER_ID
+			      , REV_TITLE
+			      , REV_CONTENT
+			      , REV_RATING
+			      , TR.REGIST_DATE
+			      , TR.MODIFY_DATE
+			      , FILE_NO
+			  FROM  TB_REVIEW TR
+			  JOIN  TB_USER USING (USER_NO)
+			 WHERE  HOTEL_NO = ?
+			   AND  TR.STATUS = 'Y'
+			 ORDER
+			    BY  RES_NO DESC
+		
+		</entry>
 
 
 </properties>

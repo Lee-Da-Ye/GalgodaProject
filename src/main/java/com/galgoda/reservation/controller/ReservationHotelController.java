@@ -21,7 +21,7 @@ import com.galgoda.supervisor.model.service.SupervisorService;
 /**
  * Servlet implementation class ReservationHotelController
  */
-@WebServlet("/hotelRes.res")
+@WebServlet("/resDetail.res")
 public class ReservationHotelController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,7 +37,7 @@ public class ReservationHotelController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
+		int no = Integer.parseInt(request.getParameter("selectHotelNo"));
 		
 		//호텔정보 받아오기 
 		Hotel h = new SupervisorService().detailHotel(no);
@@ -47,15 +47,16 @@ public class ReservationHotelController extends HttpServlet {
 		//객실정보 받아오기 
 		List<Room> rm = new HotelService().selectRoomList(h.getHotelName());
 		//리뷰정보 받아오기
-		//List<Review> re = new ReservationService().selectReviewList(no);
+		List<Review> re = new ReservationService().selectReviewList(no);
 		
 		
 		request.setAttribute("hotel", h);
 		request.setAttribute("tag", t);
 		request.setAttribute("room", rm);
+		request.setAttribute("review", re);
 		
 		
-		request.getRequestDispatcher("/views/reservation/hotelReservation.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/reservation/ReservationHotelDetail.jsp").forward(request, response);
 		
 	
 	}

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.galgoda.customer.model.vo.Reservation;
+import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.reservation.model.dao.ReservationDao;
 
@@ -53,6 +54,14 @@ public class ReservationService {
 		close(conn);
 		
 		return result;
+	}
+
+	public List<Review> selectReviewList(int no) {
+		Connection conn = getConnection();
+		List<Review> list = rDao.selectReviewList(conn,no);
+		close(conn);
+		
+		return list;
 	}
 	
 }

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.galgoda.customer.model.vo.Reservation;
-
+import com.galgoda.customer.model.vo.Review;
 import com.galgoda.hotel.model.vo.Hotel;
 
 public class ReservationDao {
@@ -136,6 +136,43 @@ public class ReservationDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public List<Review> selectReviewList(Connection conn, int no) {
+		List<Review> list= new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Review re = new Review();
+				re.setRevNo(rset.getInt("rev_no"));
+				re.setResNo(rset.getInt("res_no"));
+				re.setUserId(rset.getString("user_id"));
+				re.setRevTitle(rset.getString("rev_title"));
+				re.setRevContent(rset.getString("rev_content"));
+				re.setRevRating(rset.getInt("rev_rating"));
+				re.setRegistDate(rset.getDate("regist_date"));
+				re.setModifyDate(rset.getDate("modify_date"));
+				re.setFileNo(rset.getInt("file_no"));
+				re.setHotelNo(no);
+				
+				list.add(re);	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 
