@@ -1,10 +1,14 @@
 package com.galgoda.customerService.model.service;
 
-import static com.galgoda.common.template.JDBCTemplate.*;
+import static com.galgoda.common.template.JDBCTemplate.close;
+import static com.galgoda.common.template.JDBCTemplate.commit;
+import static com.galgoda.common.template.JDBCTemplate.getConnection;
+import static com.galgoda.common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customerService.model.dao.ReportDao;
 import com.galgoda.hotel.model.vo.Report;
@@ -101,5 +105,13 @@ public class ReportService {
 		}
 		close(conn);
 		return result;
+	}
+	
+	public List<Attachment> selectReportReviewAttachment(int repNo){
+		Connection conn = getConnection();
+		List<Attachment> list = rDao.selectReportReviewAttachment(conn, repNo);
+		
+		close(conn);
+		return list;
 	}
 }

@@ -170,7 +170,7 @@
 		  )
 	</entry>
 	
-	<entry key="insertAttachment">
+	<entry key="insertInqAttachment">
 		INSERT
 		  INTO TB_FILE
 		  (
@@ -424,6 +424,18 @@
 		   SET STATUS = 'C'
 		 WHERE REP_NO = ?
 	</entry>
+	
+	<entry key="selectReportReviewAttachment">
+		SELECT
+			   FILE_NO
+			 , FILE_PATH
+			 , FILE_NAME
+	      FROM TB_FILE
+	     WHERE STATUS = 'Y'
+	       AND REF_TYPE = 'RV'
+	       AND REF_NO = ?
+	</entry>
+	
 	
 	<entry key="selectFaqList">
 		SELECT

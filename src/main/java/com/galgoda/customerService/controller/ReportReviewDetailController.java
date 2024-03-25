@@ -1,6 +1,7 @@
 package com.galgoda.customerService.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.customerService.model.service.ReportService;
 import com.galgoda.hotel.model.vo.Report;
 
@@ -34,8 +36,10 @@ public class ReportReviewDetailController extends HttpServlet {
 		int repNo = Integer.parseInt(request.getParameter("no"));
 		
 		Report r = new ReportService().selectReportReview(repNo);
+		List<Attachment> list = new ReportService().selectReportReviewAttachment(repNo);
 		
 		request.setAttribute("r", r);
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/customerService/reportReviewDetail.jsp").forward(request, response);
 	
 	}

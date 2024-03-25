@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.galgoda.hotel.model.vo.Report" %>
+<%@ page import="com.galgoda.common.model.vo.Attachment" %>
+<%@ page import="java.util.List" %>
 <%
 	Report r = (Report)request.getAttribute("r");
+	List<Attachment> list = (List<Attachment>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +24,16 @@
 		margin-right: 50px;
 		margin-top: 10px;
 		border-bottom: 1px solid gray;
+	}
+	#img_content {
+		width: 500px;
+		height: 300px;
+		margin: auto;
+	}
+	
+	.carousel-item img {
+		width: 500px;
+		height: 300px;
 	}
 </style>
 </head>
@@ -94,46 +107,39 @@
                         </tr>
                         <tr align="center">
                             <th style="vertical-align: middle;">신고 내용</th>
-                            <td style="height: 300px; vertical-align: middle;">
+                            <td style="height: 300px; vertical-align: middle; overflow-y: auto;">
                                 <%= r.getRevContent() %>
                             </td>
                         </tr>
-                        <tr align="center">
-                            <th style="vertical-align: middle;">첨부파일</th>
-                            <td style="height: 300px; vertical-align: middle;">
-                                <div id="demo" class="carousel slide" data-ride="carousel">
-
-                                    <!-- Indicators -->
-                                    <ul class="carousel-indicators">
-                                      <li data-target="#demo" data-slide-to="0" class="active"></li>
-                                      <li data-target="#demo" data-slide-to="1"></li>
-                                      <li data-target="#demo" data-slide-to="2"></li>
-                                    </ul>
-                                  
-                                    <!-- The slideshow -->
-                                    <div class="carousel-inner">
-                                      <div class="carousel-item active">
-                                        <img src="la.jpg" alt="Los Angeles">
-                                      </div>
-                                      <div class="carousel-item">
-                                        <img src="chicago.jpg" alt="Chicago">
-                                      </div>
-                                      <div class="carousel-item">
-                                        <img src="ny.jpg" alt="New York">
-                                      </div>
-                                    </div>
-                                  
-                                    <!-- Left and right controls -->
-                                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                      <span class="carousel-control-prev-icon"></span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#demo" data-slide="next">
-                                      <span class="carousel-control-next-icon"></span>
-                                    </a>
-                                  
-                                </div>
-                            </td>
-                        </tr>
+						<tr align="center">
+							<th style="vertical-align: middle;">첨부파일</th>
+							<td colspan="2" style="vertical-align: middle;">
+								<div id="img_content" class="carousel slide" data-ride="carousel">
+									<!-- Indicators -->
+									<ul class="carousel-indicators">
+										<% for(int i=0; i<list.size(); i++){ %>
+										<li data-target="#bbb" data-slide-to="<%=i%>" class="<%= i==0 ? "active" : "" %>"></li>
+										<% } %>
+									</ul>
+									<!-- The slideshow -->
+									<div class="carousel-inner ">
+										<% for(int i=0; i<list.size(); i++){ %>
+										<div class="carousel-item <%= i==0 ? "active" : "" %>">
+											<img src="<%= list.get(i).getFilePath() %>">
+										</div>
+										<% } %>
+									</div>
+									<!-- Left and right controls -->
+									<a class="carousel-control-prev" href="#bbb" data-slide="prev">
+										<span class="carousel-control-prev-icon"></span>
+									</a> 
+									<a class="carousel-control-next" href="#bbb" data-slide="next">
+										<span class="carousel-control-next-icon"></span>
+									</a>
+								</div>
+							</td>
+							<td></td>
+						</tr>
                         <tr>
                             <td colspan="2" align="center">
                                 <a href="<%= contextPath %>/reviewDelete.rep?no=<%= r.getRevNo() %>" class="btn" style="background-color: rgb(115, 90, 75); color: white;" onclick="deleteRev();">리뷰 삭제</a>
@@ -147,11 +153,15 @@
             <script>
                 // 신고리뷰삭제하는 메소드
                 function deleteRev(){
-                    confirm("해당 리뷰를 삭제하시겠습니까?");
+                    if(!confirm("해당 리뷰를 삭제하시겠습니까?"){
+                    	event.preventDefault();
+                    }
                 }
                 // 신고 취소 하는 메소드
                 function cancelRep(){
-                    confirm("해당 리뷰에 대한 신고를 취소시키시겠습니까?");
+                    if(!confirm("해당 리뷰에 대한 신고를 취소시키시겠습니까?")){
+                    	event.preventDefault();
+                    }
                 }
             </script>
 
