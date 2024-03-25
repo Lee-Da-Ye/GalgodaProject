@@ -44,11 +44,13 @@ public class ReservationDetailFormController extends HttpServlet {
 		
 		//roomNo로 roomName 받아오기
 		String roomName = new ReservationService().findRoomName(roomNo);
+		
 		//roomNo로 roomPrice 받아오기
 		int roomPrice = new ReservationService().findRoomPrice(roomNo);
 		
 		//예약 정보 받아오기
 		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
+		int peopleCount = Integer.parseInt(request.getParameter("peopleCount"));
 		String hotelName = request.getParameter("hotelName");
 		String hotelCheckin = request.getParameter("checkIn");
 		String hotelCheckout = request.getParameter("checkOut");
@@ -86,6 +88,7 @@ public class ReservationDetailFormController extends HttpServlet {
 		r.setRoomCount(roomCount);
 		r.setRoNo(roomNo);
 		r.setRoPrice(roomPrice);
+		r.setResPeople(peopleCount);
 		
 		
 		//호텔정보 전달하기

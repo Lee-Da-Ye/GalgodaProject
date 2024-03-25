@@ -227,5 +227,36 @@ public class ReservationDao {
 		
 	}
 
+	public int insertNewReservation(Connection conn, Reservation newRes) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNewReservation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newRes.getHotelName());
+			pstmt.setString(2, newRes.getUserId());
+			pstmt.setString(3, newRes.getRoName());
+			pstmt.setInt(4, newRes.getHotelNo());
+			pstmt.setString(5, newRes.getDateIn());
+			pstmt.setString(6, newRes.getDateOut());
+			pstmt.setString(7, newRes.getPayMethod());
+			pstmt.setInt(8, newRes.getPay());
+			pstmt.setInt(9, newRes.getResPeople());
+			pstmt.setString(10, newRes.getResName());
+			pstmt.setString(11, newRes.getResPhone());
+			pstmt.setString(12, newRes.getResEmail());
+			pstmt.setString(13, newRes.getOpName());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 
 }

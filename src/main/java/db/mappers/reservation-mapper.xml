@@ -114,5 +114,42 @@
 			 WHERE  RO_NO = ?		
 		</entry>
 
+		<entry key="insertNewReservation">
+			INSERT INTO 
+		            TB_RES_INFO 
+		                    (RES_NO
+		                   , HOTEL_NO
+		                   , USER_NO
+		                   , RO_NO
+		                   , DATE_IN
+		                   , DATE_OUT
+		                   , RES_DATE
+		                   , RES_STATUS
+		                   , PAY_METHOD
+		                   , PAY
+		                   , PAY_DATE
+		                   , RES_PEOPLE
+		                   , RES_NAME
+		                   , RES_PHONE
+		                   , RES_EMAIL
+		                   , OP_NAME)
+		            VALUES (SEQ_RESNO.NEXTVAL
+		                   ,(SELECT HOTEL_NO FROM TB_HOTEL WHERE HOTEL_NAME = ?)
+		                   ,(SELECT USER_NO FROM TB_USER WHERE USER_ID = ?)
+		                   ,(SELECT RO_NO FROM TB_ROOM WHERE RO_NAME = ? AND HOTEL_NO = ?)
+		                   ,?
+		                   ,?
+		                   ,SYSDATE
+		                   ,'예약대기'
+		                   ,?
+		                   ,?
+		                   ,SYSDATE
+		                   ,?
+		                   ,?
+		                   ,?
+		                   ,?
+		                   ,?
+		                   )
+		</entry>
 
 </properties>

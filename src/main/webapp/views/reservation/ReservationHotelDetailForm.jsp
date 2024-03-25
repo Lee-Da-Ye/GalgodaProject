@@ -118,15 +118,24 @@
         .input-group label {
             display: block; /* 라벨을 블록 요소로 변경하여 위에서 아래로 표시되도록 함 */
         }
-        #next_btn{
+        #confirm_res{
             background-color: rgb(99, 76, 70);
             color: white;
             margin-top: 10px;
-            
-            
+        }
+        
+        #iamportPayment{
+       		background-color: rgb(235, 231, 227);
+            color: rgb(99, 76, 70);
+            margin-top: 10px;
         }
 
 </style>
+
+	<!-- 포트원 가상 결제하기 jQuery --> 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> 
+	<!-- iamport.payment.js --> 
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script>
 
 	//휴대폰 번호 입력 시 자동 - 넣기
@@ -135,6 +144,59 @@
 	  .replace(/[^0-9]/g, '')
 	  .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
 	}
+	
+	// 결제하기 api 연동
+	
+	$(document).ready(function(){ 
+		$("#iamportPayment").click(function(){ 
+	    	payment(); //버튼 클릭하면 호출 
+	    }); 
+	})
+	
+	
+	//버튼 클릭하면 실행
+	function payment() {
+			var hotelName = document.getElementById("hotelName").value;
+			var roomName = document.getElementById("roomName").value;
+			
+			var currentDateString = new Date().toLocaleString();
+			var combinedString = hotelName + " - " + roomName + " - " + currentDateString;
+			//가맹점 주문번호가 계속 중복되지 않게 바뀌어야 해서 이렇게 설정
+			
+			var amount = document.getElementById("totalPrice").value;
+			var buyerEmail = document.getElementById("email").value; 
+		    var buyerName = document.getElementById("userName").value; 
+		    var buyerTel = document.getElementById("phone").value; 
+
+            IMP.init('imp81400601'); // 아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+            IMP.request_pay({
+                // param
+                pg: "kakaopay.TC0ONETIME", // pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+                pay_method: "card", // 지불 방법
+                merchant_uid: combinedString, // 가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력) - 중복되지 않게 룸타입으로 입력함
+                name: hotelName, // 결제창에 노출될 상품명
+                amount: amount,
+                buyer_email: buyerEmail,
+                buyer_name: buyerName,
+                buyer_tel: buyerTel
+            }, function(rsp) { // callback
+                if (rsp.success) {
+                	alert("결제가 완료되었습니다. 최종 예약을 완료해주세요.");
+                    $("#confirm_res").prop("disabled", false); // 최종 예약 버튼 활성화
+                } else {
+                    alert("결제에 실패했습니다.");
+                }
+            })
+        
+    };
+    
+ 	// 최종 예약 완료하기 버튼 클릭 시
+    $(document).ready(function() {
+    $("#confirm_res").click(function() { 
+        $("#reservation_form").submit(); // 폼 서브밋
+	    });
+	});
+
 
 </script>
 </head>
@@ -183,11 +245,13 @@
                     <div style="width: 570px; padding: 10px; display: flex; flex-direction: column;">
                         
                        <div class="rev_content"> 
-                        
+                       <form id="reservation_form" action="<%=contextPath %>/confirmReservation.res" method="POST" id="order-form" style="font-size: 16px;">
                         <div style="text-align: left">
                             <h5>호텔정보</h5>
                             <br>
                             <b><%=h.getHotelName() %></b>
+                            <input type="hidden" name="hotelNo" value="<%=h.getHotelNo() %>">
+                            <input type="hidden" id="hotelName" name="hotelName" value="<%=h.getHotelName() %>">
                             <small><%=h.getHotelAddress() %>&nbsp;<%=h.getHotelDetailAdd() %> </small><br><br>
                             
                         </div>
@@ -196,19 +260,24 @@
                             <div><img src="<%=contextPath %>/<%=h.getImgPath() %>" style="width: 200px; height: 200px; padding-right: 10px;"></div>
                             <div style="width: 570px; padding: 10px; display: flex; flex-direction: column;">
                                 <div class="roomInfo" style="padding: 10px">
-                                    <%=numberOfNights %>박 <br>
+                                	<input type="hidden" name="roomNo" value="<%=r.getRoNo() %>">
+                                	<input type="hidden" id="roomName" name="roomName" value="<%=r.getRoName() %>">
+                                	<input type="hidden" name="resPeople" value="<%=r.getResPeople() %>">
+                                    <%=numberOfNights %>박&nbsp;-&nbsp;총&nbsp;<%=r.getResPeople() %>명<br>
                                     <%=r.getRoName() %>&nbsp;-&nbsp;객실&nbsp;<%=r.getRoomCount() %>개
                                 </div>
                              <div class="checkinout_info" style="padding: 10px;">
                                  <div class="check_in">
                                      체크인 <br>
                                      <%=r.getDateIn() %> 15:00
+                                     <input type="hidden" name="checkInDate" value="<%=r.getDateIn() %>">
                                  </div>
                                  <div class="horizontal_line"></div>
                                  
                                  <div class="check_out">
                                      체크아웃 <br>
                                      <%=r.getDateOut() %> 11:00
+                                     <input type="hidden" name="checkOutDate" value="<%=r.getDateOut() %>">
                                  </div>
                              </div>
                             </div>
@@ -224,21 +293,19 @@
                             </div>
                         </div>
                         <br>
-                        <form action="" id="order-form" style="font-size: 16px;">
+                        
                             <fieldset>
                                 <legend style="font-size: 16px;"><b>고객정보</b></legend>
                     
                                 <label for="userName" style="font-size: 16px;">이름 : </label>
-                                <input type="text" class="form-control" id="userName" name="userName">
+                                <input type="text" class="form-control" id="userName" name="userName" required>
 
                                 <label for="email">E-mail : </label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input type="email" class="form-control" id="email" name="email" required>
                     
                                 <label for="phone">전화번호 : </label>
-                                <input type="text" oninput="hypenTel(this)" class="form-control" id="phone" name="phone">
-                    
-                                <label for="number">투숙객 수 : </label>
-                                <input type="number" min="1" class="form-control" id="num" name="num">
+                                <input type="text" oninput="hypenTel(this)" class="form-control" id="phone" name="phone" required>
+                              
                                 <br>
                             </fieldset>
                     
@@ -267,10 +334,16 @@
                         <div class="payment_info">
                             <div class="total_payment1"><b>결제예정금액</b></div>
                             <input type="hidden" name="pay_method" value="카카오페이">
-                            <div class="total_payment2"><%=totalPrice %>원</div>
+                            <div class="total_payment2">
+                            	<input type="hidden" id="totalPrice" name="totalPrice" value="<%=totalPrice %>">
+                            	<b><%=totalPrice %>원</b>
+                            </div>
                         </div>
+                        <br>
                         
-                        <button type="button" id="next_btn" class="btn form-control">결제하기</button>
+                        <button type="button" id="iamportPayment" class="btn form-control">결제하기</button>
+                        <br>
+                        <button type="button" id="confirm_res" class="btn form-control" disabled>최종 예약 완료하기</button>
                         <br><br><br><br><br><br><br><br><br><br><br>
                         
                         </form>

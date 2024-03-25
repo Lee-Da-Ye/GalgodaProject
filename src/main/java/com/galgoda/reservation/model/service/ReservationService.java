@@ -79,4 +79,18 @@ public class ReservationService {
 		
 		return roomPrice;
 	}
+	
+	public int insertNewReservation(Reservation newRes) {
+		Connection conn = getConnection();
+		int result = rDao.insertNewReservation(conn, newRes);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }
