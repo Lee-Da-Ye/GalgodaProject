@@ -106,6 +106,13 @@
 			  FROM  TB_ROOM
 			 WHERE  RO_NO = ?		
 		</entry>
+		
+		<entry key="findRoomPrice">
+			SELECT 
+			        RO_PRICE
+			  FROM  TB_ROOM
+			 WHERE  RO_NO = ?		
+		</entry>
 
 
 </properties>

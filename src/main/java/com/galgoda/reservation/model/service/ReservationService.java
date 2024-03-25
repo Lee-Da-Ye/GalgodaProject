@@ -71,4 +71,12 @@ public class ReservationService {
 		
 		return roomName;
 	}
+	
+	public int findRoomPrice(int roomNo) {
+		Connection conn = getConnection();
+		int roomPrice = rDao.findRoomPrice(conn, roomNo);
+		close(conn);
+		
+		return roomPrice;
+	}
 }

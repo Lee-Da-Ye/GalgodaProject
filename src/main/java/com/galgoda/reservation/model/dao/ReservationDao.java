@@ -200,6 +200,32 @@ public class ReservationDao {
 		return roomName;
 		
 	}
+	
+	public int findRoomPrice(Connection conn, int roomNo) {
+		
+		int roomPrice = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findRoomPrice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				roomPrice = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return roomPrice;
+		
+	}
 
 
 }

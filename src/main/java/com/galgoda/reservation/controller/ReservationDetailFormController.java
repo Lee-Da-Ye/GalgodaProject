@@ -1,8 +1,9 @@
 package com.galgoda.reservation.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,26 +42,57 @@ public class ReservationDetailFormController extends HttpServlet {
 		//호텔정보 받아오기 
 		Hotel h = new SupervisorService().detailHotel(hotelNo);
 		
-		//체크인, 체크아웃 날짜 받아오고 N박 수 계산하기
-		String checkInDate = request.getParameter("checkInDate");
-		String checkOutDate = request.getParameter("checkOutDate");
-		
-		// 몇 박인지 계산 
-		
 		//roomNo로 roomName 받아오기
 		String roomName = new ReservationService().findRoomName(roomNo);
+		//roomNo로 roomPrice 받아오기
+		int roomPrice = new ReservationService().findRoomPrice(roomNo);
 		
 		//예약 정보 받아오기
+		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
 		String hotelName = request.getParameter("hotelName");
 		String hotelCheckin = request.getParameter("checkIn");
 		String hotelCheckout = request.getParameter("checkOut");
 		
+		// 몇 박인지 계산 
+		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+		String formattedCheckin = null;
+		String formattedCheckout = null;
+		long numberOfNights = 0; // 박수를 저장할 변수
+
+		try {
+		    Date checkinDate = inputFormat.parse(hotelCheckin);
+		    Date checkoutDate = inputFormat.parse(hotelCheckout);
+
+		    // 날짜 차이 계산
+		    long differenceInMilliseconds = checkoutDate.getTime() - checkinDate.getTime();
+		    
+		    // 차이를 밀리초에서 일로 변환
+		    numberOfNights = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+
+		    formattedCheckin = outputFormat.format(checkinDate);
+		    formattedCheckout = outputFormat.format(checkoutDate);
+
+		} catch (ParseException e) {
+		    e.printStackTrace();
+		}
+
+		//예약정보 객체
+		Reservation r = new Reservation();
+		r.setDateIn(formattedCheckin);
+		r.setDateOut(formattedCheckout);
+		r.setRoName(roomName);
+		r.setRoomCount(roomCount);
+		r.setRoNo(roomNo);
+		r.setRoPrice(roomPrice);
+		
 		
 		//호텔정보 전달하기
-		request.setAttribute("hotelCheckin", hotelCheckin);
-		request.setAttribute("hotelCheckout", hotelCheckout);
+		request.setAttribute("r", r);
+		request.setAttribute("numberOfNights", numberOfNights);
 		request.setAttribute("hotel", h);
-		request.setAttribute("roomName", roomName);
+		
 		
 		
 		request.getRequestDispatcher("/views/reservation/ReservationHotelDetailForm.jsp").forward(request, response);

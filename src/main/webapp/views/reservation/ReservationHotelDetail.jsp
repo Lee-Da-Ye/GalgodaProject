@@ -420,10 +420,11 @@ h2{
 	       		// getDateIn 문자열을 Date 객체로 변환하여 포맷팅
 	       		    var checkInDate = formatDate("<%=r.getDateIn()%>");
 	       		    var checkOutDate = formatDate("<%=r.getDateOut()%>");
+	       		    var roomCount = <%=r.getRoomCount()%>;
 	
 	       			if(loginCustomer){
 	       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
-	       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate;
+	       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate + "&roomCount=" + roomCount;
 	       			}else{
 	       			 	alert("로그인이 필요한 서비스입니다.");
 	       			}
