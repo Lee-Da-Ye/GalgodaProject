@@ -58,7 +58,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="" >이용약관 관리</a>
+                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="<%=contextPath%>/termsList.su" >이용약관 관리</a>
                     </li>
                         
                     

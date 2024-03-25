@@ -63,6 +63,7 @@ public class SupervisorUpdateTermController extends HttpServlet {
 			
 			if(multiRequest.getOriginalFileName("upfile")!=null	) {
 				at = new Attachment();
+				at.setOriginName(multiRequest.getOriginalFileName("upfile"));
 				at.setFileName(multiRequest.getFilesystemName("upfile"));
 				at.setFilePath("resources/upfiles/");
 				
@@ -75,6 +76,9 @@ public class SupervisorUpdateTermController extends HttpServlet {
 			}
 			
 			int result = new SupervisorService().updateTerm(t,at);
+			// 새로운 첨부파일이 x =>              b, null              Board update 
+			//새로운 첨부파일이 o ,기존의첨부파일 ㅇ => b, fileNo담긴 at      Board update , Attachment update
+			// 새로운 첨부파일 o , 기존첨부파일 x =>  b, refboardNo담긴 at   Board update , Attachment insert
 			
 			if(result>0) { 
 				session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");

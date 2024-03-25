@@ -263,6 +263,7 @@ public class SupervisorDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, at.getFileName());
 			pstmt.setString(2, at.getFilePath());
+			pstmt.setString(3, at.getOriginName());
 			
 			result = pstmt.executeUpdate();
 			
@@ -323,6 +324,7 @@ public class SupervisorDao {
 				at.setRefNo(rset.getInt("ref_no"));
 				at.setRefType(rset.getString("ref_type"));
 				at.setStatus(rset.getString("status"));
+				at.setOriginName(rset.getString("file_origin_name"));
 			}
 			
 		} catch (SQLException e) {
@@ -364,8 +366,9 @@ public class SupervisorDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, at.getFileName());
-			pstmt.setString(2, at.getFilePath());
-			pstmt.setInt(3, at.getFileNo());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getFilePath());
+			pstmt.setInt(4, at.getFileNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -387,7 +390,10 @@ public class SupervisorDao {
 			
 			pstmt.setInt(1, at.getRefNo());
 			pstmt.setString(2, at.getFileName());
-			pstmt.setString(3, at.getFilePath());
+			pstmt.setString(3, at.getOriginName());
+			pstmt.setString(4, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

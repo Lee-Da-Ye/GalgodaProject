@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% Terms t  = (Terms)request.getAttribute("term"); %>    
-<% Attachment at = (Attachment)request.getAttribute("at"); %> %>
+<% Attachment at = (Attachment)request.getAttribute("at"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +70,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="" >이용약관 관리</a>
+                        <a class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="<%=contextPath%>/termsList.su" >이용약관 관리</a>
                     </li>
                         
                     
@@ -105,7 +105,7 @@
 	                            <td colspan="2">
 		                            <!-- 기존의 첨부파일이 있었을 경우 -->
 	                                <%if(at!=null){ %>
-	                                <a download="<%=at.getFileName() %>" href="<%=contextPath + "/" + at.getFilePath() + at.getFileName()%>"><%=at.getFileName()%></a>
+	                                <a download="<%=at.getFileName() %>" href="<%=contextPath + "/" + at.getFilePath() + at.getFileName()%>"><%=at.getOriginName()%></a>
 	                                <input type="hidden" name="originFileNo" value="<%=at.getFileNo()%>">
 	                                <%}%>
 	                                <!-- 새로운 첨부파일 업로드 가능하기 때문에 그 때의 input type=file -->

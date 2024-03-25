@@ -150,6 +150,7 @@
 		, REF_NO
 		, FILE_NAME
 		, FILE_PATH
+		, FILE_ORIGIN_NAME
 		, REF_TYPE
 		, STATUS
 		)
@@ -157,6 +158,7 @@
 		(
 		SEQ_FILENO.NEXTVAL
 		, SEQ_TERMNO.CURRVAL
+		, ?
 		, ?
 		, ?
 		, 'T'
@@ -184,6 +186,7 @@
 		, REF_NO
 		, REF_TYPE
 		, FILE_NAME
+		, FILE_ORIGIN_NAME
 		FROM TB_FILE
 		WHERE REF_NO = ?
 		AND REF_TYPE = 'T'
@@ -204,8 +207,9 @@
 		UPDATE
 		TB_FILE
 		SET
-		FILE_NAME = ?
-		, FILE_PATH = ?
+			FILE_NAME = ?
+		,	FILE_ORIGIN_NAME = ?
+		,	FILE_PATH = ?
 		WHERE FILE_NO = ?
 	</entry>
 
@@ -216,6 +220,7 @@
 		FILE_NO
 		, REF_NO
 		, FILE_NAME
+		, FILE_ORIGIN_NAME
 		, FILE_PATH
 		, REF_TYPE
 		, STATUS
@@ -223,6 +228,7 @@
 		VALUES
 		(
 		SEQ_FILENO.NEXTVAL
+		, ?
 		, ?
 		, ?
 		, ?

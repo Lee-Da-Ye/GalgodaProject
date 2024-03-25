@@ -61,9 +61,10 @@ public class SupervisorInsertTermController extends HttpServlet {
 			t.setNotes(notes);
 			
 			Attachment at = null;
-			
+			//파일이 있으면 
 			if(multiRequest.getOriginalFileName("upfile")!=null	) {
 				at = new Attachment();
+				at.setOriginName(multiRequest.getOriginalFileName("upfile"));
 				at.setFileName(multiRequest.getFilesystemName("upfile"));
 				at.setFilePath("resources/upfiles/");
 			}
