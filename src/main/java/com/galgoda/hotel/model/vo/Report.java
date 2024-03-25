@@ -20,6 +20,7 @@ public class Report {
 	 private Date registDate; // table join 으로 새로 추가된 변수
 	 private int revRating; // table join 으로 새로 추가된 변수
 	 private String revContent; // table join 으로 새로 추가된 변수
+	 private String fileNoList; // 리뷰신고시 파일넘버
 	 
 	 
 	 public Report() {}
@@ -332,6 +333,24 @@ public class Report {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+
+
+	public String getFileNoList() {
+		return fileNoList;
+	}
+
+
+
+
+
+
+	public void setFileNoList(String fileNoList) {
+		this.fileNoList = fileNoList;
+	}
+
+
+
 
 
 

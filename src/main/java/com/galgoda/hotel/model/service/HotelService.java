@@ -151,6 +151,15 @@ public class HotelService {
 		return r;
 	}
 
+	
+	public Review selectReview(int revNo) {
+		Connection conn = getConnection();
+		
+		Review r = hDao.selectReview(conn, revNo);
+		close(conn);
+		
+		return r;
+	}
 
 
 	public HotelUser selectHotelUser(String userId) {
@@ -283,13 +292,28 @@ public class HotelService {
 		
 	
 	}
-	public List<Attachment> selectFileList(int hotelNo, String htype){
+	public List<Attachment> selectFileList(int refNo, String type){
 		Connection conn = getConnection();
-		List<Attachment> list = hDao.selectFileList(conn, hotelNo, htype);
+		List<Attachment> list = hDao.selectFileList(conn, refNo, type);
+		
 		
 		close(conn);
 		return list;
 		
+	}
+	
+	public int reportReview(Report r){
+		Connection conn = getConnection();
+		int result = hDao.reportReview(conn, r);
+		
+		if(result > 0 ) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 	
 	

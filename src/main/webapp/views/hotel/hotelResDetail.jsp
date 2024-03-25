@@ -204,6 +204,7 @@
                                      
                                         <input type="hidden" name="userNo" value="<%= r.getUserNo() %>">
                                         <input type="hidden" name="resNo" value="<%= r.getResNo() %>">
+                                        <input type="hidden" name="type" value="Res">
                                         
                                         <tr>
                                             <th>아이디</th><td><%= r.getUserId() %></td>

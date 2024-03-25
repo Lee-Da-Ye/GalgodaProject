@@ -433,6 +433,40 @@ public class HotelDao {
 		
 		
 	}
+	
+	
+	public Review selectReview(Connection conn, int revNo) {
+		Review r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				r = new Review();
+				r.setRevNo(rset.getInt("rev_no"));
+				r.setResNo(rset.getInt("res_no"));
+				r.setUserNo(rset.getInt("user_no"));
+				r.setRevRating(rset.getInt("rev_rating"));
+				r.setRevTitle(rset.getString("rev_title"));
+				r.setRevContent(rset.getString("rev_content"));
+				r.setRegistDate(rset.getDate("regist_date"));
+				r.setUserId(rset.getString("user_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+		
+	}
 
 	public HotelUser selectHotelUser(Connection conn, String userId) {
 		
@@ -726,7 +760,7 @@ public class HotelDao {
 	}
 	
 	
-	public List<Attachment> selectFileList(Connection conn, int hotelNo, String htype){
+	public List<Attachment> selectFileList(Connection conn, int refNo, String type){
 		List<Attachment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -735,8 +769,8 @@ public class HotelDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, hotelNo);
-			pstmt.setString(2, htype);
+			pstmt.setInt(1, refNo);
+			pstmt.setString(2, type);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -758,6 +792,29 @@ public class HotelDao {
 		
 	}
 	
+	public int reportReview(Connection conn, Report r) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reportReview");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getResNo());
+			pstmt.setString(2, r.getFileNoList());
+			pstmt.setInt(3, r.getRevNo());
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 		
 }

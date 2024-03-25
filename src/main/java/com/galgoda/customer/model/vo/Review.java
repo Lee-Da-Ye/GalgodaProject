@@ -16,7 +16,7 @@ public class Review {
 	 private Date modifyDate;
 	 private int fileNo;
 	 private String userId; //  table join 으로 새로 추가된 변수
-	 
+	
 	 
 	 public Review() {}
 
@@ -238,6 +238,13 @@ public class Review {
 		this.userId = userId;
 	}
 
+
+
+
+
+
+
+	
 
 
 

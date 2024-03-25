@@ -192,6 +192,7 @@
                                                     WHERE H.HOTEL_NAME = M.HOTEL_NAME
                                                     AND H.HOTEL_NAME = ?
                                                         )
+                                   AND R.STATUS = 'Y'
 		                         ORDER
 		                            BY REV_NO DESC 
 		                ) A
@@ -227,6 +228,24 @@
 						              JOIN TB_ROOM R USING (HOTEL_NO)
 						              JOIN TB_USER U USING (USER_NO)
 						            WHERE RES_NO = ?
+						           
+		</entry>
+		
+		
+		
+		<entry key="selectReview">
+			 					SELECT
+										REV_NO
+									  ,	RES_NO
+									  ,	USER_NO
+									  ,	REV_RATING
+									  ,	REV_TITLE
+									  ,	REV_CONTENT
+									  , R.REGIST_DATE REGIST_DATE
+									  , USER_ID
+									  FROM TB_REVIEW R
+									  JOIN TB_USER U USING (USER_NO)
+						            WHERE REV_NO = ?
 						           
 		</entry>
 
@@ -383,6 +402,25 @@
 		  WHERE REF_NO = ? 
 		    AND REF_TYPE = ?
 			AND STATUS = 'Y'
+		</entry>
+		
+		<entry key="reportReview">
+		INSERT
+				INTO TB_REPORT
+				VALUES
+				(
+					SEQ_REPNO.NEXTVAL
+				  , ?
+				  , NULL
+				  , NULL
+				  , SYSDATE
+				  , DEFAULT
+				  , ?
+				  , 'R'
+				  , ?
+				  
+				)
+		
 		</entry>
 
 		

@@ -139,7 +139,7 @@
                             <td><%= r.getResNo() %></td>
                             <td><%= r.getRegistDate() %></td>
                             <td><%= r.getRevRating() %></td>
-                            <td><a href=""><%= r.getRevTitle() %></a></td>
+                            <td><a href="<%= contextPath%>/revDetail.ho?no=<%= r.getRevNo()%>"><%= r.getRevTitle() %></a></td>
                         </tr>
                         <% } %>
                         
