@@ -151,13 +151,17 @@
             var buyerEmail = response.buyerEmail;
             var buyerName = response.buyerName;
             var buyerTel = response.buyerTel;
+            
+            var currentDateString = new Date().toLocaleString();
+			var combinedString = hotelName + " - " + amount + " - " + currentDateString;
+			//가맹점 주문번호가 계속 중복되지 않게 바뀌어야 해서 이렇게 설정
 
             IMP.init('imp81400601'); // 아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
             IMP.request_pay({
                 // param
                 pg: "kakaopay.TC0ONETIME", // pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
                 pay_method: "card", // 지불 방법
-                merchant_uid: hotelName, // 가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+                merchant_uid: combinedString, // 가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
                 name: hotelName, // 결제창에 노출될 상품명
                 amount: amount,
                 buyer_email: buyerEmail,
