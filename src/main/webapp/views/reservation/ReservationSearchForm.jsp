@@ -757,7 +757,37 @@
 					
 					<script>
 					
+					document.addEventListener('DOMContentLoaded', function() {
+					    var heartIcons = document.querySelectorAll('.heartbox');
+
+					    heartIcons.forEach(function(heartIcon) {
+					        heartIcon.addEventListener('click', function(event) {
+					        	
+					        	 // 이벤트 전파 막기
+					            event.stopPropagation();
+					        
+					        	 
+					            // 로그인 여부 확인
+					            var isLoggedIn = <%= (loginCustomer != null) %>; // 서버에서 넘어온 로그인 여부를 사용
+
+					           
+					            if (!isLoggedIn ) {
+					            	 
+					                // 로그인되지 않은 경우 로그인 화면으로 이동
+					                var confirmed = confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?");
+					                if (confirmed) {
+					                    window.location.href = '<%= contextPath %>/loginMain.co'; // 로그인 페이지 URL로 변경
+										}
+						        } else {
+									// 로그인된 경우, 위시리스트에 추가하는 Ajax 요청 등의 작업 수행
+					                // ...
+					            }
+					        });
+					    });
+					});
 					
+					
+
 					 $(document).ready(function(){
 					        $('.heartbox').on('click', function(){
 					            // 체크박스의 체크 여부 확인
@@ -769,6 +799,14 @@
 					            }
 					        });
 					    });
+					
+					
+					
+					
+					
+					
+					
+					
 					</script>
 					
 					
