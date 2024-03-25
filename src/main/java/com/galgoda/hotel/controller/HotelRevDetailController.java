@@ -34,7 +34,7 @@ public class HotelRevDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int revNo = Integer.parseInt(request.getParameter("no"));
-		String type = "R";
+		String type = "RV";
 		
 		Review r = new HotelService().selectReview(revNo);
 		List<Attachment> alist = new HotelService().selectFileList(revNo, type);
