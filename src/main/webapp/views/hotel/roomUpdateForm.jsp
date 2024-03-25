@@ -4,6 +4,8 @@
 <%@ page import="com.galgoda.hotel.model.vo.Option" %>
 <%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
 <%@ page import="com.galgoda.hotel.model.vo.Room" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
 
 <%@ page import="java.util.List" %>  
 
@@ -169,9 +171,29 @@
 	                                <td id="td2" >
 	                                     <div class=" add_content">   
 	                                     
-	                                      <% for( Option o : list){ %>
-	                                        <label><input type="checkbox" name="roomOption" value="<%= o.getOpNo()  %>"> &nbsp;<%= o.getOpName() %></label>
-	                                        <% } %>
+	             							
+	             							
+	             							<%
+											    String opNos = r.getOpNo(); // TAG_NO 값이 ','로 구분되어 있다고 가정
+											    Set<Integer> opNoSet = new HashSet<>(); // 옵션 번호를 저장할 세트 생성
+											    if (opNos != null && !opNos.isEmpty()) { // opNos가 null이 아니고 비어 있지 않은 경우에만 실행
+											        String[] opNoArray = opNos.split(","); // 구분자로 TAG_NO 값을 분할하여 배열에 저장
+											        for (String opNo : opNoArray) {
+											            int opNoInt = Integer.parseInt(opNo.trim()); // 문자열로 된 TAG_NO 값을 정수형으로 변환
+											            opNoSet.add(opNoInt); // 세트에 옵션 번호 추가
+											        }
+											    }
+											
+											    for (Option o : list) { // 옵션 리스트를 순회하면서
+											        boolean isChecked = opNoSet.contains(o.getOpNo()); // 해당 옵션 번호가 세트에 있는지 확인하여 체크 여부 결정
+											%>
+											        <label><input type="checkbox" name="roomOption" value="<%= o.getOpNo() %>" <%= isChecked ? "checked" : "" %> > &nbsp;<%= o.getOpName() %> </label>
+											<%
+											    }
+											%>           
+												             
+	             
+	             
 	             
 	
 	                                    </div>
@@ -208,21 +230,7 @@
                 </form>
                     </div>
                     
-                    <script>
-                    
- 						function checkOp(){
-                    	
-		                    	var oplist = '<%= r.getOpNo()  %>'
-		                    	var l = oplist.split(",");
-		                    	
-		                    	console.log(<%= r.getOpNo()  %>);
-		                    	for(var i =0; i<l.length; i++){
-		                    		 $('input:checkbox[name=roomOption][value='+l[i]+']').attr("checked", true).parent().addClass('on');
-		          	                
-		                    	}
-		                    	
-                   		 }
-                    </script>
+                   
                     
 					<% } %>
                    
