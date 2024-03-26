@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
+import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.hotel.model.vo.Hotel;
 import com.galgoda.reservation.model.dao.ReservationDao;
 
@@ -114,5 +115,54 @@ public class ReservationService {
 		
 		close(conn);
 		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<Wishlist> selectwishList(int userNo){
+		Connection conn = getConnection();
+		List<Wishlist> list = rDao.selectwishList(conn, userNo);
+		close(conn);
+		
+		return list;
 	}
 }

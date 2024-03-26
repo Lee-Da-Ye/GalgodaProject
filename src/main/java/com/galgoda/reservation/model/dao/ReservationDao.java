@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
+import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.hotel.model.vo.Hotel;
 
 public class ReservationDao {
@@ -316,6 +317,80 @@ public class ReservationDao {
 		
 		return result;
 		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<Wishlist> selectwishList(Connection conn, int userNo){
+		List<Wishlist> list= new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectwishList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				 Wishlist w = new Wishlist();
+				w.setHotelNO(rset.getInt("hotel_no"));
+				
+				list.add(w);	
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }
