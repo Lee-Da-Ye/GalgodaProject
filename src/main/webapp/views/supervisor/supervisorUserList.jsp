@@ -66,7 +66,7 @@
                 <h2 class="contentName">사용자 계정 조회</h2>
                 <div style="margin-top: 10px; margin-bottom: 40px; border: 2px solid lightgray;"></div>
 
-                <table class="table table-hover">
+                <table class="table table-hover" id="userList">
                     <thead>
                       <tr class="table-secondary">
                         <th>선택</th>
@@ -97,21 +97,17 @@
                 </table>
 
                 <div align="center" style="margin-bottom: 20px;">
-                    <input type="text" class="formCustume">
+                    <input type="text" id="searchValue" class="formCustume">
                     <select class="formCustume" name="searchOption" style="margin-right: 20px;">
-                        <option value="name">회원번호</option>
-                        <option selected>회원이름</option>
-                        <option>회원ID</option>
-                        <option>연락처</option>
-                        <option >이메일</option>
-                        <option>생년월일</option>
-                        <option>주소</option>
+                        <option value="1" selected>회원이름</option>
+                        <option value="2" >회원ID</option>
+                        
                     </select>
                     <button  class="btn btn-secondary" id="buttonColor" onclick="modifyButton();" >수정하기</button>
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete">삭제하기</button>
                 </div>
 
-                <ul class="pagination justify-content-center" >
+                <ul class="pagination justify-content-center" id="pageBar" >
                 	<%if(pi.getCurrentPage()==1){ %>
                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     <%}else{ %>
@@ -156,16 +152,100 @@
 
 			<script>
 				
-			    $(function(){
-            		$("#list>tr").click(function(){
-            			 var checkbox = $(this).find('input[type="radio"]');
-            			    if (checkbox.prop("checked")) {
-            			        checkbox.prop("checked", false);
-            			    } else {
-            			        checkbox.prop("checked", true);
-            			    }
-            		})
-            	})
+				$(document).on('click', '#list>tr', function() {
+	                var checkbox = $(this).find('input[type="radio"]');
+	                if (checkbox.prop("checked")) {
+	                    checkbox.prop("checked", false);
+	                } else {
+	                    checkbox.prop("checked", true);
+	                }
+	            });
+				
+				$(document).on('click','#searchPage',function(){
+	            	var pageNo = $(this).text();
+	            	search(pageNo);
+	            	return false;
+	            })
+	            
+	            $(document).on('click','#searchPage2',function(){
+	            	var pageNo = $(this).data('page');
+	            	search(pageNo);
+	            	return false;
+	            })
+	            
+	            function search(pageNo){
+        		        var selectedType = $("select[name='searchOption']").val();
+        		        var searchValue = $("#searchValue").val();
+        		        
+        		        $.ajax({
+        		            url: "<%=contextPath%>/searchUser.su",
+        		            data:{type:selectedType, value:searchValue, page:pageNo},
+        		            success:function(result){
+        		                let value="";
+        		              	//유저정보
+        		                for(let i=0; i<result.list.length; i++){
+        		                    value +="<tr>" 
+        		                            + "<td><input type='radio' name='target'></td>"
+        		                            + "<td> " + result.list[i].userNo + "</td>"
+        		                            + "<td> " + result.list[i].userName + "</td>"
+        		                            + "<td> " + result.list[i].userId + "</td>"
+        		                            + "<td> " + result.list[i].phone + "</td>" 
+        		                            + "<td> " + result.list[i].email + "</td>" 
+        		                            + "<td> " + result.list[i].birthDate + "</td>" 
+        		                            + "<td> " + result.list[i].address + result.list[i].addressDetail  + "</td>" 
+        		                            + "<tr>";
+        		                }
+        		                
+        		                $("#userList tbody").html(value);
+        		                
+        		                var paginationHtml = "";
+							    if(result.pi.currentPage==1) {
+							        paginationHtml += "<li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li>";
+							    } else {
+							        paginationHtml += "<li class='page-item'><a class='page-link' href='#' id='searchPage2' data-page='" + (result.pi.currentPage-1) + "'>Previous</a></li>";
+							        
+							        
+							    }
+							    
+							    for(var p=result.pi.startPage; p<=result.pi.endPage; p++) {
+							        if(p==result.pi.currentPage) {
+							            paginationHtml += "<li class='page-item active'><a class='page-link' href='#'>" + p + "</a></li>";
+							        } else {
+							            paginationHtml += "<li class='page-item'><a class='page-link' id='searchPage' href='#' >" + p + "</a></li>";
+							        }
+							    }
+							    
+							    
+							    if(result.pi.currentPage==result.pi.maxPage) {
+							        paginationHtml += "<li class='page-item disabled'><a class='page-link' href='#'>Next</a></li>";
+							    } else {
+							        paginationHtml += "<li class='page-item'><a class='page-link' href='#' id='searchPage2' date-page='" + (result.pi.currentPage+1) + "'>Next</a></li>";
+							    }
+							    
+							    $("#pageBar").html(paginationHtml);
+        		                
+        		                
+        		                
+        		            },
+        		            error : function(){ // 오타 수정
+        		                console.log("ajax통신실패");
+        		            }
+        		        });
+        		    }
+            	
+            	
+            	$(document).ready(function() {
+				       $("#searchValue").keydown(function() {
+				           if (event.keyCode === 13){ 
+				           		search(1);
+				           }
+				       });
+				       
+				   })
+	            
+	            
+	            
+				
             	function modifyButton(){
 			    	var userNo = $('input[type="radio"]:checked').closest('tr').find('td:eq(1)').text();
 			        location.href = "<%=contextPath%>/detailUser.su?no=" + userNo;

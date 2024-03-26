@@ -562,4 +562,83 @@
 		WHERE RNUM BETWEEN ? AND ?
 	
 	</entry>
+	
+	<entry key="selectSearchUserCount">
+		SELECT COUNT(*) COUNT
+		FROM TB_USER
+		WHERE STATUS = 'Y'
+		AND USER_NAME LIKE '%' || ? || '%'
+		
+	</entry>
+	
+	<entry key="selectSearchUserCount2">
+		SELECT COUNT(*) COUNT
+		FROM TB_USER
+		WHERE T.STATUS = 'Y'
+        AND USER_ID LIKE '%' || ? || '%'
+		
+	</entry>
+	
+	<entry key="searchUserList">
+	SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT
+		USER_NO
+		, USER_ID
+		, USER_NAME
+		, USER_ENG_NAME
+		, USER_PWD
+		, NVL(BIRTH_DATE,'미입력') BIRTH_DATE
+		, NVL(EMAIL,'미입력') EMAIL
+		, NVL(PHONE,'미입력') PHONE
+		, ZIPCODE
+		, NVL(ADDRESS,'미입력') ADDRESS
+		, NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
+		, ETC
+		, REGIST_DATE
+		, MODIFY_DATE
+		, STATUS
+		FROM TB_USER
+		WHERE STATUS = 'Y'
+		  AND USER_NAME LIKE '%' || ? || '%'
+		ORDER
+		BY USER_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="searchUserList2">
+	SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT
+		USER_NO
+		, USER_ID
+		, USER_NAME
+		, USER_ENG_NAME
+		, USER_PWD
+		, NVL(BIRTH_DATE,'미입력') BIRTH_DATE
+		, NVL(EMAIL,'미입력') EMAIL
+		, NVL(PHONE,'미입력') PHONE
+		, ZIPCODE
+		, NVL(ADDRESS,'미입력') ADDRESS
+		, NVL(ADDRESS_DETAIL,' ') ADDRESS_DETAIL
+		, ETC
+		, REGIST_DATE
+		, MODIFY_DATE
+		, STATUS
+		FROM TB_USER
+		WHERE STATUS = 'Y'
+		  AND USER_ID LIKE '%' || ? || '%'
+		ORDER
+		BY USER_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
 </properties>

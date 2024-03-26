@@ -413,6 +413,30 @@ public class SupervisorService {
 		
 		return listCount;
 	}
+
+	public int selectSearchUserCount(String value) {
+		Connection conn = getConnection();
+		int listCount = sDao.selectSearchUserCount(conn,value);
+		close(conn);
+		
+		return listCount;
+	}
+
+	public int selectSearchUserCount2(String value) {
+		Connection conn = getConnection();
+		int listCount = sDao.selectSearchUserCount2(conn,value);
+		close(conn);
+		
+		return listCount;
+	}
+
+	public List<Customer> searchUserList(String type, String value, PageInfo pi) {
+		Connection conn = getConnection();
+		List<Customer> list = sDao.searchUserList(conn,type,value,pi);
+		close(conn);
+		
+		return list;
+	}
 	
 	
 }

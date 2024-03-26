@@ -1095,5 +1095,100 @@ public class SupervisorDao {
 		
 		return listCount;
 	}
+	public int selectSearchUserCount(Connection conn, String value) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchUserCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int selectSearchUserCount2(Connection conn, String value) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchUserCount2");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public List<Customer> searchUserList(Connection conn, String type, String value, PageInfo pi) {
+		List<Customer> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "";
+		if(type.equals("1")) { // 1 유저이름  2, 유저아이디
+			sql = prop.getProperty("searchUserList");
+		}else {
+			sql = prop.getProperty("searchUserList2");
+		}
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				list.add(new Customer(rset.getInt("user_no")
+						  , rset.getString("user_id")
+						  , rset.getString("user_name")
+						  , rset.getString("user_eng_name")
+						  , rset.getString("user_pwd")
+						  , rset.getString("birth_date")
+						  , rset.getString("email")
+						  , rset.getString("phone")
+						  , rset.getString("zipcode")
+						  , rset.getString("address")
+						  , rset.getString("address_detail")
+						  , rset.getString("etc")
+						  , rset.getDate("regist_date")
+						  , rset.getDate("modify_date")
+						  , rset.getString("status")));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
 	
 }
