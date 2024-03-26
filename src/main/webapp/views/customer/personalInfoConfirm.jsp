@@ -40,7 +40,7 @@
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="" data-target="#demo2">리뷰관리</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/reviewlist.cu" data-target="#demo2">리뷰관리</a>
                     </li>
                     
                     

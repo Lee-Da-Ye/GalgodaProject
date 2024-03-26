@@ -33,7 +33,7 @@
                         <a class="nav-link" style="color: black;" href="<%=contextPath %>/wishlist.cu">위시리스트</a>
                     </li>
                     <li>
-                        <a class="nav-link" style="color: black;" href="">리뷰관리</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/reviewlist.cu">리뷰관리</a>
                     </li>
                     <li class="modify_btn">
                         <a class="nav-link" href="<%=contextPath %>/personalInfo.cu" style="color : white">개인정보 수정</a>

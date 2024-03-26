@@ -4,6 +4,7 @@
 	int resCount = (int)request.getAttribute("resCount");
 	int wishCount = (int)request.getAttribute("wishCount");
 	int reviewCount = (int)request.getAttribute("reviewCount");
+	
 
 %>
 <!DOCTYPE html>
@@ -154,7 +155,7 @@
                         </div>
                         <div class="mypage_circle">
                             <div class="mypage_circle_num">
-                                <a href="" id="mypage_cir_menu"><%=reviewCount%></a>
+                                <a href="<%=contextPath%>/reviewlist.cu" id="mypage_cir_menu"><%=reviewCount%></a>
                             </div>
                             <div class="mypage_circle_menu">
                                 <a class="btn">작성 리뷰</a>
