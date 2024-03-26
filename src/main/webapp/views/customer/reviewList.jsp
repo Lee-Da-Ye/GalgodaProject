@@ -41,6 +41,11 @@
 			padding: 10px 20px;
 			border-radius: 5px;
 			}	
+		#rev_status_button{
+			background-color: rgb(191, 180, 176);
+			color: white;
+			border:none;
+		}
         
 </style>
 </head>
@@ -98,6 +103,18 @@
                     </div>
 
                     <br>
+                    
+                    <div class="dropdown">
+					  <button id="rev_status_button" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					    작성 구분
+					  </button>
+					  <div class="dropdown-menu">
+					    <a class="dropdown-item" href="#">작성 전</a>
+					    <a class="dropdown-item" href="#">작성 완료</a>
+					  </div>
+					</div>
+					
+					<br>
                  
 					<% if (list.isEmpty()){ %>
 					<!-- 예약내역이 없어서 쓴/쓸 리뷰 없는 경우 -->
@@ -151,10 +168,22 @@
 	                        		location.href="<%=contextPath%>/reviewUpdateForm.cu?no=<%= r.getRevNo() %>";
 	                        	}
 	                        	
+	                        	$(document).ready(function(){
+	                        		  // 작성 구분을 클릭했을 때 
+	                        		  $('.dropdown-item').click(function(){
+	                        		    var status = $(this).text(); 
+	                        		    $('.rev_content1').hide(); // 모든 리뷰 숨기기
+	                        		    $('.rev_content1:contains("' + status + '")').show(); // 선택한 상태에 해당하는 리뷰만 보이기
+	                        		  });
+	                        	});
+	                        	
 	                        </script>
 	                        
+	                        
 	                    </div>
+	                    <br>
 						<% } %>
+					
 					
 					<% } %>
                     <br><br>
