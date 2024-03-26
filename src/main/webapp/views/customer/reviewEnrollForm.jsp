@@ -112,33 +112,20 @@
                         <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">마이페이지</h3>
                     </li>
                     
+                    <li class="reservation_btn">
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/resManagement.cu?page=1" data-target="#demo"  >예약관리</a>
+   					</li>
+                        
                     <li>
-                        <a class="nav-link" style="color: black;" href="" data-toggle="collapse" data-target="#demo">예약관리</a>
-                    </li>
-
-                    <li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">상세 조회</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">예약 변경/취소</a>
-                        </div>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/wishlist.cu" data-target="#demo2">위시리스트</a>
                     </li>
                     
-                    <li class="review_btn">
-                        <div id="demo" class="collapse" style="margin-left: 30px;">
-                            <a href="">리뷰 관리</a>
-                        </div>
+                     <li>
+                        <a class="nav-link" href="<%=contextPath%>/reviewlist.cu" data-target="#demo2" style="background-color: #634c46; color: white;">리뷰관리</a>
                     </li>
                     
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo2">위시리스트</a>
-                    </li>
-                    
-                    <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">개인정보 수정</a>
+                        <a class="nav-link" style="color: black;" href="<%=contextPath%>/personalInfo.cu" data-target="#demo3">개인정보 수정</a>
                     </li>
                     
                     
