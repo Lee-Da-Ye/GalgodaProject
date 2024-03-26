@@ -429,6 +429,9 @@ h2{
 	       					+ "&roomCount=" + roomCount + "&peopleCount=" + peopleCount;
 	       			}else{
 	       			 	alert("로그인이 필요한 서비스입니다.");
+	       			 location.href = "<%=contextPath%>/loginMain.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
+	       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate
+	       					+ "&roomCount=" + roomCount + "&peopleCount=" + peopleCount;
 	       			}
 	       		}
 	        	

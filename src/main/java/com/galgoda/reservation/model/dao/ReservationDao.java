@@ -239,6 +239,31 @@ public class ReservationDao {
 		
 	}
 
+	public String findHotelName(Connection conn, int hotelNo) {
+		
+		String hotelName ="";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findHotelName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hotelNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hotelName = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return hotelName;
+		
+	}
 	public int insertNewReservation(Connection conn, Reservation newRes) {
 		
 		int result = 0;

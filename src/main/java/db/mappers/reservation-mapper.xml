@@ -112,6 +112,13 @@
 			  FROM  TB_ROOM
 			 WHERE  RO_NO = ?		
 		</entry>
+		
+		<entry key="findHotelName">
+			SELECT 
+			        HOTEL_NAME
+			  FROM  TB_HOTEL
+			 WHERE  HOTEL_NO = ?		
+		</entry>
 
 		<entry key="insertNewReservation">
 			INSERT INTO 

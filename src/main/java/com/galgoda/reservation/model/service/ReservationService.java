@@ -80,6 +80,14 @@ public class ReservationService {
 		return roomPrice;
 	}
 	
+	public String findHotelName(int hotelNo) {
+		Connection conn = getConnection();
+		String roomName = rDao.findHotelName(conn, hotelNo);
+		close(conn);
+		
+		return roomName;
+	}
+	
 	public int insertNewReservation(Reservation newRes) {
 		Connection conn = getConnection();
 		int result = rDao.insertNewReservation(conn, newRes);
