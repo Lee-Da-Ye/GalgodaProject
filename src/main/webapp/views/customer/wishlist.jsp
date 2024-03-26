@@ -168,7 +168,8 @@ $(document).ready(function(){
                             </div>
                             
                             <div class="reservation_button" style="text-align: center;">
-                                <button class="btn">예약하기</button>
+                            	<input type="hidden" name="hotelNo" value="<%=wishlist.get(index).getHotelName() %>">
+                                <a href="<%=request.getContextPath() %>/resDetail.res?searchType=hotelName&hotelName=<%=wishlist.get(index).getHotelName() %>&checkInDate=&checkOutDate=&peopleCount=1&roomCount=1&selectHotelNo=<%=wishlist.get(index).getHotelNO() %>" class="btn" >예약하기</a>
                             </div>
                             
                         </div>
