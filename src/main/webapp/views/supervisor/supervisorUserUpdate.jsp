@@ -65,7 +65,7 @@ table td{
                     </li>
                     
                     <li>
-                        <a href="<%=contextPath%>/userList.su" class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="" >계정정보 조회</a>
+                        <a href="<%=contextPath%>/userList.su?page=1" class="nav-link" style="background-color: rgb(115, 90, 75); color: white;"  href="" >계정정보 조회</a>
                     </li>
                 </ul>
             </div>

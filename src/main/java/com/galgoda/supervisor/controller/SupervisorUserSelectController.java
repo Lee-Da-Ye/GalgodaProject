@@ -29,7 +29,7 @@ public class SupervisorUserSelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("no"));
+		int userNo = Integer.parseInt(request.getParameter("no").trim());
 		
 		Customer user = new SupervisorService().selectUser(userNo);
 		

@@ -186,9 +186,7 @@
         		            url: "<%=contextPath%>/searchHo.su",
         		            data:{type:selectedType, value:searchValue, page:pageNo},
         		            success:function(result){
-        		                console.log(result);
-        		              //조회된 공지사항 게시글 수만큼 tr요소를 만들어서
-        		                // 위의 table#output4 안의 tbody 영역에 뿌려주기
+        		              
         		                let value="";
         		              	
         		                for(let i=0; i<result.list.length; i++){
