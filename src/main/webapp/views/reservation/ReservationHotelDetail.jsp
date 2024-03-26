@@ -247,7 +247,7 @@ h2{
             <!-- 검색바  -->
            	<div class="main_top">
 			
-				 <form id="searchForm" >
+				 <form id="searchForm" action="<%=contextPath %>/search.res" method="GET">
 				                    <table class="main_searchBar">
 				                        <thead>
 				                            <tr>
