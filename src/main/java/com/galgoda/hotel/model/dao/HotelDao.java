@@ -240,7 +240,7 @@ public class HotelDao {
 	}
 
 
-	public int selectRevListCount(Connection conn) {
+	public int selectRevListCount(Connection conn, String hotelName) {
 		int listCount = 0;
 
 		PreparedStatement pstmt = null;
@@ -249,6 +249,7 @@ public class HotelDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
 			rset = pstmt.executeQuery();
 
 			if(rset.next()) {
@@ -1003,6 +1004,218 @@ public class HotelDao {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public int updateRoom(Connection conn, Room r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRoom");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getRoomName());
+			pstmt.setString(2, r.getRoomSize());
+			pstmt.setInt(3, r.getRoPeople());
+			pstmt.setInt(4, r.getRoBath());
+			pstmt.setInt(5, r.getRoPrice());
+			pstmt.setInt(6, r.getRoCount());
+			pstmt.setString(7, r.getOpNo());
+			pstmt.setString(8, r.getImgPath());
+			pstmt.setInt(9, r.getRoomNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int updateRoAttachment(Connection conn, List<Attachment> list, int roomNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateRoAttachment");
+		try {
+			for(Attachment at : list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, at.getFilePath());
+				pstmt.setInt(2, roomNo);
+				pstmt.setString(3, at.getFileName());
+				pstmt.setString(4, at.getOriginName());
+				
+				result = pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int selectHotelResCount(Connection conn, String hotelName) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelResCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public int selectHotelResCategoryCount(Connection conn, String hotelName, String category) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelResCategoryCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
+			pstmt.setString(2, category);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public List<Reservation> selectCategoryList(Connection conn, PageInfo pi, String hotelName, String category){
+		List<Reservation> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCategoryList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
+			pstmt.setString(1, hotelName);
+			pstmt.setString(2, category);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				list.add(new Reservation ( rset.getInt("res_no")
+						, rset.getInt("hotel_no")
+						, rset.getInt("user_no")
+						, rset.getInt("ro_no")
+						, rset.getString("date_in")
+						, rset.getString("date_out")
+						, rset.getDate("res_date")
+						, rset.getString("res_status")
+						, rset.getString("req")
+						, rset.getString("reason_cancel")
+						, rset.getString("pay_method")
+						, rset.getInt("pay")
+						, rset.getDate("pay_date")
+						, rset.getInt("res_people")
+						, rset.getString("res_name")
+						, rset.getString("res_phone")
+						, rset.getString("res_email")
+						));
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+
+	}
+	
+	public int selectRevSearchListCount(Connection conn, String hotelName, String keyword) {
+		int listCount = 0;
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRevSearchListCount");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, hotelName);
+			pstmt.setString(2, keyword);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return listCount;
+	}
+	
+	public List<Review> selectRevSearchList(Connection conn, PageInfo pi, String hotelName, String keyword){
+		List<Review> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRevSearchList");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+
+			pstmt.setString(1, hotelName);
+			pstmt.setString(2, keyword);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			
+			while(rset.next()) {
+				Review r = new Review();
+				r.setRevNo(rset.getInt("rev_no"));
+				r.setUserId(rset.getString("user_id"));
+				r.setResNo(rset.getInt("res_no"));
+				r.setRegistDate( rset.getDate("regist_date"));
+				r.setRevRating(rset.getInt("rev_rating"));
+				r.setRevTitle(rset.getString("rev_title"));
+				
+				list.add(r);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+
 	}
 		
 		

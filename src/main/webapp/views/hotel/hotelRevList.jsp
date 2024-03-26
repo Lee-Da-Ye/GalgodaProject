@@ -153,7 +153,8 @@
                         <tr >
                             <td style="vertical-align: top;">
                                 <div class="under_search " >
-                                    <form action="search.do" class="search_form ">
+                                    <form action="<%= contextPath %>/revSearchList.ho" class="search_form ">
+                                    	<input type="hidden" name="page" value="1">
                                         <input  type="search"  name="keyword" placeholder="아이디">
                                         <button type="submit" ><img src="resources/images/search.png" ></button>
                                 </form>

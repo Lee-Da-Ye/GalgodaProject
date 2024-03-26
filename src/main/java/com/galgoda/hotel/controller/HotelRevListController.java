@@ -42,8 +42,10 @@ public class HotelRevListController extends HttpServlet {
 		int startPage;
 		int endPage;
 		
+		String hotelName = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getHotelName();
 		
-		listCount = new HotelService().selectRevListCount();
+		
+		listCount = new HotelService().selectRevListCount(hotelName);
 		currentPage = Integer.parseInt(request.getParameter("page"));
 		pageLimit = 5;
 		boardLimit = 10;
@@ -54,7 +56,6 @@ public class HotelRevListController extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		String hotelName = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getHotelName();
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		

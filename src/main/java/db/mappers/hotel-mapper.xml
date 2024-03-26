@@ -132,7 +132,12 @@
 		<entry key="selectRevListCount">
 		
 			SELECT COUNT(*) COUNT 
-  			FROM TB_REVIEW
+  			  FROM TB_REVIEW
+  			 WHERE HOTEL_NO = (
+  			 					SELECT HOTEL_NO
+  			 					  FROM TB_HOTEL
+  			 					 WHERE HOTEL_NAME = ?
+  			 				  )
  			
 		</entry>
 		
@@ -430,6 +435,20 @@
 			AND STATUS = 'Y'
 		</entry>
 		
+		<entry key="selectNewAttachment">
+			SELECT
+			       FILE_NO
+			     , FILE_PATH
+			     , FILE_NAME
+			     , FILE_ORIGIN_NAME
+			  FROM TB_FILE
+			 WHERE REF_NO = ?
+			   AND REF_TYPE = ?
+			   AND STATUS = 'Y'
+			 ORDER
+			    BY FILE_NO DESC
+		</entry>
+		
 		<entry key="reportReview">
 		INSERT
 				INTO TB_REPORT
@@ -500,5 +519,145 @@
 			                )
 		</entry>
 
+		<entry key="updateRoom">
+			UPDATE TB_ROOM
+			   SET RO_NAME = ?
+			     , RO_SIZE = ?
+			     , RO_PEOPLE = ?
+			     , RO_BATHROOM = ?
+			     , RO_PRICE = ?
+			     , RO_COUNT = ?
+			     , OP_NO = ?
+			     , IMG_PATH = ?
+			 WHERE RO_NO = ?
+		</entry>
+		
+		<entry key="updateRoAttachment">
+			INSERT
+		      INTO TB_FILE VALUES
+				(
+					SEQ_FILENO.NEXTVAL
+				  , ?
+				  , 'Y'
+				  , ?
+				  , 'R'
+				  , ?
+				  , ?
+				)
+		</entry>
+		
+		<entry key="selectHotelResCount">
+			SELECT
+			       COUNT(*) COUNT
+			  FROM TB_RES_INFO
+			 WHERE HOTEL_NO = (
+			                    SELECT HOTEL_NO
+			                      FROM TB_HOTEL
+			                     WHERE HOTEL_NAME = ?
+			                  )
+		</entry>
+		
+		<entry key="selectHotelResCategoryCount">
+			SELECT
+			       COUNT(*) COUNT
+			  FROM TB_RES_INFO
+			 WHERE HOTEL_NO = (
+			                    SELECT HOTEL_NO
+			                      FROM TB_HOTEL
+			                     WHERE HOTEL_NAME = ?
+			                  )
+               AND RES_STATUS = ?
+		</entry>
+		
+		<entry key="selectCategoryList">
+			SELECT *
+				FROM (
+		            SELECT ROWNUM RNUM, A.*
+		              FROM(
+		                        SELECT
+		                                RES_NO
+		                              , HOTEL_NO 
+		                              , USER_NO
+		                              , RO_NO 
+		                              , DATE_IN
+		                              , DATE_OUT
+		                              , RES_DATE
+		                              , SUBSTR(RES_STATUS,3,2) RES_STATUS
+		                              , REQ
+		                              , REASON_CANCEL
+		                              , PAY_METHOD
+		                              , PAY
+		                              , PAY_DATE
+		                              , RES_PEOPLE
+		                              , RES_NAME
+		                              , RES_PHONE
+		                              , RES_EMAIL
+		                          FROM TB_RES_INFO B
+		                         WHERE HOTEL_NO = ( SELECT H.HOTEL_NO
+                                                    FROM TB_HOTEL H, TB_MEM M
+                                                    WHERE H.HOTEL_NAME = M.HOTEL_NAME
+                                                    AND H.HOTEL_NAME = ?
+                                                        )
+                                   AND RES_STATUS = ?
+		                         ORDER
+		                            BY DATE_IN DESC 
+		                ) A
+				 )
+		 		WHERE RNUM BETWEEN ? AND ?
+		</entry>
+		
+		
+		
+		<entry key="selectRevSearchList">
+			SELECT *
+				FROM (
+		            SELECT ROWNUM RNUM, A.*
+		              FROM(
+		                        SELECT
+		                                REV_NO
+		                              , USER_ID
+		                              , RES_NO
+		                              , R.REGIST_DATE REGIST_DATE
+		                              , REV_RATING
+		                              , REV_TITLE
+		                          FROM  TB_REVIEW R
+                                  JOIN TB_USER USING(USER_NO)
+		                         WHERE HOTEL_NO = ( SELECT H.HOTEL_NO
+                                                    FROM TB_HOTEL H, TB_MEM M
+                                                    WHERE H.HOTEL_NAME = M.HOTEL_NAME
+                                                    AND H.HOTEL_NAME = ?
+                                                        )
+                                   AND R.STATUS = 'Y'
+                                   AND USER_NO = (
+                                   					SELECT USER_NO
+                                   					  FROM TB_USER
+                                   					 WHERE USER_ID = ? 
+                                   				 )
+		                         ORDER
+		                            BY REV_NO DESC 
+		                ) A
+				 )
+		 		WHERE RNUM BETWEEN ? AND ?
+		</entry>
+		
+		<entry key="selectRevSearchListCount">
+		
+			SELECT COUNT(*) COUNT 
+  			  FROM TB_REVIEW
+  			 WHERE HOTEL_NO = (
+  			 					SELECT HOTEL_NO
+  			 					  FROM TB_HOTEL
+  			 					 WHERE HOTEL_NAME = ?
+  			 				  )
+  			   AND USER_NO = (
+  			   					SELECT USER_NO
+  			   					  FROM TB_USER
+  			   					 WHERE USER_ID = ?
+  			   				 )
+ 			
+		
+		</entry>
+		
+		
 		
 </properties>

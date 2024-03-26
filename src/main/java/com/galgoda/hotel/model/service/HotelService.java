@@ -110,10 +110,10 @@ public class HotelService {
 		return listCount;
 	}
 	
-	public int selectRevListCount() {
+	public int selectRevListCount(String hotelName) {
 		Connection conn = getConnection();
 		
-		int listCount = hDao.selectRevListCount(conn);
+		int listCount = hDao.selectRevListCount(conn, hotelName);
 		
 		close(conn);
 		
@@ -375,6 +375,69 @@ public class HotelService {
 		return resCount;
 		
 	}
+	
+	public int updateRoom(Room r, List<Attachment> list) {
+		Connection conn = getConnection();
+		int result1 = hDao.updateRoom(conn, r);
+		
+		int result2 = 1;
+		
+		if(!list.isEmpty()) {
+			result2 = hDao.updateRoAttachment(conn, list, r.getRoomNo());
+		}
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result1 * result2;
+	}
+	
+	public int selectHotelResCount(String hotelName) {
+		Connection conn = getConnection();
+		int count = hDao.selectHotelResCount(conn, hotelName);
+		
+		close(conn);
+		return count;
+	}
+	
+	public int selectHotelResCategoryCount(String hotelName, String category) {
+		Connection conn = getConnection();
+		int count = hDao.selectHotelResCategoryCount(conn, hotelName, category);
+		
+		close(conn);
+		return count;
+	}
+	
+	public List<Reservation> selectCategoryList(PageInfo pi, String hotelName, String category){
+		Connection conn = getConnection();
+		List<Reservation> list = hDao.selectCategoryList(conn, pi, hotelName, category);
+		
+		close(conn);
+		return list;
+	}
+	
+	public int selectRevSearchListCount(String hotelName, String keyword) {
+		Connection conn = getConnection();
+		
+		int listCount = hDao.selectRevSearchListCount(conn, hotelName, keyword);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public List<Review> selectRevSearchList(PageInfo pi, String hotelName, String keyword) {
+		Connection conn = getConnection();
+		
+		List<Review> list = hDao.selectRevSearchList(conn, pi, hotelName, keyword);
+		close(conn);
+		
+		return list;
+	}
+	
 	
 	
 	

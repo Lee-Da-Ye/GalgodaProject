@@ -45,7 +45,7 @@ public class RoomUpdateController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upfiles/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
-			
+			int roomNo = Integer.parseInt(multiRequest.getParameter("no"));
 			String roomName = multiRequest.getParameter("roomName");
 			String roomSize = multiRequest.getParameter("roomSize");
 			int roPeople = Integer.parseInt(multiRequest.getParameter("roPeople"));
@@ -65,13 +65,14 @@ public class RoomUpdateController extends HttpServlet {
 		
 		
 			Room r = new Room();
+			r.setRoomNo(roomNo);
 			r.setRoomName(roomName);
 			r.setRoomSize(roomSize);
 			r.setRoPeople(roPeople);
 			r.setRoBath(roBath);
 			r.setRoPrice(roPrice);
 			r.setRoCount(roCount);
-			r.setOpNo(roomImgPath);
+			r.setOpNo(roomOption);
 			r.setImgPath(roomImgPath);
 			
 			
@@ -93,7 +94,6 @@ public class RoomUpdateController extends HttpServlet {
 				}
 				
 			}
-			
 			int result =  new HotelService().updateRoom(r, list);
 			
 			if(result > 0) {
@@ -104,11 +104,8 @@ public class RoomUpdateController extends HttpServlet {
 				
 			}
 		
+		}
 		
-		
-		
-	
-	
 	
 	}
 

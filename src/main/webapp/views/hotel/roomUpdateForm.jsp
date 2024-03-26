@@ -137,8 +137,8 @@
                             </span>
                     </div>
                     <div class="collapse rdetail " id="room_detail<%= i+1 %>">
-                 		<form method="get"  enctype="multipart/form-data" id="roomForm">
-                        
+                 		<form action="<%= contextPath %>/roomUpdate.ho" method="post"  enctype="multipart/form-data" id="roomForm">
+                        	<input type="hidden" name="no" value="<%= r.getRoomNo() %>">
 	                             <table class="table2">
 	                        	 <tr>
 	                                <td id="td1"><button class="btn  " id="btnname" type="button"  >객실명</button></td>
@@ -219,7 +219,7 @@
                                 <tr>
                                     <td  colspan="2" align="right"  id="td1">
                                         
-                                        <button class="btn" id="btnconfirm" type="submit" formaction="<%= contextPath %>/roomUpdate.ho" onclick="updateRoom();">수정하기</button>
+                                        <button class="btn" id="btnconfirm" type="submit" onclick="updateRoom();">수정하기</button>
                                     </td>
                                 </tr>
                             </table>

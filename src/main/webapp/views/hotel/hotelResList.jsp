@@ -89,7 +89,7 @@
                    <form>
 	                    <div class="top_menu">
 	                        <div class="top_status">
-	                            <a href=""  >대기</a> |  <a href="">확정</a> |  <a href="">취소</a> 
+	                            <a href="<%= contextPath %>/resCategoryList.ho?page=1&category=대기"  >대기</a> |  <a href="<%= contextPath %>/resCategoryList.ho?page=1&category=확정">확정</a> |  <a href="<%= contextPath %>/resCategoryList.ho?page=1&category=취소">취소</a> 
 	                        </div>
 	                        <div class="float-right top_array">
 		                        
