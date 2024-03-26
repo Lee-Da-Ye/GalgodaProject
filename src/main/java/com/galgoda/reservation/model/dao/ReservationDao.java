@@ -80,16 +80,28 @@ public class ReservationDao {
 		ResultSet rset = null;
 		
 		
+		String tagNo =  r.getTagNo();
+		
 		String sql = prop.getProperty("searchTagName");
 		
-		String tagNo = r.getTagNo();
-
 		try {
+			
+			
+			String[] tags = tagNo.split(","); // 1,2,3,4
+			
+			
+			if (tags.length > 0) {
+		        sql += " AND (";
+		        for (int i = 0; i < tags.length; i++) {
+		            if (i > 0) {
+		                sql += " OR ";
+		            }
+		            sql += "h.tag_no LIKE '%" + tags[i] + ",%' ";
+		        }
+		        sql += ")";
+		    }
+		
 			pstmt = conn.prepareStatement(sql);
-			
-			
-			pstmt.setString(1, tagNo);
-			
 			
 			rset = pstmt.executeQuery();
 			

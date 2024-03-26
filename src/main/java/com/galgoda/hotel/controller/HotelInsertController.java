@@ -75,7 +75,7 @@ public class HotelInsertController extends HttpServlet {
 			String[] hotelTags = multiRequest.getParameterValues("hotelTag"); 
 			String hotelTag = null;
 			if(hotelTags != null) {
-				hotelTag = String.join(",", hotelTags);
+				hotelTag = String.join(",", hotelTags) + ",";
 			}
 			
 			String hotelIntro = null;

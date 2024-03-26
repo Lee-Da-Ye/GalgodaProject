@@ -61,8 +61,7 @@
 			    h.HOTEL_NO = O.HOTEL_NO
 			WHERE 
 			    h.STATUS = 'Y'
-			      AND INSTR(',' || '?' || ',', ',' || h.TAG_NO || ',') > 0
-			      AND O.MIN_PRICE IS NOT NULL;
+			  AND O.MIN_PRICE IS NOT NULL
 		</entry>
 
 

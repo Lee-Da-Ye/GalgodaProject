@@ -38,7 +38,7 @@ public class ReservationSearchController extends HttpServlet {
 		String[] hotelTags = request.getParameterValues("tagCheckbox");
 		String hotelTag = null;
 		if(hotelTags != null) {
-			hotelTag = String.join(", ", hotelTags);
+			hotelTag = String.join(",", hotelTags);
 		}
 		String hotelCheckin = request.getParameter("checkInDate");
 		String hotelCheckout = request.getParameter("checkOutDate");
