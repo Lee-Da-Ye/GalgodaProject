@@ -163,10 +163,10 @@
 		        		return 80000;
 		            case 2: // 스탠다드 더블
 		                return 100000; 
-		            case 3: // 디럭스 트윈
-		                return 150000; 
-		            case 4: // 슈페리어 킹
+		            case 3: // 슈페리어 킹
 		                return 120000; 
+		            case 4: // 디럭스 트윈
+		                return 150000; 
 		            case 0: // 스위트룸
 		                return 200000;
 		            default:
