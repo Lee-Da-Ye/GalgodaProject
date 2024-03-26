@@ -1005,12 +1005,12 @@ public class SupervisorDao {
 		
 		return result;
 	}
-	public List<Hotel> searchHotelList(Connection conn, int type, String value) {
-		List<Hotel> list = new ArrayList<>();
+	public List<HotelUser> searchHotelList(Connection conn, String type, String value, PageInfo pi) {
+		List<HotelUser> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = "";
-		if(type==1) { // 1 호텔이름  2, 담당자 이름
+		if(type=="1") { // 1 호텔이름  2, 담당자 이름
 			sql = prop.getProperty("searchHotelList");
 		}else {
 			sql = prop.getProperty("searchHotelList2");
@@ -1018,26 +1018,25 @@ public class SupervisorDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, value);
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				Hotel h = new Hotel();
-				h.setHotelNo(rset.getInt("hotel_no"));
-				h.setHotelName(rset.getString("hotel_name"));
-				h.setHotelAddress(rset.getString("hotel_address"));
-				h.setHotelDetailAdd(rset.getString("hotel_detailadd"));
-				h.setHotelTel(rset.getString("hotel_tel"));
-				h.setHotelSite(rset.getString("hotel_site"));
-				h.setHotelCheckin(rset.getInt("hotel_checkin"));
-				h.setHotelCheckout(rset.getInt("hotel_checkout"));
-				h.setHotelDetail(rset.getString("hotel_detail"));
-				h.setHotelIntro(rset.getString("hotel_intro"));
-				h.setRefundpolicy(rset.getString("refundpolicy"));
-				h.setTagNo(rset.getString("tag_no"));
-				h.setImgPath(rset.getString("img_path"));
-				h.setMemNo(rset.getInt("mem_no"));
+				HotelUser hotelUser = new HotelUser();
+				hotelUser.setMemNo(rset.getInt("mem_no"));
+				hotelUser.setMemName(rset.getString("mem_name"));
+				hotelUser.setMemId(rset.getString("mem_id"));
+				hotelUser.setHotelName(rset.getString("hotel_name"));
+				hotelUser.setMemEmail(rset.getString("mem_email"));
+				hotelUser.setMemPhone(rset.getString("mem_phone"));
+				hotelUser.setHotelNo(rset.getInt("hotel_no"));
+				hotelUser.setHotelAddress(rset.getString("hotel_address"));
 				
+				list.add(hotelUser);
 				
-				list.add(h);
 			}
 			
 		} catch (SQLException e) {
@@ -1049,6 +1048,52 @@ public class SupervisorDao {
 		
 		
 		return list;
+	}
+	public int selectSearchlListCount(Connection conn, String value) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchlListCount");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	public int selectSearchlListCount2(Connection conn, String value) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectSearchlListCount2");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, value);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 	
 }

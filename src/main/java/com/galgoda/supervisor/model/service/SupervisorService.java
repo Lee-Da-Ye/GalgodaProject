@@ -390,12 +390,28 @@ public class SupervisorService {
 		return result;
 	}
 
-	public List<Hotel> searchHotelList(int type, String value) {
+	public List<HotelUser> searchHotelList(String type, String value, PageInfo pi) {
 		Connection conn = getConnection();
-		List<Hotel> list = sDao.searchHotelList(conn,type,value);
+		List<HotelUser> list = sDao.searchHotelList(conn,type,value,pi);
 		close(conn);
 		
 		return list;
+	}
+
+	public int selectSearchlListCount(String value) {
+		Connection conn = getConnection();
+		int listCount = sDao.selectSearchlListCount(conn,value);
+		close(conn);
+		
+		return listCount;
+	}
+
+	public int selectSearchlListCount2(String value) {
+		Connection conn = getConnection();
+		int listCount = sDao.selectSearchlListCount2(conn,value);
+		close(conn);
+		
+		return listCount;
 	}
 	
 	

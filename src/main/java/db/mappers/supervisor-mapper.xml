@@ -493,15 +493,73 @@
 		   		STATUS ='N'
 		 WHERE	HOTEL_NO = ?
 	</entry>
+	
+	<entry key="selectSearchlListCount">
+		SELECT COUNT(*) COUNT
+		FROM TB_HOTEL
+		WHERE STATUS = 'Y'
+		AND HOTEL_NAME LIKE '%' || ? || '%'
+		
+	</entry>
+	
+	<entry key="selectSearchlListCount2">
+		SELECT COUNT(*) COUNT
+		FROM TB_HOTEL
+		JOIN TB_MEM T USING(MEM_NO)
+		WHERE T.STATUS = 'Y'
+        AND MEM_NAME LIKE '%' || ? || '%'
+		
+	</entry>
+	
+	
 	<entry key="searchHotelList">
 		SELECT *
-FROM TB_HOTEL
-WHERE HOTEL_NAME LIKE '%' || ? || '%'
-ORDER
-   BY HOTEL_NO DESC;
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT TM.MEM_NO
+		, MEM_NAME
+		, MEM_ID
+		, HOTEL_NAME
+		, MEM_EMAIL
+		, MEM_PHONE
+		, HOTEL_NO
+		, HOTEL_ADDRESS
+		FROM TB_MEM TM
+		LEFT JOIN TB_HOTEL TH USING(HOTEL_NAME)
+		WHERE TH.STATUS = 'Y'
+		  AND HOTEL_NAME LIKE '%' || ? || '%'
+		AND TM.STATUS = 'Y'
+		order
+		by TM.MEM_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	
-	
-	
+	<entry key="searchHotelList2">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RNUM, A.*
+		FROM (
+		SELECT TM.MEM_NO
+		, MEM_NAME
+		, MEM_ID
+		, HOTEL_NAME
+		, MEM_EMAIL
+		, MEM_PHONE
+		, HOTEL_NO
+		, HOTEL_ADDRESS
+		FROM TB_MEM TM
+		LEFT JOIN TB_HOTEL TH USING(HOTEL_NAME)
+		WHERE TH.STATUS = 'Y'
+		  AND MEM_NAME LIKE '%' || ? || '%'
+		AND TM.STATUS = 'Y'
+		order
+		by TM.MEM_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
 	
 	</entry>
 </properties>
