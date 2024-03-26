@@ -258,7 +258,33 @@
 		  
 		  )
 	</entry>
+
+	<entry key="deleteReview">
+		DELETE
+				FROM TB_REVIEW
+		WHERE REV_NO = ?
+	</entry>
+<!-- ddddddddddddddddddddddddddddddddddddd -->	
+	<entry key="selectRev">
+		SELECT
+			    REV_NO
+			  , REV_TITLE
+			  , REV_CONTENT
+		   FROM TB_REVIEW
+		  WHERE RES_NO = ?
+		  	AND STATUS = 'Y'
+			  
+				
+	</entry>
 	
+	<entry key="updateReview">
+		 UPDATE
+			    TB_REVIEW
+			SET REV_TITLE = ?
+			  , REV_CONTENT = ?
+		  WHERE REV_NO = ?	  
+				
+	</entry>
 	
 	
 	

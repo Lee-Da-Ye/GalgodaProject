@@ -192,4 +192,24 @@ public class CustomerService {
 		return updateList;
 	}
 	
+	
+	
+	public List<CustomerReview> deleteReview(int revNo, int userNo) {
+		Connection conn = getConnection();
+		int result = cDao.deleteReview(conn, revNo);
+		List<CustomerReview> updateList = null;
+		
+		if(result > 0) {
+			commit(conn);
+			updateList = cDao.selectReviewList(conn,userNo);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateList;
+	}
+	//------------------------------------	
+	
+	
 }

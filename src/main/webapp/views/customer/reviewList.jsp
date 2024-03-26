@@ -146,7 +146,7 @@
 	                        <% }else{ %>
 	                        <div class="rev_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px;">
 	                            <button href="" class="btn rev_button" style="margin-bottom: 10px;" onclick="updateForm(<%= r.getRevNo() %>);">리뷰 수정</button>
-	                            <a href="<%= contextPath %>/deleteReview.cu?no=<%= r.getRevNo() %>" class="btn rev_button" style="margin-bottom: 10px;" onclick="return confirm('정말로 삭제하시겠습니까?);">리뷰 삭제</a>
+	                            <a href="<%= contextPath %>/deleteReview.cu?revNo=<%= r.getRevNo() %>" class="btn rev_button" style="margin-bottom: 10px;" onclick="return confirm('정말로 삭제하시겠습니까?);">리뷰 삭제</a>
 	                        </div>
 	                        <input type="hidden" name="revNo" value="<%= r.getRevNo() %>">
 	                        
