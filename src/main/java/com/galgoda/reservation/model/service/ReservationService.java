@@ -101,4 +101,18 @@ public class ReservationService {
 		close(conn);
 		return result;
 	}
+	
+	public int reduceRoomCount(int hotelNo, int roomCount) {
+		Connection conn = getConnection();
+		int result = rDao.reduceRoomCount(conn, hotelNo, roomCount);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }

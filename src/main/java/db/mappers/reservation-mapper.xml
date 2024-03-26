@@ -157,5 +157,12 @@
 		                   ,?
 		                   )
 		</entry>
+		
+		<entry key="reduceRoomCount">
+		UPDATE
+		        TB_ROOM
+		   SET  RO_COUNT = RO_COUNT - ?
+		 WHERE  HOTEL_NO = ?
+		</entry>
 
 </properties>

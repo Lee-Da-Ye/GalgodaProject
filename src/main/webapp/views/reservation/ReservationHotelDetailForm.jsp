@@ -263,6 +263,7 @@
                                 	<input type="hidden" name="roomNo" value="<%=r.getRoNo() %>">
                                 	<input type="hidden" id="roomName" name="roomName" value="<%=r.getRoName() %>">
                                 	<input type="hidden" name="resPeople" value="<%=r.getResPeople() %>">
+                                	<input type="hidden" name="roomCount" value="<%=r.getRoomCount() %>">
                                     <%=numberOfNights %>박&nbsp;-&nbsp;총&nbsp;<%=r.getResPeople() %>명<br>
                                     <%=r.getRoName() %>&nbsp;-&nbsp;객실&nbsp;<%=r.getRoomCount() %>개
                                 </div>

@@ -52,6 +52,8 @@ public class ReservationConfirmController extends HttpServlet {
 		String resEmail = request.getParameter("email");
 		String resPhone = request.getParameter("phone");
 		
+		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
+		
 		String[] options = request.getParameterValues("option");
 		String optionsString = String.join(", ", options);
 		
@@ -70,9 +72,10 @@ public class ReservationConfirmController extends HttpServlet {
 		newRes.setResPhone(resPhone);
 		newRes.setOpName(optionsString);
 		
-		int result = new ReservationService().insertNewReservation(newRes);
+		int result1 = new ReservationService().insertNewReservation(newRes); // 신규 예약 추가에 대한 result
+		int result2 = new ReservationService().reduceRoomCount(hotelNo, roomCount); // 신규 예약 추가 시 해당 호텔, 해당 룸 count 감소시키는 결과
 		
-		if(result > 0) {
+		if(result1 > 0 && result2 > 0) {
 			session.setAttribute("alertMsg", "예약 신청이 완료되었습니다.");
 			response.sendRedirect(request.getContextPath() + "/resManagement.cu?page=1");
 		} else {

@@ -295,5 +295,27 @@ public class ReservationDao {
 		return result;
 		
 	}
+	
+	public int reduceRoomCount(Connection conn, int hotelNo, int roomCount) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reduceRoomCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, roomCount);
+			pstmt.setInt(2, hotelNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
 
 }
