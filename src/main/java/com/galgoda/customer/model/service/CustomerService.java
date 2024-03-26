@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.dao.CustomerDao;
-import com.galgoda.customer.model.dao.ReviewDao;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.CustomerReview;
 import com.galgoda.customer.model.vo.Wishlist;
