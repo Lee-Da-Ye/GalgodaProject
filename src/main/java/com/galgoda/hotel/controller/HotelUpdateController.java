@@ -45,6 +45,7 @@ public class HotelUpdateController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/upfiles/");
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
+			int hotelNo = Integer.parseInt(multiRequest.getParameter("hotelNo"));
 			
 			String hotelName = multiRequest.getParameter("hotelName");
 			String hotelAddress = multiRequest.getParameter("addr2");
@@ -87,10 +88,14 @@ public class HotelUpdateController extends HttpServlet {
 				refundpolicy = multiRequest.getParameter("refundpolicy");
 			}
 		
-			String hotelImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("hotelImgPath");
+			String hotelImgPath = null;
+			if(multiRequest.getOriginalFileName("hotelImgPath") != null) {
+				hotelImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("hotelImgPath");
+			}
 		
 		
 			Hotel h = new Hotel();
+			h.setHotelNo(hotelNo);
 			h.setHotelName(hotelName);
 			h.setHotelAddress(hotelAddress);
 			h.setHotelDetailAdd(hotelDetailAdd);
@@ -102,7 +107,9 @@ public class HotelUpdateController extends HttpServlet {
 			h.setTagNo(hotelTag);
 			h.setHotelIntro(hotelIntro);
 			h.setRefundpolicy(refundpolicy);
-			h.setImgPath(hotelImgPath);
+			if(hotelImgPath != null) {
+				h.setImgPath(hotelImgPath);
+			}
 			int memNo = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getMemNo();
 			h.setMemNo(memNo);
 			
@@ -115,13 +122,14 @@ public class HotelUpdateController extends HttpServlet {
 				
 					if(multiRequest.getOriginalFileName(key) != null) {
 					
-					// 첨부파일이 존재할 경우
-					// Attachment생성 + 원본명,수정명,경로,파일레벨 담아서 => list에 추가
-					Attachment at = new Attachment();
-					at.setFilePath("resources/upfiles/" + multiRequest.getFilesystemName("upload_file" + i));
-					at.setFileName(multiRequest.getFilesystemName(key));
-					
-					list.add(at);
+						// 첨부파일이 존재할 경우
+						// Attachment생성 + 원본명,수정명,경로,파일레벨 담아서 => list에 추가
+						Attachment at = new Attachment();
+						at.setFilePath("resources/upfiles/" + multiRequest.getFilesystemName("upload_file" + i));
+						at.setFileName(multiRequest.getFilesystemName(key));
+						at.setOriginName(multiRequest.getOriginalFileName(key));
+						
+						list.add(at);
 					
 				}
 				

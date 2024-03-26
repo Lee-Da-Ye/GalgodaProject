@@ -111,6 +111,7 @@
                 <div class="hotel_content" style="padding-left: 20px;">
                 <span id="title3">호텔정보</span>
                     <form action="<%= contextPath %>/hotelUpdate.ho" method="post"  onsubmit=" updateHotel();" enctype="multipart/form-data">
+                        <input type="hidden" name="hotelNo" value="<%= h.getHotelNo() %>">
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
@@ -207,7 +208,7 @@
                                 <td id="td1"><button class="btn" id="btnname" type="button" >대표사진</button></td>
                                 <td id="td2">
                                 <input type="text" value="<%= h.getImgPath() %>" readonly class="form-control">
-                                <input type="file" name="hotelImgPath"  class="form-control" required>
+                                <input type="file" name="hotelImgPath"  class="form-control">
                                 </td>
                             </tr>
                             <tr>

@@ -164,5 +164,35 @@
 		   SET  RO_COUNT = RO_COUNT - ?
 		 WHERE  HOTEL_NO = ?
 		</entry>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<entry key="selectwishList">
+			SELECT HOTEL_NO
+			  FROM TB_WISH
+			 WHERE USER_NO = ?
+		
+		</entry>
 
 </properties>

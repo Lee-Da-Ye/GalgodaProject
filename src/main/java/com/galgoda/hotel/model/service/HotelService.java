@@ -277,9 +277,14 @@ public class HotelService {
 				
 		int result2 = 1;		
 
+		List<Attachment> list2 = hDao.selectFileNoList(conn, h.getHotelName());
 		if(!list.isEmpty()) {
-			 result2 = hDao.updateHoAttachment(conn, list);
-			}		
+			if(list2.isEmpty()) {
+				result2 = hDao.updateHoAttachment(conn, list, h.getHotelNo());
+			}else {
+				result2 = hDao.ReupdateHoAttachment(conn, list, list2);
+			}
+		}	
 				
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -370,6 +375,7 @@ public class HotelService {
 		return resCount;
 		
 	}
+	
 	
 	
 }

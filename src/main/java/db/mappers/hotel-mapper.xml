@@ -379,18 +379,43 @@
 		 WHERE HOTEL_NAME = ?
 		</entry>
 		
+		<entry key="updateHotelNoFile">
+			UPDATE TB_HOTEL
+			   SET HOTEL_ADDRESS = ?
+		  	     , HOTEL_DETAILADD = ?
+			  	 , HOTEL_TEL = ?
+			  	 , HOTEL_SITE = ?
+			     , HOTEL_CHECKIN = ?
+		 	     , HOTEL_CHECKOUT = ?
+			 	 , HOTEL_DETAIL = ?
+		  	     , HOTEL_INTRO = ?
+		  	     , REFUNDPOLICY = ?
+			  	 , TAG_NO = ?
+		     WHERE HOTEL_NAME = ? 
+		</entry>
+		
+		<entry key="ReupdateHoAttachment">
+			UPDATE TB_FILE
+			   SET FILE_PATH = ?
+			     , FILE_NAME = ?
+			     , FILE_ORIGIN_NAME = ?
+			 WHERE FILE_NO = ?
+		</entry>
+		
 		<entry key="updateHoAttachment">
 			INSERT
-				INTO TB_FILE
-				VALUES
-				(
-					SEQ_FILENO.NEXTVAL
-				  , ?
-				  , 'Y'
-				  , SEQ_HOTELNO.CURRVAL
-				  , 'H'
-				  , ?
-				)
+			  INTO TB_FILE VALUES
+			  (
+			  	SEQ_FILENO.NEXTVAL
+			  , ?
+			  , 'Y'
+			  , ?
+			  , 'H'
+			  , ?
+			  , ?
+			  )
+			  
+			  
 		</entry>
 		
 		<entry key="selectAttachment">
@@ -461,6 +486,18 @@
 			  FROM  TB_REVIEW
 			 WHERE  HOTEL_NO = ?
 		
+		</entry>
+		
+		<entry key="selectFileNoList">
+			SELECT
+			       FILE_NO
+			  FROM TB_FILE
+			 WHERE REF_TYPE = 'H'
+			   AND REF_NO = (
+			                 SELECT HOTEL_NO
+			                   FROM TB_HOTEL
+			                  WHERE HOTEL_NAME = ?
+			                )
 		</entry>
 
 		
