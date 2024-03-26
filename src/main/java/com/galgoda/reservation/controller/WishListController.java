@@ -1,6 +1,9 @@
 package com.galgoda.reservation.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.reservation.model.service.ReservationService;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class WishListController
@@ -35,12 +40,17 @@ public class WishListController extends HttpServlet {
         int wishHotelNo = Integer.parseInt(request.getParameter("wishHotelNo"));
 	
         int result = new ReservationService().wishlList(userNo, wishHotelNo);
+        List<Wishlist> list = new ReservationService().selectwishList(userNo);
 	
         
         if(result > 0) {
 			// 성공 => 
-        	
-			response.sendRedirect(request.getContextPath() + "/search.res");
+    		
+    		response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.print(new Gson().toJson(list));
+            out.flush();
         }
 	}
 

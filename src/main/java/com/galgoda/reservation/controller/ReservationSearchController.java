@@ -42,7 +42,7 @@ public class ReservationSearchController extends HttpServlet {
 		}
 		String hotelCheckin = request.getParameter("checkInDate");
 		String hotelCheckout = request.getParameter("checkOutDate");
-		int peopleCount =Integer.parseInt(request.getParameter("peopleCount"));
+		int peopleCount = Integer.parseInt(request.getParameter("peopleCount"));
 		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
 		
 		String searchType = request.getParameter("searchType");
