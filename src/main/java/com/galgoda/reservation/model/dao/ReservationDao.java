@@ -86,21 +86,21 @@ public class ReservationDao {
 		
 		try {
 			
+			if(tagNo != null) {
+				String[] tags = tagNo.split(","); // 1,2,3,4
 			
-			String[] tags = tagNo.split(","); // 1,2,3,4
-			
-			
-			if (tags.length > 0) {
-		        sql += " AND (";
-		        for (int i = 0; i < tags.length; i++) {
-		            if (i > 0) {
-		                sql += " OR ";
-		            }
-		            sql += "h.tag_no LIKE '%" + tags[i] + ",%' ";
-		        }
-		        sql += ")";
-		    }
-		
+				
+				if (tags.length > 0) {
+			        sql += " AND (";
+			        for (int i = 0; i < tags.length; i++) {
+			            if (i > 0) {
+			                sql += " OR ";
+			            }
+			            sql += "h.tag_no LIKE '%" + tags[i] + ",%' ";
+			        }
+			        sql += ")";
+			    }
+			}
 			pstmt = conn.prepareStatement(sql);
 			
 			rset = pstmt.executeQuery();
