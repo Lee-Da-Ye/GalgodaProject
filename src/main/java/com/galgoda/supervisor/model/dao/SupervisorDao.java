@@ -1010,7 +1010,7 @@ public class SupervisorDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = "";
-		if(type=="1") { // 1 호텔이름  2, 담당자 이름
+		if(type.equals("1")) { // 1 호텔이름  2, 담당자 이름
 			sql = prop.getProperty("searchHotelList");
 		}else {
 			sql = prop.getProperty("searchHotelList2");

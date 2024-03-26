@@ -113,7 +113,7 @@
                     <button  class="btn btn-secondary" id="buttonColor" data-toggle="modal" data-target="#userDelete" >삭제하기</button>
                 </div>
 
-                <ul class="pagination justify-content-center" >
+                <ul class="pagination justify-content-center" id="pageBar">
                 	<%if(pi.getCurrentPage()==1){ %>
                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     <%}else{ %>
@@ -157,46 +157,80 @@
             
             <script>
 				
-			    $(function(){
-            		$("#list>tr").click(function(){
-            			 var checkbox = $(this).find('input[type="radio"]');
-            			    if (checkbox.prop("checked")) {
-            			        checkbox.prop("checked", false);
-            			    } else {
-            			        checkbox.prop("checked", true);
-            			    }
-            		})
-            		
-            		
-            		
-            	})
+	            $(document).on('click', '#list>tr', function() {
+	                var checkbox = $(this).find('input[type="radio"]');
+	                if (checkbox.prop("checked")) {
+	                    checkbox.prop("checked", false);
+	                } else {
+	                    checkbox.prop("checked", true);
+	                }
+	            });
+	            
+	            $(document).on('click','#searchPage',function(){
+	            	var pageNo = $(this).text();
+	            	search(pageNo);
+	            	return false;
+	            })
+	            
+	            $(document).on('click','#searchPage2',function(){
+	            	var pageNo = $(this).data('page');
+	            	search(pageNo);
+	            	return false;
+	            })
             	
-            	function search(){
+            	function search(pageNo){
         		        var selectedType = $("select[name='searchOption']").val();
         		        var searchValue = $("#searchValue").val();
         		        
         		        $.ajax({
         		            url: "<%=contextPath%>/searchHo.su",
-        		            data:{type:selectedType, value:searchValue, page:1},
+        		            data:{type:selectedType, value:searchValue, page:pageNo},
         		            success:function(result){
         		                console.log(result);
         		              //조회된 공지사항 게시글 수만큼 tr요소를 만들어서
         		                // 위의 table#output4 안의 tbody 영역에 뿌려주기
         		                let value="";
         		              	
-        		                for(let i=0; i<result.length; i++){
+        		                for(let i=0; i<result.list.length; i++){
         		                    value +="<tr>" 
         		                            + "<td><input type='radio' name='target'></td>"
-        		                            + "<td> " + result[i].memNo + "</td>"
-        		                            + "<td> " + result[i].hotelName + "</td>"
-        		                            + "<td> " + result[i].memName + "</td>"
-        		                            + "<td> " + result[i].memId + "</td>" 
-        		                            + "<td> " + result[i].memPhone + "</td>" 
-        		                            + "<td> " + result[i].memEmail + "</td>" 
-        		                            + "<td> " + result[i].hotelAddress + "</td>" 
+        		                            + "<td> " + result.list[i].memNo + "</td>"
+        		                            + "<td> " + result.list[i].hotelName + "</td>"
+        		                            + "<td> " + result.list[i].memName + "</td>"
+        		                            + "<td> " + result.list[i].memId + "</td>" 
+        		                            + "<td> " + result.list[i].memPhone + "</td>" 
+        		                            + "<td> " + result.list[i].memEmail + "</td>" 
+        		                            + "<td> " + result.list[i].hotelAddress + "</td>" 
         		                            + "<tr>";
         		                }
+        		                
         		                $("#hotelList tbody").html(value);
+        		                
+        		                var paginationHtml = "";
+							    if(result.pi.currentPage==1) {
+							        paginationHtml += "<li class='page-item disabled'><a class='page-link' href='#'>Previous</a></li>";
+							    } else {
+							        paginationHtml += "<li class='page-item'><a class='page-link' href='#' id='searchPage2' data-page='" + (result.pi.currentPage-1) + "'>Previous</a></li>";
+							        
+							        
+							    }
+							    
+							    for(var p=result.pi.startPage; p<=result.pi.endPage; p++) {
+							        if(p==result.pi.currentPage) {
+							            paginationHtml += "<li class='page-item active'><a class='page-link' href='#'>" + p + "</a></li>";
+							        } else {
+							            paginationHtml += "<li class='page-item'><a class='page-link' id='searchPage' href='#' >" + p + "</a></li>";
+							        }
+							    }
+							    
+							    
+							    if(result.pi.currentPage==result.pi.maxPage) {
+							        paginationHtml += "<li class='page-item disabled'><a class='page-link' href='#'>Next</a></li>";
+							    } else {
+							        paginationHtml += "<li class='page-item'><a class='page-link' href='#' id='searchPage2' date-page='" + (result.pi.currentPage+1) + "'>Next</a></li>";
+							    }
+							    
+							    $("#pageBar").html(paginationHtml);
         		                
         		                
         		                
@@ -211,7 +245,7 @@
             	$(document).ready(function() {
 				       $("#searchValue").keydown(function() {
 				           if (event.keyCode === 13){ 
-				           		search();
+				           		search(1);
 				           }
 				       });
 				       

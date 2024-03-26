@@ -1,7 +1,9 @@
 package com.galgoda.supervisor.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +48,7 @@ public class SupervisorAjaxHoController extends HttpServlet {
 		int startPage; // 사용자가 요처한 페이지 하단에 보여질 페이징바의 시작수
 		int endPage; // " 끝수 
 		
-		if(type == "1") {
+		if(type.equals("1")) {
 		// * listCount : 총 게시글 갯수 (db로부터 조회)
 			listCount = new SupervisorService().selectSearchlListCount(value);
 		}else{
@@ -68,14 +70,14 @@ public class SupervisorAjaxHoController extends HttpServlet {
 		}
 		
 		PageInfo pi =new PageInfo(listCount,currentPage,pageLimit,boardLimit,maxPage,startPage,endPage);
-		
-		
-		System.out.println(type);
 		List<HotelUser>	list = new SupervisorService().searchHotelList(type,value,pi);
 		
-		
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("list", list);
+		responseMap.put("pi", pi);
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(responseMap, response.getWriter());
+		
 		
 	}
 

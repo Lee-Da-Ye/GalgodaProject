@@ -34,7 +34,9 @@ public class SupervisorHotelDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int hotelNo = Integer.parseInt(request.getParameter("no"));
+		String no = request.getParameter("no").trim();
+		
+		int hotelNo = Integer.parseInt(no);
 		String htype = "H";
 		
 		Hotel h =  new SupervisorService().selectHotelForm(hotelNo);

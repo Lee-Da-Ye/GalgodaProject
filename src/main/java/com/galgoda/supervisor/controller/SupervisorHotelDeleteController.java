@@ -28,7 +28,8 @@ public class SupervisorHotelDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int hotelNo = Integer.parseInt(request.getParameter("no"));
+		
+		int hotelNo = Integer.parseInt(request.getParameter("no").trim());
 		
 		int result = new SupervisorService().deleteHotel(hotelNo);
 		
