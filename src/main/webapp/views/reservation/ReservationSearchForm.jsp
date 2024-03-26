@@ -45,6 +45,9 @@
    });
    
    $(document).ready(function() {
+	   
+	  
+	   
        // 호텔명, 태그명 버튼 각각 클릭 시 활성화
        $(".hotelName_btn, .tagName_btn").click(function() {
            // 클릭된 버튼에만 'active' 클래스를 추가하고 다른 버튼에서는 'active' 클래스를 제거
@@ -59,40 +62,51 @@
            else {
                $("#hotelNameInputWrapper").hide();
                $.ajax({
-					url: "mainPageTagList.co",
-					type: "get",
-					success: function(list) {
-						let value = "";
-		                if (list.length > 0) {
-		                    for (let i = 0; i < list.length; i++) {
-		                        value += "<label>" +
-		                            "<input type='checkbox' name='tagCheckbox' value='" + list[i].tagNo + "'>" +
-		                            list[i].tagName +
-		                            "</label>";
-		                    }
+                   url: "mainPageTagList.co",
+                   type: "get",
+                   success: function(list) {
+                       let value = "";
+                       if (list.length > 0) {
+                           for (let i = 0; i < list.length; i++) {
+                               value += "<label>" +
+                                   "<input type='checkbox' name='tagCheckbox' value='" + list[i].tagNo + "'";
+                               // 받아온 태그 넘버가 있는 경우 체크 및 클래스 추가
+                               var taglist = '<%= r.getTagNo() %>'.split(',');
+                               console.log(taglist);
+                               console.log(list[i].tagNo);
+                               if (taglist.includes(list[i].tagNo)) {
+                                   value += " checked";
+                               }
+                               value += ">" + list[i].tagName +
+                                   "</label>";
+                                   console.log(value);
+                           }
 		                    $("#tagCheckboxes").html(value); // 수정: 태그 체크박스를 출력하는 부분을 이동
 		                    $("#tagCheckboxes").show(); // 수정: 태그 체크박스를 보이도록 처리
 		                }
 					}
 					
 				})
+				
+				 var searchType = "<%= r.getSearchType() %>"; // tagName으로 설정
+					console.log(searchType);
+				    if (searchType === "tagName") {
+				        // 태그명 버튼이 선택되었을 때 태그 선택 창을 보이도록 처리
+				        $("#hotelNameInputWrapper").hide();
+				        $("#tagCheckboxes").show();
+				   
+	    }
            }
        });
+	    
+      
    });
    
    function setSearchType(searchType) {
        document.getElementById("searchType").value = searchType; // 호텔명/태그명 선택에 따른 값 설정
        };
        
-       $(function(){
-		       /* 태그부분 */
-		       	var taglist = '<%= r.getTagNo() %>';
-		        var  v = taglist.split(",");
-		                	
-		        for(var j = 0; j<v.length; j++){
-		                $('input:checkbox[name=tagCheckbox][value='+v[j]+']').prop("checked", true).parent().addClass('on');
-		        } 
-       })
+      
 </script>
    
 <style>
@@ -482,41 +496,30 @@
 	        }
 	    });
 	});
-        
-    /* 조회된 호텔 클릭시 폼 두개 합쳐서  제출 */
-    document.addEventListener("DOMContentLoaded", function() {
-    	var hotelSummary = document.querySelector(".hotelInfo");
-		
-		hotelSummary.addEventListener("click", function() {
-	        var form1Data = new FormData(document.getElementById("searchForm"));
-	        var form2Data = new FormData(document.getElementById("searchForm2"));
-	        
-	        // form2Data의 값을 form1Data에 병합
-	        for (var [key, value] of form2Data.entries()) {
-	            form1Data.append(key, value);
-	        }
-	
-	        // form1Data를 폼으로 변환하여 전송
-	        var combinedForm = document.createElement("form");
-	        combinedForm.method = "GET"; // 또는 "GET" 설정
-	        combinedForm.action = contextPath + "/resDetail.res"; // 전송할 대상 URL 설정
-	        
-	        // 폼에 폼 데이터 추가
-	        for (var pair of form1Data.entries()) {
-	            var input = document.createElement("input");
-	            input.type = "hidden";
-	            input.name = pair[0];
-	            input.value = pair[1];
-	            combinedForm.appendChild(input);
-	        }
-		
-	        // document body에 폼 추가하여 제출
-	        document.body.appendChild(combinedForm);
-	        combinedForm.submit();
-	    });
-	});
-        
-    /* 폼 제출 부분 끝*/
+		        
+		    /* 조회된 호텔 클릭시 폼 두개 합쳐서  제출 */
+		    document.addEventListener("DOMContentLoaded", function() {
+			    var hotelList = document.querySelectorAll(".hotelSummary");
+			
+			    hotelList.forEach(function(hotelSummary, index) {
+			        hotelSummary.addEventListener("click", function() {
+			            // 클릭된 호텔 요소에서 모든 폼 데이터 가져오기
+			            var formData = new FormData(hotelSummary.querySelector("form"));
+			
+			            // 기존의 쿼리스트링 파라미터들 가져오기
+			            var queryParams = new URLSearchParams(window.location.search);
+			
+			            // 기존의 쿼리스트링 파라미터들을 formData에 추가
+			            queryParams.forEach(function(value, key) {
+			                formData.append(key, value);
+			            });
+			
+			            // 상세 페이지 URL에 파라미터를 추가하여 이동
+			            window.location.href = contextPath + "/resDetail.res?" + new URLSearchParams(formData).toString();
+			        });
+			    });
+			});
+   			 /* 폼 제출 부분 끝*/
 </script>
 </head>
 <body>
@@ -534,8 +537,15 @@
 	                            <td width="300px">
 	                            	<input type="hidden" id="searchType" name="searchType" value=<%= r.getSearchType() %>> <!-- 숨겨진 입력 필드로 검색 타입을 저장 -->
 	                            	<div class="d-flex search_btn">
-	                                    <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn" onclick="setSearchType('hotelName')">호텔명</button>
-	                                    <button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')">태그명</button>
+	                            	<% if( r.getSearchType().equals("hotelName")){ %>
+	                            	
+	                                    <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn active" onclick="setSearchType('hotelName')" >호텔명</button>
+										<button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn" onclick="setSearchType('tagName')" >태그명</button>
+	                              		                               
+	                               <% }else if(r.getSearchType().equals("tagName")) { %>   
+	                                  <button type="button" class="btn btn-outline-primary flex-fill mr-1 hotelName_btn" onclick="setSearchType('hotelName')" >호텔명</button>
+	                                    <button type="button" class="btn btn-outline-primary flex-fill mr-1 tagName_btn active" onclick="setSearchType('tagName')" >태그명</button>
+	                               <% } %> 
 	                                </div>
 	                            </td>
 	                            <td width="150px" style="text-align: center;">체크인</td>
@@ -555,8 +565,8 @@
 								                <input type="text" name="hotelName" id="hotelNameInput" class="form-control" style="text-align: center;" onclick="toggleCheckboxes()" value="<%= r.getHotelName() %>">
 							            	</div>
 						        		</div>
-						        
-						        		<div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px;"></div>
+						       
+						        		<div id="tagCheckboxes" class="position-absolute" style="display: none; top: -40px; left: 0; background-color: white; border: 1px solid #ced4da; border-radius: 0.25rem; padding: 5px; max-height: 76px; overflow-y: auto;" ></div>
 					    			</div>
 								</td>
 	                            
@@ -603,6 +613,7 @@
 						<% int i = 1; %>
 						<% for(Hotel h : list){ %>
 				            <div class="hotelSummary">
+				           
 		                        <form  id="searchForm2" >
 		                        	<input type="hidden" name="selectHotelNo" value="<%= h.getHotelNo() %>">
 		                        </form>
@@ -660,54 +671,58 @@
 									%>
 	    						  	<br><br>
 	                              	<h4><%= h.getMinPrice() %>원 ~</h4>
-		    					</div>                    
-									<div class="heartbox" data-hotel-no="<%= h.getHotelNo() %>">
-										<% if (loginCustomer != null) { %>
-										    <form class="wishlist-form" action="<%= contextPath %>/wishlist.res" method="get">
-										        <input type="hidden" name="userNo" value="<%= loginCustomer.getUserNo() %>">
-										        <input type="hidden" name="wishHotelNo" value="<%=  h.getHotelNo() %>">
-										    </form>
-										<% } %>	
-									
-		                                <input type="checkbox" class="checkbox" id="checkbox<%= i %>" />
-		                                <label for="checkbox<%= i %>"> 
-		                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-		                                        <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-		                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
-		                                            <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
-		                                            <g id="heartgroup7" opacity="0" transform="translate(7 6)">
-		                                                <circle id="heart1" fill="#9CD8C3" cx="2" cy="6" r="2" />
-		                                                <circle id="heart2" fill="#8CE8C3" cx="5" cy="2" r="2" />
-		                                            </g>
-		                                            <g id="heartgroup6" opacity="0" transform="translate(0 28)">
-		                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="7" r="2" />
-		                                                <circle id="heart2" fill="#91D2FA" cx="3" cy="2" r="2" />
-		                                            </g>
-		                                            <g id="heartgroup3" opacity="0" transform="translate(52 28)">
-		                                                <circle id="heart2" fill="#9CD8C3" cx="2" cy="7" r="2" />
-		                                                <circle id="heart1" fill="#8CE8C3" cx="4" cy="2" r="2" />
-		                                            </g>
-		                                            <g id="heartgroup2" opacity="0" transform="translate(44 6)">
-		                                                <circle id="heart2" fill="#CC8EF5" cx="5" cy="6" r="2" />
-		                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="2" r="2" />
-		                                            </g>
-		                                            <g id="heartgroup5" opacity="0" transform="translate(14 50)">
-		                                                <circle id="heart1" fill="#91D2FA" cx="6" cy="5" r="2" />
-		                                                <circle id="heart2" fill="#91D2FA" cx="2" cy="2" r="2" />
-		                                            </g>
-		                                            <g id="heartgroup4" opacity="0" transform="translate(35 50)">
-		                                                <circle id="heart1" fill="#F48EA7" cx="6" cy="5" r="2" />
-		                                                <circle id="heart2" fill="#F48EA7" cx="2" cy="2" r="2" />
-		                                            </g>
-		                                            <g id="heartgroup1" opacity="0" transform="translate(24)">
-		                                                <circle id="heart1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
-		                                                <circle id="heart2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
-		                                            </g>
-		                                        </g>
-		                                    </svg> 
-		                                </label>
-		                            </div>
-					  			</div>
+		    					</div>     
+		    					
+		    					
+		    					
+		    					               
+								<div class="heartbox" data-hotel-no="<%= h.getHotelNo() %>">
+									<% if (loginCustomer != null) { %>
+									    <form class="wishlist-form" action="<%= contextPath %>/wishlist.res" method="get">
+									        <input type="hidden" name="userNo" value="<%= loginCustomer.getUserNo() %>">
+									        <input type="hidden" name="wishHotelNo" value="<%=  h.getHotelNo() %>">
+									    </form>
+									<% } %>	
+								
+	                                <input type="checkbox" class="checkbox" id="checkbox<%= i %>" />
+	                                <label for="checkbox<%= i %>"> 
+	                                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+	                                        <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+	                                            <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2" />
+	                                            <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+	                                            <g id="heartgroup7" opacity="0" transform="translate(7 6)">
+	                                                <circle id="heart1" fill="#9CD8C3" cx="2" cy="6" r="2" />
+	                                                <circle id="heart2" fill="#8CE8C3" cx="5" cy="2" r="2" />
+	                                            </g>
+	                                            <g id="heartgroup6" opacity="0" transform="translate(0 28)">
+	                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="7" r="2" />
+	                                                <circle id="heart2" fill="#91D2FA" cx="3" cy="2" r="2" />
+	                                            </g>
+	                                            <g id="heartgroup3" opacity="0" transform="translate(52 28)">
+	                                                <circle id="heart2" fill="#9CD8C3" cx="2" cy="7" r="2" />
+	                                                <circle id="heart1" fill="#8CE8C3" cx="4" cy="2" r="2" />
+	                                            </g>
+	                                            <g id="heartgroup2" opacity="0" transform="translate(44 6)">
+	                                                <circle id="heart2" fill="#CC8EF5" cx="5" cy="6" r="2" />
+	                                                <circle id="heart1" fill="#CC8EF5" cx="2" cy="2" r="2" />
+	                                            </g>
+	                                            <g id="heartgroup5" opacity="0" transform="translate(14 50)">
+	                                                <circle id="heart1" fill="#91D2FA" cx="6" cy="5" r="2" />
+	                                                <circle id="heart2" fill="#91D2FA" cx="2" cy="2" r="2" />
+	                                            </g>
+	                                            <g id="heartgroup4" opacity="0" transform="translate(35 50)">
+	                                                <circle id="heart1" fill="#F48EA7" cx="6" cy="5" r="2" />
+	                                                <circle id="heart2" fill="#F48EA7" cx="2" cy="2" r="2" />
+	                                            </g>
+	                                            <g id="heartgroup1" opacity="0" transform="translate(24)">
+	                                                <circle id="heart1" fill="#9FC7FA" cx="2.5" cy="3" r="2" />
+	                                                <circle id="heart2" fill="#9FC7FA" cx="7.5" cy="2" r="2" />
+	                                            </g>
+	                                        </g>
+	                                    </svg> 
+	                                </label>
+	                            </div>
+				  			</div>
 			                <% i++; %>      
 				        <% } %>
 						<script>
@@ -718,9 +733,7 @@
 							    heartIcons.forEach(function(heartIcon) {
 							        heartIcon.addEventListener('click', function(event) {
 							        	
-							        	 // 이벤트 전파 막기
-							            event.stopPropagation();
-							        	 
+							        	
 							            // 로그인 여부 확인
 							            var isLoggedIn = <%= (loginCustomer != null) %>; // 서버에서 넘어온 로그인 여부를 사용
 							           

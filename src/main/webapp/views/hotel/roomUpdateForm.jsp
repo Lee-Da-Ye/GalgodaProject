@@ -133,7 +133,7 @@
                         객실 <%= i+1 %> -  <%= r.getRoomName() %> 
                             <span class="float-right" >
                                 <a class="btn" id="btnconfirm" type="button"  href="<%= contextPath %>/roomDelete.ho?roNo=<%= r.getRoomNo() %>" onclick="deleteRoom();"> 객실 삭제하기</a>
-                                <button class="btn" id="btncollapse" data-toggle="collapse" data-target="#room_detail<%= i+1 %>" onclick=checkOp();> 펼쳐 보기 <img src="resources/images/bottom.png" style="height: 25px;">  </button>
+                                <button class="btn" id="btncollapse" data-toggle="collapse" data-target="#room_detail<%= i+1 %>" > 펼쳐 보기 <img src="resources/images/bottom.png" style="height: 25px;">  </button>
                             </span>
                     </div>
                     <div class="collapse rdetail " id="room_detail<%= i+1 %>">
