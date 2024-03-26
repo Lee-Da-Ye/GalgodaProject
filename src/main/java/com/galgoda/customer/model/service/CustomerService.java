@@ -32,6 +32,14 @@ public class CustomerService {
 		return reservations;
 	}
 	
+	public Reservation selectReservationCase(int resNo) {
+		Connection conn = getConnection();
+		Reservation r = cDao.selectReservationCase(conn, resNo);
+		close(conn);
+		return r;
+	}
+	
+	
 	
 	public List<Wishlist> selectWishlist(int userNo) {
 		Connection conn = getConnection();
