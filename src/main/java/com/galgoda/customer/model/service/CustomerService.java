@@ -10,7 +10,9 @@ import java.util.List;
 
 import com.galgoda.common.model.vo.PageInfo;
 import com.galgoda.customer.model.dao.CustomerDao;
+import com.galgoda.customer.model.dao.ReviewDao;
 import com.galgoda.customer.model.vo.Reservation;
+import com.galgoda.customer.model.vo.CustomerReview;
 import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.member.model.vo.Customer;
 
@@ -165,6 +167,30 @@ public class CustomerService {
 		close(conn);
 		return reviewCount;
 		
+	}
+	
+	
+	
+	public List<CustomerReview> selectReviewList(int userNo) {
+		Connection conn = getConnection();
+		List<CustomerReview> list = cDao.selectReviewList(conn, userNo);
+		close(conn);
+		return list;
+	}
+	
+	public List<CustomerReview> insertReview(CustomerReview r) {
+		Connection conn = getConnection();
+		int result = cDao.insertReview(conn, r);
+		List<CustomerReview> updateList = null;
+		if(result > 0) {
+			commit(conn);
+			updateList = cDao.selectReviewList(conn, r.getUserNo());
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateList;
 	}
 	
 }

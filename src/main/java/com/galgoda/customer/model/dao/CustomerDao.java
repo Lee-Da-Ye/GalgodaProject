@@ -13,9 +13,12 @@ import java.util.List;
 import java.util.Properties;
 
 import com.galgoda.common.model.vo.PageInfo;
+import com.galgoda.customer.model.vo.CustomerReview;
 import com.galgoda.customer.model.vo.Reservation;
+import com.galgoda.customer.model.vo.CustomerReview;
 import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.member.model.vo.Customer;
+
 
 public class CustomerDao {
 	
@@ -467,5 +470,75 @@ public class CustomerDao {
 		
 		
 	}
+	
+	
+	
+	
+	public List<CustomerReview> selectReviewList(Connection conn, int userNo) {
+		//select문 => Resultset (여러행) => ArrayList<Review1>
+		List<CustomerReview> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReviewList"); // mapper에 properties 내에 entry key값을 메소드명으로 해뒀기 때문에
+	
+		try {
+			pstmt = conn.prepareStatement(sql); // 애초에 sql문 담은채로 생성, 완성된 형태
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new CustomerReview(
+									rset.getInt("rev_no"),
+									rset.getInt("res_no"),
+									rset.getInt("hotel_no"),
+									rset.getString("rev_title"),
+									rset.getString("date_in"),
+									rset.getString("date_out"),
+									rset.getInt("res_people"),
+									rset.getString("img_path"),
+									rset.getString("hotel_name")
+									));
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{ 
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	
+	}
+	
+	
+	
+	public int insertReview(Connection conn, CustomerReview r) {
+		// insert문 => 처리된 행수 => int
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReview");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r.getResNo());
+			pstmt.setString(2,r.getRevTitle());
+			pstmt.setString(3, r.getRevContent());
+			pstmt.setInt(4, r.getRevRating());
+			pstmt.setInt(5, r.getHotelNo());
+			pstmt.setInt(6, r.getUserNo());
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
 	
 }
