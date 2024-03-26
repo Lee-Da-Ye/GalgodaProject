@@ -109,7 +109,7 @@
 					<% if (list.isEmpty()){ %>
 					<!-- 예약내역이 없어서 쓴/쓸 리뷰 없는 경우 -->
 					<tr>
-						<td style="text-align: center;">예약 내역이 없습니다.</td>
+						<div style="text-align: center; width: 100%; height: 100%; margin-top:100px;"><b>예약 내역이 없습니다.</b></div>
 					</tr>
 					<% }else{ %>
 					<!-- 리뷰를 쓴/쓸 예약건이 있는 경우 -->
@@ -146,7 +146,7 @@
 	                        <% }else{ %>
 	                        <div class="rev_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px;">
 	                            <button href="" class="btn rev_button" style="margin-bottom: 10px;" onclick="updateForm(<%= r.getRevNo() %>);">리뷰 수정</button>
-	                            <a href="<%= contextPath %>/deleteReview.cu?revNo=<%= r.getRevNo() %>" class="btn rev_button" style="margin-bottom: 10px;" onclick="return confirm('정말로 삭제하시겠습니까?);">리뷰 삭제</a>
+	                            <a href="<%= contextPath %>/deleteReview.cu?revNo=<%= r.getRevNo() %>" class="btn rev_button" style="margin-bottom: 10px;" onclick="return confirm('정말로 삭제하시겠습니까?');">리뷰 삭제</a>
 	                        </div>
 	                        <input type="hidden" name="revNo" value="<%= r.getRevNo() %>">
 	                        
