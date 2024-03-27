@@ -325,7 +325,7 @@ h2{
                     <div class="hotelDetailImg1">
                     <%if(at!=null){ %>
                         <%for( Attachment a :at){ %>
-                        <div class="detailImg" onclick="expandImg();">
+                        <div class="detailImg" onmouseover="expandImg(this);" onmouseout="restoreImg(this);">
                         	<img src="<%=contextPath %>/<%=a.getFilePath()%>" style="width: 140px; height: 100px; margin-top:20px; margin-right: 10px;">
                         </div>
                         <%} %>
@@ -334,7 +334,23 @@ h2{
                     
                 </div>
             </div>
+            <script>
             
+            	
+	            function expandImg(element) {
+	                element.style.zIndex = "9999";
+	                element.querySelector('img').style.width = "300px";
+	                element.querySelector('img').style.height = "200px";
+	            }
+	            
+	            function restoreImg(element) {
+	                element.style.zIndex = "0";
+	                element.querySelector('img').style.width = "140px";
+	                element.querySelector('img').style.height = "100px";
+	            }
+            
+            
+            </script>
             <!-- 지도 -->
             <div class="box">
                 <div class="story">
@@ -491,9 +507,9 @@ h2{
 	                                <b>객실 구성
 	                                </b><br><br>
 	                                
-	                                <small>더블베드 1개</small><br>
+	                                <small><%=room.getRoomName() %></small><br>
 	                                    
-	                                <small>객실 크기: 25m²</small><br>    
+	                                <small>객실 크기: <%=room.getRoomSize() %></small><br>    
 	                                    
 	                                <small>전망: 시티뷰</small><br>    
 	                                    
