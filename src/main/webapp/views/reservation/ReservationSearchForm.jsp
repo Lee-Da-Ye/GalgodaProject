@@ -492,11 +492,7 @@
             <div class="main">
                <div class="hotelSummaryBundle" >
                   <span id="arraylist" class="float-right" >
-                       <select name="list">
-                              <option value="">평점순</option>
-                              <option value="">리뷰많은순</option>
-                              <option value="">인기순</option>
-                       </select>
+                      
                    </span>
                   <% int i = 2; %>
                   <% for(Hotel h : list){ %>
