@@ -88,7 +88,7 @@ public class HotelInsertController extends HttpServlet {
 				refundpolicy = multiRequest.getParameter("refundpolicy");
 			}
 		
-			String hotelImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("hotelImgPath");
+			String hotelImgPath = "resources/images/" + multiRequest.getFilesystemName("hotelImgPath");
 		
 		
 			Hotel h = new Hotel();

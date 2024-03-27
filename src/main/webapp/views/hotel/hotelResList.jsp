@@ -93,10 +93,7 @@
 	                        </div>
 	                        <div class="float-right top_array">
 		                        
-		                            <select class="form-control" name="filter">
-		                                <option value="arrayDate" selected>예약날짜순</option>
-		                                <option value="arrayRes">예약번호순</option>
-		                            </select>
+		                            
 		                        
 	                        </div>
 	                    </div>

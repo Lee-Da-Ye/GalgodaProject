@@ -20,6 +20,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+
+	//전화 번호 입력 시 자동 - 넣기
+	const addHyphen = (target) => {
+	target.value = target.value
+	  .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	}
+</script>
 <style>
  		/* 메인컨텐츠  */
         #title1 {font-size: 30px; font-weight: bold;  color: rgb(115, 90, 75);}
@@ -134,7 +143,7 @@
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn " id="btnname" type="button" >대표전화</button></td>
-                                <td id="td2"><input type="text" class="form-control" required name="hotelTel" value="<%=h.getHotelTel() %>"></td>
+                                <td id="td2"><input type="text"  oninput="addHyphen(this)" class="form-control" required name="hotelTel" value="<%=h.getHotelTel() %>"></td>
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >홈페이지</button></td>
@@ -218,7 +227,9 @@
                                     
                                    <% for(Attachment a : alist){ %>
                                    		<input type="text" value="<%= a.getOriginName() %>" readonly class="form-control">
+                                  		
                                    <% } %>
+                                  
                                    <input type="file" name="upload_file1" class="form-control" >
                                     <input type="file" name="upload_file2" class="form-control">
                                     <input type="file" name="upload_file3" class="form-control">
@@ -260,7 +271,7 @@
 
                         /* 태그부분 */
      	               	var taglist = '<%= h.getTagNo() %>';
-     	                var  v = taglist.split(",");
+     	              	 var v = taglist.replace(/(^,)|(,$)/g, '').split(",");
      	                        	
      	                for(var j = 0; j<v.length; j++){
      	                        $('input:checkbox[name=hotelTag][value='+v[j]+']').attr("checked", true).parent().addClass('on');

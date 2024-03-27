@@ -201,7 +201,10 @@
 	                            </tr>
 	                            <tr>
 	                                <td id="td1"><button class="btn   " id="btnname" type="button" >대표사진</button></td>
-	                                <td id="td2"><input type="file" name="roomImgPath" class="form-control" ></td>
+                               		 <td id="td2">
+	                                	<input type="text" value="<%= r.getImgPath() %>" readonly class="form-control">
+                               			<input type="file" name="roomImgPath" class="form-control" >
+                               		 </td>
 	                            </tr>
 	                            <tr>
 	                                <td id="td4"><button class="btn   "  id="btnname"type="button" >사진추가</button></td>
