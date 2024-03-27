@@ -155,7 +155,7 @@
                                 <div class="under_search " >
                                     <form action="<%= contextPath %>/revSearchList.ho" class="search_form ">
                                     	<input type="hidden" name="page" value="1">
-                                        <input  type="search"  name="keyword" placeholder="아이디">
+                                        <input  type="search"  name="keyword" placeholder="아이디" required>
                                         <button type="submit" ><img src="resources/images/search.png" ></button>
                                 </form>
                                 </div>

@@ -1156,9 +1156,11 @@ public class HotelDao {
 		String sql = prop.getProperty("selectRevSearchListCount");
 
 		try {
+			String likeKeyword = "%" + keyword + "%";
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, hotelName);
-			pstmt.setString(2, keyword);
+			pstmt.setString(2, likeKeyword);
 			rset = pstmt.executeQuery();
 
 			if(rset.next()) {
@@ -1185,9 +1187,11 @@ public class HotelDao {
 
 			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
-
+			
+			String likeKeyword = "%" + keyword + "%";
+			
 			pstmt.setString(1, hotelName);
-			pstmt.setString(2, keyword);
+			pstmt.setString(2, likeKeyword);
 			pstmt.setInt(3, startRow);
 			pstmt.setInt(4, endRow);
 

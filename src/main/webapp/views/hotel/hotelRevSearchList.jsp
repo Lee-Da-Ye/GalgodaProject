@@ -154,8 +154,9 @@
                         <tr >
                             <td style="vertical-align: top;">
                                 <div class="under_search " >
-                                    <form action="<%= contextPath %>/revSearch.ho" class="search_form ">
-                                        <input  type="search"  name="keyword" placeholder="아이디">
+                                    <form action="<%= contextPath %>/revSearchList.ho" class="search_form ">
+                                        <input type="hidden" name="page" value="1">
+                                        <input  type="search"  name="keyword" placeholder="아이디" required>
                                         <button type="submit" ><img src="resources/images/search.png" ></button>
                                 </form>
                                 </div>
@@ -170,7 +171,7 @@
 										<% if(pi.getCurrentPage() == 1) { %>
 					                    <li class="page-item disabled"><a class="page-link" href="#"> &lt; </a></li>
 					                 	<% } else { %>
-					                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/revList.ho?page=<%=pi.getCurrentPage()-1%>&keyword=<%= keyword %>"> &lt; </a></li>
+					                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/revSearchList.ho?page=<%=pi.getCurrentPage()-1%>&keyword=<%= keyword %>"> &lt; </a></li>
 					                    <% } %>
 					                    
 					                    
@@ -179,14 +180,14 @@
 						                    <% if(p == pi.getCurrentPage()){ %>
 						                    <li class="page-item active"><a class="page-link" href="#"><%= p %></a></li>
 						                    <% } else{ %>
-						                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/revList.ho?page=<%= p %>&keyword=<%= keyword %>"> <%= p %></a></li>
+						                    <li class="page-item"><a class="page-link" href="<%= contextPath %>/revSearchList.ho?page=<%= p %>&keyword=<%= keyword %>"> <%= p %></a></li>
 						                    <% }  %>
 					                    <% } %>
 					                    
 					                    <% if(pi.getCurrentPage() == pi.getMaxPage()) { %>
 					                    <li class="page-item disabled"><a class="page-link" href="#"> &gt; </a></li>
 					                    <% } else { %>
-					                    <li class="page-item"><a class="page-link" href="<%= contextPath%>/revList.ho?page=<%=pi.getCurrentPage() + 1 %>&keyword=<%= keyword %>"> &gt; </a></li>
+					                    <li class="page-item"><a class="page-link" href="<%= contextPath%>/revSearchList.ho?page=<%=pi.getCurrentPage() + 1 %>&keyword=<%= keyword %>"> &gt; </a></li>
 					                    <% } %>
 					                    <% } %>
 					                </ul>

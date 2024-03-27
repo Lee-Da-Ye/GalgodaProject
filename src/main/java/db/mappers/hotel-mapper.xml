@@ -609,53 +609,51 @@
 		
 		
 		<entry key="selectRevSearchList">
-			SELECT *
+				SELECT *
 				FROM (
-		            SELECT ROWNUM RNUM, A.*
-		              FROM(
-		                        SELECT
-		                                REV_NO
-		                              , USER_ID
-		                              , RES_NO
-		                              , R.REGIST_DATE REGIST_DATE
-		                              , REV_RATING
-		                              , REV_TITLE
-		                          FROM  TB_REVIEW R
-                                  JOIN TB_USER USING(USER_NO)
-		                         WHERE HOTEL_NO = ( SELECT H.HOTEL_NO
-                                                    FROM TB_HOTEL H, TB_MEM M
-                                                    WHERE H.HOTEL_NAME = M.HOTEL_NAME
-                                                    AND H.HOTEL_NAME = ?
-                                                        )
-                                   AND R.STATUS = 'Y'
-                                   AND USER_NO = (
-                                   					SELECT USER_NO
-                                   					  FROM TB_USER
-                                   					 WHERE USER_ID = ? 
-                                   				 )
-		                         ORDER
-		                            BY REV_NO DESC 
-		                ) A
-				 )
-		 		WHERE RNUM BETWEEN ? AND ?
+				    SELECT ROWNUM RNUM, A.*
+				    FROM(
+				        SELECT
+				            REV_NO,
+				            USER_ID,
+				            RES_NO,
+				            R.REGIST_DATE REGIST_DATE,
+				            REV_RATING,
+				            REV_TITLE
+				        FROM TB_REVIEW R
+				        JOIN TB_USER U ON R.USER_NO = U.USER_NO
+				        WHERE HOTEL_NO = (SELECT H.HOTEL_NO
+				                          FROM TB_HOTEL H, TB_MEM M
+				                          WHERE H.HOTEL_NAME = M.HOTEL_NAME
+				                          AND H.HOTEL_NAME = ?)
+				            AND R.STATUS = 'Y'
+				            AND EXISTS (SELECT 1
+				                        FROM TB_USER
+				                        WHERE USER_ID LIKE ?
+				                        AND R.USER_NO = TB_USER.USER_NO)
+				        ORDER BY REV_NO DESC
+				    ) A
+				)
+				WHERE RNUM BETWEEN ? AND ?
 		</entry>
 		
 		<entry key="selectRevSearchListCount">
-		
-			SELECT COUNT(*) COUNT 
-  			  FROM TB_REVIEW
-  			 WHERE HOTEL_NO = (
-  			 					SELECT HOTEL_NO
-  			 					  FROM TB_HOTEL
-  			 					 WHERE HOTEL_NAME = ?
-  			 				  )
-  			   AND USER_NO = (
-  			   					SELECT USER_NO
-  			   					  FROM TB_USER
-  			   					 WHERE USER_ID = ?
-  			   				 )
- 			
-		
+		   SELECT
+			    (
+			        SELECT COUNT(*)
+			        FROM TB_REVIEW
+			        WHERE HOTEL_NO = (
+			            SELECT HOTEL_NO
+			            FROM TB_HOTEL
+			            WHERE HOTEL_NAME = ?
+			        )
+			        AND USER_NO IN (
+			            SELECT USER_NO
+			            FROM TB_USER
+			            WHERE USER_ID LIKE ?
+			        )
+			    ) AS COUNT
+			FROM DUAL
 		</entry>
 		
 		
