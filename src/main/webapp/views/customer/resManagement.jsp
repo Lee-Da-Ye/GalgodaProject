@@ -141,7 +141,13 @@
                                     <h6><%=r.getDateIn() %> - <%=r.getDateOut()%></h6>
                                     <h6><%= roName %></h6>
                                     <h6>총 <%=r.getResPeople()%>명</h6>
-                                    <h6>추가 옵션 : <%=r.getOpName()%></h6>
+                                    <h6>추가옵션 :
+									    <% if(r.getOpName() == null || r.getOpName().equals("")) { %>
+									        없음
+									    <% } else { %>
+									        <%= r.getOpName() %>
+									    <% } %>
+									</h6>
                                 </div>
                             </div>
                         </div>

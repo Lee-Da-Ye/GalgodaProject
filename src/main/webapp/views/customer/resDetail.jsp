@@ -144,7 +144,13 @@
                             </tr>
                             <tr>
                                 <th>추가옵션</th>
-                                <td><%=selectedReservation.getOpName() %></td>
+                                <td>
+                                	<% if(selectedReservation.getOpName() == null || selectedReservation.getOpName().equals("")) { %>
+									        없음
+									    <% } else { %>
+									        <%= selectedReservation.getOpName() %>
+									    <% } %>
+                                </td>
                             </tr>
     
                         </table>
