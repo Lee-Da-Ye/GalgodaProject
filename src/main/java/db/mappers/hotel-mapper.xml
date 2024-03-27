@@ -485,7 +485,7 @@
 		
 		<entry key="countRoom">
 			SELECT
-			        SUM(RO_COUNT)
+			        COUNT(RO_COUNT)
 			  FROM  TB_ROOM
 			 WHERE  HOTEL_NO = ?
 		
