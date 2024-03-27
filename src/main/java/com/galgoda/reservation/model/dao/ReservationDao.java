@@ -103,6 +103,7 @@ public class ReservationDao {
 			            sql += "h.tag_no LIKE '%" + tags[i] + ",%' ";
 			        }
 			        sql += ")";
+			        sql += "ORDER BY MIN_PRICE";
 			    }
 			}
 			pstmt = conn.prepareStatement(sql);
