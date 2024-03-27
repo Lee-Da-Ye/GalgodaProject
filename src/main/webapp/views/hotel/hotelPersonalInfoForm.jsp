@@ -47,7 +47,7 @@
                     </li>
                   
                     <li>
-                        <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="<%=contextPath %>/personalInfo.ho" data-target="#demo3">담당자 정보 수정</a>
+                        <a class="nav-link" style="color: white; background-color: rgb(115, 90, 75);" href="<%=contextPath %>/personalInfo.ho" >담당자 정보 수정</a>
                     </li>
                         
                     
