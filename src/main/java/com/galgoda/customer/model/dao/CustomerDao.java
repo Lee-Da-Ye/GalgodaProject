@@ -60,6 +60,7 @@ public class CustomerDao {
 										       , rset.getInt("pay")
 										       , rset.getDate("pay_date")
 										       , rset.getInt("res_people")
+										       , rset.getInt("res_room_count")
 										       , rset.getString("res_name")
 										       , rset.getString("res_phone")
 										       , rset.getString("res_email")
@@ -116,6 +117,7 @@ public class CustomerDao {
 										       , rset.getInt("pay")
 										       , rset.getDate("pay_date")
 										       , rset.getInt("res_people")
+										       , rset.getInt("res_room_count")
 										       , rset.getString("res_name")
 										       , rset.getString("res_phone")
 										       , rset.getString("res_email")
@@ -170,6 +172,7 @@ public class CustomerDao {
 									       , rset.getInt("pay")
 									       , rset.getDate("pay_date")
 									       , rset.getInt("res_people")
+									       , rset.getInt("res_room_count")
 									       , rset.getString("res_name")
 									       , rset.getString("res_phone")
 									       , rset.getString("res_email")
@@ -323,14 +326,15 @@ public class CustomerDao {
 			pstmt.setString(1, r.getDateIn());
 			pstmt.setString(2, r.getDateOut());
 			pstmt.setInt(3, r.getResPeople());
-			pstmt.setInt(4, r.getRoNo());
-			pstmt.setString(5, r.getOpName());
-			pstmt.setString(6, r.getResName());
-			pstmt.setString(7, r.getResPhone());
-			pstmt.setString(8, r.getResEmail());
-			pstmt.setInt(9, r.getPay());
-			pstmt.setString(10, r.getPayMethod());
-			pstmt.setInt(11, r.getResNo());
+			pstmt.setInt(4, r.getResRoomCount());
+			pstmt.setInt(5, r.getRoNo());
+			pstmt.setString(6, r.getOpName());
+			pstmt.setString(7, r.getResName());
+			pstmt.setString(8, r.getResPhone());
+			pstmt.setString(9, r.getResEmail());
+			pstmt.setInt(10, r.getPay());
+			pstmt.setString(11, r.getPayMethod());
+			pstmt.setInt(12, r.getResNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

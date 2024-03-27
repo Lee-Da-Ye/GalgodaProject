@@ -143,6 +143,10 @@
                                 <td><%=roomName %></td>
                             </tr>
                             <tr>
+                                <th>객실 수</th>
+                                <td>총 <%=selectedReservation.getResRoomCount() %>개</td>
+                            </tr>
+                            <tr>
                                 <th>추가옵션</th>
                                 <td>
                                 	<% if(selectedReservation.getOpName() == null || selectedReservation.getOpName().equals("")) { %>

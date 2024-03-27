@@ -137,6 +137,7 @@
 		                   , PAY
 		                   , PAY_DATE
 		                   , RES_PEOPLE
+		                   , RES_ROOM_COUNT
 		                   , RES_NAME
 		                   , RES_PHONE
 		                   , RES_EMAIL
@@ -152,6 +153,7 @@
 		                   ,?
 		                   ,?
 		                   ,SYSDATE
+		                   ,?
 		                   ,?
 		                   ,?
 		                   ,?

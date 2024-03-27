@@ -19,6 +19,7 @@
 			  ,	PAY
 			  ,	PAY_DATE
 			  ,	RES_PEOPLE
+			  , RES_ROOM_COUNT
 			  ,	RES_NAME
 			  ,	RES_PHONE
 			  ,	RES_EMAIL
@@ -54,6 +55,7 @@
 					  ,	PAY
 					  ,	PAY_DATE
 					  ,	RES_PEOPLE
+					  , RES_ROOM_COUNT
 					  ,	RES_NAME
 					  ,	RES_PHONE
 					  ,	RES_EMAIL
@@ -89,6 +91,7 @@
 			  ,	PAY
 			  ,	PAY_DATE
 			  ,	RES_PEOPLE
+			  , RES_ROOM_COUNT
 			  ,	RES_NAME
 			  ,	RES_PHONE
 			  ,	RES_EMAIL
@@ -167,6 +170,7 @@
 		        DATE_IN = ?
 		      , DATE_OUT = ?
 		      , RES_PEOPLE = ?
+		      , RES_ROOM_COUNT = ?
 		      , RO_NO = ?
 		      , OP_NAME = ?
 		      , RES_NAME = ?

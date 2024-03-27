@@ -118,7 +118,7 @@
 		
 		// 예약인원, 룸 타입 선택에 따른 결제금액 업데이트
 	   	$(document).ready(function() {
-		   	 $('#checkInDate, #checkOutDate, #roomType').on('change', function() {
+		   	 $('#checkInDate, #checkOutDate, #roomType, #resRoomCount').on('change', function() {
 		         // 선택된 체크인 날짜와 체크아웃 날짜 가져오기
 		         var checkInDate = moment($('#checkInDate').val(), 'YYYY년 MM월 DD일');
 		         var checkOutDate = moment($('#checkOutDate').val(), 'YYYY년 MM월 DD일');
@@ -128,10 +128,12 @@
 		         
 		         // 선택된 룸 타입 가져오기
 		         var roomType = parseInt($('select[name="roomType"]').val());
-		         console.log(roomType);
-		         // 가격 계산 : (숙박일수 * 객실 가격)
+		        	 
+		         // 가격 계산 : (숙박일수 * 객실 가격 * 객실 수)
 		         var roomPrice = calculateRoomPrice(roomType);
-		         var totalPrice = numberOfNights * roomPrice;
+		         var roomCount = document.getElementById("resRoomCount").value;
+		         
+		         var totalPrice = numberOfNights * roomPrice * roomCount;
 		         
 		         // 결제금액 변경 시 변경금액 결제하기 버튼 활성화 하기
 		         // 이전 결제금액 가져오기
@@ -214,7 +216,7 @@
 		    var reservationChanged = false;
 
 		    // 예약 정보 변경 시 변수를 true로 설정
-		    $('#checkInDate, #checkOutDate, #resPeople, #roomType, input[name="option"], #resName, #resPhone, #resEmail, #resPay, #resPayMethod').on('change', function() {
+		    $('#checkInDate, #checkOutDate, #resPeople, #resRoomCount, #roomType, input[name="option"], #resName, #resPhone, #resEmail, #resPay, #resPayMethod').on('change', function() {
 		        reservationChanged = true;
 		        activateReservationButton();
 		    });
@@ -371,6 +373,19 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>객실 수</th>
+                                    <td colspan="3">
+                                        <select id="resRoomCount" name="resRoomCount" class="form-control">
+                                            <option value="1">1개</option>
+                                            <option value="2">2개</option>
+                                            <option value="3">3개</option>
+                                            <option value="4">4개</option>
+                                            <option value="5">5개</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                                
                                 
                                	<script>
 	                               	$(document).ready(function() {
@@ -385,6 +400,13 @@
 	
 	                               	    // 셀렉트 요소의 값을 선택된 예약 인원으로 설정
 	                               	    $('select[name="resPeople"]').val(selectedResPeople);
+	                               	    
+	                               	    // 현재 선택된 객실 수를 가져오는 서버 측 코드
+	                               	    let selectedRoomCount = '<%= selectedReservation.getResRoomCount()%>';
+	                               	    
+	                               	    // 셀렉트 요소의 값을 선택된 객실 수로 설정
+	                               	    $('select[name="resRoomCount"]').val(selectedRoomCount);
+	                               	    
 	                               	});
 
                                	</script>

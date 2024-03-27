@@ -286,10 +286,11 @@ public class ReservationDao {
 			pstmt.setString(7, newRes.getPayMethod());
 			pstmt.setInt(8, newRes.getPay());
 			pstmt.setInt(9, newRes.getResPeople());
-			pstmt.setString(10, newRes.getResName());
-			pstmt.setString(11, newRes.getResPhone());
-			pstmt.setString(12, newRes.getResEmail());
-			pstmt.setString(13, newRes.getOpName());
+			pstmt.setInt(10, newRes.getResRoomCount());
+			pstmt.setString(11, newRes.getResName());
+			pstmt.setString(12, newRes.getResPhone());
+			pstmt.setString(13, newRes.getResEmail());
+			pstmt.setString(14, newRes.getOpName());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

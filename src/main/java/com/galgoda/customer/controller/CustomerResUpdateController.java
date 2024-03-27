@@ -40,6 +40,7 @@ public class CustomerResUpdateController extends HttpServlet {
 		String checkInDate = request.getParameter("checkInDate");
 		String checkOutDate = request.getParameter("checkOutDate");
 		int resPeople = Integer.parseInt(request.getParameter("resPeople"));
+		int resRoomCount = Integer.parseInt(request.getParameter("resRoomCount"));
 		int roomType = Integer.parseInt(request.getParameter("roomType"));
 		
 		String[] optionArr = request.getParameterValues("option");
@@ -66,6 +67,7 @@ public class CustomerResUpdateController extends HttpServlet {
 		res.setDateIn(checkInDate);
 		res.setDateOut(checkOutDate);
 		res.setResPeople(resPeople);
+		res.setResRoomCount(resRoomCount);
 		res.setRoNo(roomType);
 		res.setOpName(option);
 		res.setResName(resName);

@@ -23,6 +23,7 @@ public class Reservation {
 	private int pay;
 	private Date payDate;
 	private int resPeople;
+	private int resRoomCount; // 호텔 예약정보에 추가됨
 	private String resName;
 	private String resPhone;
 	private String resEmail;
@@ -34,6 +35,7 @@ public class Reservation {
 	private String tagNo; // table join으로 새로 추가된 변수
 	private int roomCount; // 호텔검색시 사용 변수
 	private String searchType;
+	
 	
 	public Reservation() {}
 
@@ -120,6 +122,65 @@ public class Reservation {
 
 	public Reservation(int resNo, int hotelNo, String hotelName, int userNo, int roNo, String dateIn, String dateOut,
 			Date resDate, String resStatus, String req, String reasonCancel, String payMethod, int pay, Date payDate,
+			int resPeople, int resRoomCount, String resName, String resPhone, String resEmail, String imgPath,
+			String roName, String opName) {
+		super();
+		this.resNo = resNo;
+		this.hotelNo = hotelNo;
+		this.hotelName = hotelName;
+		this.userNo = userNo;
+		this.roNo = roNo;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
+		this.resDate = resDate;
+		this.resStatus = resStatus;
+		this.req = req;
+		this.reasonCancel = reasonCancel;
+		this.payMethod = payMethod;
+		this.pay = pay;
+		this.payDate = payDate;
+		this.resPeople = resPeople;
+		this.resRoomCount = resRoomCount;
+		this.resName = resName;
+		this.resPhone = resPhone;
+		this.resEmail = resEmail;
+		this.imgPath = imgPath;
+		this.roName = roName;
+		this.opName = opName;
+	}
+
+	public Reservation(int resNo, int hotelNo, String hotelName, int userNo, int roNo, String dateIn, String dateOut,
+			Date resDate, String resStatus, String req, String reasonCancel, String payMethod, int pay, Date payDate,
+			int resPeople, int resRoomCount, String resName, String resPhone, String resEmail, String imgPath,
+			String roName, int roPrice, String opName) {
+		super();
+		this.resNo = resNo;
+		this.hotelNo = hotelNo;
+		this.hotelName = hotelName;
+		this.userNo = userNo;
+		this.roNo = roNo;
+		this.dateIn = dateIn;
+		this.dateOut = dateOut;
+		this.resDate = resDate;
+		this.resStatus = resStatus;
+		this.req = req;
+		this.reasonCancel = reasonCancel;
+		this.payMethod = payMethod;
+		this.pay = pay;
+		this.payDate = payDate;
+		this.resPeople = resPeople;
+		this.resRoomCount = resRoomCount;
+		this.resName = resName;
+		this.resPhone = resPhone;
+		this.resEmail = resEmail;
+		this.imgPath = imgPath;
+		this.roName = roName;
+		this.roPrice = roPrice;
+		this.opName = opName;
+	}
+
+	public Reservation(int resNo, int hotelNo, String hotelName, int userNo, int roNo, String dateIn, String dateOut,
+			Date resDate, String resStatus, String req, String reasonCancel, String payMethod, int pay, Date payDate,
 			int resPeople, String resName, String resPhone, String resEmail, String imgPath, String roName,
 			String opName) {
 		super();
@@ -178,6 +239,10 @@ public class Reservation {
 		this.roPrice = roPrice;
 		this.opName = opName;
 	}
+
+	
+	
+	
 
 	public int getResNo() {
 		return resNo;
@@ -400,16 +465,30 @@ public class Reservation {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+	
+	
+
+	public int getResRoomCount() {
+		return resRoomCount;
+	}
+
+	public void setResRoomCount(int resRoomCount) {
+		this.resRoomCount = resRoomCount;
+	}
 
 	@Override
 	public String toString() {
 		return "Reservation [resNo=" + resNo + ", hotelNo=" + hotelNo + ", hotelName=" + hotelName + ", userNo="
 				+ userNo + ", roNo=" + roNo + ", dateIn=" + dateIn + ", dateOut=" + dateOut + ", resDate=" + resDate
 				+ ", resStatus=" + resStatus + ", req=" + req + ", reasonCancel=" + reasonCancel + ", payMethod="
-				+ payMethod + ", pay=" + pay + ", payDate=" + payDate + ", resPeople=" + resPeople + ", resName="
-				+ resName + ", resPhone=" + resPhone + ", resEmail=" + resEmail + ", imgPath=" + imgPath + ", roName="
-				+ roName + ", opName=" + opName + "]";
+				+ payMethod + ", pay=" + pay + ", payDate=" + payDate + ", resPeople=" + resPeople + ", resRoomCount="
+				+ resRoomCount + ", resName=" + resName + ", resPhone=" + resPhone + ", resEmail=" + resEmail
+				+ ", imgPath=" + imgPath + ", roName=" + roName + ", roPrice=" + roPrice + ", opName=" + opName
+				+ ", userId=" + userId + ", tagNo=" + tagNo + ", roomCount=" + roomCount + ", searchType=" + searchType
+				+ "]";
 	}
+
+	
 
 	
 	

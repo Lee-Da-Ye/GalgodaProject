@@ -139,9 +139,10 @@
 									%>
                                     
                                     <h6><%=r.getDateIn() %> - <%=r.getDateOut()%></h6>
-                                    <h6><%= roName %></h6>
-                                    <h6>총 <%=r.getResPeople()%>명</h6>
-                                    <h6>추가옵션 :
+                                    <br>
+                                    <h6><%= roName %> - 총 <%=r.getResRoomCount() %>개</h6> 
+                                    <h6>예약인원 - 총 <%=r.getResPeople()%>명</h6>
+                                    <h6>추가옵션 - 
 									    <% if(r.getOpName() == null || r.getOpName().equals("")) { %>
 									        없음
 									    <% } else { %>
