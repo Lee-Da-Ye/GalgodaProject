@@ -21,6 +21,7 @@ public class Hotel {
 	 private int resCount; // 호텔 예약 횟수
 	 private int reviewCount; // 호텔별 리뷰 수
 	 private int minPrice; // 호텔별 객실 최저가
+	 private double avgReview; // 리뷰 평균
 	 
 	 public Hotel() {}
 
@@ -402,6 +403,20 @@ public class Hotel {
 
 	public void setMinPrice(int minPrice) {
 		this.minPrice = minPrice;
+	}
+
+
+
+
+	public double getAvgReview() {
+		return avgReview;
+	}
+
+
+
+
+	public void setAvgReview(double avgReview) {
+		this.avgReview = avgReview;
 	}
 
 

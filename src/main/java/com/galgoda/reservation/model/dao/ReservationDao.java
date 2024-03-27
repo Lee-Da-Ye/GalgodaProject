@@ -60,6 +60,7 @@ public class ReservationDao {
 				h.setImgPath(rset.getString("img_path"));
 				h.setReviewCount(rset.getInt("review_count"));
 				h.setMinPrice(rset.getInt("min_price"));
+				h.setAvgReview(rset.getDouble("rev_rating"));
 				
 				list.add(h);
 			}
@@ -116,6 +117,7 @@ public class ReservationDao {
 				h.setImgPath(rset.getString("img_path"));
 				h.setReviewCount(rset.getInt("review_count"));
 				h.setMinPrice(rset.getInt("min_price"));
+				h.setAvgReview(rset.getDouble("rev_rating"));
 				
 				list.add(h);
 			}
@@ -412,5 +414,8 @@ public class ReservationDao {
 		}
 		return list;
 	}
+	
+	
+	
 
 }

@@ -45,11 +45,12 @@ public class WishListController extends HttpServlet {
         
         if(result > 0) {
 			// 성공 => 
-    		
-    		response.setContentType("application/json");
+        	response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
-           
+            
+            // 성공 메시지를 JSON 형식으로 응답
+            out.print("{\"success\": true}");
             out.flush();
         }
 	}

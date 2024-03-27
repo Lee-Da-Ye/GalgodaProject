@@ -9,11 +9,12 @@
 					    h.TAG_NO TAG_NO,
 					    h.IMG_PATH IMG_PATH,
 					    NVL(r.REVIEW_COUNT, 0) AS REVIEW_COUNT,
-					    MIN_PRICE
+					    MIN_PRICE,
+					    REV_RATING
 					FROM 
 					    TB_HOTEL h
 					LEFT JOIN 
-					    (SELECT HOTEL_NO, COUNT(*) AS REVIEW_COUNT
+					    (SELECT HOTEL_NO, COUNT(*) AS REVIEW_COUNT, AVG(REV_RATING) REV_RATING
 					     FROM TB_REVIEW
 					     WHERE STATUS = 'Y'
 					     GROUP BY HOTEL_NO) r
@@ -41,12 +42,13 @@
 			    h.HOTEL_NAME AS HOTEL_NAME,
 			    h.TAG_NO AS TAG_NO,
 			    h.IMG_PATH AS IMG_PATH,
-			    NVL(r.REVIEW_COUNT, 0) AS REVIEW_COUNT,
-			    O.MIN_PRICE AS MIN_PRICE
+			    NVL(r.REVIEW_COUNT, 0) AS REVIEW_COUNT, 
+			    O.MIN_PRICE AS MIN_PRICE,
+			    REV_RATING
 			FROM 
 			    TB_HOTEL h
 			LEFT JOIN 
-			    (SELECT HOTEL_NO, COUNT(*) AS REVIEW_COUNT
+			    (SELECT HOTEL_NO, COUNT(*) AS REVIEW_COUNT, AVG(REV_RATING) REV_RATING
 			     FROM TB_REVIEW
 			     WHERE STATUS = 'Y'
 			     GROUP BY HOTEL_NO) r
@@ -192,9 +194,6 @@
 		   AND  STATUS = 'Y'
 		
 		</entry>
-		
-		
-		
 		
 		
 		
