@@ -37,10 +37,10 @@ public class WishListController extends HttpServlet {
 	
        
         int userNo = Integer.parseInt(request.getParameter("userNo"));
-        int wishHotelNo = Integer.parseInt(request.getParameter("wishHotelNo"));
+        int wishHotelNo = Integer.parseInt(request.getParameter("hotelId"));
 	
         int result = new ReservationService().wishlList(userNo, wishHotelNo);
-        List<Wishlist> list = new ReservationService().selectwishList(userNo);
+     
 	
         
         if(result > 0) {
@@ -49,7 +49,7 @@ public class WishListController extends HttpServlet {
     		response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
-            out.print(new Gson().toJson(list));
+           
             out.flush();
         }
 	}

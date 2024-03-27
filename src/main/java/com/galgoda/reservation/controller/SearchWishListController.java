@@ -34,9 +34,10 @@ public class SearchWishListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		System.out.println(userNo);
 		
 		List<Wishlist> list = new ReservationService().selectwishList(userNo);
-		
+		System.out.println(list);
 		response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();

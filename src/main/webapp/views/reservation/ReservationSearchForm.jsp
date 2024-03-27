@@ -656,7 +656,7 @@
 		    					               
 								<div class="heartbox" data-hotel-no="<%= h.getHotelNo() %>">
 									<% if (loginCustomer != null) { %>
-									    <form class="wishlist-form" action="<%= contextPath %>/wishlist.res" method="get">
+									    <form >
 									        <input type="hidden" name="userNo" value="<%= loginCustomer.getUserNo() %>">
 									        <input type="hidden" name="wishHotelNo" value="<%=  h.getHotelNo() %>">
 									    </form>
@@ -703,131 +703,157 @@
 				  			</div>
 			                <% i++; %>      
 				        <% } %>
+				        
+				        <script>
+						    var isLoggedIn = <%= (loginCustomer != null) %>;
+						</script>
+				        
 						<script>
-						
 						document.addEventListener("DOMContentLoaded", function() {
 						    var hotelList = document.querySelectorAll(".hotelSummary");
-
+						    
 						    hotelList.forEach(function(hotelSummary, index) {
 						        hotelSummary.addEventListener("click", function() {
 						            // 클릭된 호텔 요소에서 모든 폼 데이터 가져오기
 						            var formData = new FormData(hotelSummary.querySelector("form"));
-
+						    
 						            // 기존의 쿼리스트링 파라미터들 가져오기
 						            var queryParams = new URLSearchParams(window.location.search);
-
+						    
 						            // 기존의 쿼리스트링 파라미터들을 formData에 추가
 						            queryParams.forEach(function(value, key) {
 						                formData.append(key, value);
 						            });
-
+						    
 						            // 상세 페이지 URL에 파라미터를 추가하여 이동
 						            window.location.href = contextPath + "/resDetail.res?" + new URLSearchParams(formData).toString();
 						        });
 						    });
-
+						    
+						    
 						    // 로그인된 경우에만 AJAX 요청 보내기
 						    <% if (loginCustomer != null) { %>
-						    $.ajax({
-						        url: "<%= request.getContextPath() %>/searchwishList.res",
-						        type: "GET",
-						        data: { userNo: <%= loginCustomer.getUserNo() %> }, // userNo를 전달합니다.
-						        dataType: "json",
-						        success: function(wishList) {
-						            // 위시리스트에서 호텔 ID 목록을 가져왔으므로 각 호텔의 하트 버튼 상태를 설정
-						            console.log(wishList);
-						            var heartIcons = document.querySelectorAll('.heartbox');
-						            heartIcons.forEach(function(heartIcon) {
-						                var hotelId = heartIcon.dataset.hotelNo;
-						                console.log("호텔 ID:", hotelId);
-						                if (wishList.includes(hotelId)) {
-						                    // 해당 호텔이 위시리스트에 있는 경우 하트 버튼을 활성화
-						                    heartIcon.classList.add("active");
-						                    // 체크박스를 체크해야 할 경우
-						                    heartIcon.querySelector('.checkbox').checked = true;
-
-						                    // 하트 아이콘의 색상 변경
-						                    var heartSvg = heartIcon.querySelector('#heart-svg');
-						                    heartSvg.querySelector('#heart').setAttribute('fill', '#E2264D');
-						                }
-						            });
-						        },
-						        error: function(xhr, status, error) {
-						            console.error("Error fetching wishlist:", error);
-						        }
-						    });
-						    <% } %>
+						        $.ajax({
+						            url: "<%= request.getContextPath() %>/searchwishList.res",
+						            type: "GET",
+						            data: { userNo: <%= loginCustomer.getUserNo() %> }, // userNo를 전달합니다.
+						            dataType: "json",
+						            success: function(wishList) {
+						                // 위시리스트에서 호텔 ID 목록을 가져왔으므로 각 호텔의 하트 버튼 상태를 설정
+						                console.log(wishList);
+						                var heartIcons = document.querySelectorAll('.heartbox');
+						                heartIcons.forEach(function(heartIcon) {
+						                    var hotelId = heartIcon.dataset.hotelNo;
+						                    console.log("호텔 ID:", hotelId); 
+						                    if (wishList.includes(hotelId)) {
+						                        // 해당 호텔이 위시리스트에 있는 경우 하트 버튼을 활성화
+						                        heartIcon.classList.add("active");
+						                        // 체크박스를 체크해야 할 경우
+						                        heartIcon.querySelector('.checkbox').checked = true;
+						                       		
+						                        // 하트 아이콘의 색상 변경
+						                       var heartSvg = heartIcon.querySelector('#heart-svg');
+						                        heartSvg.querySelector('#heart').setAttribute('fill', '#E2264D');
+						                    }
+						                });
+						            },
+						            error: function(xhr, status, error) {
+						                console.error("Error fetching wishlist:", error);
+						            }
+						        });
+						    <% } %> // ajax 끝
 
 						    var heartIcons = document.querySelectorAll('.heartbox');
 
 						    heartIcons.forEach(function(heartIcon) {
 						        heartIcon.addEventListener('click', function(event) {
 						            // 로그인 여부 확인
-						            var isLoggedIn = <%= (loginCustomer != null) %>; // 서버에서 넘어온 로그인 여부를 사용
-
-						            if (!isLoggedIn) {
-						                // 로그인되지 않은 경우 로그인 화면으로 이동
+						          var isLoggedIn = <%= (loginCustomer != null) %>;
+						          
+						            if (isLoggedIn) {
+						            	 // 로그인된 경우, 위시리스트에 추가하는 Ajax 요청 등의 작업 수행
+						                // ...
+						                       var userNo = <%= loginCustomer.getUserNo() %>; // 로그인된 사용자의 번호 가져오기
+						                       console.log(userNo);
+						                       
+						                       var hotelId = heartIcon.dataset.hotelNo;
+						                       console.log(hotelId);
+						                       addToWishlist(userNo, hotelId);
+						                       
+						                function addToWishlist(userNo, hotelId) {
+													    // 위시리스트 목록을 받아오는 Ajax 요청
+													    $.ajax({
+													        url: "<%= request.getContextPath() %>/searchwishList.res",
+													        type: "GET",
+													        data: { userNo: userNo, hotelId: hotelId },
+													        dataType: "json",
+													        success: function(wishlist) {
+													            // 받아온 위시리스트 목록에서 해당 호텔이 있는지 확인
+													            var isHotelInWishlist = wishlist.includes(hotelId);
+													
+													            if (isHotelInWishlist) {
+													                // 이미 위시리스트에 있는 경우 알림을 표시하거나 다른 처리를 수행할 수 있습니다.
+													                alert("이미 위시리스트에 있는 호텔입니다.");
+													            } else {
+													                // 위시리스트에 추가하는 Ajax 요청
+													                $.ajax({
+													                    url: "<%= request.getContextPath() %>/wishlist.res",
+													                    type: "POST",
+													                    data: { userNo: userNo, hotelId: hotelId },
+													                    dataType: "json",
+													                    success: function(response) {
+													                        // 추가된 경우에 대한 처리를 수행합니다.
+													                        alert("위시리스트에 호텔이 추가되었습니다.");
+													                    },
+													                    error: function(xhr, status, error) {
+													                        console.error("Error adding hotel to wishlist:", error);
+													                    }
+													                });
+													            }
+													        },
+													        error: function(xhr, status, error) {
+													            console.error("Error fetching wishlist:", error);
+													        }
+													    });
+											} //function끝
+	
+						            	
+						            	
+						            	
+						            } else {
+						            	 // 로그인되지 않은 경우 로그인 화면으로 이동
 						                var confirmed = confirm("로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?");
 						                if (confirmed) {
 						                    window.location.href = '<%= contextPath %>/loginMain.co'; // 로그인 페이지 URL로 변경
 						                }
-						            } else {
-						                // 로그인된 경우, 위시리스트에 추가하는 Ajax 요청 등의 작업 수행
-						                // ...
-						                $('.wishlist-form').submit(function(e) {
-						                    e.preventDefault(); // 기본 폼 제출 동작 방지
-
-						                    // 폼 데이터를 직렬화합니다.
-						                    var formData = $(this).serialize();
-
-						                    $.ajax({
-						                        url: "<%= request.getContextPath() %>/searchwishList.res",
-						                        type: "GET",
-						                        data: { userNo: <%= loginCustomer.getUserNo() %> }, // 사용자 번호를 전달합니다.
-						                        dataType: "json",
-						                        success: function(wishList) {
-						                            console.log(wishList);
-						                                    console.log(formData.wishHotelNo);
-						                            var isAlreadyInWishlist = false;
-						                            for (var i = 0; i < wishList.length; i++) {
-						                                if (wishList[i].wishHotelNo === formData.wishHotelNo) {
-						                                    isAlreadyInWishlist = true;
-						                                    break;
-						                                }
-						                            }
-						                            if (isAlreadyInWishlist) {
-						                                // 위시리스트에 이미 있는 호텔이므로 추가를 건너뜁니다.
-						                                console.log("This hotel is already in your wishlist.");
-						                            } else {
-						                                // 위시리스트에 없는 호텔이므로 폼을 서버로 제출합니다.
-						                                $('.wishlist-form').submit();
-						                            }
-						                        },
-						                        error: function(xhr, status, error) {
-						                            console.error("Error fetching wishlist:", error);
-						                        }
-						                    });
-						                });
-
-						            }
+						                
+						            } //else끝
 						            event.stopPropagation();
+						          
+						            
 						        });
-						    });
-						});
+						    });// 하트아이콘 끝		    
+						    
+						    
+						    
+						    
+						    
+						}); // 총 ()
 						
 						
-				 			$(document).ready(function(){
-						        $('.heartbox').on('click', function(){
-						            // 체크박스의 체크 여부 확인
-						           var isChecked = $(this).find('.checkbox').is(':checked');
-						            if(isChecked) {
-						                // 선택된 경우 해당 div에 있는 폼을 제출
-						                var hotelNo = $(this).data('hotel-no');
-						                $(this).find('.wishlist-form').submit();
-						            }
-						        });
-						    });
-						</script>
+							
+							$(document).ready(function(){
+							    $('.heartbox').on('click', function(){
+							        // 체크박스의 체크 여부 확인
+							       var isChecked = $(this).find('.checkbox').is(':checked');
+							        if(isChecked) {
+							            // 선택된 경우 해당 div에 있는 폼을 제출
+							            var hotelNo = $(this).data('hotel-no');
+							            $(this).find('.wishlist-form').submit();
+							        }
+							    });
+							});
+							</script>
 					</div>
 				</div>
 			</div>
