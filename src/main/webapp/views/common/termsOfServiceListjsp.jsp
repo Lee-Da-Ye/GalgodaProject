@@ -33,9 +33,6 @@
                         <h4 class="sideMenubar_head">이용약관</h4>
                     </li>
                     <li>
-                        <a href="<%=contextPath %>/termsList.co" class="nav-link" >개인정보 처리방침</a>
-                    </li>
-                    <li>
                         <a href="<%=contextPath %>/termsList.co" class="nav-link" style="background-color: rgb(115, 90, 75); color: white;">이용약관</a>
                     </li>
                         

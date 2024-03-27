@@ -69,9 +69,6 @@
                         <h4 class="sideMenubar_head">이용약관</h4>
                     </li>
                     <li>
-                        <a href="<%=contextPath %>/termsList.co" class="nav-link" >개인정보 처리방침</a>
-                    </li>
-                    <li>
                         <a href="<%=contextPath %>/termsList.co" class="nav-link" style="background-color: rgb(115, 90, 75); color: white;">이용약관</a>
                     </li>
                         
@@ -107,7 +104,7 @@
 	                            <td colspan="2">
 		                            <!-- 기존의 첨부파일이 있었을 경우 -->
 	                                <%if(at!=null){ %>
-	                                <a download="<%=at.getFileName() %>" href="<%=contextPath + "/" + at.getFilePath() + at.getFileName()%>"><%=at.getFileName()%></a>
+	                                <a download="<%=at.getFileName() %>" href="<%=contextPath + "/" + at.getFilePath() + at.getFileName()%>"><%=at.getOriginName()%></a>
 	                                <input type="hidden" name="originFileNo" readonly value="<%=at.getFileNo()%>">
 	                                <%}else{%>
 	                                <input readonly type="text" class="formCustume" value="첨부파일이 없습니다." >
