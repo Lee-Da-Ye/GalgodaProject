@@ -86,7 +86,7 @@
             <div class="sideMenubar">
                 <ul class="nav flex-column">
                     <li >
-                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">메뉴명</h3>
+                        <h3 style="margin-left: 10px; margin-right: 30px; margin-top: 10px; border-bottom: 1px solid black;">호텔관리</h3>
                     </li>
                     
                     <li>
