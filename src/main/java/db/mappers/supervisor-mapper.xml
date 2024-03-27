@@ -574,7 +574,7 @@
 	<entry key="selectSearchUserCount2">
 		SELECT COUNT(*) COUNT
 		FROM TB_USER
-		WHERE T.STATUS = 'Y'
+		WHERE STATUS = 'Y'
         AND USER_ID LIKE '%' || ? || '%'
 		
 	</entry>
