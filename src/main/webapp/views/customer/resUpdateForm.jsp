@@ -126,55 +126,48 @@
 		         // 숙박 일수 계산
 		         var numberOfNights = getNumberOfNights(checkInDate, checkOutDate);
 		         
-		         // 선택된 룸 타입 가져오기
-		         var roomType = parseInt($('select[name="roomType"]').val());
+		         // 선택된 룸 번호, 호텔 번호 가져오기
+		         var roomNo = parseInt($('select[name="roomType"]').val());
+		         var hotelNo = document.getElementById("hotelNo").value;
+		         
 		        	 
 		         // 가격 계산 : (숙박일수 * 객실 가격 * 객실 수)
-		         var roomPrice = calculateRoomPrice(roomType);
-		         var roomCount = document.getElementById("resRoomCount").value;
 		         
-		         var totalPrice = numberOfNights * roomPrice * roomCount;
-		         
-		         // 결제금액 변경 시 변경금액 결제하기 버튼 활성화 하기
-		         // 이전 결제금액 가져오기
-		         var previousAmount = parseFloat($('input[name="resPay"]').attr('data-previous-amount'));
-		         
-		         // 화면에 결제금액 업데이트
-		         $('input[name="resPay"]').val(totalPrice);
-		         
-		         /*
-		         // 결제금액이 변경되었는지 확인하고 변경이 있을 경우 버튼을 활성화
-		         	if (previousAmount !== totalPrice) {
-		             $('#paymentButton').prop('disabled', false);
-		         } else {
-		             $('#paymentButton').prop('disabled', true);
-		         }
-		         */
-		         
-		         //변경된 결제금액을 데이터 속성에 업데이트
-		         $('input[name="resPay"]').attr('data-previous-amount', totalPrice);
-		   		
+		        calculateRoomPrice(roomNo, hotelNo, function(roomPrice) {
+		            var roomCount = document.getElementById("resRoomCount").value;
+		            var totalPrice = numberOfNights * roomPrice * roomCount;
+		            
+		            
+		            // 결제금액 업데이트
+		            $('input[name="resPay"]').val(totalPrice);
+		            
+		            // 변경된 결제금액을 데이터 속성에 업데이트
+		            $('input[name="resPay"]').attr('data-previous-amount', totalPrice);
+		        });
 		         
 	     	});
 		    
 		    // 객실 가격 계산 함수
-		    function calculateRoomPrice(roomType) {
-		        // 각각의 객실 타입에 따른 가격을 반환하는 로직 작성
-		        switch (roomType % 5) {
-		        	case 1: // 스탠다드 싱글
-		        		return 80000;
-		            case 2: // 스탠다드 더블
-		                return 100000; 
-		            case 3: // 슈페리어 킹
-		                return 120000; 
-		            case 4: // 디럭스 트윈
-		                return 150000; 
-		            case 0: // 스위트룸
-		                return 200000;
-		            default:
-		                return 0;
-		        }
-		    }
+		    function calculateRoomPrice(roomNo, hotelNo, callback) {
+			    
+			    // AJAX 요청 설정
+			    $.ajax({
+			        type: 'GET',
+			        url: '<%=request.getContextPath()%>/getRoomPrice.cu', // 룸 가격 계산해주는 서블릿 호출
+			        data: {
+			            hotelNo: hotelNo,
+			            roomNo: roomNo
+			        },
+			        success: function(response) {
+			        	var roomPrice = response.roomPrice;
+			            callback(roomPrice); // 콜백 함수 호출하여 객실 가격 전달
+			        },
+			        error: function(xhr, status, error) {
+			            console.error(xhr.responseText);
+			            callback(0); // 오류 발생 시 0을 반환
+			        }
+			    });
+			}
 		});
 
 		
@@ -294,7 +287,8 @@
                     </div>
     
                     <form id="updateForm" action="<%=contextPath%>/resUpdate.cu" method="get">
-                    	<input type="hidden" name="resNo" value="<%=selectedReservation.getResNo()%>">				
+                    	<input type="hidden" name="resNo" value="<%=selectedReservation.getResNo()%>">
+                    	<input type="hidden" id="hotelNo" name="hotelNo" value="<%=selectedReservation.getHotelNo() %>">			
                         <div>
                             <table style="width: 80%; border-spacing: 10px; border-collapse: separate;">
                                 <tr>

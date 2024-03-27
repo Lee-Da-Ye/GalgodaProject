@@ -302,6 +302,14 @@
 				
 	</entry>
 	
+	<entry key="findRoomPrice">
+		SELECT
+				RO_PRICE
+		  FROM  TB_ROOM
+		 WHERE  HOTEL_NO = ?
+		   AND  RO_NO = ?
+	</entry>
+	
 	
 	
 </properties>

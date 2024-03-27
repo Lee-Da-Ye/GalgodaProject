@@ -230,5 +230,17 @@ public class CustomerService {
 		return result;
 }
 	
+	public int findRoomPrice(int hotelNo, int roomNo) {
+		Connection conn = getConnection();
+		int roomPrice = cDao.findRoomPrice(conn, hotelNo, roomNo);
+		if(roomPrice > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return roomPrice;
+	}
+	
 	
 }

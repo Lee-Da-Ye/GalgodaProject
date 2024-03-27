@@ -624,11 +624,32 @@ public CustomerReview selectRev(Connection conn, int revNo) {
 		return result;
 		
 	}
-/*
-	private int getRevNo() {
-		return 0;
-	}
 
-	*/
+	public int findRoomPrice(Connection conn, int hotelNo, int roomNo) {
+		
+		int roomPrice = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findRoomPrice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, hotelNo);
+			pstmt.setInt(2, roomNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				roomPrice = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return roomPrice;
+	}
 	
 }
