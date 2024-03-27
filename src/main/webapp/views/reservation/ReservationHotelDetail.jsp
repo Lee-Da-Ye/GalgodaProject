@@ -1,3 +1,4 @@
+<%@page import="com.galgoda.common.model.vo.Attachment"%>
 <%@page import="com.galgoda.customer.model.vo.Reservation"%>
 <%@page import="java.util.List"%>
 <%@page import="com.galgoda.hotel.model.vo.Room"%>
@@ -15,6 +16,8 @@
 	List<Tag> tag =(List<Tag>)request.getAttribute("tag");
 	List<Review> review = (List<Review>)request.getAttribute("review");
 	List<Room> rm = (List<Room>)request.getAttribute("room");
+	List<Attachment> at = (List<Attachment>)request.getAttribute("at");
+	List<Attachment> rat = (List<Attachment>)request.getAttribute("rat");
 	Reservation r = (Reservation)request.getAttribute("r");
 			
 
@@ -316,15 +319,13 @@ h2{
                 <div class="hotelDetailImg">
                 	<!-- 첨부파일 불러와서 호텔넘버 일치하는 것들 뿌리기 -->
                     <div class="hotelDetailImg1">
+                    <%if(at!=null){ %>
+                        <%for( Attachment a :at){ %>
                         <div class="detailImg" onclick="expandImg();">
-                        	<img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; margin-right: 10px;">
+                        	<img src="<%=contextPath %>/<%=a.getFilePath()%>" style="width: 140px; height: 100px; margin-right: 10px;">
                         </div>
-                        <div class="detailImg" onclick="expandImg();">
-                        	<img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; margin-right: 10px;">
-                        </div>
-                        <div class="detailImg" onclick="expandImg();">
-                        	<img src="../../resources/images/x-square.png" style="width: 140px; height: 100px; margin-right: 10px;">
-                        </div>                        
+                        <%} %>
+                    <%} %>
                     </div>
                     
                 </div>
@@ -469,17 +470,16 @@ h2{
                     	<div class="form-control" id="rdetail">
 	                        <form>
 	                            <div style="display:flex; margin: 15px 0px 0px 15px;">
-	                                <div>
-	                                	<img src="../../resources/images/x-square.png" style="width: 290px; height: 200px; padding-right: 10px;">
-	                                </div>
+	                                <%if(rat!=null){ %>
+		                                <%for(Attachment ra : rat){ %>
+			                                <%if(ra.getRefNo()==room.getRoomNo()){ %>
+			                                <div>
+			                                	<img src="<%=contextPath %>/<%=ra.getFilePath() %>" style="width: 290px; height: 200px; padding-right: 10px;">
+			                                </div>
+			                                <%} %>
+		                                <%} %>
+	                                <%} %>
 	                                
-	                                <div>
-	                                	<img src="../../resources/images/x-square.png" style="width: 290px; height: 200px; padding-right: 10px;">
-	                                </div>
-	                                
-	                                <div>
-	                                	<img src="../../resources/images/x-square.png" style="width: 290px; height: 200px; padding-right: 10px;">
-	                                </div>
 	                                
 	                            </div>
 	                            

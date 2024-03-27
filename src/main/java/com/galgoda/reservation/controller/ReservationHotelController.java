@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.customer.model.service.CustomerService;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
@@ -49,7 +50,10 @@ public class ReservationHotelController extends HttpServlet {
 		List<Room> rm = new HotelService().selectRoomList(h.getHotelName());
 		//리뷰정보 받아오기
 		List<Review> re = new ReservationService().selectReviewList(no);
-		
+		//첨부파일정보 받아오기
+		List<Attachment> at = new ReservationService().selectHotelFileList(no);
+		List<Attachment> rat = new ReservationService().selectRoomFileList(no,rm);
+ 		
 		String hotelName = request.getParameter("hotelName");
 		String[] hotelTags = request.getParameterValues("tagCheckbox");
 		String hotelTag = null;
@@ -73,13 +77,14 @@ public class ReservationHotelController extends HttpServlet {
 		r.setSearchType(searchType);
 		
 		
-		
+		System.out.println(at);
 		request.setAttribute("hotel", h);
 		request.setAttribute("tag", t);
 		request.setAttribute("room", rm);
 		request.setAttribute("review", re);
 		request.setAttribute("r", r);
-		
+		request.setAttribute("at", at);
+		request.setAttribute("rat", rat);
 		
 		request.getRequestDispatcher("/views/reservation/ReservationHotelDetail.jsp").forward(request, response);
 		

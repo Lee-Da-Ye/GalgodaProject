@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Room;
 
 public class ReservationDao {
 
@@ -390,6 +392,67 @@ public class ReservationDao {
 			close(pstmt);
 		}
 		
+		return list;
+	}
+	
+	public List<Attachment> selectRoomFileList(Connection conn, int no, List<Room> rm) {
+		List<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRoomFileList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(Room r : rm) {
+				pstmt.setInt(1, r.getRoomNo());
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					Attachment at = new Attachment();
+					at.setFileNo(rset.getInt("file_no"));
+					at.setFilePath(rset.getString("file_path"));
+					at.setFileName(rset.getString("file_name"));
+					at.setOriginName(rset.getString("file_origin_name"));
+					list.add(at);
+				}
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<Attachment> selectHotelFileList(Connection conn, int no) {
+		List<Attachment> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectHotelFileList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setFileNo(rset.getInt("file_no"));
+				at.setFilePath(rset.getString("file_path"));
+				at.setFileName(rset.getString("file_name"));
+				at.setOriginName(rset.getString("file_origin_name"));
+				list.add(at);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
 

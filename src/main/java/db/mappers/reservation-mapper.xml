@@ -166,10 +166,31 @@
 		</entry>
 		
 		
+		<entry key="selectRoomFileList">
+		SELECT  FILE_NO
+			  , FILE_PATH
+			  , FILE_NAME
+			  , FILE_ORIGIN_NAME
+		  FROM  TB_FILE
+		 WHERE  REF_NO = ?
+		   AND	REF_TYPE = 'R'
+		   AND  STATUS = 'Y'
 		
 		
+		</entry>
 		
 		
+		<entry key="selectHotelFileList">
+		SELECT  FILE_NO
+			  , FILE_PATH
+			  , FILE_NAME
+			  , FILE_ORIGIN_NAME
+		  FROM  TB_FILE
+		 WHERE  REF_NO = ?
+		   AND	REF_TYPE = 'H'
+		   AND  STATUS = 'Y'
+		
+		</entry>
 		
 		
 		

@@ -9,10 +9,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.galgoda.common.model.vo.Attachment;
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.customer.model.vo.Review;
 import com.galgoda.customer.model.vo.Wishlist;
 import com.galgoda.hotel.model.vo.Hotel;
+import com.galgoda.hotel.model.vo.Room;
 import com.galgoda.reservation.model.dao.ReservationDao;
 
 public class ReservationService {
@@ -118,49 +120,25 @@ public class ReservationService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public List<Wishlist> selectwishList(int userNo){
 		Connection conn = getConnection();
 		List<Wishlist> list = rDao.selectwishList(conn, userNo);
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Attachment> selectRoomFileList(int no, List<Room> rm) {
+		Connection conn = getConnection();
+		List<Attachment> list = rDao.selectRoomFileList(conn, no, rm);
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Attachment> selectHotelFileList(int no) {
+		Connection conn = getConnection();
+		List<Attachment> list = rDao.selectHotelFileList(conn, no);
 		close(conn);
 		
 		return list;
