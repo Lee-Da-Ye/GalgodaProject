@@ -322,7 +322,7 @@ h2{
                     <%if(at!=null){ %>
                         <%for( Attachment a :at){ %>
                         <div class="detailImg" onclick="expandImg();">
-                        	<img src="<%=contextPath %>/<%=a.getFilePath()%>" style="width: 140px; height: 100px; margin-right: 10px;">
+                        	<img src="<%=contextPath %>/<%=a.getFilePath()%>" style="width: 140px; height: 100px; margin-top:20px; margin-right: 10px;">
                         </div>
                         <%} %>
                     <%} %>

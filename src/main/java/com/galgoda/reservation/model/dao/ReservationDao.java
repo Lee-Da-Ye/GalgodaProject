@@ -412,6 +412,7 @@ public class ReservationDao {
 					at.setFilePath(rset.getString("file_path"));
 					at.setFileName(rset.getString("file_name"));
 					at.setOriginName(rset.getString("file_origin_name"));
+					at.setRefNo(rset.getInt("ref_no"));
 					list.add(at);
 				}
 				

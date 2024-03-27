@@ -77,7 +77,7 @@ public class ReservationHotelController extends HttpServlet {
 		r.setSearchType(searchType);
 		
 		
-		System.out.println(at);
+		System.out.println(rat);
 		request.setAttribute("hotel", h);
 		request.setAttribute("tag", t);
 		request.setAttribute("room", rm);
