@@ -38,6 +38,9 @@ public class HotelMyPageController extends HttpServlet {
 		// 로그인된 호텔 담당자의 userNo 가져오기
 	    int hotelNo = hoteluser.getMemNo();
 	    
+	    // 로그인된 호텔의 이름 가져오기
+	    String hotelName = hoteluser.getHotelName();
+	    
 	    int roomCount = new HotelService().countRoom(hotelNo);
 	    int resCount = new HotelService().countRes(hotelNo);
 	    int reviewCount = new HotelService().countReview(hotelNo);
@@ -61,6 +64,7 @@ public class HotelMyPageController extends HttpServlet {
 	    	request.setAttribute("reviewCount", 0);
 	    }
 	    
+	    request.setAttribute("hotelName", hotelName);
 		request.getRequestDispatcher("/views/hotel/hotelMyPage.jsp").forward(request, response);
 	}
 

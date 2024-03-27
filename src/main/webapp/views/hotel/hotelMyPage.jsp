@@ -4,6 +4,7 @@
 	int roomCount = (int)request.getAttribute("roomCount");
 	int resCount = (int)request.getAttribute("resCount");
 	int reviewCount = (int)request.getAttribute("reviewCount");
+	String hotelName = (String)request.getAttribute("hotelName");
 
 %>
 <!DOCTYPE html>
@@ -122,7 +123,7 @@
 
 
                 <div class="mypage_header">
-                    <h3>GALGODA제주님의 마이페이지</h3>
+                    <h3><%=hotelName %>님의 마이페이지</h3>
                     <div style="margin-top: 10px;border: 2px solid lightgray;"></div>
                     <h6 style="margin-top: 10px;">GALGODA에서 더 많은 고객들을 만나보세요!
                     </h6>

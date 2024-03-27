@@ -36,6 +36,8 @@ public class CustomerMyPageMainController extends HttpServlet {
 	    
 	    // 로그인된 사용자의 userNo 가져오기
 	    int userNo = loginCustomer.getUserNo();
+	    
+	    String userName = loginCustomer.getUserName();
 		
 	    int resCount = new CustomerService().countRes(userNo);
 	    int wishCount = new CustomerService().countWish(userNo);
@@ -59,6 +61,7 @@ public class CustomerMyPageMainController extends HttpServlet {
 	    	request.setAttribute("reviewCount", 0);
 	    }
 	    
+	    request.setAttribute("userName", userName);
 		
 		request.getRequestDispatcher("/views/customer/mypageMain.jsp").forward(request, response);
 	}

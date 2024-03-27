@@ -4,7 +4,7 @@
 	int resCount = (int)request.getAttribute("resCount");
 	int wishCount = (int)request.getAttribute("wishCount");
 	int reviewCount = (int)request.getAttribute("reviewCount");
-	
+	String userName = (String)request.getAttribute("userName");
 
 %>
 <!DOCTYPE html>
@@ -127,7 +127,7 @@
 
 
                 <div class="mypage_header">
-                    <h3>홍길동님의 마이페이지</h3>
+                    <h3><%=userName %>님의 마이페이지</h3>
                     <div style="margin-top: 10px;border: 2px solid lightgray;"></div>
                     <h6 style="margin-top: 10px;">Galgoda에서 여행을 시작해보세요!</h6>
                 </div>
