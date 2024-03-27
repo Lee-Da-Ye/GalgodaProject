@@ -209,7 +209,26 @@ public class CustomerService {
 		
 		return updateList;
 	}
-	//------------------------------------	
+	
+	public CustomerReview selectRev(int revNo) {
+		Connection conn = getConnection();
+		CustomerReview r = cDao.selectRev(conn, revNo);
+		close(conn);
+		
+		return r;
+	}
+	
+	public int updateReview(CustomerReview r) {
+		Connection conn = getConnection();
+		int result = cDao.updateReview(conn,r);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+}
 	
 	
 }

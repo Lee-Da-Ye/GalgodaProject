@@ -264,17 +264,28 @@
 				FROM TB_REVIEW
 		WHERE REV_NO = ?
 	</entry>
-<!-- ddddddddddddddddddddddddddddddddddddd -->	
+
 	<entry key="selectRev">
 		SELECT
 			    REV_NO
-			  , REV_TITLE
-			  , REV_CONTENT
+		      , TB_REVIEW.RES_NO
+		      , TB_REVIEW.HOTEL_NO
+		      , REV_TITLE
+		      , REV_CONTENT
+		      , REV_RATING
+		      , DATE_IN
+		      , DATE_OUT
+		      , RES_PEOPLE
+		      , IMG_PATH
+		      , HOTEL_NAME
 		   FROM TB_REVIEW
-		  WHERE RES_NO = ?
-		  	AND STATUS = 'Y'
+		   JOIN TB_HOTEL ON TB_HOTEL.HOTEL_NO = TB_REVIEW.HOTEL_NO
+		  LEFT JOIN TB_RES_INFO ON TB_RES_INFO.RES_NO = TB_REVIEW.RES_NO
+		  WHERE REV_NO = ?
+		  	AND TB_REVIEW.STATUS = 'Y'
 			  
 				
+		
 	</entry>
 	
 	<entry key="updateReview">
@@ -282,6 +293,7 @@
 			    TB_REVIEW
 			SET REV_TITLE = ?
 			  , REV_CONTENT = ?
+			  , REV_RATING = ?
 		  WHERE REV_NO = ?	  
 				
 	</entry>

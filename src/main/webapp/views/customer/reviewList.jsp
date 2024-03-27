@@ -5,7 +5,6 @@
 
 <%
 	List<CustomerReview> list = (List<CustomerReview>)request.getAttribute("list");
-	//List<Review1> rev_title = (List<Review1>)request.getAttribute("list");
 %><!-- getAttribute로 뽑으면 object 타입이라 강제로 다운캐스팅 -->
 <!DOCTYPE html>
 <html>
@@ -131,6 +130,11 @@
 	                                    <br>
 	                                    <h6><%= r.getDate_in() %> - <%= r.getDate_out() %></h6>
 	                                    <h6>총 <%= r.getRes_people() %>명</h6>
+	                                    <input type="hidden" name="revRating" value="<%= r.getRevRating() %>">
+	                                    <script>
+	                                    console.log(<%= r.getRevRating() %>);
+	                                    </script>
+	                                   
 	                                     
 	                                </div>
 	                            </div>
@@ -141,22 +145,22 @@
 	                        <% if(r.getRevTitle() == null){ %>
 	                        <div class="rev_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px;">
 	                            <a href="<%= contextPath %>/enrollForm.cu?resNo=<%= r.getResNo() %>&hotelNo=<%= r.getHotelNo() %>&res_people=<%= r.getRes_people() %>&revNo=<%= r.getRevNo() %>" class="btn rev_button">리뷰 등록</a>
-	                        	<input type="hidden" name="res_people" value="<%= r.getRes_people() %>">
+	                        	
 	                        </div>
 	                        <% }else{ %>
+	                        <input type="hidden" name="revContent" value="<%= r.getRevContent() %>">
 	                        <div class="rev_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px;">
-	                            <button href="" class="btn rev_button" style="margin-bottom: 10px;" onclick="updateForm(<%= r.getRevNo() %>);">리뷰 수정</button>
+	                            <a href="<%=contextPath%>/reviewUpdateForm.cu?no=<%= r.getRevNo() %>&revTitle=<%= r.getRevTitle() %>&revContent=<%= r.getRevContent() %>&resNo=<%= r.getResNo() %>&hotelNo=<%= r.getHotelNo() %>&date_in=<%= r.getDate_in() %>&date_out=<%= r.getDate_out() %>&res_people=<%= r.getRes_people() %>&revRating=<%= r.getRevRating() %>" class="btn rev_button" style="margin-bottom: 10px;">리뷰 수정</a>
+	                        	
 	                            <a href="<%= contextPath %>/deleteReview.cu?revNo=<%= r.getRevNo() %>" class="btn rev_button" style="margin-bottom: 10px;" onclick="return confirm('정말로 삭제하시겠습니까?');">리뷰 삭제</a>
 	                        </div>
-	                        <input type="hidden" name="revNo" value="<%= r.getRevNo() %>">
-	                        
+	           
+                        	
 	                        
 	                        <% } %>
 	                        <!-- -------------------------------------------- -->
 	                        <script>
-	                        	function updateForm(revNo){
-	                        		location.href="<%=contextPath%>/reviewUpdateForm.cu?no=<%= r.getRevNo() %>";
-	                        	}
+	                        	
 	                        	
 	                        	$(document).ready(function(){
 	                        		  // 작성 구분을 클릭했을 때 

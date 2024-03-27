@@ -1,23 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="com.galgoda.customer.model.vo.Reservation" %>
+<%@ page import="com.galgoda.customer.model.vo.CustomerReview" %>
 <%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
 <%@ page import="com.galgoda.common.model.vo.*" %>
     
  <%
- 	Reservation r = (Reservation)request.getAttribute("r");
-	int hotelNo = (int)request.getAttribute("hotelNo");
-	int resNo = (int)request.getAttribute("resNo");
-	String date_in = (String)request.getAttribute("date_in");
-	String date_out = (String)request.getAttribute("date_out");
-	int res_people = (int)request.getAttribute("res_people");
-	int revNo = (int)request.getAttribute("revNo");
+ CustomerReview r = (CustomerReview)request.getAttribute("r");
+//	int hotelNo = (int)request.getAttribute("hotelNo");
+//	int resNo = (int)request.getAttribute("resNo");
+//	String date_in = (String)request.getAttribute("date_in");
+//	String date_out = (String)request.getAttribute("date_out");
+//	int res_people = (int)request.getAttribute("res_people");
+//	int revNo = (int)request.getAttribute("revNo");
+//	int revRating = (int)request.getAttribute("revRating");
 %>
+ 
+ 
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="UTF-8">
+< <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- 부트스트랩 기능을 위한 CDN 방식 연결 -->
@@ -30,8 +33,35 @@
     <!-- 평점 관련 스타일 적용-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-<style>
-/*왼쪽 메뉴바 */
+ <style>
+        .wrap, .wrap * {box-sizing: border-box;}
+        
+        .wrap{
+            margin:auto;
+            width:100%;
+            max-width:1300px; 
+            display:flex;
+            flex-direction:column; 
+        }
+
+        .header{height:200px;}
+        .main_content{
+            min-height:600px;
+            display: flex;        
+        }
+
+        
+        .center{display:flex; justify-content: center; align-items: center;}
+
+        
+        .center_nav{ flex-grow: 1;}
+        .right_nav{
+            display: flex; 
+            align-items: center;
+        }
+        
+        
+        /*왼쪽 메뉴바 */
         .sideMenubar{
             width: 300px;
             background-color: rgb(235, 231, 227);
@@ -79,28 +109,21 @@
         .checked {
             color: orange;
             }
-
+    
         /* 클릭한 메뉴 색상 변경 */
         .review_btn{
             background-color: rgb(99, 76, 70);
             color: white;
         }
-        /* 리뷰 등록/수정/삭제 버튼 스타일 */
-        .rev_button{
-			background-color: #ebe7e3 !important;
-			border: none;
-			color: black;
-			padding: 10px 20px;
-			border-radius: 5px;
-			}	
     
+    #revContent{
+    height : 300px;
+    }
         
-</style> 
-<!-- 평점 관련 스타일 적용-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </style>
 </head>
 <body>
-<div class="wrap">
+	<div class="wrap">
         <%@ include file="/views/common/header.jsp" %>
 
 
@@ -136,41 +159,40 @@
                 <div class="review_page">
             
                     <div class="rev_header">
-                        <h2>리뷰 등록</h2>
+                        <h2>리뷰 수정</h2>
                         <div style="border: 2px solid lightgray; min-width: 800px;"></div>
                     </div>
                     
                     <br>
+                    
 					
                     <div class="rev_content1" style="width: 80%;">
                         <div>
                             <h5><%= r.getHotelName() %></h5>
                             <div class="res_content1_box" style="border: 1px solid lightgray; width: 100%; height: 150px; display: flex;">
-                                <div><img src="<%= request.getContextPath()%>/<%=r.getImgPath() %>" style="width: 150px; height: 150px; padding:10px"></div>
+                                <div><img src="<%= request.getContextPath()%>/<%=r.getImg_path()%>" style="width: 150px; height: 150px; padding:10px"></div>
                                 <div>
                                     <br>
-                                    <h6><%= r.getDateIn() %> - <%= r.getDateOut() %></h6>
-	                                <h6>총 <%= r.getResPeople()  %>명</h6>
+                                    <h6><%= r.getDate_in() %> - <%= r.getDate_out() %></h6>
+	                                <h6>총 <%= r.getRes_people()  %>명</h6>
                                 </div>
-                     </div>
-                     
-                        
-
+                        </div>
+					
                         <br>
                         
-                        <form action="<%= contextPath %>/insert.cu" method="post">
-                        	<input type="hidden" name="hotelNo" value="<%=hotelNo %>">
-                        	<input type="hidden" name="res_people" value="<%=res_people %>">      
-                        	<input type="hidden" name="date_in" value="<%= date_in %>"> 
-                        	<input type="hidden" name="date_out" value="<%= date_out %>"> 
+                        <form action="<%= contextPath %>/reviewUpdate.cu" method="post">
+                        <input type="hidden" name="hotelNo" value="<%=r.getHotelNo() %>">
+                        	<input type="hidden" name="res_people" value="<%=r.getRes_people() %>">      
+                        	<input type="hidden" name="date_in" value="<%= r.getDate_in() %>"> 
+                        	<input type="hidden" name="date_out" value="<%= r.getDate_out() %>"> 
                         	<input type="hidden" name="revRating" value="" id="rating">
-                        	<input type="hidden" name="revNo" value="<%= revNo %>">
-                        	<input type="hidden" name="resNo" value="<%= resNo %>">
+                        	<input type="hidden" name="revNo" value="<%= r.getRevNo() %>">
+                        	<input type="hidden" name="resNo" value="<%= r.getResNo() %>">
                         	
                             <table>
                                 <tr>
                                     <th>평점</th>
-                                    <td class="form-control" required name="revRating">
+                                    <td class="form-control" required >
                                         <span class="fa fa-star stars" id="star1" onclick="add(this,1)"></span>
                                         <span class="fa fa-star stars" id="star2" onclick="add(this,2)"></span>
                                         <span class="fa fa-star stars" id="star3" onclick="add(this,3)"></span>
@@ -178,6 +200,11 @@
                                         <span class="fa fa-star stars" id="star5" onclick="add(this,5)"></span>
                         
                                         <script>
+                                        
+                                        	$(function(){
+                                        		$("#star<%= r.getRevRating() %>").click();
+                                        	})
+                                        
                                         function add(ths,sno){
                                             for (var i=1;i<=5;i++){
                                                 var cur=document.getElementById("star"+i)
@@ -199,25 +226,28 @@
                                 </tr>
                                 <tr>
                                     <th>제목</th>
-                                    <td><input type="text" class="form-control" required name="revTitle"></td>
+                                    <td><input type="text" class="form-control" required name="revTitle" value="<%= r.getRevTitle() %>"></td>
                                 </tr>
                                 <tr>
                                     <th>내용</th>
-                                    <td><textarea cols="30" rows="10" class="form-control" style="resize: none;" required name="revContent"></textarea></td>
+                                    <td><textarea cols="30" rows="10" class="form-control" style="resize: none;" required name="revContent"><%= r.getRevContent() %></textarea></td>
+                                    
                                 </tr>
                                 <tr>
                                     <th>사진</th>
                                     
                             	<td>
+                                <!-- 기존에 첨부파일이 있었을 경우 보여지는 기존첨부파일명 -->
                                 
                                 <!-- 새로운 첨부파일 업로드 가능하기 때문에 그 때의 input type=file -->
                                 <input type="file" class="form-control-file" name="upfile">
-                            	</td>
-                                    
+                            </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" align="right">
-                                        <button type="submit" class="btn" style="background-color: rgb(99,76,70); color: white; border: none;">리뷰 등록</button>
+                                        
+                                        <button type="submit" class="btn" style="background-color: rgb(99,76,70); color: white; border: none;">리뷰 수정</button>
+                                        
                                     </td>
                                 </tr>
                             </table>

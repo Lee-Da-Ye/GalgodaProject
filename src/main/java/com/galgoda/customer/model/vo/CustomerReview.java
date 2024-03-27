@@ -235,7 +235,7 @@ public class CustomerReview {
 
 	@Override
 	public String toString() {
-		return "Review1 [revNo=" + revNo + ", resNo=" + resNo + ", hotelNo=" + hotelNo + ", userNo=" + userNo
+		return "CustomerReview [revNo=" + revNo + ", resNo=" + resNo + ", hotelNo=" + hotelNo + ", userNo=" + userNo
 				+ ", revTitle=" + revTitle + ", revContent=" + revContent + ", revRating=" + revRating + ", registDate="
 				+ registDate + ", modifyDate=" + modifyDate + ", fileNo=" + fileNo + ", date_in=" + date_in
 				+ ", date_out=" + date_out + ", res_people=" + res_people + ", img_path=" + img_path + ", userName="
@@ -292,6 +292,24 @@ public class CustomerReview {
 		this.revTitle = revTitle;
 		this.revContent = revContent;
 	}
+
+
+	public CustomerReview(int revNo, int resNo, int hotelNo, String revTitle, String revContent, int revRating, String date_in,
+			String date_out, int res_people, String img_path, String hotelName) {
+		super();
+		this.revNo = revNo;
+		this.resNo = resNo;
+		this.hotelNo = hotelNo;
+		this.revTitle = revTitle;
+		this.revContent = revContent;
+		this.revRating = revRating;
+		this.date_in = date_in;
+		this.date_out = date_out;
+		this.res_people = res_people;
+		this.img_path = img_path;
+		this.hotelName = hotelName;
+	}
+
 
 	
 

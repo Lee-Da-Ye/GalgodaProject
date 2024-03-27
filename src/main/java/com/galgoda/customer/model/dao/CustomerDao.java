@@ -474,7 +474,7 @@ public class CustomerDao {
 	
 	
 	public List<CustomerReview> selectReviewList(Connection conn, int userNo) {
-		//select문 => Resultset (여러행) => ArrayList<Review1>
+		
 		List<CustomerReview> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -555,9 +555,76 @@ public class CustomerDao {
 		}
 		return result;
 	}
-// ---------------------------------	
 	
 	
+
+public CustomerReview selectRev(Connection conn, int revNo) {
+		CustomerReview r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectRev");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new CustomerReview(rset.getInt("rev_no")
+							  , rset.getInt("res_no") 
+							  , rset.getInt("hotel_no") 
+							  , rset.getString("rev_title") 
+							  , rset.getString("rev_content") 
+							  , rset.getInt("rev_rating") 
+							  , rset.getString("date_in") 
+							  , rset.getString("date_out") 
+							  , rset.getInt("res_people")
+							  , rset.getString("img_path")
+							  , rset.getString("hotel_name"));
+				
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return r;
+	}
 	
+	
+	public int updateReview(Connection conn, CustomerReview r) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReview");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, r.getRevTitle());
+			pstmt.setString(2, r.getRevContent());
+			pstmt.setInt(3, r.getRevRating());
+			pstmt.setInt(4, r.getRevNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+/*
+	private int getRevNo() {
+		return 0;
+	}
+
+	*/
 	
 }
