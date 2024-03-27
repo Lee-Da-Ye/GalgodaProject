@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.Options;
+
 import com.galgoda.customer.model.vo.Reservation;
 import com.galgoda.member.model.vo.Customer;
 import com.galgoda.reservation.model.service.ReservationService;
@@ -53,9 +55,16 @@ public class ReservationConfirmController extends HttpServlet {
 		String resPhone = request.getParameter("phone");
 		
 		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
-		
+				
 		String[] options = request.getParameterValues("option");
-		String optionsString = String.join(", ", options);
+		String optionsString = "";
+		
+		if(options != null) {
+			optionsString = String.join(", ", options);
+		} else {
+			optionsString = "";
+		}
+		
 		
 		Reservation newRes = new Reservation();
 		newRes.setHotelNo(hotelNo);

@@ -323,50 +323,6 @@ public class ReservationDao {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public List<Wishlist> selectwishList(Connection conn, int userNo){
 		List<Wishlist> list= new ArrayList<>();
 		PreparedStatement pstmt = null;
