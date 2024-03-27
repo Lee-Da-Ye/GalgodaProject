@@ -43,6 +43,7 @@ public class ReservationLoginController extends HttpServlet {
 		String checkOutDate = request.getParameter("checkOutDate");
 		int roomCount = Integer.parseInt(request.getParameter("roomCount"));
 		int peopleCount = Integer.parseInt(request.getParameter("peopleCount"));
+		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
 		
 		String userType = request.getParameter("userType");
 		String userId = request.getParameter("userId");
@@ -60,11 +61,12 @@ public class ReservationLoginController extends HttpServlet {
 	        	HttpSession session = request.getSession();
                 session.setAttribute("loginCustomer", customer);
                 
-                response.sendRedirect(request.getContextPath() 
-                		+ "/resDetail.res?searchType=hotelName" + "&hotelName=" + hotelName 
-                		+ "&checkInDate=" + checkInDate + "&checkOutDate=" + checkOutDate 
-                		+ "&peopleCount=" + peopleCount + "&roomCount=" + roomCount
-                		+ "&selectHotelNo=" + hotelNo);
+                String hotelNameEncoded = java.net.URLEncoder.encode(hotelName, "UTF-8");
+                response.sendRedirect(request.getContextPath()
+                    + "/resDetail.res?searchType=hotelName&hotelName=" + hotelNameEncoded
+                    + "&checkInDate=" + checkInDate + "&checkOutDate=" + checkOutDate 
+                    + "&peopleCount=" + peopleCount + "&roomCount=" + roomCount
+                    + "&selectHotelNo=" + hotelNo);
 	        	
 	        	
 	        } else {
@@ -72,7 +74,12 @@ public class ReservationLoginController extends HttpServlet {
 	            // 로그인 실패 메시지 처리 등
 	        	HttpSession session = request.getSession();
 	            session.setAttribute("alertMsg", "고객 로그인에 실패했습니다.");
-	            response.sendRedirect(request.getContextPath() + "/views/reservation/ReservationLoginMain.jsp");
+	            
+	            String hotelNameEncoded = java.net.URLEncoder.encode(hotelName, "UTF-8");
+	            response.sendRedirect(request.getContextPath()
+	            		+ "/loginMain.res?hotelNo=" + hotelNo + "&hotelName=" + hotelNameEncoded + "&roomNo=" + roomNo 
+       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate
+       					+ "&roomCount=" + roomCount + "&peopleCount=" + peopleCount);
 	        }
         } 
 	}
