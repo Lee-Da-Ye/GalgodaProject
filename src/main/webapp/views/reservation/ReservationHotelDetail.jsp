@@ -238,6 +238,10 @@ h2{
     margin-top: 5px;
 
 }
+#checkedStar {
+	color: orange;
+}
+
 </style>
 </head>
 <body>
@@ -546,11 +550,14 @@ h2{
 	                        <div class="rev">
 	                            
 	                            <p>
-	                                <span class="fa fa-star stars" id="star1"></span>
-	                                <span class="fa fa-star stars" id="star2"></span>
-	                                <span class="fa fa-star stars" id="star3"></span>
-	                                <span class="fa fa-star stars" id="star4"></span>
-	                                <span class="fa fa-star stars" id="star5"></span>
+	                                <%for(int i=1; i<=5; i++){ %>
+	                                	<%if(i<=re.getRevRating()){ %>
+	                                		<span class="fa fa-star stars" id="checkedStar"></span>
+	                                	<%}else{ %>
+	                                		<span class="fa fa-star stars"></span>
+	                                	<%} %>
+	                                <%} %>
+	                                
 	                            </p>
 	                            
 	                            <div><b><%=re.getUserId() %></b></div>
