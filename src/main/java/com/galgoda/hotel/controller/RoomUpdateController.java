@@ -60,8 +60,10 @@ public class RoomUpdateController extends HttpServlet {
 			if(roomOptions != null) {
 				roomOption = String.join(", ", roomOptions);
 			}
-			
-			String roomImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("roomImgPath");
+			String roomImgPath = null;
+			if(multiRequest.getOriginalFileName("roomImgPath") != null) {
+				roomImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("roomImgPath");
+			}
 		
 		
 			Room r = new Room();
@@ -73,7 +75,9 @@ public class RoomUpdateController extends HttpServlet {
 			r.setRoPrice(roPrice);
 			r.setRoCount(roCount);
 			r.setOpNo(roomOption);
-			r.setImgPath(roomImgPath);
+			if(roomImgPath != null) {
+				r.setImgPath(roomImgPath);
+			}
 			
 			
 			List<Attachment> list = new ArrayList<>();

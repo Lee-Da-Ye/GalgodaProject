@@ -533,6 +533,18 @@
 			 WHERE RO_NO = ?
 		</entry>
 		
+		<entry key="updateRoomNoFile">
+			UPDATE TB_ROOM
+			   SET RO_NAME = ?
+			     , RO_SIZE = ?
+			     , RO_PEOPLE = ?
+			     , RO_BATHROOM = ?
+			     , RO_PRICE = ?
+			     , RO_COUNT = ?
+			     , OP_NO = ?
+			 WHERE RO_NO = ?
+		</entry>
+		
 		<entry key="updateRoAttachment">
 			INSERT
 		      INTO TB_FILE VALUES

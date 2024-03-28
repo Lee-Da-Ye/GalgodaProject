@@ -1009,7 +1009,12 @@ public class HotelDao {
 	public int updateRoom(Connection conn, Room r) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateRoom");
+		String sql = "";
+		if(r.getImgPath() != null) {
+			sql = prop.getProperty("updateRoom");
+		}else {
+			sql = prop.getProperty("updateRoomNoFile");
+		}
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, r.getRoomName());
@@ -1019,8 +1024,12 @@ public class HotelDao {
 			pstmt.setInt(5, r.getRoPrice());
 			pstmt.setInt(6, r.getRoCount());
 			pstmt.setString(7, r.getOpNo());
-			pstmt.setString(8, r.getImgPath());
-			pstmt.setInt(9, r.getRoomNo());
+			if(r.getImgPath() != null) {
+				pstmt.setString(8, r.getImgPath());
+				pstmt.setInt(9, r.getRoomNo());
+			}else {
+				pstmt.setInt(8, r.getRoomNo());
+			}
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
