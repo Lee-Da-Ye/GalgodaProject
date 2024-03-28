@@ -87,7 +87,7 @@
                 <h2 class="contentName">추가옵션 관리</h2>
                 <div style="margin-top: 10px; margin-bottom: 40px; border: 2px solid lightgray;"></div>
                 <div align="center">
-                    <h4 style="display: inline;"><span class="badge badge-secondary" style="background-color: rgb(235, 231, 227); color: rgb(115, 90, 85);">등록된태그</span></h4>
+                    <h4 style="display: inline;"><span class="badge badge-secondary" style="background-color: rgb(235, 231, 227); color: rgb(115, 90, 85);">등록된옵션</span></h4>
                     <div  class="addOpion_content formCustume">
                     	<%for(Option o : list){ %>
 	                        <label>
