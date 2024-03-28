@@ -117,7 +117,7 @@ table td{
 
                     <div class="right_nav">
                         
-                        <span id="boot-icon" class="bi bi-person-circle" style="font-size: 20px;"> GALGODA 제주</span>
+                        <span id="boot-icon" class="bi bi-person-circle" style="font-size: 20px;"> <%=mem.getHotelName() %></span>
                         
                     </div>
     
