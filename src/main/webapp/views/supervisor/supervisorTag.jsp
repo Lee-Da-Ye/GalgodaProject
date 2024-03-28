@@ -57,7 +57,11 @@
 	<div class="wrap">
         <%@ include file="/views/common/adminHeader.jsp" %>
 
-
+		<% if(loginAdmin==null){ %>
+		 	 <script>
+		        location.href = "<%=contextPath %>";
+		    </script>
+		<%} %>
         <section class="main_content">
             
             <div class="sideMenubar">

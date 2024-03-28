@@ -99,7 +99,11 @@ width: 600px;
 <body>
 	<div class="wrap">
         <%@ include file="/views/common/adminHeader.jsp" %>
-
+		<% if(loginAdmin==null){ %>
+		 	 <script>
+		        location.href = "<%=contextPath %>";
+		    </script>
+		<%} %>
 
         <section class="main_content">
             <div class="page_content"> 
@@ -151,7 +155,7 @@ width: 600px;
                         <div class="mypage_rectangle" onclick="LinkTo(this);">
                             <a href="<%=contextPath%>/userList.su?page=1" class="mypage_rec_menu">사용자 관리</a>
                         </div>
-                        <div class="mypage_rectangle">
+                        <div class="mypage_rectangle" onclick="LinkTo(this);">
                             <a href="<%= contextPath %>/list.no?page=1" class="mypage_rec_menu">고객센터 관리</a>
                         </div>
                         <div class="mypage_rectangle" onclick="LinkTo(this);">
