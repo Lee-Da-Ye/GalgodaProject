@@ -443,7 +443,8 @@ h2{
 	       		    var checkOutDate = formatDate("<%=r.getDateOut()%>");
 	       		    var roomCount = <%=r.getRoomCount()%>;
 	       		    var peopleCount = <%=r.getResPeople()%>;
-	
+	       		    var hotelName = '<%=r.getHotelName()%>';
+	       		 
 	       			if(loginCustomer){
 	       			location.href = "<%=contextPath%>/reservationDetail.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
 	       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate 
@@ -452,10 +453,11 @@ h2{
 	       			 	alert("로그인이 필요한 서비스입니다.");
 	       			 location.href = "<%=contextPath%>/loginMain.res?hotelNo=<%=hotel.getHotelNo()%>&roomNo=" + RoomNo 
 	       					+ "&checkIn=" + checkInDate + "&checkOut=" + checkOutDate
-	       					+ "&roomCount=" + roomCount + "&peopleCount=" + peopleCount;
+	       					+ "&roomCount=" + roomCount + "&peopleCount=" + peopleCount
+	       					+ "&hotelName=" + hotelName;
 	       			}
 	       		}
-	        	
+	       		
         	</script>
                 
                 

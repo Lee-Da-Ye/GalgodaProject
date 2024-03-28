@@ -485,9 +485,10 @@
 		
 		<entry key="countRoom">
 			SELECT
-			        COUNT(RO_COUNT)
+			        COUNT(RO_NO)
 			  FROM  TB_ROOM
 			 WHERE  HOTEL_NO = ?
+			   AND  STATUS = 'Y'
 		
 		</entry>
 		

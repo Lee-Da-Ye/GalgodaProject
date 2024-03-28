@@ -76,6 +76,7 @@ public class ReservationConfirmController extends HttpServlet {
 		newRes.setPayMethod(payMethod);
 		newRes.setPay(totalPrice);
 		newRes.setResPeople(resPeople);
+		newRes.setResRoomCount(roomCount);
 		newRes.setResName(resName);
 		newRes.setResEmail(resEmail);
 		newRes.setResPhone(resPhone);

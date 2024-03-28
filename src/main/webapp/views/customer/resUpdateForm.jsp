@@ -118,7 +118,7 @@
 		
 		// 예약인원, 룸 타입 선택에 따른 결제금액 업데이트
 	   	$(document).ready(function() {
-		   	 $('#checkInDate, #checkOutDate, #roomType').on('change', function() {
+		   	 $('#checkInDate, #checkOutDate, #roomType, #resRoomCount').on('change', function() {
 		         // 선택된 체크인 날짜와 체크아웃 날짜 가져오기
 		         var checkInDate = moment($('#checkInDate').val(), 'YYYY년 MM월 DD일');
 		         var checkOutDate = moment($('#checkOutDate').val(), 'YYYY년 MM월 DD일');
@@ -126,53 +126,48 @@
 		         // 숙박 일수 계산
 		         var numberOfNights = getNumberOfNights(checkInDate, checkOutDate);
 		         
-		         // 선택된 룸 타입 가져오기
-		         var roomType = parseInt($('select[name="roomType"]').val());
-		         console.log(roomType);
-		         // 가격 계산 : (숙박일수 * 객실 가격)
-		         var roomPrice = calculateRoomPrice(roomType);
-		         var totalPrice = numberOfNights * roomPrice;
+		         // 선택된 룸 번호, 호텔 번호 가져오기
+		         var roomNo = parseInt($('select[name="roomType"]').val());
+		         var hotelNo = document.getElementById("hotelNo").value;
 		         
-		         // 결제금액 변경 시 변경금액 결제하기 버튼 활성화 하기
-		         // 이전 결제금액 가져오기
-		         var previousAmount = parseFloat($('input[name="resPay"]').attr('data-previous-amount'));
+		        	 
+		         // 가격 계산 : (숙박일수 * 객실 가격 * 객실 수)
 		         
-		         // 화면에 결제금액 업데이트
-		         $('input[name="resPay"]').val(totalPrice);
-		         
-		         /*
-		         // 결제금액이 변경되었는지 확인하고 변경이 있을 경우 버튼을 활성화
-		         	if (previousAmount !== totalPrice) {
-		             $('#paymentButton').prop('disabled', false);
-		         } else {
-		             $('#paymentButton').prop('disabled', true);
-		         }
-		         */
-		         
-		         //변경된 결제금액을 데이터 속성에 업데이트
-		         $('input[name="resPay"]').attr('data-previous-amount', totalPrice);
-		   		
+		        calculateRoomPrice(roomNo, hotelNo, function(roomPrice) {
+		            var roomCount = document.getElementById("resRoomCount").value;
+		            var totalPrice = numberOfNights * roomPrice * roomCount;
+		            
+		            
+		            // 결제금액 업데이트
+		            $('input[name="resPay"]').val(totalPrice);
+		            
+		            // 변경된 결제금액을 데이터 속성에 업데이트
+		            $('input[name="resPay"]').attr('data-previous-amount', totalPrice);
+		        });
 		         
 	     	});
 		    
 		    // 객실 가격 계산 함수
-		    function calculateRoomPrice(roomType) {
-		        // 각각의 객실 타입에 따른 가격을 반환하는 로직 작성
-		        switch (roomType % 5) {
-		        	case 1: // 스탠다드 싱글
-		        		return 80000;
-		            case 2: // 스탠다드 더블
-		                return 100000; 
-		            case 3: // 슈페리어 킹
-		                return 120000; 
-		            case 4: // 디럭스 트윈
-		                return 150000; 
-		            case 0: // 스위트룸
-		                return 200000;
-		            default:
-		                return 0;
-		        }
-		    }
+		    function calculateRoomPrice(roomNo, hotelNo, callback) {
+			    
+			    // AJAX 요청 설정
+			    $.ajax({
+			        type: 'GET',
+			        url: '<%=request.getContextPath()%>/getRoomPrice.cu', // 룸 가격 계산해주는 서블릿 호출
+			        data: {
+			            hotelNo: hotelNo,
+			            roomNo: roomNo
+			        },
+			        success: function(response) {
+			        	var roomPrice = response.roomPrice;
+			            callback(roomPrice); // 콜백 함수 호출하여 객실 가격 전달
+			        },
+			        error: function(xhr, status, error) {
+			            console.error(xhr.responseText);
+			            callback(0); // 오류 발생 시 0을 반환
+			        }
+			    });
+			}
 		});
 
 		
@@ -214,7 +209,7 @@
 		    var reservationChanged = false;
 
 		    // 예약 정보 변경 시 변수를 true로 설정
-		    $('#checkInDate, #checkOutDate, #resPeople, #roomType, input[name="option"], #resName, #resPhone, #resEmail, #resPay, #resPayMethod').on('change', function() {
+		    $('#checkInDate, #checkOutDate, #resPeople, #resRoomCount, #roomType, input[name="option"], #resName, #resPhone, #resEmail, #resPay, #resPayMethod').on('change', function() {
 		        reservationChanged = true;
 		        activateReservationButton();
 		    });
@@ -292,7 +287,8 @@
                     </div>
     
                     <form id="updateForm" action="<%=contextPath%>/resUpdate.cu" method="get">
-                    	<input type="hidden" name="resNo" value="<%=selectedReservation.getResNo()%>">				
+                    	<input type="hidden" name="resNo" value="<%=selectedReservation.getResNo()%>">
+                    	<input type="hidden" id="hotelNo" name="hotelNo" value="<%=selectedReservation.getHotelNo() %>">			
                         <div>
                             <table style="width: 80%; border-spacing: 10px; border-collapse: separate;">
                                 <tr>
@@ -371,6 +367,19 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>객실 수</th>
+                                    <td colspan="3">
+                                        <select id="resRoomCount" name="resRoomCount" class="form-control">
+                                            <option value="1">1개</option>
+                                            <option value="2">2개</option>
+                                            <option value="3">3개</option>
+                                            <option value="4">4개</option>
+                                            <option value="5">5개</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                                
                                 
                                	<script>
 	                               	$(document).ready(function() {
@@ -385,6 +394,13 @@
 	
 	                               	    // 셀렉트 요소의 값을 선택된 예약 인원으로 설정
 	                               	    $('select[name="resPeople"]').val(selectedResPeople);
+	                               	    
+	                               	    // 현재 선택된 객실 수를 가져오는 서버 측 코드
+	                               	    let selectedRoomCount = '<%= selectedReservation.getResRoomCount()%>';
+	                               	    
+	                               	    // 셀렉트 요소의 값을 선택된 객실 수로 설정
+	                               	    $('select[name="resRoomCount"]').val(selectedRoomCount);
+	                               	    
 	                               	});
 
                                	</script>

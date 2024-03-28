@@ -102,15 +102,15 @@
                     </li>
            
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                        <a class="nav-link" style="color: black; " href="<%=contextPath %>/personalInfo.ho" >담당자 정보 수정</a>
                     </li>
                         
                     
                     <li>
                          <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
-                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
-                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="<%=contextPath%>/list.no?page=1">공지사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="<%=contextPath%>/list.inq?page=1">문의사항</a></div> </li>   
                 </ul>
             </div>
 
@@ -148,7 +148,7 @@
 	                            <table>
 	                            <tr>
 	                                <td id="td1"><button class="btn   " id="btnname" type="button" >객실크기</button></td>
-	                                <td id="td3"><input type="text" class="form-control " id="sminput"  name="roomSize" required value="<%= r.getRoomSize() %>"> m<sup>2</sup></td> 
+	                                <td id="td3"><input type="text" class="form-control " id="sminput"  name="roomSize" required value="<%= r.getRoomSize() %>"> </td> 
 	                            </tr>
 	                            <tr>
 	                                <td id="td1"><button class="btn  " id="btnname" type="button" >투숙인원</button></td>
@@ -201,7 +201,10 @@
 	                            </tr>
 	                            <tr>
 	                                <td id="td1"><button class="btn   " id="btnname" type="button" >대표사진</button></td>
-	                                <td id="td2"><input type="file" name="roomImgPath" class="form-control" ></td>
+                               		 <td id="td2">
+	                                	<input type="text" value="<%= r.getImgPath() %>" readonly class="form-control">
+                               			<input type="file" name="roomImgPath" class="form-control" >
+                               		 </td>
 	                            </tr>
 	                            <tr>
 	                                <td id="td4"><button class="btn   "  id="btnname"type="button" >사진추가</button></td>

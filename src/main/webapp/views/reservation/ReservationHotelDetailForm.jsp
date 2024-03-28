@@ -26,7 +26,6 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            margin-top : -100px;
         }
 		.mypage_header {
             margin: 0 auto;
@@ -37,9 +36,10 @@
         .rev_info{
             border: 1px solid lightgray;
             width : 55%;
-            height: 82%;
+            height: 90%;
             display: flex;
             flex-direction: column;
+            margin-top: -100px;
 
         }
         .rev_content{
@@ -203,7 +203,7 @@
 <body>
 	<div class="wrap">
 	
-        <%@ include file="/views/common/header.jsp" %>
+        <%@ include file="/views/common/header.jsp"%>
 
 
         <section class="main_content">
@@ -342,13 +342,34 @@
                         </div>
                         <br>
                         
-                        <button type="button" id="iamportPayment" class="btn form-control">결제하기</button>
+                        <button type="button" id="iamportPayment" class="btn form-control" disabled>결제하기</button>
                         <br>
                         <button type="button" id="confirm_res" class="btn form-control" disabled>최종 예약 완료하기</button>
                         <br><br><br><br><br><br><br><br><br><br><br>
                         
                         </form>
                         
+                        <script>
+                     	// 결제하기 버튼을 클릭 가능하게 만들기
+                        function enablePaymentButton() {
+                            var userName = document.getElementById("userName").value;
+                            var email = document.getElementById("email").value;
+                            var phone = document.getElementById("phone").value;
+
+                            // 이름, 이메일, 전화번호 모두 입력되었을 때 버튼 활성화
+                            if (userName !== "" && email !== "" && phone !== "") {
+                                document.getElementById("iamportPayment").disabled = false;
+                            } else {
+                                document.getElementById("iamportPayment").disabled = true;
+                            }
+                        }
+
+                        // 입력창 변경 시 결제하기 버튼 상태 업데이트
+                        document.getElementById("userName").addEventListener("input", enablePaymentButton);
+                        document.getElementById("email").addEventListener("input", enablePaymentButton);
+                        document.getElementById("phone").addEventListener("input", enablePaymentButton);
+                        
+                        </script>
                         
                        </div>
                        

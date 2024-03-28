@@ -15,6 +15,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+
+	//전화 번호 입력 시 자동 - 넣기
+	const addHyphen = (target) => {
+	target.value = target.value
+	  .replace(/[^0-9]/g, '')
+	  .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	}
+</script>
 <style type="text/css">
 
 		/* 메인컨텐츠  */
@@ -81,15 +90,15 @@
                     </li>
                      
                     <li>
-                        <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo3">담당자 정보 수정</a>
+                        <a class="nav-link" style="color: black;" href="<%= contextPath %>/personalInfo.ho" >담당자 정보 수정</a>
                     </li>
                         
                     
                     <li>
                          <a class="nav-link" style="color: black;" href="#" data-toggle="collapse" data-target="#demo4">고객센터</a>
                     </li>
-                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">공지사항</a></div> </li>   
-                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="">문의사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="<%= contextPath%>/list.no?page=1">공지사항</a></div> </li>   
+                    <li> <div id="demo4" class="collapse" style="margin-left: 30px;"><a href="<%= contextPath%>/list.inq?page=1">문의사항</a></div> </li>   
                 </ul>
             </div>
 
@@ -108,7 +117,7 @@
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
-                                <td id="td2"><input type="text" class="form-control" required name="hotelName"></td>
+                                <td id="td2"><input type="text" class="form-control" required name="hotelName" value="GALGODA"></td>
                             </tr>
                             </table>
                             <table>
@@ -121,15 +130,15 @@
                             <table>
                             <tr>
                                 <td id="td1"></td>
-                                <td id="td2"><input type="text" class="form-control" name="hotelDetailAdd" id="addr3"></td>
+                                <td id="td2"><input type="text" class="form-control" name="hotelDetailAdd" id="addr3" placeholder="상세주소"></td>
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >대표전화</button></td>
-                                <td id="td2"><input type="text" class="form-control" required name="hotelTel"></td>
+                                <td id="td2"><input type="text" oninput="addHyphen(this)" class="form-control" required name="hotelTel"></td>
                             </tr>
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button" >홈페이지</button></td>
-                                <td id="td2"><input type="url" class="form-control" name="hotelSite"></td>
+                                <td id="td2"><input type="text" class="form-control" name="hotelSite"></td>
                             </tr>
                         </table>
 

@@ -75,7 +75,7 @@ public class HotelUpdateController extends HttpServlet {
 			String[] hotelTags = multiRequest.getParameterValues("hotelTag"); 
 			String hotelTag = null;
 			if(hotelTags != null) {
-				hotelTag = String.join(",", hotelTags);
+				hotelTag = String.join(",", hotelTags) + ",";
 			}
 			
 			String hotelIntro = null;
@@ -90,7 +90,7 @@ public class HotelUpdateController extends HttpServlet {
 		
 			String hotelImgPath = null;
 			if(multiRequest.getOriginalFileName("hotelImgPath") != null) {
-				hotelImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("hotelImgPath");
+				hotelImgPath = "resources/images/" + multiRequest.getFilesystemName("hotelImgPath");
 			}
 		
 		
@@ -140,7 +140,7 @@ public class HotelUpdateController extends HttpServlet {
 			if(result > 0) {
 				// 성공 => 
 				request.getSession().setAttribute("alertMsg", "호텔이 수정되었습니다.");
-				response.sendRedirect(request.getContextPath() + "/hotelinsertForm.ho");
+				response.sendRedirect(request.getContextPath() + "/hotelupdateForm.ho");
 				
 				
 			}

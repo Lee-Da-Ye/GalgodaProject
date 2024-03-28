@@ -32,6 +32,7 @@
 					    h.STATUS = 'Y'
 					    AND h.HOTEL_NAME LIKE ?
 					    AND O.MIN_PRICE IS NOT NULL
+					    ORDER BY MIN_PRICE
 		
 		</entry>
 		
@@ -137,6 +138,7 @@
 		                   , PAY
 		                   , PAY_DATE
 		                   , RES_PEOPLE
+		                   , RES_ROOM_COUNT
 		                   , RES_NAME
 		                   , RES_PHONE
 		                   , RES_EMAIL
@@ -152,6 +154,7 @@
 		                   ,?
 		                   ,?
 		                   ,SYSDATE
+		                   ,?
 		                   ,?
 		                   ,?
 		                   ,?

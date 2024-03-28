@@ -163,6 +163,7 @@
 										<input type="hidden" name="roomCount" value="<%=loginRes.getRoomCount()%>">
 										<input type="hidden" name="peopleCount" value="<%=loginRes.getResPeople()%>">
 										<input type="hidden" name="previousPage" value="<%=previousPage %>">
+										<input type="hidden" name="roomNo" value="<%=loginRes.getRoNo() %>">
 										
 										
                                     </form>

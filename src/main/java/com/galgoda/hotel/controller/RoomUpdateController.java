@@ -61,7 +61,7 @@ public class RoomUpdateController extends HttpServlet {
 				roomOption = String.join(", ", roomOptions);
 			}
 			
-			String roomImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("roomImgPath");
+			String roomImgPath = "resources/images/" + multiRequest.getFilesystemName("roomImgPath");
 		
 		
 			Room r = new Room();

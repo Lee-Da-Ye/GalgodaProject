@@ -34,16 +34,20 @@ public class HotelUpdateFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if(request.getSession().getAttribute("loginHotel")!= null) {
 		int memNo = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getMemNo();
 		String htype = "H";
 		
 		Hotel h =  new HotelService().selectHotelForm(memNo);
-		List<Tag> list = new HotelService().hotelInsertForm();
 		List<Attachment> alist = new HotelService().selectFileList(h.getHotelNo(), htype);
-		
 		request.setAttribute("h", h);
-		request.setAttribute("list", list);
 		request.setAttribute("alist", alist);
+		}
+		
+		List<Tag> list = new HotelService().hotelInsertForm();
+		
+		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("/views/hotel/hotelUpdateForm.jsp").forward(request, response);
 		
