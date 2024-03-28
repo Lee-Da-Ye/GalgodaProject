@@ -42,9 +42,17 @@
 			padding: 10px 20px;
 			border-radius: 5px;
 			}	
+		.disabled-link {
+		    background-color: rgb(242,239,237) !important;
+		    color: rgb(110, 113, 116) !important; /* 회색 텍스트색 */
+		    pointer-events: none; /* 링크 클릭 이벤트 비활성화 */
+		}
 	
        
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 <body>
 	<div class="wrap">
@@ -137,7 +145,7 @@
 									            break;
 									    }
 									%>
-                                    
+                                    <input type="hidden" id="checkInDate" value="<%=r.getDateIn() %>">
                                     <h6><%=r.getDateIn() %> - <%=r.getDateOut()%></h6>
                                     <br>
                                     <h6><%= roName %> - 총 <%=r.getResRoomCount() %>개</h6> 
@@ -159,7 +167,7 @@
 			                    <span class="btn btn-secondary"><%=r.getResStatus()%></span>
 			                    <!-- 예약 상태가 "예약취소"일 때 버튼 비활성화 -->
 			                    <button class="btn rev_button" disabled>상세 조회</button>
-			                    <button class="btn rev_button" disabled>예약 변경/취소</button>
+			                    <button class="btn rev_button rev_update_btn" disabled>예약 변경/취소</button>
 			                    <button class="btn rev_button" disabled>리뷰 등록/삭제</button>
 			                </div>
 			            <% } else { %>
@@ -167,7 +175,7 @@
 			                <div class="res_content1_menu" style="display: flex; flex-direction: column; padding-top: 60px; padding-left: 10px; justify-content: space-between; word-break: break-all;">
 			                    <span class="btn btn-secondary"><%=r.getResStatus()%></span>
 			                    <a href="<%=contextPath%>/resDetail.cu?id=<%=r.getResNo()%>" class="btn rev_button">상세 조회</a>
-			                    <a href="<%=contextPath%>/resUpdateForm.cu?id=<%=r.getResNo()%>" class="btn rev_button">예약 변경/취소</a>
+			                    <a href="<%=contextPath%>/resUpdateForm.cu?id=<%=r.getResNo()%>" class="btn rev_button rev_update_btn">예약 변경/취소</a>
 			                    
 			                    
 			                    <% if(r.getResStatus().equals("예약확정")) { %>
@@ -179,6 +187,42 @@
 			                </div>
 			            <% } %>
 			            
+			            <script>
+							    $(document).ready(function() {
+							        // 현재 날짜 객체 생성
+							        var currentDate = new Date();
+							        
+							      
+							        // 각 예약에 대해 처리
+							        $('.res_content1').each(function() {
+							            // 예약 날짜 가져오기
+							            var checkInDateStr = $(this).find('#checkInDate').val();
+							            
+							            
+							         	// 문자열에서 년, 월, 일 추출
+							            var yearIn = Number(checkInDateStr.substring(0, 4)); // 연도는 0부터 4번째 문자까지
+							            var monthIn = Number(checkInDateStr.substring(6, 8)); // 월은 5부터 7번째 문자까지
+							            var dayIn = Number(checkInDateStr.substring(10, 12)); // 일은 8부터 10번째 문자까지
+							            
+							            // 예약 날짜 생성
+							            var checkInDate = new Date(yearIn, monthIn - 1, dayIn); // 월은 0부터 시작하므로 -1
+							            
+							         	// 현재 날짜와 비교하여 링크 클릭 이벤트 제어
+							            if (checkInDate.getTime() < currentDate.getTime()) {
+							                // 예약 날짜가 현재 날짜보다 이전이면 링크 클릭 이벤트를 막음
+							                
+							                $(this).find('.rev_update_btn').on('click', function(event) {
+							                    event.preventDefault(); // 링크 클릭 이벤트 제거
+							                });
+							                // 비활성화 스타일 적용
+							                $(this).find('.rev_update_btn').addClass('disabled-link');
+							            } else {
+							                // 예약 날짜가 현재 날짜와 같거나 이후이면 링크 클릭 이벤트 유지
+							               
+							            }
+							        });
+							    });
+							</script>
 			            
                     </div>
                     <br>
