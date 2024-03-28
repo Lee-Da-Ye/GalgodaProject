@@ -90,7 +90,7 @@ public class HotelUpdateController extends HttpServlet {
 		
 			String hotelImgPath = null;
 			if(multiRequest.getOriginalFileName("hotelImgPath") != null) {
-				hotelImgPath = "resources/images/" + multiRequest.getFilesystemName("hotelImgPath");
+				hotelImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("hotelImgPath");
 			}
 		
 		

@@ -61,7 +61,7 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			}
 			
 		
-			String roomImgPath = "resources/images/" + multiRequest.getFilesystemName("roomImgPath");
+			String roomImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("roomImgPath");
 		
 		
 			Room r = new Room();

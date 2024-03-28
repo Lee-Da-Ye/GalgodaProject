@@ -88,8 +88,8 @@ public class HotelInsertController extends HttpServlet {
 				refundpolicy = multiRequest.getParameter("refundpolicy");
 			}
 		
-			String hotelImgPath = "resources/images/" + multiRequest.getFilesystemName("hotelImgPath");
-		
+			String hotelImgPath = "resources/upfiles/" + multiRequest.getFilesystemName("hotelImgPath");
+			
 		
 			Hotel h = new Hotel();
 			h.setHotelName(hotelName);
@@ -104,6 +104,7 @@ public class HotelInsertController extends HttpServlet {
 			h.setHotelIntro(hotelIntro);
 			h.setRefundpolicy(refundpolicy);
 			h.setImgPath(hotelImgPath);
+			
 			int memNo = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getMemNo();
 			h.setMemNo(memNo);
 			
