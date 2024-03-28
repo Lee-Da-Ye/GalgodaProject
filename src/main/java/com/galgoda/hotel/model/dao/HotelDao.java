@@ -638,7 +638,8 @@ public class HotelDao {
 				r.setHotelNo(rset.getInt("hotel_no"));
 				r.setRoomName(rset.getString("ro_name"));
 				r.setRoomSize(rset.getString("ro_size"));
-				r.setRoPeople(rset.getInt("ro_bathroom"));
+				r.setRoPeople(rset.getInt("ro_people"));
+				r.setRoBath(rset.getInt("ro_bathroom"));
 				r.setRoPrice(rset.getInt("ro_price"));
 				r.setRoCount(rset.getInt("ro_count"));
 				r.setOpNo(rset.getString("op_no"));
