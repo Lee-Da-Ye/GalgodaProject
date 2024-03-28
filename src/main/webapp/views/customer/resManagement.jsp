@@ -168,7 +168,7 @@
 			                    <!-- 예약 상태가 "예약취소"일 때 버튼 비활성화 -->
 			                    <button class="btn rev_button" disabled>상세 조회</button>
 			                    <button class="btn rev_button rev_update_btn" disabled>예약 변경/취소</button>
-			                    <button class="btn rev_button" disabled>리뷰 등록/삭제</button>
+			                    <button class="btn rev_button" disabled>리뷰 관리</button>
 			                </div>
 			            <% } else { %>
 			                <!-- 예약 상태가 "예약취소"가 아닐 때 버튼 활성화 -->
@@ -179,9 +179,9 @@
 			                    
 			                    
 			                    <% if(r.getResStatus().equals("예약확정")) { %>
-			                    <a href="" class="btn rev_button" >리뷰 등록/삭제</a>
+			                    <a href="<%=contextPath%>/reviewlist.cu" class="btn rev_button" >리뷰 관리</a>
 			                    <% } else { %>
-			                    <button class="btn rev_button" disabled>리뷰 등록/삭제</button>
+			                    <button class="btn rev_button" disabled>리뷰 관리</button>
 			                    <% } %>
 			                    
 			                </div>
