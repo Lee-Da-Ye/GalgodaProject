@@ -3,7 +3,7 @@
     
     
     
-   
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page import="com.galgoda.customer.model.vo.Reservation" %>    
 
     
@@ -137,7 +137,21 @@
                                   </tr>
                                   <tr style="font-size: 30px;" >
                                     <td >결제금액</td>
-                                    <td><%= r.getPay() %>원</td>
+                                    <%
+									// 숫자 포맷을 설정합니다. ###,###는 천 단위로 쉼표를 찍는 형식입니다.
+									DecimalFormat formatter = new DecimalFormat("###,###");
+									
+									// 숫자 값
+									int number =  r.getPay() ;
+									
+									// 숫자 값을 쉼표를 포함한 문자열로 변환합니다.
+									String formattedNumber = formatter.format(number);
+									%>
+                                    
+                                    
+                                    
+                                    
+                                    <td> <%= formattedNumber %>원</td>
                                   </tr>
                                   
                             </table>
