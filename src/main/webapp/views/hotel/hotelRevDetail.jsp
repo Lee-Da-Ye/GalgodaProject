@@ -21,6 +21,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- 평점 관련 스타일 적용-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
 
 
@@ -44,7 +47,13 @@
             width: 500px;
             height: 300px;
         }
-
+		
+		#checkedStar {
+			color: orange;
+			}
+		#elseStar{
+			color: lightgray;
+			}
 
 </style>
 </head>
@@ -116,7 +125,16 @@
                             <th>작성일자</th><td><%= r.getRegistDate() %></td>
                         </tr>
                         <tr>
-                            <th>별점</th><td><%= r.getRevRating() %></td>
+                            <th>별점</th>
+                            <td>
+                           			 <%for(int q=1; q<=5; q++){ %>
+	                                	<%if(q<= r.getRevRating()){ %>
+	                                		<span class="fa fa-star stars" id="checkedStar"></span>
+	                                	<%}else{ %>
+	                                		<span class="fa fa-star stars" id="elseStar"></span>
+	                                	<%} %>
+	                                <%} %>
+                            </td>
                         </tr>
                         <tr>
                             <th>제목</th><td><%= r.getRevTitle() %></td>
@@ -154,7 +172,7 @@
 										            fileNumbers += currentFileNumber;
 										            
 										        } else {
-										            fileNumbers += ", " + currentFileNumber;
+										            fileNumbers += "," + currentFileNumber;
 										        }
 									    %>
 									    <div class="carousel-item <%= isFirst ? "active" : "" %>">
