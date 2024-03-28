@@ -76,7 +76,7 @@
                         <tr align="center">
                             <td><%= r.getRepNo() %></td>
                             <td><%= r.getUserId() %></td>
-                            <td><a href="<%= contextPath%>/reviewDetail.rep?no=<%= r.getRepNo() %>"><%= r.getRevTitle() %></a></td>
+                            <td><a href="<%= contextPath%>/reviewDetail.rep?no=<%= r.getRepNo() %>&refNo=<%= r.getRepRefNo() %>"><%= r.getRevTitle() %></a></td>
                             <td><%= r.getRepDate() %></td>
                             <% if(r.getStatus().equals("Y")){ %>
                             <td style="opacity: 0.5">처리완료</td>

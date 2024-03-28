@@ -34,9 +34,12 @@ public class ReportReviewDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int repNo = Integer.parseInt(request.getParameter("no"));
-		
+		int refNo = Integer.parseInt(request.getParameter("refNo"));
+		System.out.println(repNo);
 		Report r = new ReportService().selectReportReview(repNo);
-		List<Attachment> list = new ReportService().selectReportReviewAttachment(repNo);
+		List<Attachment> list = new ReportService().selectReportReviewAttachment(refNo);
+		System.out.println(r);
+		System.out.println(list);
 		
 		request.setAttribute("r", r);
 		request.setAttribute("list", list);

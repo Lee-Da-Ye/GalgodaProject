@@ -12,6 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- 평점 관련 스타일 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
 <style>
 	/* 관리자_신고리뷰상세페이지 스타일 */
     .page_content th{
@@ -34,6 +36,12 @@
 	.carousel-item img {
 		width: 500px;
 		height: 300px;
+	}
+	#checkedStar {
+		color: orange;
+	}
+	#elseStar{
+		color: lightgray;
 	}
 </style>
 </head>
@@ -86,6 +94,10 @@
                             <td><%= r.getRevNo() %></td>
                         </tr>
                         <tr align="center">
+                        	<th>호텔명</th>
+                        	<td><%= r.getHotelName() %></td>
+                        </tr>
+                        <tr align="center">
                             <th>아이디</th>
                             <td><%= r.getUserId() %></td>
                         </tr>
@@ -99,7 +111,15 @@
                         </tr>
                         <tr align="center">
                             <th>별점</th>
-                            <td><%= r.getRevRating() %></td>
+                            <td>
+                            	<%for(int q=1; q<=5; q++){ %>
+                                	<%if(q <= r.getRevRating()){ %>
+                                		<span class="fa fa-star stars" id="checkedStar"></span>
+                                	<%}else{ %>
+                                		<span class="fa fa-star stars" id="elseStar"></span>
+                                	<%} %>
+                                <%} %>
+                            </td>
                         </tr>
                         <tr align="center">
                             <th>제목</th>
@@ -115,27 +135,27 @@
 							<th style="vertical-align: middle;">첨부파일</th>
 							<td colspan="2" style="vertical-align: middle;">
 								<div id="img_content" class="carousel slide" data-ride="carousel">
-									<!-- Indicators -->
-									<ul class="carousel-indicators">
-										<% for(int i=0; i<list.size(); i++){ %>
-										<li data-target="#bbb" data-slide-to="<%=i%>" class="<%= i==0 ? "active" : "" %>"></li>
-										<% } %>
-									</ul>
-									<!-- The slideshow -->
-									<div class="carousel-inner ">
-										<% for(int i=0; i<list.size(); i++){ %>
-										<div class="carousel-item <%= i==0 ? "active" : "" %>">
-											<img src="<%= list.get(i).getFilePath() %>">
-										</div>
-										<% } %>
-									</div>
-									<!-- Left and right controls -->
-									<a class="carousel-control-prev" href="#bbb" data-slide="prev">
-										<span class="carousel-control-prev-icon"></span>
-									</a> 
-									<a class="carousel-control-next" href="#bbb" data-slide="next">
-										<span class="carousel-control-next-icon"></span>
-									</a>
+								    <!-- Indicators -->
+								    <ul class="carousel-indicators">
+								        <% for(int i=0; i<list.size(); i++){ %>
+								        <li data-target="#img_content" data-slide-to="<%=i%>" class="<%= i==0 ? "active" : "" %>"></li>
+								        <% } %>
+								    </ul>
+								    <!-- The slideshow -->
+								    <div class="carousel-inner">
+								        <% for(int i=0; i<list.size(); i++){ %>
+								        <div class="carousel-item <%= i==0 ? "active" : "" %>">
+								            <img src="<%= list.get(i).getFilePath() %>">
+								        </div>
+								        <% } %>
+								    </div>
+								    <!-- Left and right controls -->
+								    <a class="carousel-control-prev" href="#img_content" data-slide="prev">
+								        <span class="carousel-control-prev-icon"></span>
+								    </a> 
+								    <a class="carousel-control-next" href="#img_content" data-slide="next">
+								    	<span class="carousel-control-next-icon"></span>
+								    </a>
 								</div>
 							</td>
 							<td></td>

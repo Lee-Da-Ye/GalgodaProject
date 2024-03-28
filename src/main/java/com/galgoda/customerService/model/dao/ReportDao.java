@@ -79,6 +79,7 @@ public class ReportDao {
 				r.setRevTitle(rset.getString("rev_title"));
 				r.setRepDate(rset.getDate("rep_date"));
 				r.setStatus(rset.getString("status"));
+				r.setRepRefNo(rset.getInt("rep_ref_no"));
 				
 				list.add(r);
 			}
@@ -130,13 +131,13 @@ public class ReportDao {
 			if(rset.next()) {
 				r.setRepNo(rset.getInt("rep_no"));
 				r.setRevNo(rset.getInt("rev_no"));
+				r.setHotelName(rset.getString("hotel_name"));
 				r.setUserId(rset.getString("user_id"));
 				r.setResNo(rset.getInt("res_no"));
 				r.setRegistDate(rset.getDate("regist_date"));
 				r.setRevRating(rset.getInt("rev_rating"));
 				r.setRevTitle(rset.getString("rev_title"));
 				r.setRevContent(rset.getString("rev_content"));
-				r.setFileNo(rset.getInt("file_no"));
 				r.setRepType(rset.getString("rep_type"));
 			}
 			

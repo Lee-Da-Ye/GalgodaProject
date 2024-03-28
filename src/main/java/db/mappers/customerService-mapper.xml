@@ -346,6 +346,7 @@
                          , REV_TITLE
                          , REP_DATE
                          , R.STATUS
+                         , REP_REF_NO
                       FROM TB_REPORT R
                       JOIN TB_REVIEW ON (REP_REF_NO = REV_NO)
                       JOIN TB_USER USING (USER_NO)
@@ -375,17 +376,18 @@
 		SELECT
 		       REP_NO
 		     , REV_NO
+		     , HOTEL_NAME
 		     , USER_ID
 		     , R.RES_NO
 		     , V.REGIST_DATE
 		     , REV_RATING
 		     , REV_TITLE
 		     , REV_CONTENT
-		     , R.FILE_NO
 		     , REP_TYPE
 		  FROM TB_REPORT R
 		  JOIN TB_REVIEW V ON (REP_REF_NO = REV_NO)
 		  JOIN TB_USER USING (USER_NO)
+		  JOIN TB_HOTEL USING (HOTEL_NO)
 		 WHERE REP_NO = ?
 	</entry>
 	
