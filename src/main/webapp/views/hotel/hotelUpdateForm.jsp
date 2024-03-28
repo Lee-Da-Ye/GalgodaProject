@@ -120,7 +120,9 @@
                 <div class="hotel_content" style="padding-left: 20px;">
                 <span id="title3">호텔정보</span>
                     <form action="<%= contextPath %>/hotelUpdate.ho" method="post"  onsubmit=" updateHotel();" enctype="multipart/form-data">
+        <% if( h != null ){ %>
                         <input type="hidden" name="hotelNo" value="<%= h.getHotelNo() %>">
+                       
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
@@ -278,7 +280,6 @@
      	                } 
                           
                     })
-                  
                     /* 체크박스 끝 */
                     
                     
@@ -339,6 +340,7 @@
 
 
                     </script>
+                    <% } %>
                 </div>
             </div>
         

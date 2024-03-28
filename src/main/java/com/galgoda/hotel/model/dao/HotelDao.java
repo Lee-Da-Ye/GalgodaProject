@@ -1222,6 +1222,33 @@ public class HotelDao {
 
 	}
 		
+	public Hotel searchMemHotelName(Connection conn, int memNo) {
+		Hotel h = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchMemHotelName");
+	
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				h = new Hotel();
+				h.setHotelName(rset.getString("hotel_name"));
+			
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return h;
+	}
 		
 }
  

@@ -657,6 +657,13 @@
 			FROM DUAL
 		</entry>
 		
+		<entry key="searchMemHotelName">
+		  SELECT HOTEL_NAME
+		    FROM TB_MEM
+		   WHERE MEM_NO = ?
+					  
+		</entry>
+		
 		
 		
 </properties>

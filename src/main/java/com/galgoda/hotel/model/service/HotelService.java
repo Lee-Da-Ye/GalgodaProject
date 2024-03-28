@@ -438,6 +438,14 @@ public class HotelService {
 		return list;
 	}
 	
+	public Hotel searchMemHotelName(int memNo) {
+		Connection conn = getConnection();
+		
+		Hotel h = hDao.searchMemHotelName(conn, memNo);
+		close(conn);
+		
+		return h;
+	}
 	
 	
 	

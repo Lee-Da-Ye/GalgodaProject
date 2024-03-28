@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
     
 <%@ page import="com.galgoda.hotel.model.vo.Tag" %>
+<%@ page import="com.galgoda.hotel.model.vo.Hotel" %>
 <%@ page import="java.util.List" %>  
 
 <%
 
 	List<Tag> list = (List<Tag>)request.getAttribute("list");
-
+	Hotel h = (Hotel)request.getAttribute("h");
 
 %>    
 <!DOCTYPE html>
@@ -117,7 +118,7 @@
                         <table class="table2">
                             <tr>
                                 <td id="td1"><button class="btn" id="btnname" type="button"  >호텔명</button></td>
-                                <td id="td2"><input type="text" class="form-control" required name="hotelName" value="GALGODA"></td>
+                                <td id="td2"><input type="text" class="form-control" required name="hotelName" value="<%= h.getHotelName() %>" readonly></td>
                             </tr>
                             </table>
                             <table>

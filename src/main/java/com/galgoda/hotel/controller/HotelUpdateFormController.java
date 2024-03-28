@@ -36,13 +36,19 @@ public class HotelUpdateFormController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getSession().getAttribute("loginHotel")!= null) {
-		int memNo = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getMemNo();
-		String htype = "H";
-		
-		Hotel h =  new HotelService().selectHotelForm(memNo);
-		List<Attachment> alist = new HotelService().selectFileList(h.getHotelNo(), htype);
-		request.setAttribute("h", h);
-		request.setAttribute("alist", alist);
+			int memNo = ((HotelUser)(request.getSession().getAttribute("loginHotel"))).getMemNo();
+			String htype = "H";
+			
+			Hotel h =  new HotelService().selectHotelForm(memNo);
+			
+			if (h != null) {
+			    int hotelNo = h.getHotelNo();
+			    if (hotelNo != 0) {
+			        List<Attachment> alist = new HotelService().selectFileList(hotelNo, htype);
+			        request.setAttribute("alist", alist);
+			    }
+			    request.setAttribute("h", h);
+			}
 		}
 		
 		List<Tag> list = new HotelService().hotelInsertForm();
