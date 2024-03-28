@@ -182,7 +182,7 @@
                
             
                 
-          </div>
+          
 		<br><br>
 
         </section>
