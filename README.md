@@ -11,7 +11,7 @@
 - 프로젝트 이름: GALGODA
 - 프로젝트 지속기간: 2024.14-2024.03.29
 - 멤버: 팀 어디갈땐여기조(이다예, 노하연, 이상현, 임세진, 황민우)
-- 프로젝트 제작 동기 : 기존 호텔 예약 사이트에서 원하는 호텔을 검색할 때까지 많은 시간이 소요되는 점을 개선하고자 <br>
+- 프로젝트 제작 동기 : 기존 호텔 예약 사이트에서 원하는 호텔을 검색할 때까지 많은 시간이 소요되는 점을 개선하고자
   사용자가 원하는 키워드와 태그로 빠르게 원하는 호텔을 검색할 수 있는 사이트를 만들고자 했습니다.
 
 <br>
@@ -49,32 +49,27 @@
 ### 기능 1 : 회원가입
 - 본인인증 기능 구현 시 CoolSMS API를 활용
 - 회원가입 정보 중 주소 입력 시 카카오 주소찾기 API를 활용
-
-[![Video Label](http://img.youtube.com/vi/VXgCZ89Z2v0/0.jpg)](https://youtu.be/VXgCZ89Z2v0)
+- Youtube Link : https://youtu.be/VXgCZ89Z2v0
 
 ### 기능 2 : 로그인
 - 일반회원/호텔회원/관리자로 유저 DB를 구분하여 각 유저타입에 맞게 로그인 처리
-
-[![Video Label](http://img.youtube.com/vi/YbZjcLhWam0/0.jpg)](https://youtu.be/YbZjcLhWam0)
+- Youtube Link : https://youtu.be/YbZjcLhWam0
 
 ### 기능 3 : ID 찾기 / PW 재설정
 - CoolSMS API를 활용하여 본인인증 완료 시 아이디 찾기 및 비밀번호 재설정 가능하도록 구현
 - 비밀번호 재설정 시 유효성 검사를 수행
-
-[![Video Label](http://img.youtube.com/vi/AzvJfRGIBuI/0.jpg)](https://youtu.be/AzvJfRGIBuI)
+- Youtube Link : https://youtu.be/AzvJfRGIBuI
 
 ### 기능 4 : 마이페이지(고객)
 - 고객별 예약 내역 조회 페이징 처리
 - 체크인/체크아웃, 객실타입, 객실 수 변경에 따라 예약금액이 변경되도록 JavaScript를 활용하여 구현
 - 변경금액 결제는 포트원 API를 활용하여 카카오페이 테스트 결제로 구현
-
-[![Video Label](http://img.youtube.com/vi/kBBnRA6ruko/0.jpg)](https://youtu.be/kBBnRA6ruko)
+- Youtube Link : https://youtu.be/kBBnRA6ruko
 
 ### 기능 5 : 메인페이지(예약 및 결제)
 - 사이트 소개 페이지는 텍스트 오버레이, 호버 속성 등을 활용하여 구현
 - 예약 금액 결제는 포트원 API를 활용하여 카카오페이 테스트 결제로 구현
-
-[![Video Label](http://img.youtube.com/vi/dsaf_erGM88/0.jpg)](https://youtu.be/dsaf_erGM88)
+- Youtube Link : https://youtu.be/dsaf_erGM88
 
 <br>
 
